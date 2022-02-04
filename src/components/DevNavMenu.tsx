@@ -81,7 +81,7 @@ const DevNavMenu = {
           },
           {
             title: 'Usage',
-            link: '/v1/relayer/usage/',
+            link: '/v1/relayer/usage',
           },
         ],
       },

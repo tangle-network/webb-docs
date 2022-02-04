@@ -107,7 +107,6 @@ export const query = graphql`
       frontmatter {
         slug
         title
-        hideNav
         section
         category
       }
