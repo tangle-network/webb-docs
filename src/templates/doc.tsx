@@ -54,8 +54,9 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
                   sectionURL={`/v1/getting-started/overview`}
                   title={data.mdx.frontmatter.title}
                 />
+                {/* TODO: @dutterbutter fix dymanic version */}
                 <VersionControl
-                  version={version}
+                  version='1.0'
                   slug={slug}
                   absolutePath={data.mdx.fileAbsolutePath}
                 />
