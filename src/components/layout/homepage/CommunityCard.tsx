@@ -14,37 +14,37 @@ export default function CommunityCard() {
       iconOne: 'elementOrg',
       linkTextOne: 'Discord',
       linkOne: siteMetadata.element,
-      // headingTwo: 'Find answers',
-      // iconTwo: 'stackOverflowOrg',
-      // linkTextTwo: 'Stack Overflow',
-      // linkTwo: siteMetadata.stackOverflow,
+      headingTwo: 'Find answers',
+      iconTwo: 'stackOverflowOrg',
+      linkTextTwo: 'Stack Overflow',
+      linkTwo: siteMetadata.stackOverflow,
     },
-    // {
-    //   title: 'Seminars & Events',
-    //   description:
-    //     'Get insights from others building on Substrate, get your questions answered, and build your network.',
-    //   headingOne: 'Participate',
-    //   iconOne: 'gradHat',
-    //   linkTextOne: 'Substrate Seminar',
-    //   linkOne: `${siteMetadata.substrateIO}/ecosystem/resources/seminar`,
-    //   headingTwo: 'Learn more',
-    //   iconTwo: 'calendar',
-    //   linkTextTwo: 'Events',
-    //   linkTwo: 'https://www.parity.io/events',
-    // },
-    // {
-    //   title: 'Hackathons & Grants',
-    //   description:
-    //     'Jump-start your project or your career in the blockchain space.',
-    //   headingOne: 'Rise to the challenge',
-    //   iconOne: 'ideCode',
-    //   linkTextOne: 'Hackathon',
-    //   linkOne: `${siteMetadata.substrateIO}/ecosystem/opportunities/hackathons`,
-    //   headingTwo: 'Get funding',
-    //   iconTwo: 'grantsDollar',
-    //   linkTextTwo: 'Grants',
-    //   linkTwo: `${siteMetadata.substrateIO}/ecosystem/opportunities/grants`,
-    // },
+    {
+      title: 'Seminars & Events',
+      description:
+        'Get insights from others building on Substrate, get your questions answered, and build your network.',
+      headingOne: 'Participate',
+      iconOne: 'gradHat',
+      linkTextOne: 'Substrate Seminar',
+      linkOne: `${siteMetadata.substrateIO}/ecosystem/resources/seminar`,
+      headingTwo: 'Learn more',
+      iconTwo: 'calendar',
+      linkTextTwo: 'Events',
+      linkTwo: 'https://www.parity.io/events',
+    },
+    {
+      title: 'Hackathons & Grants',
+      description:
+        'Jump-start your project or your career in the blockchain space.',
+      headingOne: 'Rise to the challenge',
+      iconOne: 'ideCode',
+      linkTextOne: 'Hackathon',
+      linkOne: `${siteMetadata.substrateIO}/ecosystem/opportunities/hackathons`,
+      headingTwo: 'Get funding',
+      iconTwo: 'grantsDollar',
+      linkTextTwo: 'Grants',
+      linkTwo: `${siteMetadata.substrateIO}/ecosystem/opportunities/grants`,
+    },
   ]
   return (
     <>
@@ -69,7 +69,7 @@ export default function CommunityCard() {
               <Link to={item.linkOne}>{item.linkTextOne}</Link>
             </div>
             <hr />
-            {/* <p>
+            <p>
               <b>{item.headingTwo}:</b>
             </p>
             <div className="flex items-center mb-6 font-bold">
@@ -78,7 +78,7 @@ export default function CommunityCard() {
                 className="mr-3 fill-current dark:text-subtrateWhite"
               />
               <Link to={item.linkTwo}>{item.linkTextTwo}</Link>
-            </div> */}
+            </div>
           </div>
         </div>
       ))}

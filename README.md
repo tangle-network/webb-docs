@@ -1,33 +1,32 @@
 <h1 align="center">
-  <a href="https://www.substrate.io">
-    <img alt="Substrate Logo" src="static/img/sub.gif" width="70%" />
+  <a href="https://www.webb.tools/">
+    <img alt="Webb Logo" src="./src/images/svgs/webb-icon.svg" width="30%" />
   </a>
 </h1>
-<h1 align="center"> Substrate Developer Hub </h1>
-<h3 align="center"> https://docs.substrate.io/ </h3>
+<h1 align="center"> Webb Docs </h1>
+<!--TODO: @dutterbutter replace with docs url -->
+<!-- <h3 align="center">http://docs.webb.tools/</h3> -->
 <br/>
 
 <!-- Badges -->
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/42dec01f-3723-4828-9f01-45ac5b3c8a11/deploy-status)](https://app.netlify.com/sites/substrate-docs/deploys) ![linkcheck workflow](https://github.com/substrate-developer-hub/substrate-docs/actions/workflows/check-links.yml/badge.svg) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://docs.substrate.io/v3/contribute/style-guide/) [![Matrix](https://img.shields.io/matrix/frontier:matrix.org)](https://matrix.to/#/#substrate-technical:matrix.org)
-
 <!-- Description -->
 
-This repository serves as the **developer hub** for the **[Substrate](https://substrate.io)** blockchain
-framework. The docs are written in [MDX](https://mdxjs.com/) format an extension of
+❗ **Note:** This is a fork of [Substrate Developer Hub](https://github.com/substrate-developer-hub/substrate-docs).
+
+This repository serves as the **documentation** for the **[Webb](https://www.webb.tools/)** ecosystem. The docs are written in [MDX](https://mdxjs.com/) format an extension of
 [markdown](https://www.markdownguide.org/), processed by [Gatsby](https://www.gatsbyjs.com/), and
-published to https://docs.substrate.io/ .
+published to Webb Docs.
 
 ## Contributing
 
-Thank you for your interest in contributing to documentation for the Substrate development
-framework. As a member of the community, you are invited and encouraged to contribute by submitting
+Thank you for your interest in contributing to documentation for the Webb ecosystem. As a member of the community, you are invited and encouraged to contribute by submitting
 issues, offering suggestions for improvements to existing content, adding review comments to
 existing pull requests, proposing new content, or creating new pull requests to fix issues or
 provide new content. Please review our
-[contributor guidelines](https://docs.substrate.io/v3/contribute/style-guide/) prior to
+[contributor guidelines](http://docs.webb.tools/#contributing) prior to
 any contribution. If you have any further questions, please do not hesitate to reach out on our
-[Substrate technical community channel](https://matrix.to/#/#substrate-technical:matrix.org)! We
+[Webb Discord channel](https://discord.com/invite/cv8EfJu3Tn)! We
 would love to get to know you and your work!
 
 ### Directory structure
@@ -49,12 +48,12 @@ Sub folders in these are of the form:
 By convention we use `XX` numbering starting at `00` for sections, and `Y` lettering starting at `a`
 for pages.
 
-File directory example: `/v3/docs/00-style-and-contributor-guidelines/a-contributor-guidelines/index.mdx`
+File directory example: `/v1/docs/00-style-and-contributor-guidelines/a-contributor-guidelines/index.mdx`
 
 Each `index.mdx` page has the content to be rendered to this page, and all pages include a header
 section with a `slug` item that is used for navigation on the generated site,
 
-URL example: https://docs.substrate.io/v3/contribute/style-guide/
+URL example: http://docs.webb.tools/v1/contribute/style-guide/
 
 Configuration and styling files for gatsby live primarily in the `src` folder.
 
@@ -67,11 +66,11 @@ guidelines if making any non-trivial PRs here.
 
 ### Production deployment
 
-- `main` branch is available at: https://docs.substrate.io/
+- `main` branch is available at: Not available yet
 
 ### Staging deployment
 
-- `develop` branch is available at: https://develop--substrate-docs.netlify.app/
+- `develop` branch is available at: Not available yet
 
 If you are submitting a PR, make sure to submit it to the `develop` branch. Only once PRs are merged into
 develop will they get merged into `main`.
@@ -82,13 +81,14 @@ develop will they get merged into `main`.
 
     ```bash
     # create a new folder to get going
-    git clone https://github.com/substrate-developer-hub/substrate-docs.git
+    git clone https://github.com/webb-tools/webb-docs.git
     ```
 
 2.  **Get setup**
 
-    Navigate into your new site’s directory and install all dependencies.
-
+    Navigate into your new site’s directory and install all dependencies. 
+    
+    **Note:** You may need to run `yarn set version latest`, please do so if you run into a `Error [ERR_STREAM_PREMATURE_CLOSE]: Premature close`.
     ```bash
     cd substrate-docs/
     nvm install
@@ -106,7 +106,7 @@ develop will they get merged into `main`.
 
     ```
     GATSBY_IO_URL=http://localhost:8000  // local or hosted URL
-    GATSBY_DOCS_URL=http://localhost:8001 // default docs.substrate.io if not set
+    GATSBY_DOCS_URL=http://localhost:8001 // default https://docs.web.tools if not set
     ```
 
 4.  **Fire the engine**
@@ -116,6 +116,12 @@ develop will they get merged into `main`.
     ```bash
     yarn dev # alias for `yarn start` and `yarn develop`
     ```
+
+  **Note:** If you run into `ERROR: digital envelope routines::unssupported` please set the following variable:
+
+  ```bash
+  export NODE_OPTIONS=--openssl-legacy-provider
+  ```
 
 5.  **Open the code and start customizing!**
 
@@ -162,7 +168,7 @@ In another terminal, run:
 ```bash
 yarn checklinks-local
 ```
-
+<!--TODO: @dutterbutter update to reflect Webb -->
 You can further configure it in `package.json` file. Currently it has a list of paths being
 excluded. These paths are not regex-supported and just doing a plain string matching. They are
 excluded because for:
@@ -180,6 +186,7 @@ excluded because for:
 - `/crates.io`, `/fonts.gstatic.com`, `/github.com`, `/wwww.nuget.org`: they either have
   rate-limiting check or doesn't welcome web crawlers to fetch them and just return a 404 page.
 
+<!--TODO: @dutterbutter update to reflect Webb -->
 ## Link checking as part of Github workflow
 
 We configured a [Github workflow](../.github/workflows/check-links.yml) to build the Gatsby site in
@@ -197,4 +204,4 @@ this repository.
 
 TBD
 
-<!-- Substrate **documentation** is license under the [Apache 2 license](./LICENSE). -->
+<!-- Webb **documentation** is license under the [Apache 2 license](./LICENSE). -->
