@@ -7,67 +7,23 @@ category: bridge-protocol
 keywords: []
 ---
 
-Substrate uses multiple sets of public/private key pairs to represent participants of the network,
-including validators, nominators and normal users.
+Governance on Webb is key to maintaining and increasing the functionality of the protocol for WEBB tokenholders, protocol users, and relayers. Possible governance actions and their corresponding locations are as follows.
 
-As an example, the Substrate node uses a Nominated Proof-of-Stake (NPoS) algorithm to select
-validators. Validators and nominators may hold significant amounts of funds, so Substrate's [Staking
-pallet](/v3/runtime/frame#staking) introduces account abstractions that help keep funds as secure as possible.
+### WEBB Token Governance
+The WEBB token is used to govern various parts of the Webb protocol deployments. The WEBB token has its own set of bridges for various sizes of deposits that enables holders to move their tokens between supported chains. Anytime a new chain is added to the Webb Network, a corresponding bridge and WEBB token will instantiated for future governance usage.
 
-These abstractions are:
+### WEBB Governance Proposal Types
+WEBB tokens will be used to vote on proposals including but not limited to: deploying new anchor contracts, connecting anchors to handlers, connecting handlers to bridges, and whitelisting wrappable assets (see [Wrapper Governance Functionality](overview.md##Version-1.X-Governance-functionality) for details). 
 
-- **Stash Key**: a Stash account is meant to hold large amounts of funds. Its private key should be
-  as secure as possible in a cold wallet.
-- **Controller Key**: a Controller account signals choices on behalf of the Stash account, like
-  payout preferences, but should only hold a minimal amount of funds to pay transaction fees. Its
-  private key should be secure as it can affect validator settings, but will be used somewhat
-  regularly for validator maintenance.
-- **Session Keys**: these are "hot" keys kept in the validator client and used for signing
-  certain validator operations. They should never hold funds.
+The first three parts of the previous list are all essential to the deployment of new anchors and invoke WEBB token holders to govern these processes  using WEBB on the deployed anchor's native chain. The whitelisting of wrappable assets will also take place on the chain where the token wrapper has been deployed. 
 
-<Message
-  type={`green`}
-  title={`Further Learning`}
-  text={`Learn more about validators and nominators 
-  in the context of the Substrate's NPoS [Staking pallet](/rustdocs/latest/pallet_staking/index.html).`}
-/>
-
-## Account keys
-
-A key pair can represent an account and control funds, like normal accounts that you would expect
-from other blockchains. In the context of Substrate's
-[Balances pallet](/rustdocs/latest/pallet_balances/index.html), these accounts
-must have a minimum amount (an "existential deposit") to exist in storage.
-
-Account keys are defined generically and made concrete in the runtime.
-
-To continue with our example of Stash and Controller accounts, the keys to these accounts are
-distinguished by their intended use, not by any underlying cryptographic difference. When creating
-Stash or Controller keys, all cryptography supported for normal account keys are also supported.
-
-### Stash keys
-
-The Stash keys are the public/private key pair that defines a Stash account. This account is like a
-"savings account" in that you should not make frequent transactions from it. Therefore, its private
-key should be treated with the utmost security, for example protected in a safe or layers of
-hardware security.
-
-Since the Stash key is kept offline, it designates a Controller account to make non-spending
-decisions with the weight of the Stash account's funds. It can also designate a Proxy account to
-vote in governance on its behalf.
-
-### Controller keys
-
-The Controller keys are the public/private key pair that defines a Controller account. In the
-context of Substrate's NPoS model, the Controller key will signal one's intent to validate or
-nominate.
-
-The Controller key is used to set preferences like the rewards destination and, in the case of
-validators, to set their Session keys. The Controller account only needs to pay transaction fees, so
-it only needs a minimal amount of funds.
-
-The Controller key can never be used to spend funds from its Stash account. However, actions taken
-by the Controller can result in slashing, so it should still be well secured.
+### Anchor Deployment on a New Chain Using Governor Bravo
+1. In advance, the Webb community will deploy the WEBB token, Gov Bravo, Bridge, Handlers, and AnchorFactory on chains desireable for later anchor deployment. The Bridge will be connected to the ERC20Handler to enable public, standard bridging of WEBB.
+2. WEBB holders bridge their existing WEBB to the new chain.
+3. WEBB holders vote and execute a proposal to connect the Bridge and Handler calling the Bridge's `setResourceID()`.
+4. WEBB holders vote and execute a proposal to deploy a new anchor using the AnchorFactory.
+5. WEBB holders vote and execute a proposal to set the Handler of the newly deployed anchor.
+6. The anchor now enables private, cross-chain bridging.
 
 ## Next steps
 
