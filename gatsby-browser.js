@@ -53,7 +53,7 @@ function scrollToAnchor(location, mainNavHeight = 100) {
       })
   }
 
-  const bypassPages = ['/', '/tutorials/v3/', '/rustdocs/', '/playground/']
+  const bypassPages = ['/', '/tutorials/v1/', '/rustdocs/', '/playground/']
   if (location && !location.hash && bypassPages.includes(location.pathname)) {
     window.scrollTo(0, 0)
   }

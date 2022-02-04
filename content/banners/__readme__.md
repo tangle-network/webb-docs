@@ -1,5 +1,5 @@
 ---
-title: "Example Banner Title (optional)"
+title: 'Example Banner Title (optional)'
 active: false
 ---
 

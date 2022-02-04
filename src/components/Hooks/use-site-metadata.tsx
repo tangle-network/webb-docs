@@ -16,16 +16,11 @@ export const useSiteMetadata = () => {
             pressEmail
             email
             twitter
-            linkedIn
-            element
+            discord
             github
             telegram
-            gitter
-            stackOverflow
             keywords
-            substrateIO
-            terms
-            privacy
+            webburl
           }
         }
       }
