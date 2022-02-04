@@ -3,7 +3,7 @@ import Link from './Link'
 
 export default function DocsButton() {
   return (
-    <Link to="/v3/">
+    <Link to="/v1/">
       <button className="flex items-center justify-center bg-substrateDark dark:bg-substrateWhite text-white dark:text-substrateDark text-sm py-2 w-20 rounded opacity-100 transform transition duration-300 ease-in-out hover:opacity-80 focus:outline-none">
         <svg
           className="fill-current text-white dark:text-substrateDark"

@@ -15,7 +15,7 @@ export default function NavListItem({ link, title }: NavListItemProps) {
   useEffect(() => {
     if (
       link === location.pathname ||
-      (location.pathname === '/v3/getting-started/overview' &&
+      (location.pathname === '/v1/getting-started/overview' &&
         title === 'Docs') ||
       (location.pathname.includes('how-to-guides') &&
         title === 'How-to Guides') ||

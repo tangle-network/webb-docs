@@ -6,36 +6,42 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: 'Substrate_',
-    siteUrl: `${process.env.GATSBY_DOCS_URL || 'https://docs.substrate.io'}`,
-    image_og: `${process.env.GATSBY_DOCS_URL}/img/substrate_og.png`,
+    title: 'Webb Docs',
+    siteUrl: `${process.env.GATSBY_DOCS_URL || 'https://docs.web.tools'}`,
+    // TODO: replace substrate img with webb
+    image_og: `${process.env.GATSBY_DOCS_URL}/img/webb-icon.png`,
     description:
-      'Substrate enables developers to quickly and easily build future-proof blockchains optimized for any use case.',
+      'Webb is an ecosystem of privacy protocols and products for a multi-chain world.',
     keywords: [
       'Blockchain',
+      'Privacy',
+      'Zero-knowledge',
+      'Webb Technologies',
+      'Cross-chain',
+      'Bridging',
       'Polkadot',
-      'Substrate',
       'Web3.0',
-      'Parity Technologies',
       'Technology',
       'Decentralization',
       'Build',
     ],
-    author: 'Parity/Web3F WebDev Team',
-    pressEmail: 'press@parity.io',
-    email: 'info@parity.io',
-    twitter: 'https://twitter.com/substrate_io',
-    linkedIn: 'https://www.linkedin.com/company/paritytech',
-    element: 'https://matrix.to/#/#substrate-technical:matrix.org',
-    github: 'https://github.com/paritytech/substrate',
-    telegram: 'https://t.me/parity_technologies',
-    gitter: 'https://gitter.im/paritytech/parity',
-    stackOverflow: 'https://stackoverflow.com/questions/tagged/substrate',
-    privacy: 'https://www.parity.io/privacy/',
-    terms: 'https://www.parity.io/terms',
-    youtube: 'https://www.youtube.com/c/ParityTech',
-    crowdcast: 'https://www.crowdcast.io/e/substrate-seminar-2',
-    substrateIO: `${process.env.GATSBY_IO_URL}`,
+    author: 'Webb Technologies Team',
+    // TODO: add webb info email
+    pressEmail: '',
+    // TODO: add webb info email
+    email: 'drew@webb.tools',
+    twitter: 'https://twitter.com/webbprotocol',
+    // linkedIn: '',
+    discord: 'https://discord.com/invite/cv8EfJu3Tn',
+    github: 'https://github.com/webb-tools',
+    telegram: 'https://t.me/webbprotocol',
+    // gitter: '',
+    // stackOverflow: '',
+    // privacy: '',
+    // terms: '',
+    // youtube: '',
+    // crowdcast: '',
+    webburl: `${process.env.GATSBY_IO_URL}`,
   },
   flags: {
     DEV_SSR: false,
@@ -53,14 +59,14 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/v3/docs`,
+        path: `${__dirname}/v1/docs`,
         name: `docs`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/v3/how-to-guides`,
+        path: `${__dirname}/v1/how-to-guides`,
         name: `htgs`,
       },
     },
@@ -68,7 +74,7 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/v3/tutorials/`,
+        path: `${__dirname}/v1/tutorials/`,
         name: `tuts`,
       },
     },
@@ -193,8 +199,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Substrate Documentation`,
-        short_name: `Substrate Docs`,
+        name: `Webb Documentation`,
+        short_name: `Webb Docs`,
         start_url: `/`,
         background_color: `#000000`,
         theme_color: `#26E0A2`,
@@ -209,7 +215,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-simple-analytics',
       options: {
-        domain: 'api-sa.substrate.io',
+        // TODO: add webb api domain for analyics
+        domain: '',
         eventsGlobal: 'sa',
         events: true,
         trackPageViews: true,

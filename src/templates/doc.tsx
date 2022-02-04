@@ -51,11 +51,12 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               >
                 <BreadCrumbNav
                   section={data.mdx.frontmatter.section}
-                  sectionURL={`/v3/getting-started/overview`}
+                  sectionURL={`/v1/getting-started/overview`}
                   title={data.mdx.frontmatter.title}
                 />
+                {/* TODO: @dutterbutter fix dymanic version */}
                 <VersionControl
-                  version={version}
+                  version='1.0'
                   slug={slug}
                   absolutePath={data.mdx.fileAbsolutePath}
                 />

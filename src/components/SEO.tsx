@@ -34,23 +34,18 @@ const SEO = ({ description, title, children }: SEOProps) => {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': 'https://www.parity.io/',
+      '@id': 'https://www.webb.tools/',
     },
     description:
-      'Substrate enables developers to quickly and easily build future-proof blockchains optimized for any use case.',
+      'Webb is an ecosystem of privacy protocols and products for a multi-chain world.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Ignition Law, 1 Sans Walk',
-      addressLocality: 'London',
-      postalCode: 'EC1R 0LT',
-      addressCountry: 'UK',
+      streetAddress: '',
+      addressLocality: '',
+      postalCode: '',
+      addressCountry: '',
     },
-    sameAs: [
-      `${siteMetadata.twitter}`,
-      `${siteMetadata.linkedIn}`,
-      `${siteMetadata.github}`,
-      `${siteMetadata.stackOverflow}`,
-    ],
+    sameAs: [`${siteMetadata.twitter}`, `${siteMetadata.github}`],
   }
 
   const metaDescription = description || siteMetadata.description

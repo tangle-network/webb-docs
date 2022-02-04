@@ -32,6 +32,7 @@ import searchIcon from '../images/svgs/search.svg'
 import closeIcon from '../images/svgs/close-icon.svg'
 import paperplane from '../images/svgs/paperplane.svg'
 import checkMark from '../images/svgs/check-mark.svg'
+import discordIcon from '../images/svgs/discordIcon.svg'
 
 const iconsMap = new Map()
 /* homepage */
@@ -53,6 +54,7 @@ iconsMap.set('elementOrg', elementOrg)
 iconsMap.set('elementWhite', elementWhite)
 iconsMap.set('stackOverflowOrg', stackOverflowOrg)
 iconsMap.set('stackOverflowWhite', stackOverflowWhite)
+iconsMap.set('discordOrg', discordIcon)
 iconsMap.set('github', github)
 iconsMap.set('twitter', twitter)
 /* UI specific */

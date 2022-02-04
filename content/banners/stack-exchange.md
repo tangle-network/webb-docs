@@ -1,5 +1,5 @@
 ---
-title: "StackExchange Forum"
+title: 'StackExchange Forum'
 active: false
 ---
 
