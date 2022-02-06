@@ -63,21 +63,6 @@ module.exports = {
         name: `docs`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/v1/how-to-guides`,
-        name: `htgs`,
-      },
-    },
-    //TUTORIALS//
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/v1/tutorials/`,
-        name: `tuts`,
-      },
-    },
     //*********************************//
     {
       resolve: `gatsby-source-filesystem`,
