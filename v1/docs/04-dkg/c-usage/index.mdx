@@ -207,21 +207,21 @@ Now that you have two relay chain nodes, and a parachain node accompanied with a
 client running, the next step is to register the parachain in the relay chain with the following
 steps (for detail, refer to the [Substrate Cumulus Worship](https://substrate.dev/cumulus-workshop/#/en/3-parachains/2-register)):
 
--   Goto [Polkadot Apps UI](https://polkadot.js.org/apps/#/explorer), connecting to your relay chain.
+- Goto [Polkadot Apps UI](https://polkadot.js.org/apps/#/explorer), connecting to your relay chain.
 
--   Execute a sudo extrinsic on the relay chain by going to `Developer` -> `sudo` page.
+- Execute a sudo extrinsic on the relay chain by going to `Developer` -> `sudo` page.
 
--   Pick `paraSudoWrapper` -> `sudoScheduleParaInitialize(id, genesis)` as the extrinsic type,
-    shown below.
+- Pick `paraSudoWrapper` -> `sudoScheduleParaInitialize(id, genesis)` as the extrinsic type,
+  shown below.
 
-        ![Polkadot Apps UI](docs/assets/ss01.png)
+      ![Polkadot Apps UI](docs/assets/ss01.png)
 
--   Set the `id: ParaId` to 2,000 (or whatever ParaId you used above), and set the `parachain: Bool`
-    option to **Yes**.
+- Set the `id: ParaId` to 2,000 (or whatever ParaId you used above), and set the `parachain: Bool`
+  option to **Yes**.
 
--   For the `genesisHead`, drag the genesis state file exported above, `para-2000-genesis`, in.
+- For the `genesisHead`, drag the genesis state file exported above, `para-2000-genesis`, in.
 
--   For the `validationCode`, drag the genesis wasm file exported above, `para-2000-wasm`, in.
+- For the `validationCode`, drag the genesis wasm file exported above, `para-2000-wasm`, in.
 
 > **Note**: When registering to the public Rococo testnet, ensure you set a **unique** `paraId`
 > larger than 1,000. Values below 1,000 are reserved _exclusively_ for system parachains.

@@ -8,7 +8,9 @@ keywords: []
 ---
 
 # TODO
+
 This document serves as instructions for setting up a Webb Relayer at a publicly accessible endpoint. It will fulfill the requirements for listing your relayer on app.webb.tools. In order to integrate your relayer to app.webb.tools, please submit a PR.
+
 - Connections available via https and wss on your domain.
 
 These instructions will assume the user has created a cloud server on Ubuntu 20.04, and is logged into a user with sudo permissions.
@@ -49,6 +51,7 @@ By the end of these instructions, the relayer will be running and accessible via
 ### Relayer Configuration
 
 Relayers can be configured multiple ways:
+
 1. The preset configurations in the `.toml` files
 2. Configuration values overwritten in the environment with the format `WEBB_xxx_xxx_xxx` (ex. WEBB_EVM_RINKEBY_ENABLED=true in `.env.example`)
 3. Custom environment variables referenced in `.toml` with `$` prefix. (ex. private key)
@@ -103,7 +106,7 @@ All configurations in the repo can be tuned to your preference. Below is a line-
         chain-id = 4
         # MANDATORY: The hex string private key correlating to a value in the .env file.
         private-key = "$RINKEBY_PRIVATE_KEY"
-        # OPTIONAL: An address for which to receive relayer rewards. Otherwise will be sent to the address correlated to the configured above, private-key 
+        # OPTIONAL: An address for which to receive relayer rewards. Otherwise will be sent to the address correlated to the configured above, private-key
         beneficiary = "0x7Bb1Af8D06495E85DDC1e0c49111C9E0Ab50266E"
 
         # A network configuration can define multiple contracts to listen to
@@ -139,10 +142,10 @@ All configurations in the repo can be tuned to your preference. Below is a line-
             { chain = "ropsten", address = "0x0711Ea63FDEDD2c8a9d3C9340a5A8F6cd84b6A92" },
             { chain = "goerli", address = "0x025348e15e9d5529E5A4A55E8eA7eC923b7fB8b6" },
         ]
-    
+
 ### Relayer setup
 
-1. Setup the relayer as a system service:
+1.  Setup the relayer as a system service:
 
         # Create the service file
         sudo touch /etc/systemd/system/webb-relayer.service
@@ -151,7 +154,7 @@ All configurations in the repo can be tuned to your preference. Below is a line-
 
             # This assumes the repo has been cloned in the home directory of the user
             # Paste the following into the service file, and replace the <user>:
-            
+
             [Unit]
             Description=WebbRelayer
             [Service]
@@ -164,7 +167,7 @@ All configurations in the repo can be tuned to your preference. Below is a line-
     ??? example "Downloaded binary"
 
             # This assumes a directory of configurations and .env file exist in a folder `/relayer` in the home directory.
-            
+
             [Unit]
             Description=WebbRelayer
             [Service]
@@ -174,7 +177,7 @@ All configurations in the repo can be tuned to your preference. Below is a line-
             [Install]
             WantedBy=multi-user.target
 
-2. Kick off the system service:
+2.  Kick off the system service:
 
     `sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer`
 

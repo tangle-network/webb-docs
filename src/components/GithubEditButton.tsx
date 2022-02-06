@@ -5,8 +5,7 @@ interface GithuEditButtonProps {
   absolutePath: string
 }
 export default function GithubEditButton(props: GithuEditButtonProps) {
-  const githubSlug =
-    'https://github.com/webb-tools/webb-docs/edit/main'
+  const githubSlug = 'https://github.com/webb-tools/webb-docs/edit/main'
 
   const [url, setUrl] = useState('')
   useEffect(() => {

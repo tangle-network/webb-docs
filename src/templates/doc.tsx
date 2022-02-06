@@ -56,7 +56,7 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
                 />
                 {/* TODO: @dutterbutter fix dymanic version */}
                 <VersionControl
-                  version='1.0'
+                  version="1.0"
                   slug={slug}
                   absolutePath={data.mdx.fileAbsolutePath}
                 />
