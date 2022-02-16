@@ -7,9 +7,17 @@ category: bridge-protocol
 keywords: []
 ---
 
-The Webb ecosystem includes a private bridge protocol building on top of the chainbridge and Tornado cash protocols. It combines these architectures to create an interoperable privacy set to enable cross-chain private transactions with scalable privacy. More tokens on a particular bridge and more chains connected on a particular bridge only serve to increase the amount of privacy provided by that particular bridge.
+The Webb ecosystem includes a private bridge protocol building on top of the chainbridge and Tornado cash protocols.
+It combines these architectures to create an interoperable privacy set to enable cross-chain private transactions 
+with scalable privacy. More tokens on a particular bridge and more chains connected on a particular bridge only 
+serve to increase the amount of privacy provided by that particular bridge.
 
-The bridge protocol connects [merkle trees](https://en.wikipedia.org/wiki/Merkle_tree) across chains. We refer to the connected instances of the system as **_Anchors_**. Every anchor has an on-chain merkle tree and tracks a set of connected anchors across chain (through edges) in its local storage. An edge is a directed connection/link/edge between 2 anchors. In the language of graphs. A bridge is a graph G=(A, E) where A is the set of anchor nodes and E is the set of edges between them. We represent this data structure using an `Edge` or `EdgeMetadata` that looks like:
+The bridge protocol connects [merkle trees](https://en.wikipedia.org/wiki/Merkle_tree) across chains. We refer to
+the connected instances of the system as **_Anchors_**. Every anchor has an on-chain merkle tree and tracks a set
+of connected anchors across chain (through edges) in its local storage. An edge is a directed connection/link/edge
+between 2 anchors. In the language of graphs. A bridge is a graph G=(A, E) where A is the set of anchor nodes and
+E is the set of edges between them. We represent this data structure using an `Edge` or `EdgeMetadata` that looks
+like:
 
 ```bash
 // An edge for a specific chain
@@ -25,7 +33,10 @@ pub struct EdgeMetadata<ChainID, Element, LastLeafIndex> {
 
 ## Leaves in the merkle trees (anchors)
 
-We put hashes inside the merkle tree. Oftentimes these hashes are hashes of structured data that is relevant for an end-user application. For example, we might be the hash of a [unspent transaction output (UTXO)](https://en.wikipedia.org/wiki/Unspent_transaction_output) into the tree to allow someone across chain to prove knowledge of a UTXO in one anchor from a different anchor directly.
+We put hashes inside the merkle tree. Oftentimes these hashes are hashes of structured data that is relevant for
+an end-user application. For example, we might be the hash of a [unspent transaction output (UTXO)](https://en.wikipedia.org/wiki/Unspent_transaction_output)
+into the tree to allow someone across chain to prove knowledge of a UTXO in one anchor from a different anchor
+directly.
 
 ## Next steps
 

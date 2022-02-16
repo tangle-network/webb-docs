@@ -7,21 +7,31 @@ category: bridge-protocol
 keywords: []
 ---
 
-Governance on Webb is key to maintaining and increasing the functionality of the protocol for WEBB tokenholders, protocol users, and relayers. Possible governance actions and their corresponding locations are as follows.
+Governance on Webb is key to maintaining and increasing the functionality of the protocol for WEBB tokenholders,
+protocol users, and relayers. Possible governance actions and their corresponding locations are as follows.
 
 ### WEBB Token Governance
 
-The WEBB token is used to govern various parts of the Webb protocol deployments. The WEBB token has its own set of bridges for various sizes of deposits that enables holders to move their tokens between supported chains. Anytime a new chain is added to the Webb Network, a corresponding bridge and WEBB token will instantiated for future governance usage.
+The WEBB token is used to govern various parts of the Webb protocol deployments. The WEBB token has its own 
+set of bridges for various sizes of deposits that enables holders to move their tokens between supported chains.
+Anytime a new chain is added to the Webb Network, a corresponding bridge and WEBB token will instantiated for
+future governance usage.
 
 ### WEBB Governance Proposal Types
 
-WEBB tokens will be used to vote on proposals including but not limited to: deploying new anchor contracts, connecting anchors to handlers, connecting handlers to bridges, and whitelisting wrappable assets (see [Wrapper Governance Functionality](overview.md##Version-1.X-Governance-functionality) for details).
+WEBB tokens will be used to vote on proposals including but not limited to: deploying new anchor contracts,
+connecting anchors to handlers, connecting handlers to bridges, and whitelisting wrappable assets
+(see [Wrapper Governance Functionality](overview.md##Version-1.X-Governance-functionality) for details).
 
-The first three parts of the previous list are all essential to the deployment of new anchors and invoke WEBB token holders to govern these processes using WEBB on the deployed anchor's native chain. The whitelisting of wrappable assets will also take place on the chain where the token wrapper has been deployed.
+The first three parts of the previous list are all essential to the deployment of new anchors and invoke 
+WEBB token holders to govern these processes using WEBB on the deployed anchor's native chain. The whitelisting
+of wrappable assets will also take place on the chain where the token wrapper has been deployed.
 
 ### Anchor Deployment on a New Chain Using Governor Bravo
 
-1. In advance, the Webb community will deploy the WEBB token, Gov Bravo, Bridge, Handlers, and AnchorFactory on chains desireable for later anchor deployment. The Bridge will be connected to the ERC20Handler to enable public, standard bridging of WEBB.
+1. In advance, the Webb community will deploy the WEBB token, Gov Bravo, Bridge, Handlers, and AnchorFactory on
+chains desireable for later anchor deployment. The Bridge will be connected to the ERC20Handler to enable public,
+standard bridging of WEBB.
 2. WEBB holders bridge their existing WEBB to the new chain.
 3. WEBB holders vote and execute a proposal to connect the Bridge and Handler calling the Bridge's `setResourceID()`.
 4. WEBB holders vote and execute a proposal to deploy a new anchor using the AnchorFactory.

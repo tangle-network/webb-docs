@@ -7,18 +7,29 @@ category: relayer
 keywords: []
 ---
 
-## TODO
+Bridges are networked applications that span multiple blockchains and must be aware of events and/or state occurring
+across this network. The endponts of these bridges (e.g. the smart contracts / core protocol logic) are denoted
+`Anchors` in the Webb Protocol. These Anchors are required by definition to know about various parts of the state of other
+anchors, particularly the ones they're connected to across a particular bridge. The backbone of any bridge is made
+up of the relayers -- otherwise denoted validators, relayers, authorities, nodes, etc. -- that maintain the 
+liveliness of the bridge protocol. 
 
-A blockchain oracle is a system that listens to an external data source and posts this data back on-chain to arbitrarily many blockchains. Examples of data sources include:
+A blockchain oracle is a system that listens to an external data source and posts this data back on-chain to 
+arbitrarily many blockchains. Examples of data sources include, but not limited to:
 
 - Price feeds of USD/ETH pair (Chainlink)
 - Weather feeds in Europe
 - Merkle tree roots on different anchors (Webb)
 
-In the Webb Protocol, relayers fulfill the role of an oracle where the external data sources that they listen to are the state of the anchors for a bridge. The flow for a relayer is the following:
+In the Webb Protocol, relayers fulfill the role of an oracle where the external data sources that they listen to
+are the state of the anchors for a bridge. Relayers, as their name entails, relay information for a connected set
+of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications 
+to reference, both privately and potentially not, properties of data stored across the other connected Anchors.
+
+The responsibility for a relayer to the Anchor protocol is the following:
 
 1. Listen to all the anchors of a bridge.
-2. When a new deposit / insertion occurs in one of the merkle trees, say `A`, the relayer will construct
+2. When a new deposit or insertion occurs in one of the merkle trees, say `A`, the relayer will construct:
 
    ```rust
    edge = EdgeMetadata {
@@ -40,6 +51,8 @@ In the Webb Protocol, relayers fulfill the role of an oracle where the external 
    }
    ```
 
+The above 
+
 ## Relayer / DKG interaction
 
 The relayers act as proposers of proposals intended to be signed by the distributed key generation protocol (DKG).
@@ -50,11 +63,7 @@ The relayers act as proposers of proposals intended to be signed by the distribu
 
 We require a threshold of relayers (_really proposers_) to agree on the update in order to move the update into a queue for the DKG to sign from.
 
-## Relayers
-
-Bridges are networked applications that span multiple blockchains and must be aware of events and/or state occurring across this network. The endponts of these bridges (e.g. the smart contracts / core protocol logic) are denoted Anchors in our system. These Anchors are required by definition to know about various parts of the state of other anchors, particularly the ones they're connected to across a particular bridge.
-
-The backbone of any bridge is made up of the relayers -- otherwise denomted validators, relayers, authorities, nodes, etc. -- that maintain the liveliness of the bridge protocol. Relayers, as their name entails, relay information for a connected set of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications to reference, both privately and potentially not, properties of data stored across the other connected Anchors.
+## Relayer Roadmap
 
 We aim to build a relayer infrastructure that gradually improves in its performance, efficiency, and overall security. We do this in stages by first building the necessary infrastructure to listen to events across a connected set of Anchors and react properly across a Bridge to preserve the liveness of the protocol.
 

@@ -10,7 +10,9 @@ keywords: []
 ![Webb Bridge Architecture](../../../../src/images/docs/bridge-protocol/architecture.png)
 Example diagram of the architecture and governance of cross chain private bridging of WEBB tokens on EVM chains.
 
-The Webb protocol architecture is modelled off the ChainBridge and Tornado Cash architectures. We merge and augment both protocols and increase the relayer responsibilities to design our private bridge protocol. The modifications can be summarized as:
+The Webb protocol architecture is modelled off the ChainBridge and Tornado Cash architectures. We merge and 
+augment both protocols and increase the relayer responsibilities to design our private bridge protocol. The
+modifications can be summarized as:
 
 - Augmenting Tornado's into Anchor's which additionally track an edge list to other Anchors.
   - Anchors are private transaction systems that function both as Tornados but also as cross-chain bridges.
@@ -18,7 +20,8 @@ The Webb protocol architecture is modelled off the ChainBridge and Tornado Cash 
   - Anchors can mint/burn the underlying token being deposited and withdrawn.
 - Augmenting ChainBridge's Bridge into a private bridge protocol.
   - We create a new AnchorHandler which modifiers the edge list of Anchors needing updates.
-  - We augment the Bridge relayers w/ a multi-party threshold signing scheme, so that one or many threshold networks can govern the bridge.
+  - We augment the Bridge relayers w/ a multi-party threshold signing scheme, so that one or many threshold
+    networks can govern the bridge.
 
 ## Further reading
 

@@ -64,17 +64,6 @@ make your life, and the life of the maintainers much easier! Please review the
 [Builder notes](https://docs.substrate.io/v3/contribute/writing#builder-notes) in the contributor
 guidelines if making any non-trivial PRs here.
 
-### Production deployment
-
-- `main` branch is available at: Not available yet
-
-### Staging deployment
-
-- `develop` branch is available at: Not available yet
-
-If you are submitting a PR, make sure to submit it to the `develop` branch. Only once PRs are merged into
-develop will they get merged into `main`.
-
 ## 🚀 Quick start
 
 1.  **Clone the repo**
@@ -86,9 +75,10 @@ develop will they get merged into `main`.
 
 2.  **Get setup**
 
-    Navigate into your new site’s directory and install all dependencies. 
-    
+    Navigate into your new site’s directory and install all dependencies.
+
     **Note:** You may need to run `yarn set version latest`, please do so if you run into a `Error [ERR_STREAM_PREMATURE_CLOSE]: Premature close`.
+
     ```bash
     cd substrate-docs/
     nvm install
@@ -117,15 +107,15 @@ develop will they get merged into `main`.
     yarn dev # alias for `yarn start` and `yarn develop`
     ```
 
-  **Note:** If you run into `ERROR: digital envelope routines::unssupported` please set the following variable:
+**Note:** If you run into `ERROR: digital envelope routines::unssupported` please set the following variable:
 
-  ```bash
-  export NODE_OPTIONS=--openssl-legacy-provider
-  ```
+```bash
+export NODE_OPTIONS=--openssl-legacy-provider
+```
 
 5.  **Open the code and start customizing!**
 
-    Your site is now running at [http://localhost:8001](http://localhost:8001)
+    Your site is now running at [http://localhost:8001/v1/getting-started/overview/](http://localhost:8001/v1/getting-started/overview/)
     and your GraphQL data layer is running at
     [http://localhost:8000\_\_graphql](http://localhost:8000__graphql).
 
@@ -168,7 +158,9 @@ In another terminal, run:
 ```bash
 yarn checklinks-local
 ```
+
 <!--TODO: @dutterbutter update to reflect Webb -->
+
 You can further configure it in `package.json` file. Currently it has a list of paths being
 excluded. These paths are not regex-supported and just doing a plain string matching. They are
 excluded because for:
@@ -187,6 +179,7 @@ excluded because for:
   rate-limiting check or doesn't welcome web crawlers to fetch them and just return a 404 page.
 
 <!--TODO: @dutterbutter update to reflect Webb -->
+
 ## Link checking as part of Github workflow
 
 We configured a [Github workflow](../.github/workflows/check-links.yml) to build the Gatsby site in

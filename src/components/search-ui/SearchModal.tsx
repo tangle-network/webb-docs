@@ -29,19 +29,19 @@ export function SearchModal({ id, closeModal }: SearchModalProps) {
   const [query, setQuery] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [displayedResults, setDisplayedResults] = useState([])
-  const types = ['Docs', 'Tutorials', 'How-to Guides']
+  const types = ['Docs']
   const { store, index } = useLunrIndex()
 
   const [section, setSection] = useState({
     docs: false,
-    tuts: false,
-    htgs: false,
+    // tuts: false,
+    // htgs: false,
   })
 
   const sectionNames = {
     docs: 'docs',
-    tuts: 'tutorials',
-    htgs: 'how to guides',
+    // tuts: 'tutorials',
+    // htgs: 'how to guides',
   }
 
   const processQuery = (query: string) => {

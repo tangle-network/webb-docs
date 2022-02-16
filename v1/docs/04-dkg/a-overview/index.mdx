@@ -7,7 +7,7 @@ category: dkg
 keywords: []
 ---
 
-This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is, its intended use, and how it interacts with the wider system. 
+This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is, its intended use, and how it interacts with the wider system.
 
 The primary purpose of the DKG protocol is to govern the Anchor protocol. More precisely, the DKG act as a security instrument to the Anchor protocol, that is,
 we say that the bridge updates are valid if they are signed by the DKG. The security of the system then rests on the DKG signing the actual data that it is meant to sign.
@@ -15,17 +15,35 @@ we say that the bridge updates are valid if they are signed by the DKG. The secu
 ## What is a DKG
 
 A [DKG](https://en.wikipedia.org/wiki/Distributed_key_generation) is a cryptographic process in which mupliple participants contribute to the calculation of a shared public and private key set in a trustless manner. In
-the Webb protocol the DKG is signing these updates (proposals) using a [threshold-signature-scheme](https://en.wikipedia.org/wiki/Threshold_cryptosystem). The below diagram provides a simplified illustration of the DKG.     
+the Webb protocol the DKG is signing these updates (proposals) using a [threshold-signature-scheme](https://en.wikipedia.org/wiki/Threshold_cryptosystem). The below diagram provides a simplified illustration of the DKG.
+
+### DKG Key Generation
+
+TODO: describe DKG key generation and diagram
+
+### DKG Signature Verification
 
 ![Simplified DKG](../../../../src/images/docs/dkg/simplified_dkg_signing.png)
 
-## How are proposals signed
+## How proposals are signed
+
+The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal** for signature.
+
+1. Proposers propose an anchor update
+2. Proposers vote to either reject or acknowledge the proposal
+3. If the majority vote to reject, the execution is canceled and the proposal rejection event is emitted
+4. If the majority vote in favour of the proposal, the execution to have that proposal signed begins
+5. The proposal is inserted into an Unsigned Proposal Queue
+6. The DKG-gadget an offchain service worker, fetches the unsigned proposal from the queue
+7. The DKG-gadget sends messages to all connected peers to be signed in the given or next round
+8. Upon the completion of the round, the now signed proposals are processed and stored in offchain storage
+9. The Proposal-Handlers offchain worker then fetches signed proposals
+10. The proposals signatures are validated and inserted into pallet storage
+11. A ProposalSigned event is emitted indicating a successfully submitted proposal
 
 ![Simplified DKG proposal signing sequence](../../../../src/images/docs/dkg/dkg_proposal_signing_sequence.png)
 
-
-
-## Pallets
+## Pallets: TODO add pallet doc links and source code links
 
 The DKG runtime is uses the following pallets which are central to how the protocol functions.
 

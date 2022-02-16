@@ -17,11 +17,10 @@ export function SearchResultsContainer({
   setQuery,
 }: SearchResultsContainerProps) {
   const suggestedTerms = [
-    'Runtime',
-    'Storage',
-    'FRAME',
-    'Weights',
-    'Pallet Design',
+    'DKG',
+    'Anchor Protocol',
+    'Zero-Knowledge',
+    'Relayer',
   ]
 
   return (
