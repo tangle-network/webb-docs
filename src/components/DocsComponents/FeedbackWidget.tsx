@@ -4,7 +4,7 @@ import { SecondaryButton } from '../Buttons'
 
 export function FeedbackWidget() {
   const githubLink =
-    'https://github.com/substrate-developer-hub/substrate-docs/issues/new/choose'
+    'https://github.com/webb-tools/webb-docs/issues/new/choose'
   return (
     <div>
       <div className="flex items-center pt-10 mb-4">

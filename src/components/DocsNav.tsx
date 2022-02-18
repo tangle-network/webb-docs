@@ -43,10 +43,6 @@ export default function DocsNav({
             <span className="font-bold">
               {section === 'docs'
                 ? 'Docs'
-                : section === 'tutorials'
-                ? 'Tutorials'
-                : section === 'how to guides'
-                ? 'How-to Guides'
                 : null}
             </span>
           </div>
