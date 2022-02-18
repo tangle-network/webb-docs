@@ -9,6 +9,7 @@ const addTrailingSlash = (uri: string) => {
   }
 
   const removeSlash = (uri: string) => {
+    console.log("removeSlash::URI:::: ", uri, "\n");
     return uri.replace(/\/$/, '')
   }
 
@@ -20,6 +21,7 @@ const addTrailingSlash = (uri: string) => {
   }
 
   const getSearch = (uri: string) => {
+    console.log("get search:: URI:::: ", uri, "\n");
     if (uri.indexOf('?') > 0) {
       return uri.substring(uri.indexOf('?'), uri.length)
     }

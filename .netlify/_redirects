@@ -1,7 +1,7 @@
 ## Production: Webb Docs
 
 ### Production: Getting Started
-/*                                              /v1/getting-started/overview      301! 
+*/*                                              /v1/getting-started/overview      301! 
 
 ## Production: rustdocs
 # /rustdocs/*          https://webb-tools.github.io/dkg-substrate/:splat             200
