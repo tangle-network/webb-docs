@@ -16,7 +16,7 @@ import ExploreLinkSection from '../components/layout/homepage/ExploreLinkSection
 export default function Index() {
   return (
     <Layout>
-      <SEO title="Developer Home" />
+      {/* <SEO title="Developer Home" />
       <Section styles="mt-12">
         <div className="flex flex-col md:flex-row md:items-center doc-hero">
           <div className="md:w-1/2 mb-10 lg:m-0">
@@ -36,7 +36,7 @@ export default function Index() {
             </PrimaryFixedButton>
           </div>
           <div className="flex justify-center md:w-1/2">
-            <div className="lg:h-[430px] lg:w-[430px] lg:mt-8">
+            <div className="lg:h-[430px] lg:w-[430px] lg:mt-8"> */}
               {/* <Lottie
                 options={{
                   animationData,
@@ -47,12 +47,12 @@ export default function Index() {
                 }}
                 isClickToPauseDisabled={true}
               /> */}
-            </div>
+            {/* </div>
           </div>
         </div>
-      </Section>
+      </Section> */}
       {/* Learn Subsrate Section */}
-      <Section styles="relative">
+      {/* <Section styles="relative">
         <div className="absolute inset-0 md:mt-20">
           <div className="lg:hidden">
             <StaticImage
@@ -107,9 +107,9 @@ export default function Index() {
             />
           </div>
         </div>
-      </Section>
+      </Section> */}
       {/* Playground Section */}
-      <Section>
+      {/* <Section>
         <div className="flex flex-col lg:flex-row lg:items-center">
           <div className="mb-16 lg:m-0 lg:w-1/2">
             <div className="font-title text-5xl lg:text-6xl font-extrabold mb-8">
@@ -174,9 +174,9 @@ export default function Index() {
             </Link>
           </div>
         </div>
-      </Section>
+      </Section> */}
       {/* Explore Documentation Section */}
-      <Section>
+      {/* <Section>
         <div className="mb-14">
           <div className="text-4xltext-5xl lg:text-6xl font-extrabold mb-8 break-normal">
             Explore Documentation
@@ -189,9 +189,9 @@ export default function Index() {
         <div className="md:flex md:justify-start xl:justify-between">
           <ExploreDocs />
         </div>
-      </Section>
+      </Section> */}
       {/* Connect With Community Section */}
-      <Section>
+      {/* <Section>
         <div className="flex flex-col md:flex-row md:items-center mb-10">
           <div className="lg:m-0 md:w-1/2">
             <div className="text-5xl lg:text-6xl font-extrabold mb-8">
@@ -218,7 +218,7 @@ export default function Index() {
           <CommunityCard />
         </div>
       </Section>
-      <ExploreLinkSection links={['technology', 'vision', 'ecosystem']} />
+      <ExploreLinkSection links={['technology', 'vision', 'ecosystem']} /> */}
     </Layout>
   )
 }
