@@ -2,12 +2,12 @@ name: Check Links
 
 on:
   pull_request:
-    # With this setting, when we open a PR to `main` and `develop, it will run the linkchecking.
-    # This also includes every commit to an open PR to `main` and `develop`.
+    # With this setting, when we open a PR to `main` and `dev, it will run the linkchecking.
+    # This also includes every commit to an open PR to `main` and `dev`.
     # ref:
     #   - https://github.com/open-telemetry/opentelemetry-python/issues/1370
     #   - https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#pull_request
-    branches: [ main, develop ]
+    branches: [ main, dev ]
 
 jobs:
   build-website-image:
@@ -23,8 +23,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build & push image
         run: |
-          docker build -t paritytechno/substrate-docs .
-          docker push paritytechno/substrate-docs
+          docker build -t webbtech/webb-docs .
+          docker push webbtech/webb-docs
 
   check-links:
     needs: build-website-image
@@ -32,7 +32,7 @@ jobs:
     environment: test
     services:
       gatsby-app:
-        image: paritytechno/substrate-docs
+        image: webbtech/webb-docs
         ports:
           - 9000:9000
     steps:

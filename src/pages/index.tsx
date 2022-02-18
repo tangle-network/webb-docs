@@ -10,7 +10,6 @@ import CommunityCard from '../components/layout/homepage/CommunityCard'
 import { StaticImage } from 'gatsby-plugin-image'
 import { SecondaryButton } from '../components/Buttons'
 import ExploreDocs from '../components/layout/homepage/ExploreDocs'
-import * as animationData from '../images/animations/dev-hero.json'
 import Link from '../components/Link'
 import ExploreLinkSection from '../components/layout/homepage/ExploreLinkSection'
 
@@ -38,7 +37,7 @@ export default function Index() {
           </div>
           <div className="flex justify-center md:w-1/2">
             <div className="lg:h-[430px] lg:w-[430px] lg:mt-8">
-              <Lottie
+              {/* <Lottie
                 options={{
                   animationData,
                   loop: false,
@@ -47,7 +46,7 @@ export default function Index() {
                   },
                 }}
                 isClickToPauseDisabled={true}
-              />
+              /> */}
             </div>
           </div>
         </div>

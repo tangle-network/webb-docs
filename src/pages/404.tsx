@@ -20,7 +20,7 @@ export default function NotFoundPage() {
               <PrimaryFixedButton link="/">Home</PrimaryFixedButton>
             </div>
             <div>
-              <PrimaryFixedButton link="https://github.com/substrate-developer-hub/substrate-docs/issues/new?title=Broken%20Link&template=broken-link.yaml&labels=Broken%20Link">
+              <PrimaryFixedButton link="https://github.com/webb-tools/webb-docs/issues">
                 Report a broken link
               </PrimaryFixedButton>
             </div>

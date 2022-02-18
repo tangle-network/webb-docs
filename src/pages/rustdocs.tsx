@@ -8,29 +8,30 @@ import RustLogo from '../components/RustLogo'
 export default function RustDocs() {
   return (
     <Layout>
-      <SEO title="Substrate Rust Docs" />
+      <SEO title="Webb Rust Docs" />
       <Section styles="mt-12">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center">
           <div className="lg:w-1/2">
             <div className="font-title text-5xl lg:text-6xl font-extrabold mb-8">
-              Substrate <br /> Rust Docs
+              Webb <br /> Rust Docs
             </div>
             <p className="max-w-lg">
-              Substrate uses Rust&apos;s source code documentation and crate
-              system to publish and manage its growing code base. The Substrate
+              Webb uses Rust&apos;s source code documentation and crate
+              system to publish and manage its growing code base. The Webb
               Rust docs is where all of that code lives, providing developers
               with the ultimate source of truth for updates in versions or
               changes in modules.
             </p>
             <p className="max-w-lg">
-              This page maintains a reference list of all of Substrate&apos;s
-              monthly releases since v3.0.0, for developers to be able to
+              This page maintains a reference list of all of Webb&apos;s
+              monthly releases, for developers to be able to
               revisit previous source code documentation versions if they need
               to.
             </p>
             <ul className="list-inside mdx-anchor text-substrateBlue dark:text-substrateBlue-light">
               <li>
-                <Link to="https://paritytech.github.io/substrate/master/sc_service/index.html">
+                
+                {/* <Link to="https://paritytech.github.io/substrate/master/sc_service/index.html">
                   Master
                 </Link>
               </li>
@@ -41,7 +42,7 @@ export default function RustDocs() {
                 {` `}
                 <Link to="https://paritytech.github.io/substrate/latest/sc_service/index.html">
                   {`(latest)`}
-                </Link>
+                </Link> */}
               </li>
               {/* <li>
                 <Link to="https://paritytech.github.io/substrate/monthly-2021-08/sc_service/index.html">

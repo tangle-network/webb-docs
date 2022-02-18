@@ -7,11 +7,12 @@ category: getting started
 keywords: []
 ---
 
-We’re building a bridged system between a smart contract protocol (or pallet protocol) and a [distributed key 
-generation (DKG)](https://en.wikipedia.org/wiki/Distributed_key_generation) protocol. At the highest level, the
-smart contract protocol requires some entity to govern it and the DKG acts as the governor.
-**The smart contract protocol (or pallet protocol) is a bridge between merkle trees on different blockchains.**
-The primary goal of the bridge protocol is to satisfy 2 properties:
-
-- **Liveness** - the bridge can continue to be updated in an partially-synchronous environment
-- **Safety** - the bridge updates are always guaranteed to be valid
+The Webb ecosystem at its core is simply a privacy preserving cross-chain data exchange. 
+More precisely, Webb makes use of merkle trees deployed on various networks that communicate 
+updates with one another through a relayer network, and is governed by a distributed key 
+generation protocol. The first application built on top of this infrastructure is Webb’s 
+Bridge Protocol, which allows assets to be privately moved across blockchains. The vision 
+for Webb is to further abstract the privacy preserving cross-chain data exchange properties
+to the extent many creative applications may be built. The bridge protocol demonstrates the 
+intended usability of the Webb network and will be discussed in greater detail throughout the
+documentation. 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { Link } from 'gatsby'
 import Link from '../Link'
 
 interface NavListItemProps {
@@ -16,10 +15,7 @@ export default function NavListItem({ link, title }: NavListItemProps) {
     if (
       link === location.pathname ||
       (location.pathname === '/v1/getting-started/overview' &&
-        title === 'Docs') ||
-      (location.pathname.includes('how-to-guides') &&
-        title === 'How-to Guides') ||
-      (location.pathname.includes('tutorials') && title === 'Tutorials')
+        title === 'Docs')
     ) {
       setIsCurrent(true)
     }

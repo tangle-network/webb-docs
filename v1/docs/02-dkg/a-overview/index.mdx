@@ -1,0 +1,169 @@
+---
+title: Overview
+slug: /v1/dkg/overview
+version: '1.0'
+section: docs
+category: dkg
+keywords: []
+---
+
+This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is,
+its intended use, and how it interacts with the wider system.
+
+The primary purpose of the DKG protocol is to govern the Anchor protocol. More precisely, the DKG
+act as a security instrument to the Anchor protocol, that is, we say that the bridge updates are
+valid if they are signed by the DKG. The security of the system then rests on the DKG signing the
+actual data that it is meant to sign.
+
+## What is a DKG
+
+A [DKG](https://en.wikipedia.org/wiki/Distributed_key_generation) is a cryptographic process in which
+mupliple participants contribute to the calculation of a shared public and private key set in a trustless
+manner. In the Webb network, the DKG is comprised of two protocols:
+
+1. Threshold-key-generation 
+2. Threshold-signature-scheme
+
+The (1) distributed key generation protocol takes a secret parameter, each network participant (Pi),
+receives as output the public key (pk), as well as, a private output (ski) which is the network participants
+(Pi) share of the private key. The collection of ski.....skn create a threshold secret sharing of the private
+key sk. 
+
+> TODO: Add diagram
+
+The (2) distributed signing protocol takes a public input (m) to be signed, as well as, a private input (ski)
+from each network participant. The public input message are updates (proposals) that are being signed using a
+[threshold-signature-scheme](https://en.wikipedia.org/wiki/Threshold_cryptosystem). The below diagram 
+illustrates the distributed signing protocol in a simplified manner.
+
+![Simplified DKG](../../../../src/images/docs/dkg/simplified_dkg_signing.png)
+
+## DKG Genesis State
+
+> TODO: Look to create a diagram to illustrate below flow
+
+**Genesis flow**
+
+1. The DKG is started and a key is created.
+2. The authorities of the DKG gossip this public key and a signature of this public key.
+3. The signatures are stored in the offchain worker once enough are gathered.
+4. Someone submits enough signatures on-chain and sets the public key using `submit_genesis_public_key_onchain`,
+which queries the offchain storage and collects the output to submit on-chain.
+
+**Non-genesis flow**
+
+1. The next authorities start a DKG and a key is created. We consider this to be the `next_public_key`
+or `next_dkg_public_key`.
+2. The next authorities of the DKG gossip this public key and a signature of this public key.
+3. The signatures are stored in the offchain worker once enough are gathered at a different offchain storage
+key to the genesis key.
+4. Some authority submits enough signatures on-chain and sets the next public key using
+`submit_next_public_key_onchain`.
+
+## How proposals are signed
+
+The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal** 
+for signature.
+
+1. Proposers propose an anchor update
+2. Proposers vote to either reject or acknowledge the proposal
+3. If the majority vote to reject, the execution is canceled and the proposal rejection event is emitted
+4. If the majority vote in favour of the proposal, the execution to have that proposal signed begins
+5. The proposal is inserted into an Unsigned Proposal Queue
+6. The DKG-gadget an offchain service worker, fetches the unsigned proposal from the queue
+7. The DKG-gadget sends messages to all connected peers to be signed in the given or next round
+8. Upon the completion of the round, the now signed proposals are processed and stored in offchain storage
+9. The Proposal-Handlers offchain worker then fetches signed proposals
+10. The proposals signatures are validated and inserted into pallet storage
+11. A ProposalSigned event is emitted indicating a successfully submitted proposal
+
+![Simplified DKG proposal signing sequence](../../../../src/images/docs/dkg/proposal-signing.png)
+
+## Key rotation
+
+On a new session, the new authorities (from validators or collators) are selected and the next authorities
+are selected.
+
+1. These next authorities run ***keygen*** protocol and output a new group keypair on-chain, denoted
+`next_dkg_public_key`.
+2. The current authorities (having already run this process in the step before) see this event and if 
+it is time to refresh, they begin to sign the `next_dkg_public_key` with their key, the `dkg_public_key`.
+3. The signature from the active keypair of the next keypair is posted on-chain.
+4. Once this signature is posted, anyone can propagate it.
+    - Any relayer.
+    - Any user who wants to update the governor of their contract.
+
+## Pallets
+
+The DKG runtime is uses the following pallets which are central to how the protocol functions.
+
+### pallet-dkg-metadata
+
+This pallet essentially tracks the information about the current and next authority sets, including the set Ids.
+It does this by implementing the `OneSessionHandler` trait which allows it to receieve both new and queued authority sets when the session changes.
+* [Docs]()
+* [Source]()
+
+### pallet-parachain-staking
+
+This is a custom staking pallet that handles collator selection, This pallet helps the protocol select new collators based on amount staked.
+It also allows for nominators, who back collators by staking their assets, both collators and nominators are rewarded after every session comes to an end.
+Reward for collators and their nominators is dependent on how many points accrued by the collator during the session,
+these points are gained by successfully authoring blocks.
+
+This pallet implements the `SessionManager` trait and that way is able to provide the the selected collators as validators to the session pallet.
+* [Docs]()
+* [Source]()
+
+### pallet-dkg-proposals
+
+This pallet handles maintaining valid proposers and also voting on proposals.
+The valid set of proposers is equivalent to the current DKG authorities. This pallet gains access to the current DKG authorities by
+implementing the `OnAuthoritySetChangedHandler` trait, that way it is able to receive the updated DKG authorities from `pallet-dkg-metadata`.
+
+This pallet maintains a queue for pending proposals which the DKG authorities vote on and if the vote threshold is met, the proposal is passed on to be handled
+by a type that implements the `ProposalHandlerTrait`.
+
+In this current iteration the proposals are Ethereum transactions.
+* [Docs]()
+* [Source]()
+
+### pallet-dkg-proposal-handler
+
+This pallet implements the `ProposalHandlerTrait` accepts proposals and signs them using the DKG authority keys.
+* [Docs]()
+* [Source]()
+
+### pallet-dkg-mmr
+
+This pallet serves as a leaf provider for the `pallet-mmr`, generating leaf data that contains a merke root hash for a particular authority set.
+
+It also provides a type that has an implementation for converting `ECDSA` keys to ethereum compatible keys.
+* [Docs]()
+* [Source]()
+
+### dkg-gadget
+
+The DKG gadget is an offchain service that executes the DKG protocol and stores data in offchain storage for the on-chain system to fetch and update with. It also listens to changes in the proposal handler and metadata pallets in order to properly:
+
+- Rotate keys
+- Sign unsigned proposals
+- Set and clear offchain storage
+- Report slashing
+
+We are always executing a DKG protocol for the current authority set **and the next authority set**.
+* [Docs]()
+* [Source]()
+
+### Note on Offchain workers
+
+The DKG makes use of offchain workers to submit some extrinsics back on chain and the runtime validates that the origin of such extrinsics is part of the active or queued authoritiy set, if running a development node or a local test net, the sr25519 account keys
+for the predefined validators Alice, Bob, etc, have been added to the keystore for convenience.
+
+If running a live chain as a validator or collator, please add your sr25519 account keys to the node's local keystore either by using the `author_insertKey` RPC or using the `key` subcommand (`dkg-standalone-node key insert --key-type acco --scheme sr25519 --suri <path-secret-phrase>`) of the node cli
+
+> Key Type is acco
+> Scheme is sr25519
+
+**Note**
+For the standalone node the account being added to the keystore should be the Stash account used in staking not the Controller account

@@ -3,7 +3,6 @@ import MainNav from './MainNav'
 import Link from './Link'
 import Icon from './Icon'
 import { useSiteMetadata } from './Hooks/use-site-metadata'
-import Newsletter from './site/Newsletter'
 
 export default function Footer() {
   const { siteMetadata } = useSiteMetadata()

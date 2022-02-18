@@ -36,6 +36,23 @@ const DevNavMenu = {
         ],
       },
       {
+        name: 'DKG',
+        items: [
+          {
+            title: 'Overview',
+            link: '/v1/dkg/overview/',
+          },
+          {
+            title: 'Installation',
+            link: '/v1/dkg/installation/',
+          },
+          {
+            title: 'Usage',
+            link: '/v1/dkg/usage/',
+          },
+        ],
+      },
+      {
         name: 'Bridge Protocol',
         items: [
           {
@@ -82,23 +99,6 @@ const DevNavMenu = {
           {
             title: 'Usage',
             link: '/v1/relayer/usage',
-          },
-        ],
-      },
-      {
-        name: 'DKG',
-        items: [
-          {
-            title: 'Overview',
-            link: '/v1/dkg/overview/',
-          },
-          {
-            title: 'Installation',
-            link: '/v1/dkg/installation/',
-          },
-          {
-            title: 'Usage',
-            link: '/v1/dkg/usage/',
           },
         ],
       },
