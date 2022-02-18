@@ -7,7 +7,7 @@ interface LastUpdateGithubProps {
 export default function LastUpdateGithub({
   absolutePath,
 }: LastUpdateGithubProps) {
-  const githubLink = `https://api.github.com/repos/substrate-developer-hub/substrate-docs/commits?path=${absolutePath.substr(
+  const githubLink = `https://api.github.com/repos/webb-tools/webb-docs/commits?path=${absolutePath.substr(
     absolutePath.indexOf('/v')
   )}`
   const [date, setDate] = useState('')

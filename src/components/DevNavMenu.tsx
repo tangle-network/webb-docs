@@ -109,14 +109,6 @@ const DevNavMenu = {
             title: 'Overview',
             link: '/v1/ispp/overview/',
           },
-          {
-            title: 'Architecture',
-            link: '/v1/ispp/architecture/',
-          },
-          {
-            title: 'Deployments',
-            link: '/v1/ispp/deployments/',
-          },
         ],
       },
       {
@@ -132,15 +124,15 @@ const DevNavMenu = {
           },
         ],
       },
-      {
-        name: 'Basics',
-        items: [
-          {
-            title: 'FAQ',
-            link: '/v1/basics/faq/',
-          },
-        ],
-      },
+      // {
+      //   name: 'Basics',
+      //   items: [
+      //     {
+      //       title: 'FAQ',
+      //       link: '/v1/basics/faq/',
+      //     },
+      //   ],
+      // },
     ]
   },
 }
