@@ -1,6 +1,6 @@
 name: Website Bug Report
-description: Let us know about an issue you experienced on https://docs.substrate.io/
-labels: ['bug 🐛', 'web-dev 🕸']
+description: Let us know about an issue you experienced on Webb Docs
+labels: ['bug']
 body:
   - type: markdown
     attributes:

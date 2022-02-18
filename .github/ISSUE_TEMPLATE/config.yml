@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: StackOverflow [tagged substrate]
-    url: https://stackoverflow.com/questions/tagged/substrate
-    about: Please seek support and ask questions on StackOverflow and tag them `substrate`.
-  - name: Substrate Community Chat
-    url: https://matrix.to/#/#substrate-technical:matrix.org
-    about: Join the community chat!
+    - name: Webb Telegram 
+      url: https://t.me/webbprotocol
+      about: Please ask questions here.
+    - name: Webb Discord Server
+      url: https://discord.com/invite/cv8EfJu3Tn
+      about: Please ask and answer questions here.
