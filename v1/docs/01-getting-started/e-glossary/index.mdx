@@ -22,7 +22,6 @@ Every `SignatureBridge` contract has a corresponding `AnchorHandler` to add 
 The [nodes](https://docs.substrate.io/v3/getting-started/glossary/#node) that act as a collective to manage [consensus](https://docs.substrate.io/v3/getting-started/glossary/#consensus) on a [blockchain](https://docs.substrate.io/v3/getting-started/glossary/#blockchain) network. In a [proof-of-stake](https://docs.substrate.io/v3/getting-started/glossary/#nominated-proof-of-stake-npos) blockchain—for example, a blockchain that use the [Staking pallet](https://docs.substrate.io/v3/runtime/frame/#staking) from [FRAME](https://docs.substrate.io/v3/getting-started/glossary/#frame)—authorities are determined through a token-weighted nomination and voting system.
 
 > The terms authorities and validators sometimes seem to refer the same thing. However, validators is a broader term that can include other aspects of chain maintenance such as parachain validation. In general, authorities are a (non-strict) subset of validators and many validators are authorities.
-> 
 
 ### commitment
 
@@ -34,33 +33,40 @@ Every `SignatureBridge` contract has a corresponding `ERC20Handler` to keep 
 
 ### merkle tree
 
-Merkle trees’ primary purpose is to prove the consistency of data, and is essentially a tree of hashes. **Merkle tree** is a [tree](https://en.wikipedia.org/wiki/Tree_(data_structure)) in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the labels of its child nodes.
+Merkle trees’ primary purpose is to prove the consistency of data, and is essentially a tree of hashes. **Merkle tree** is a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the labels of its child nodes.
 
 ### neighborRoots
 
 Every `LinkableAnchor` stores its `neighborRoots`, a mapping containing the merkle roots of the anchors it is connected to. Each anchor stores a history of 30 roots, so users can verify against a historical root while new deposits occur.
 
-### **proposal - TODO finish proposal definition**
+### \*\*proposal
 
 A message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. Below are all the proposal types in the system.
 
-- **Refresh** - Request to refresh shared public key
-- **Anchor Update** - Request to update merkle roots
-- **Set Verifier** -
-- **TokenAdd** - Request to add token
-- **TokenRemove** - Request to remove token
-- **WrappingFeeUpdate** - Request to update fee
-- **ResourceIdUpdate** - Request to update resource id
-- **RescueTokens** -
-- **MaxDepositLimitUpdate**
-- **MaxExtLimitUpdate**
-- **MaxFeeLimitUpdate**
+| Proposals                  | Description                          |
+| -------------------------- | ------------------------------------ |
+| Refresh                    | Request to refresh shared public key |
+| AnchorCreate               |                                      |
+| AnchorUpdate               | Request to update merkle roots       |
+| SetVerifierProposal        |                                      |
+| TokenAdd                   | Request to add token                 |
+| TokenRemove                | Request to remove token              |
+| WrappingFeeUpdate          | Request to update fee                |
+| RescueToken                | Request to move tokens into Treasury |
+| MaxDepositLimitUpdate      |                                      |
+| MinWithdrawalLimitUpdate   |                                      |
+| FeeRecipientUpdateProposal |                                      |
+| SetTreasuryHandlerProposal |                                      |
+| MaxExtLimitUpdate          |                                      |
+| MaxFeeLimitUpdate          |                                      |
+| ResourceIdUpdate           | Request to update resource id        |
+| ProposalSetUpdate          |                                      |
 
 ### resourceID
 
 `resourceID`'s provide a chain agnostic identifier to connect tokens with the handlers and anchors that interact with that token. A `resourceID` for a given token and denomination is defined as the hash of that token name concatenated with its denomination. The `resourceID` for a token used in public bridging that is not tied to a denomination will simply be the hash of its token name.
 
-### signature  bridge
+### signature bridge
 
 The `SignatureBridge` contract allows for both fixed denomination, private bridging and standard, public bridging of assets. The private bridging functionality uses an `AnchorHandler` to track the state of connected chains while the standard bridging uses an `ERC20Handler`. The Bridge's state is is maintained by a set of relayers through voting. These relayers vote to update the latest merkle roots of connected anchors in the case of private bridging, and to distribute bridged assets in the case of public bridging.
 

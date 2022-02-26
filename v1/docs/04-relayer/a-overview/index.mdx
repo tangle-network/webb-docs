@@ -11,10 +11,10 @@ Bridges are networked applications that span multiple blockchains and must be aw
 across this network. The endponts of these bridges (e.g. the smart contracts / core protocol logic) are denoted
 `Anchors` in the Webb Protocol. These Anchors are required by definition to know about various parts of the state of other
 anchors, particularly the ones they're connected to across a particular bridge. The backbone of any bridge is made
-up of the relayers -- otherwise denoted validators, relayers, authorities, nodes, etc. -- that maintain the 
-liveliness of the bridge protocol. 
+up of the relayers -- otherwise denoted validators, relayers, authorities, nodes, etc. -- that maintain the
+liveliness of the bridge protocol.
 
-A blockchain oracle is a system that listens to an external data source and posts this data back on-chain to 
+A blockchain oracle is a system that listens to an external data source and posts this data back on-chain to
 arbitrarily many blockchains. Examples of data sources include, but not limited to:
 
 - Price feeds of USD/ETH pair (Chainlink)
@@ -23,7 +23,7 @@ arbitrarily many blockchains. Examples of data sources include, but not limited 
 
 In the Webb Protocol, relayers fulfill the role of an oracle where the external data sources that they listen to
 are the state of the anchors for a bridge. Relayers, as their name entails, relay information for a connected set
-of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications 
+of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications
 to reference, both privately and potentially not, properties of data stored across the other connected Anchors.
 
 The responsibility for a relayer to the Anchor protocol is the following:
@@ -51,7 +51,7 @@ The responsibility for a relayer to the Anchor protocol is the following:
    }
    ```
 
-The above 
+The above
 
 ## Relayer and DKG Interaction
 

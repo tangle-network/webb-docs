@@ -13,15 +13,15 @@ The goals for the protocol are to grow into a trustless, private bridge overlyin
 
 We will use the following checklist to track network deployments.
 
-- [ ]  Ethereum - as a smart contract
-- [ ]  Polkadot - as a smart contract or parachain
-- [ ]  Kusama - as a smart contract or parachain
-- [ ]  Harmony - as a smart contract or comsos-sdk chain
-- [ ]  Edgeware - as a smart contract or pallet
-- [ ]  Cosmos - as a smart contract or cosmos-sdk chain
-- [ ]  Celo - as a smart contract
-- [ ]  Polygon - as a smart contract
-- [ ]  Solana - as a smart contract
+- [ ] Ethereum - as a smart contract
+- [ ] Polkadot - as a smart contract or parachain
+- [ ] Kusama - as a smart contract or parachain
+- [ ] Harmony - as a smart contract or comsos-sdk chain
+- [ ] Edgeware - as a smart contract or pallet
+- [ ] Cosmos - as a smart contract or cosmos-sdk chain
+- [ ] Celo - as a smart contract
+- [ ] Polygon - as a smart contract
+- [ ] Solana - as a smart contract
 
 ---
 
@@ -29,12 +29,12 @@ We will use the following checklist to track network deployments.
 
 We will use the following checklist to track protocol implementations
 
-- [ ]  Solidity
-- [ ]  Rust
-- [ ]  Golang
-- [ ]  Leo
-- [ ]  Cairo
-- [ ]  Ink!
+- [ ] Solidity
+- [ ] Rust
+- [ ] Golang
+- [ ] Leo
+- [ ] Cairo
+- [ ] Ink!
 
 ---
 
@@ -44,84 +44,80 @@ We will use the following checklist to track protocol implementations
 
 A test EVM bridge deployment can be made between Ethereum, Edgeware, and Harmony's test networks. Networks with instability will be exchanged or removed from the bridge if needed. In order to do so we need:
 
-- [ ]  [ ] **protocol-solidity v1** protocol
-- [ ]  [ ] **relayer v2** w/ Webb protocol support
-- [ ]  [ ] **protocol-substrate v1** protocol
-- [ ]  Upon completion of first two milestones, deploy a small capped bridge at $10,000 approximate value on each side.
+- [ ] [ ] **protocol-solidity v1** protocol
+- [ ] [ ] **relayer v2** w/ Webb protocol support
+- [ ] [ ] **protocol-substrate v1** protocol
+- [ ] Upon completion of first two milestones, deploy a small capped bridge at $10,000 approximate value on each side.
 
 ## protocol-solidity v1
 
 - Necessary items before deploying the bridge
-    - [ ]  Add governable wrapping limit, denote by **LimitedGovernedTokenWrapper**.
-    - [ ]  Integration tests on a single chain
-        - [ ]  Deploy 2 bridges, 2 comp tokens, 2 anchors, 2 governor bravos on the same chain
-        - [ ]  Case 1:
-            1. Repeat steps 2-5 for each bridge:
-            2. Deploy **GovernedTokenWrapper1, GovernedTokenWrapper2**
-            3. Deploy a mock **Token**
-            4. Add **Token**.*address* to **GovernedTokenWrapper1**.*tokens*
-            5. Deploy **LinkableERC20Anchor** with **GovernedTokenWrapper1** as the ERC20.
-            6. Deposit
-                1. Create a **note** that commits to withdraw on the bridge that was not deposited into.
-                2. Deposit **x** tokens into one bridge, record the **note**.
-                    1. Deposit **T** more random notes into both sides of the bridge.
-            7. Withdraw
-                1. Generate the zero-knowledge proof for withdrawal
-                    1. Collect roots of each anchor
-                    2. Collect merkle membership proof for anchor deposited into
-                    3. Generate **witness**.
-                    4. Submit **witness** to the anchor on the "other side of the bridge".
-                2. Submit tx w/ proof to the destination bridge.
-                3. Mint tokens if no available liquidity is in the **locked_pool**.
-            8. Verify balance updates in each respective token.
-            9. Unwrap
-                1. Deploy a mock **UnwrappingToken**.
-                2. Add **UnwrappingToken**.*address* to **GovernedTokenWrapper2**.*tokens*
+  - [ ] Add governable wrapping limit, denote by **LimitedGovernedTokenWrapper**.
+  - [ ] Integration tests on a single chain
+    - [ ] Deploy 2 bridges, 2 comp tokens, 2 anchors, 2 governor bravos on the same chain
+    - [ ] Case 1:
+      1. Repeat steps 2-5 for each bridge:
+      2. Deploy **GovernedTokenWrapper1, GovernedTokenWrapper2**
+      3. Deploy a mock **Token**
+      4. Add **Token**.*address* to **GovernedTokenWrapper1**._tokens_
+      5. Deploy **LinkableERC20Anchor** with **GovernedTokenWrapper1** as the ERC20.
+      6. Deposit
+         1. Create a **note** that commits to withdraw on the bridge that was not deposited into.
+         2. Deposit **x** tokens into one bridge, record the **note**.
+            1. Deposit **T** more random notes into both sides of the bridge.
+      7. Withdraw
+         1. Generate the zero-knowledge proof for withdrawal
+            1. Collect roots of each anchor
+            2. Collect merkle membership proof for anchor deposited into
+            3. Generate **witness**.
+            4. Submit **witness** to the anchor on the "other side of the bridge".
+         2. Submit tx w/ proof to the destination bridge.
+         3. Mint tokens if no available liquidity is in the **locked_pool**.
+      8. Verify balance updates in each respective token.
+      9. Unwrap
+         1. Deploy a mock **UnwrappingToken**.
+         2. Add **UnwrappingToken**.*address* to **GovernedTokenWrapper2**._tokens_
 
 ## relayer v1
 
 - Relayer v2 is geared towards including chainbridge governance functionality. This means functionality for voting, closing, and executing proposals to update edges on the bridge. We want to test this with a sufficient relayer network and proposal passing threshold.
-    - [ ]  Deploy relayer v1 to test networks: Rinkeby, Harmony Shard 1, Edgeware Beresheet.
-    
-    **Chainbridge governance:**
-    
-    - [ ]  Listen to events on both bridges.
-        1. On receive event, pass to state machine and return a transaction / call
-            1. State machine should update inner state and remove transactions that get executed by other relayers.
-        2. If transaction, add to a queue.
-        3. If call, execute.
-        4. Pull from queue using a random number generator with a **TBD** distribution.
-        5. If transaction. execute.
-    - [ ]  Define strategy builder class for building voting strategies.
-        1. Use a state machine and local storage
-        2. Strategies for honest and greedy execution.
-    
-    **Transaction Relayer**
-    
-    - [ ]  Integration tests on all chains participating on the bridge
-        - [ ]  Deployment as described above in **protocol-solidity v1**.
-        - [ ]  Case 1:
-            1. Relayer actions are executed in intervals of **k** seconds
-            2. Expose an api: **`/api/v2/relay`** for clients to relay TXes through.
-            3. On received TX,
-                1. Verify & validate it natively.
-                2. Store in a **queue**.
-            4. Every **k** seconds, pull a batch of TXes from the **queue**.
-            5. Submit them to the chain.
+  - [ ] Deploy relayer v1 to test networks: Rinkeby, Harmony Shard 1, Edgeware Beresheet.
+  **Chainbridge governance:**
+  - [ ] Listen to events on both bridges.
+    1. On receive event, pass to state machine and return a transaction / call
+       1. State machine should update inner state and remove transactions that get executed by other relayers.
+    2. If transaction, add to a queue.
+    3. If call, execute.
+    4. Pull from queue using a random number generator with a **TBD** distribution.
+    5. If transaction. execute.
+  - [ ] Define strategy builder class for building voting strategies.
+    1. Use a state machine and local storage
+    2. Strategies for honest and greedy execution.
+  **Transaction Relayer**
+  - [ ] Integration tests on all chains participating on the bridge
+    - [ ] Deployment as described above in **protocol-solidity v1**.
+    - [ ] Case 1:
+      1. Relayer actions are executed in intervals of **k** seconds
+      2. Expose an api: **`/api/v2/relay`** for clients to relay TXes through.
+      3. On received TX,
+         1. Verify & validate it natively.
+         2. Store in a **queue**.
+      4. Every **k** seconds, pull a batch of TXes from the **queue**.
+      5. Submit them to the chain.
 
 ## protocol-substrate v1
 
 - The Substrate implementation of the protocol should follow from **protocol-solidity**.
-    - [ ]  Integrate **chainbridge-substrate** to the repo.
-    - [ ]  Develop **Anchor** pallet.
-        1. Bridge gadget using circom-compatible **Poseidon**.
-        2. Graph functionality with access-control for Bridge/Handler pallet.
-            1. Ability to add edge if called by governor/bridge
-            2. Ability to update edge if called by governor/bridge
-    - [ ]  Integration of **chainbridge-substrate** w/ **Anchor** pallet tests
-        - [ ]  Define two **Anchor** pallets and two **chainbridge-substrate** bridges.
-            - Ensure this can be done with the architecture (e.g. using instances)
-    - [ ]  Full integration tests with **relayer v3**.
+  - [ ] Integrate **chainbridge-substrate** to the repo.
+  - [ ] Develop **Anchor** pallet.
+    1. Bridge gadget using circom-compatible **Poseidon**.
+    2. Graph functionality with access-control for Bridge/Handler pallet.
+       1. Ability to add edge if called by governor/bridge
+       2. Ability to update edge if called by governor/bridge
+  - [ ] Integration of **chainbridge-substrate** w/ **Anchor** pallet tests
+    - [ ] Define two **Anchor** pallets and two **chainbridge-substrate** bridges.
+      - Ensure this can be done with the architecture (e.g. using instances)
+  - [ ] Full integration tests with **relayer v3**.
 
 ---
 
@@ -131,9 +127,9 @@ A test EVM bridge deployment can be made between Ethereum, Edgeware, and Harmony
 
 A test Substrate ← → EVM bridge deployment can be made between Ethereum, Edgeware (Frontier), and Substrate networks like Kusama, Polkadot. For this to be possible, we need to extend relayer functionality to support Substrate's chainbridge governance and serve as an oracle over the merkle roots of our protocol's merkle trees.
 
-- [ ]  [ ] **relayer v2-3** w/ **chainbridge-substrate** governance & bridge tx relayer for Substrate
-- [ ]  [ ] **protocol-substrate v2** protocol
-    - [ ]  [ ] **dkg-gadget v1** protocol
+- [ ] [ ] **relayer v2-3** w/ **chainbridge-substrate** governance & bridge tx relayer for Substrate
+- [ ] [ ] **protocol-substrate v2** protocol
+  - [ ] [ ] **dkg-gadget v1** protocol
 
 ## relayer v2 - v3
 
@@ -142,35 +138,35 @@ A test Substrate ← → EVM bridge deployment can be made between Ethereum, Edg
 ## protocol-substrate v1.X
 
 - We want to position the Substrate side of the network to provide various privacy services that augment the functionality of the bridge and complete useful revenue generating tasks. These tasks can range in the future from various distributed custody, social key recovery, and private information retrieval services.
-    - [ ]  Integrate **relayer v2** into the **protocol-substrate** `service.rs`**.**
-    - [ ]  Develop **Relayer Election** pallet
-        - [ ]  Proof of Authority system at genesis
-        - [ ]  Proof of stake elected system at first upgrade
-        - [ ]  Relayers register w/ necessary metadata
-            1. Reward address
-            2. IP / IPFS multihash / P2P node address / validator keys
-    - [ ]  Develop **DKG** pallet.
-        - [ ]  Store necessary metadata in pallet storage.
+  - [ ] Integrate **relayer v2** into the **protocol-substrate** `service.rs`**.**
+  - [ ] Develop **Relayer Election** pallet
+    - [ ] Proof of Authority system at genesis
+    - [ ] Proof of stake elected system at first upgrade
+    - [ ] Relayers register w/ necessary metadata
+      1. Reward address
+      2. IP / IPFS multihash / P2P node address / validator keys
+  - [ ] Develop **DKG** pallet.
+    - [ ] Store necessary metadata in pallet storage.
 
 ## protocol-substrate/dkg-gadget v1
 
 - A DKG for Webb can become a critical piece of our scalability and network value. We initially are motivated by using a DKG protocol to generate a threshold keypair that can be used to govern the anchor deployments.
-    - [ ]  Design gossip protocol for running the DKG.
-    - [ ]  Integrate DKG as separate p2p worker running alongside consensus mechanism.
-    - [ ]  Add support for multiple DKGs if reasonable (depending on ability to generalise).
-    - [ ]  Add functionality for:
-        - [ ]  Signing ETH transactions for **chainbridge-solidity** governance.
-        - [ ]  Signing Substrate transactions for **chainbridge-substrate** governance.
+  - [ ] Design gossip protocol for running the DKG.
+  - [ ] Integrate DKG as separate p2p worker running alongside consensus mechanism.
+  - [ ] Add support for multiple DKGs if reasonable (depending on ability to generalise).
+  - [ ] Add functionality for:
+    - [ ] Signing ETH transactions for **chainbridge-solidity** governance.
+    - [ ] Signing Substrate transactions for **chainbridge-substrate** governance.
 
 ### Objectives - Q1 2022
 
 Launching of parachains & live (capped) deployments for various tokens in the ecosystem:
 
-- [ ]  [ ] **Deployments:**
-    - [ ]  Stablecoin sets: USDC / DAI
-    - [ ]  BTC sets: WBTC / TBTC / InterBTC
-- [ ]  [ ] **zk-gadgets** - PLONK gadgets, updating setup, and dynamically configurable bridge.
-- [ ]  [ ] **Webb Protocol v2** protocol implementation in Solidity and Substrate/Rust.
+- [ ] [ ] **Deployments:**
+  - [ ] Stablecoin sets: USDC / DAI
+  - [ ] BTC sets: WBTC / TBTC / InterBTC
+- [ ] [ ] **zk-gadgets** - PLONK gadgets, updating setup, and dynamically configurable bridge.
+- [ ] [ ] **Webb Protocol v2** protocol implementation in Solidity and Substrate/Rust.
 
 ## deployments
 

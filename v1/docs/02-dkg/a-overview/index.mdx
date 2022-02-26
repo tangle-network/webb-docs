@@ -21,48 +21,22 @@ A [DKG](https://en.wikipedia.org/wiki/Distributed_key_generation) is a cryptogra
 mupliple participants contribute to the calculation of a shared public and private key set in a trustless
 manner. In the Webb network, the DKG is comprised of two protocols:
 
-1. Threshold-key-generation 
+1. Threshold-key-generation
 2. Threshold-signature-scheme
 
-The (1) distributed key generation protocol takes a secret parameter, each network participant (Pi),
-receives as output the public key (pk), as well as, a private output (ski) which is the network participants
-(Pi) share of the private key. The collection of ski.....skn create a threshold secret sharing of the private
-key sk. 
+The (1) distributed key generation protocol takes a secret parameter as input, and outputs the private signing key (sk) and public key (pk). The returned private signing key (sk) is only a share of the private key, where the values of all returned private signing key shares constitute a (t,n) threshold secret sharing of the private signing key.
 
-> TODO: Add diagram
+![dkg-keygen.png](../../../../src/images/docs/dkg/dkg-keygen.png)
 
-The (2) distributed signing protocol takes a public input (m) to be signed, as well as, a private input (ski)
-from each network participant. The public input message are updates (proposals) that are being signed using a
-[threshold-signature-scheme](https://en.wikipedia.org/wiki/Threshold_cryptosystem). The below diagram 
-illustrates the distributed signing protocol in a simplified manner.
+The (2) distributed signing protocol takes the private signing key (sk) of each network participant, and the message to be signed (m) as inputs. The output is a valid signature. The public input message are updates (proposals) that are being signed using a threshold-signature-scheme.
 
-![Simplified DKG](../../../../src/images/docs/dkg/simplified_dkg_signing.png)
+![dkg-signing](../../../../src/images/docs/dkg/dkg-signing.png)
 
-## DKG Genesis State
-
-> TODO: Look to create a diagram to illustrate below flow
-
-**Genesis flow**
-
-1. The DKG is started and a key is created.
-2. The authorities of the DKG gossip this public key and a signature of this public key.
-3. The signatures are stored in the offchain worker once enough are gathered.
-4. Someone submits enough signatures on-chain and sets the public key using `submit_genesis_public_key_onchain`,
-which queries the offchain storage and collects the output to submit on-chain.
-
-**Non-genesis flow**
-
-1. The next authorities start a DKG and a key is created. We consider this to be the `next_public_key`
-or `next_dkg_public_key`.
-2. The next authorities of the DKG gossip this public key and a signature of this public key.
-3. The signatures are stored in the offchain worker once enough are gathered at a different offchain storage
-key to the genesis key.
-4. Some authority submits enough signatures on-chain and sets the next public key using
-`submit_next_public_key_onchain`.
+The DKG makes use of these distributed key generation and signing protocols to govern distributed applications. Specifically, having arbitrary messages or proposals that represent requested changes to a system to be voted on, and if a simple majority is achieved, to be signed by a threshold of network participants. A valid signature on a proposal would then signal those requested changes to be true.
 
 ## How proposals are signed
 
-The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal** 
+The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal**
 for signature.
 
 1. Proposers propose an anchor update
@@ -79,19 +53,40 @@ for signature.
 
 ![Simplified DKG proposal signing sequence](../../../../src/images/docs/dkg/proposal-signing.png)
 
+The current DKG implementation manages the following proposals, each specify a unique change to the system that must be signed in order for any of these requested updates to be considered valid.
+
+| Proposals                  | Description                          |
+| -------------------------- | ------------------------------------ |
+| Refresh                    | Request to refresh shared public key |
+| AnchorCreate               |                                      |
+| AnchorUpdate               | Request to update merkle roots       |
+| SetVerifierProposal        |                                      |
+| TokenAdd                   | Request to add token                 |
+| TokenRemove                | Request to remove token              |
+| WrappingFeeUpdate          | Request to update fee                |
+| RescueToken                | Request to move tokens into Treasury |
+| MaxDepositLimitUpdate      |                                      |
+| MinWithdrawalLimitUpdate   |                                      |
+| FeeRecipientUpdateProposal |                                      |
+| SetTreasuryHandlerProposal |                                      |
+| MaxExtLimitUpdate          |                                      |
+| MaxFeeLimitUpdate          |                                      |
+| ResourceIdUpdate           | Request to update resource id        |
+| ProposalSetUpdate          |                                      |
+
 ## Key rotation
 
 On a new session, the new authorities (from validators or collators) are selected and the next authorities
 are selected.
 
-1. These next authorities run ***keygen*** protocol and output a new group keypair on-chain, denoted
-`next_dkg_public_key`.
-2. The current authorities (having already run this process in the step before) see this event and if 
-it is time to refresh, they begin to sign the `next_dkg_public_key` with their key, the `dkg_public_key`.
+1. These next authorities run **_keygen_** protocol and output a new group keypair on-chain, denoted
+   `next_dkg_public_key`.
+2. The current authorities (having already run this process in the step before) see this event and if
+   it is time to refresh, they begin to sign the `next_dkg_public_key` with their key, the `dkg_public_key`.
 3. The signature from the active keypair of the next keypair is posted on-chain.
 4. Once this signature is posted, anyone can propagate it.
-    - Any relayer.
-    - Any user who wants to update the governor of their contract.
+   - Any relayer.
+   - Any user who wants to update the governor of their contract.
 
 ## Pallets
 
@@ -101,8 +96,9 @@ The DKG runtime is uses the following pallets which are central to how the proto
 
 This pallet essentially tracks the information about the current and next authority sets, including the set Ids.
 It does this by implementing the `OneSessionHandler` trait which allows it to receieve both new and queued authority sets when the session changes.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### pallet-parachain-staking
 
@@ -112,8 +108,9 @@ Reward for collators and their nominators is dependent on how many points accrue
 these points are gained by successfully authoring blocks.
 
 This pallet implements the `SessionManager` trait and that way is able to provide the the selected collators as validators to the session pallet.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### pallet-dkg-proposals
 
@@ -125,22 +122,25 @@ This pallet maintains a queue for pending proposals which the DKG authorities vo
 by a type that implements the `ProposalHandlerTrait`.
 
 In this current iteration the proposals are Ethereum transactions.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### pallet-dkg-proposal-handler
 
 This pallet implements the `ProposalHandlerTrait` accepts proposals and signs them using the DKG authority keys.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### pallet-dkg-mmr
 
 This pallet serves as a leaf provider for the `pallet-mmr`, generating leaf data that contains a merke root hash for a particular authority set.
 
 It also provides a type that has an implementation for converting `ECDSA` keys to ethereum compatible keys.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### dkg-gadget
 
@@ -152,8 +152,9 @@ The DKG gadget is an offchain service that executes the DKG protocol and stores 
 - Report slashing
 
 We are always executing a DKG protocol for the current authority set **and the next authority set**.
-* [Docs]()
-* [Source]()
+
+- [Docs]()
+- [Source]()
 
 ### Note on Offchain workers
 
