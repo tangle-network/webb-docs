@@ -20,7 +20,7 @@ const SEO = ({ description, title, children }: SEOProps) => {
       url: 'https://www.webb.tools/',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://github.com/webb-tools/substrate-docs/blob/edfcf48c9ee01dc7bd3edc1445157e813ab6c685/src/images/favicon.png',
+        url: 'https://github.com/webb-tools/webb-docs/blob/edfcf48c9ee01dc7bd3edc1445157e813ab6c685/src/images/favicon.png',
         width: 60,
         height: 60,
       },

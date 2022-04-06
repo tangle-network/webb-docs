@@ -1,5 +1,5 @@
-/* docs.substrate.io config */
-
+/* webb-tools config */
+// TODO: update
 module.exports = {
   presets: [require('./tailwind-preset.js')],
   theme: {
