@@ -10,7 +10,7 @@
     "dev": "gatsby develop -p 8001",
     "start": "gatsby develop -p 8001",
     "develop": "gatsby develop -p 8001",
-    "build": "gatsby build",
+    "build": "gatsby build --prefix-paths && gh-pages -d public",
     "serve": "gatsby serve",
     "serve:fresh": "yarn clean; yarn build; yarn serve",
     "fmt": "prettier --config .prettierrc.js --write \"{!**/*.{js,jsx,ts,tsx,json},**/*.{md,mdx}}\"",
