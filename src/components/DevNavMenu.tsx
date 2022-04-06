@@ -25,10 +25,10 @@ const DevNavMenu = {
             title: 'Network Overview',
             link: '/v1/getting-started/network-overview/',
           },
-          {
-            title: 'Technical Roadmap',
-            link: '/v1/getting-started/technical-roadmap/',
-          },
+          // {
+          //   title: 'Technical Roadmap',
+          //   link: '/v1/getting-started/technical-roadmap/',
+          // },
           {
             title: 'Glossary',
             link: '/v1/getting-started/glossary/',
@@ -44,10 +44,6 @@ const DevNavMenu = {
           },
           {
             title: 'Installation',
-            link: '/v1/dkg/installation/',
-          },
-          {
-            title: 'Usage',
             link: '/v1/dkg/usage/',
           },
         ],
@@ -63,26 +59,26 @@ const DevNavMenu = {
             title: 'Architecture',
             link: '/v1/bridge-protocol/architecture/',
           },
-          {
-            title: 'Governance',
-            link: '/v1/bridge-protocol/governance/',
-          },
-          {
-            title: 'Installation',
-            link: '/v1/bridge-protocol/installation/',
-          },
-          {
-            title: 'Usage',
-            link: '/v1/bridge-protocol/usage/',
-          },
-          {
-            title: 'Technical Roadmap',
-            link: '/v1/bridge-protocol/technical-roadmap/',
-          },
-          {
-            title: 'Deployments',
-            link: '/v1/bridge-protocol/deployments/',
-          },
+          // {
+          //   title: 'Governance',
+          //   link: '/v1/bridge-protocol/governance/',
+          // },
+          // {
+          //   title: 'Installation',
+          //   link: '/v1/bridge-protocol/installation/',
+          // },
+          // {
+          //   title: 'Usage',
+          //   link: '/v1/bridge-protocol/usage/',
+          // },
+          // {
+          //   title: 'Technical Roadmap',
+          //   link: '/v1/bridge-protocol/technical-roadmap/',
+          // },
+          // {
+          //   title: 'Deployments',
+          //   link: '/v1/bridge-protocol/deployments/',
+          // },
         ],
       },
       {
@@ -111,19 +107,19 @@ const DevNavMenu = {
           },
         ],
       },
-      {
-        name: 'Advanced',
-        items: [
-          {
-            title: 'Cryptography',
-            link: '/v1/advanced/cryptography/',
-          },
-          {
-            title: 'Research Topics',
-            link: '/v1/advanced/research/',
-          },
-        ],
-      },
+      // {
+      //   name: 'Advanced',
+      //   items: [
+      //     {
+      //       title: 'Cryptography',
+      //       link: '/v1/advanced/cryptography/',
+      //     },
+      //     {
+      //       title: 'Research Topics',
+      //       link: '/v1/advanced/research/',
+      //     },
+      //   ],
+      // },
       // {
       //   name: 'Basics',
       //   items: [

@@ -4,8 +4,7 @@
   </a>
 </h1>
 <h1 align="center"> Webb Docs </h1>
-<!--TODO: @dutterbutter replace with docs url -->
-<!-- <h3 align="center">http://docs.webb.tools/</h3> -->
+
 <br/>
 
 <!-- Badges -->
@@ -177,21 +176,6 @@ excluded because for:
 
 - `/crates.io`, `/fonts.gstatic.com`, `/github.com`, `/wwww.nuget.org`: they either have
   rate-limiting check or doesn't welcome web crawlers to fetch them and just return a 404 page.
-
-<!--TODO: @dutterbutter update to reflect Webb -->
-
-## Link checking as part of Github workflow
-
-We configured a [Github workflow](../.github/workflows/check-links.yml) to build the Gatsby site in
-production as a docker image and push it to Docker hub at
-[`jimmychu0807/substrate-docs`](https://hub.docker.com/repository/docker/jimmychu0807/substrate-docs).
-The image is then launched as a service in the next CI/CD job. `checklinks` is run against the
-running gatsby site in the docker container to check all links.
-
-## Security
-
-Please report _security_ bugs as stated in the [`static/security.txt` file](static/security.txt) in
-this repository.
 
 ## License
 
