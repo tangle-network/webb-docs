@@ -55,24 +55,24 @@ for signature.
 
 The current DKG implementation manages the following proposals, each specify a unique change to the system that must be signed in order for any of these requested updates to be considered valid.
 
-| Proposals                  | Description                          |
-| -------------------------- | ------------------------------------ |
-| Refresh                    | Request to refresh shared public key |
-| AnchorCreate               |                                      |
-| AnchorUpdate               | Request to update merkle roots       |
-| SetVerifierProposal        |                                      |
-| TokenAdd                   | Request to add token                 |
-| TokenRemove                | Request to remove token              |
-| WrappingFeeUpdate          | Request to update fee                |
-| RescueToken                | Request to move tokens into Treasury |
-| MaxDepositLimitUpdate      |                                      |
-| MinWithdrawalLimitUpdate   |                                      |
-| FeeRecipientUpdateProposal |                                      |
-| SetTreasuryHandlerProposal |                                      |
-| MaxExtLimitUpdate          |                                      |
-| MaxFeeLimitUpdate          |                                      |
-| ResourceIdUpdate           | Request to update resource id        |
-| ProposalSetUpdate          |                                      |
+| Proposals                  | Description                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| Refresh                    | Request to refresh shared public key                                            |
+| AnchorCreate               | Request to create an anchor                                                     |
+| AnchorUpdate               | Request to update merkle roots                                                  |
+| SetVerifierProposal        | Request to set the verifier                                                     |
+| TokenAdd                   | Request to add token to token wrapper                                           |
+| TokenRemove                | Request to remove token from token wrapper                                      |
+| WrappingFeeUpdate          | Request to update wrapping fee                                                  |
+| RescueToken                | Request to move accumulated fee tokens from the Treasury to a specified address |
+| MaxDepositLimitUpdate      | Request to update the maximum deposit limit on the variable anchor system       |
+| MinWithdrawalLimitUpdate   | Request to update the minimum deposit limit on the variable anchor system       |
+| FeeRecipientUpdateProposal | Request to update the minimum deposit limit on the variable anchor system       |
+| SetTreasuryHandlerProposal | Request to set the treasury handler address                                     |
+| MaxExtLimitUpdate          |                                                                                 |
+| MaxFeeLimitUpdate          |                                                                                 |
+| ResourceIdUpdate           | Request to update resource id                                                   |
+| ProposalSetUpdate          |                                                                                 |
 
 ## Key rotation
 
@@ -94,77 +94,60 @@ The DKG runtime is uses the following pallets which are central to how the proto
 
 ### pallet-dkg-metadata
 
-This pallet essentially tracks the information about the current and next authority sets, including the set Ids.
-It does this by implementing the `OneSessionHandler` trait which allows it to receieve both new and queued authority sets when the session changes.
+The DKG Metadata pallet manages the following metadata about the DKG and DKG proposal system:
 
-- [Docs]()
-- [Source]()
+- The active DKG public key
+- The active DKG authorities
+- The next DKG public key
+- The next DKG authorities
+- The DKG signature threshold (the t in t-out-of-n threshold signatures)
+- The key refresh process
+- The misbehavior reporting process
+- The pallet tracks authority changes after each session and updates the metadata for the current and 
+next authority sets respectively. The pallet also exposes a way for the root origin to update the 
+signature threshold used in the DKG signing system.
 
-### pallet-parachain-staking
+The pallet is responsible with initiating the key refresh process for rotating the DKG keys across 
+authority set changes and executing the rotation when a new session starts.
 
-This is a custom staking pallet that handles collator selection, This pallet helps the protocol select new collators based on amount staked.
-It also allows for nominators, who back collators by staking their assets, both collators and nominators are rewarded after every session comes to an end.
-Reward for collators and their nominators is dependent on how many points accrued by the collator during the session,
-these points are gained by successfully authoring blocks.
+The pallet tracks reputations of DKG authorities by providing extrinsics and storage for submitting misbehaviour
+ reports about authorities that misbehave.
 
-This pallet implements the `SessionManager` trait and that way is able to provide the the selected collators as validators to the session pallet.
-
-- [Docs]()
-- [Source]()
+- [Docs](https://webb-tools.github.io/dkg-substrate/pallet_dkg_metadata/index.html)
+- [Source](https://github.com/webb-tools/dkg-substrate/tree/master/pallets/dkg-metadata)
 
 ### pallet-dkg-proposals
 
-This pallet handles maintaining valid proposers and also voting on proposals.
-The valid set of proposers is equivalent to the current DKG authorities. This pallet gains access to the current DKG authorities by
-implementing the `OnAuthoritySetChangedHandler` trait, that way it is able to receive the updated DKG authorities from `pallet-dkg-metadata`.
+The DKG proposals pallet manages a governance system derived from ChainSafe's ChainBridge Substrate pallet. 
+It is designed as the first layer in Webb's DKG governance system and is responsible for managing proposal
+ submission and voting for messages that are intended to be signed by the DKG threshold signing protocol.
 
-This pallet maintains a queue for pending proposals which the DKG authorities vote on and if the vote threshold is met, the proposal is passed on to be handled
-by a type that implements the `ProposalHandlerTrait`.
+The pallet implements a simple threshold voting system wherein proposers propose messages to be signed. Once 
+a threshold of votes over the same proposal is met, the message is handled by a generic proposal handler. 
+This pallet is intended to be used in conjunction with [pallet-dkg-proposal-handler].
 
-In this current iteration the proposals are Ethereum transactions.
-
-- [Docs]()
-- [Source]()
+- [Docs](https://webb-tools.github.io/dkg-substrate/pallet_dkg_proposals/index.html)
+- [Source](https://github.com/webb-tools/dkg-substrate/tree/master/pallets/dkg-proposals)
 
 ### pallet-dkg-proposal-handler
 
-This pallet implements the `ProposalHandlerTrait` accepts proposals and signs them using the DKG authority keys.
+The DKG Proposal Handler pallet is the pallet that directly handles the unsigned and signed DKG proposals. 
+It is responsible for maintaining the UnsignedProposalQueue that the DKG authorities poll from for initiating
+ threshold-signing. It is also responsible for the submission of signed proposals back on-chain, which allows 
+ for external relayers to listen and relay the signed proposals to their destinations.
 
-- [Docs]()
-- [Source]()
+The pallet is meant to be used in conjunction with any governance system that processes unsigned proposals 
+either directly or indirectly such as the pallet-dkg-proposals pallet, which delegates successfully voted 
+upon proposals to the DKG Proposal Handler for processing. This pallet also contains root-level functions 
+that allow for the submission of unsigned proposals that are useful for Webb Protocol applications. The 
+intention being that tokenholders of the Webb Protocol chain can vote through the pallet-democracy or a 
+similar governance system to submit unsigned proposals relevant for protocols built on the Webb Protocol’s 
+interoperable private application platform.
 
-### pallet-dkg-mmr
+The signed proposals are submitted on-chain through an offchain worker and storage mechanism that is 
+maintained locally by each DKG authority. The DKG authorities engage in an offchain multi-party ECDSA 
+threshold signing protocol to sign the unsigned proposals. Once the DKG authorities have signed proposals, 
+they submit the signed proposals on-chain, where the signatures are verified against the active DKG’s public key.
 
-This pallet serves as a leaf provider for the `pallet-mmr`, generating leaf data that contains a merke root hash for a particular authority set.
-
-It also provides a type that has an implementation for converting `ECDSA` keys to ethereum compatible keys.
-
-- [Docs]()
-- [Source]()
-
-### dkg-gadget
-
-The DKG gadget is an offchain service that executes the DKG protocol and stores data in offchain storage for the on-chain system to fetch and update with. It also listens to changes in the proposal handler and metadata pallets in order to properly:
-
-- Rotate keys
-- Sign unsigned proposals
-- Set and clear offchain storage
-- Report slashing
-
-We are always executing a DKG protocol for the current authority set **and the next authority set**.
-
-- [Docs]()
-- [Source]()
-
-### Note on Offchain workers
-
-The DKG makes use of offchain workers to submit some extrinsics back on chain and the runtime validates that the origin of such extrinsics is part of the active or queued authoritiy set, if running a development node or a local test net, the sr25519 account keys
-for the predefined validators Alice, Bob, etc, have been added to the keystore for convenience.
-
-If running a live chain as a validator or collator, please add your sr25519 account keys to the node's local keystore either by using the `author_insertKey` RPC or using the `key` subcommand (`dkg-standalone-node key insert --key-type acco --scheme sr25519 --suri <path-secret-phrase>`) of the node cli
-
-> Key Type is acco
-> Scheme is sr25519
-
-**Note**
-For the standalone node the account being added to the keystore should be the Stash account used in staking not the Controller account
+- [Docs](https://webb-tools.github.io/dkg-substrate/pallet_dkg_proposal_handler/index.html)
+- [Source](https://github.com/webb-tools/dkg-substrate/tree/master/pallets/dkg-proposal-handler)
