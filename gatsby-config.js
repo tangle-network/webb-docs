@@ -5,6 +5,7 @@ require('dotenv').config({
 })
 
 module.exports = {
+  pathPrefix: "/webb-tools",
   siteMetadata: {
     title: 'Webb Docs',
     siteUrl: `${process.env.GATSBY_DOCS_URL || 'https://docs.web.tools'}`,
