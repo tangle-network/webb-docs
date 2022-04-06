@@ -27,10 +27,6 @@ The [nodes](https://docs.substrate.io/v3/getting-started/glossary/#node) that 
 
 A `commitment` is generated upon a users deposit into an anchor and later used in a ZK proof for withdrawal. The commitment is the `PoseidonHash(DestinationChainID + nullifier + secret)`. DestinationChainID is a user input indicating the chain they will withdraw on.
 
-### erc20Handler
-
-Every `SignatureBridge` contract has a corresponding `ERC20Handler` to keep track of deposits on a connected bridge. This allows the user to bridge tokens publicly and a fixed denomination as seen in standard bridges. See [Chainbridge's Documentation](https://chainbridge.chainsafe.io/) for more detail on this standard bridge architecture.
-
 ### merkle tree
 
 Merkle trees’ primary purpose is to prove the consistency of data, and is essentially a tree of hashes. **Merkle tree** is a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the labels of its child nodes.
@@ -39,28 +35,28 @@ Merkle trees’ primary purpose is to prove the consistency of data, and is es
 
 Every `LinkableAnchor` stores its `neighborRoots`, a mapping containing the merkle roots of the anchors it is connected to. Each anchor stores a history of 30 roots, so users can verify against a historical root while new deposits occur.
 
-### \*\*proposal
+### proposals
 
 A message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. Below are all the proposal types in the system.
 
-| Proposals                  | Description                          |
-| -------------------------- | ------------------------------------ |
-| Refresh                    | Request to refresh shared public key |
-| AnchorCreate               |                                      |
-| AnchorUpdate               | Request to update merkle roots       |
-| SetVerifierProposal        |                                      |
-| TokenAdd                   | Request to add token                 |
-| TokenRemove                | Request to remove token              |
-| WrappingFeeUpdate          | Request to update fee                |
-| RescueToken                | Request to move tokens into Treasury |
-| MaxDepositLimitUpdate      |                                      |
-| MinWithdrawalLimitUpdate   |                                      |
-| FeeRecipientUpdateProposal |                                      |
-| SetTreasuryHandlerProposal |                                      |
-| MaxExtLimitUpdate          |                                      |
-| MaxFeeLimitUpdate          |                                      |
-| ResourceIdUpdate           | Request to update resource id        |
-| ProposalSetUpdate          |                                      |
+| Proposals                  | Description                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| Refresh                    | Request to refresh shared public key                                            |
+| AnchorCreate               | Request to create an anchor                                                     |
+| AnchorUpdate               | Request to update merkle roots                                                  |
+| SetVerifierProposal        | Request to set the verifier                                                     |
+| TokenAdd                   | Request to add token to token wrapper                                           |
+| TokenRemove                | Request to remove token from token wrapper                                      |
+| WrappingFeeUpdate          | Request to update wrapping fee                                                  |
+| RescueToken                | Request to move accumulated fee tokens from the Treasury to a specified address |
+| MaxDepositLimitUpdate      | Request to update the maximum deposit limit on the variable anchor system       |
+| MinWithdrawalLimitUpdate   | Request to update the minimum deposit limit on the variable anchor system       |
+| FeeRecipientUpdateProposal | Request to update the minimum deposit limit on the variable anchor system       |
+| SetTreasuryHandlerProposal | Request to set the treasury handler address                                     |
+| MaxExtLimitUpdate          |                                                                                 |
+| MaxFeeLimitUpdate          |                                                                                 |
+| ResourceIdUpdate           | Request to update resource id                                                   |
+| ProposalSetUpdate          |                                                                                 |
 
 ### resourceID
 
