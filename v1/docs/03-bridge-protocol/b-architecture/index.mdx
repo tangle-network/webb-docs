@@ -12,33 +12,31 @@ namely the governing DKG, and the relayer network.
 
 ![Webb Bridge Architecture](../../../../src/images/docs/bridge-protocol/anchor-protocol.png)
 
-# Summary - TODO improve diagram explanation
-
 **Relayer Responsibilities**
+
 1. Listen for deposits on Anchor implementations
 2. Vote on presented proposals
 3. Relay signed proposals to Signature bridge
 
 **Signature Bridge Responsibilities**
+
 1. Receive signed proposals
 2. Verify signature is valid
 3. Parse Signed Proposal data to hand off to appropriate Anchor Handlers
 
 **Anchor Responsibilities**
+
 1. Insert merkle root updates
 2. Execute proposals
 
 **DKG Responsibilities**
+
 1. Generate shared keys
 2. Sign proposals by generating a valid threshold signature
 
-<br/>
+<br />
 
-> TODO: Add more focused diagram illustrating the movement of assets across chains
-
-<br/>
-
-The Webb protocol architecture is modelled off the ChainBridge and Tornado Cash architectures. We merge and 
+The Webb protocol architecture is modelled off the ChainBridge and Tornado Cash architectures. We merge and
 augment both protocols and increase the relayer responsibilities to design our private bridge protocol. The
 modifications can be summarized as:
 

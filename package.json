@@ -1,8 +1,8 @@
 {
-  "name": "substrate-docs",
+  "name": "webb-docs",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Parity Technologies WebDev Team",
+  "author": "Webb Technologies Team",
   "private": true,
   "license": "MIT",
   "scripts": {

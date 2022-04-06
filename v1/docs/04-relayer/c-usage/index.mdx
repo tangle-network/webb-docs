@@ -11,7 +11,7 @@ Webb Relayer is easy to run and with flexible config 👌, to test it out first 
 
 Example:
 
-* Create a .env file with the following values for the networks you wish to support
+- Create a .env file with the following values for the networks you wish to support
 
 ```
 WEBB_EVM_<network>_ENABLED=true
@@ -43,4 +43,3 @@ docker run --rm -v "<ABSOLUTE_PATH_TO_CONFIGS_DIRECTORY>:/config" --env-file .en
 > Note: this uses the latest and pre-released version deployed from `main` branch, change `edge` to the latest stable release version.
 
 This will mount a configuration files at the `/config` directory inside the container so it would allow it to read the configuration you added.
-

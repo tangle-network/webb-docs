@@ -9,7 +9,7 @@ module.exports = {
     title: 'Webb Docs',
     siteUrl: `${process.env.GATSBY_DOCS_URL || 'https://docs.web.tools'}`,
     // TODO: replace substrate img with webb
-    image_og: `${process.env.GATSBY_DOCS_URL}/img/webb-icon.png`,
+    image_og: `${process.env.GATSBY_DOCS_URL}/img/webb-icon.png` || 'https://docs.web.tools/img/webb-icon.png',
     description:
       'Webb is an ecosystem of privacy protocols and products for a multi-chain world.',
     keywords: [
@@ -41,7 +41,7 @@ module.exports = {
     // terms: '',
     // youtube: '',
     // crowdcast: '',
-    webburl: `${process.env.GATSBY_IO_URL}`,
+    webburl: `https://www.webb.tools/`,
   },
   flags: {
     DEV_SSR: false,

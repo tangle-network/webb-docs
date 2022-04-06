@@ -7,61 +7,40 @@ category: relayer
 keywords: []
 ---
 
-Bridges are networked applications that span multiple blockchains and must be aware of events and/or state occurring
-across this network. The endponts of these bridges (e.g. the smart contracts / core protocol logic) are denoted
-`Anchors` in the Webb Protocol. These Anchors are required by definition to know about various parts of the state of other
-anchors, particularly the ones they're connected to across a particular bridge. The backbone of any bridge is made
-up of the relayers -- otherwise denoted validators, relayers, authorities, nodes, etc. -- that maintain the 
-liveliness of the bridge protocol. 
+In the Webb Protocol, the relayer is a multi-faceted oracle, data relayer, and protocol governance participant. Relayers fulfill the role of an oracle where the external data sources that they listen to are the state of the anchors for a bridge. Relayers, as their name entails, relay information for a connected set of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications to reference, both privately and potentially not, properties of data stored across the other connected Anchors.
 
-A blockchain oracle is a system that listens to an external data source and posts this data back on-chain to 
-arbitrarily many blockchains. Examples of data sources include, but not limited to:
+The relayer system is composed of three main components. Each of these components should be thought of as entirely separate because they could be handled by different entities entirely.
 
-- Price feeds of USD/ETH pair (Chainlink)
-- Weather feeds in Europe
-- Merkle tree roots on different anchors (Webb)
+1. Private transaction relaying (of user bridge transactions like Tornado Cash’s relayer)
+2. Data querying (for zero-knowledge proof generation)
+3. Data proposing and signature relaying (of DKG proposals)
 
-In the Webb Protocol, relayers fulfill the role of an oracle where the external data sources that they listen to
-are the state of the anchors for a bridge. Relayers, as their name entails, relay information for a connected set
-of Anchors on a bridge. This information is then used to update the state of each Anchor and allow applications 
-to reference, both privately and potentially not, properties of data stored across the other connected Anchors.
+### Private Transaction Relaying
+The relayer allows for submitting proofs for privacy-preserving transactions against the Mixer, Anchor and VAnchor protocols. The users generate zero-knowledge proof data, format a proper payload, and submit it to a compatible relayer for submission.
 
-The responsibility for a relayer to the Anchor protocol is the following:
+### Data Querying
+The relayer also supplements users who need to generate witness data for their zero-knowledge proofs. The relayers cache the leaves of the trees of Mixer, Anchor or VAnchor that they are supporting. This allows users to query for the leaf data faster than querying from a chain directly.
 
-1. Listen to all the anchors of a bridge.
-2. When a new deposit or insertion occurs in one of the merkle trees, say `A`, the relayer will construct:
+### Data Proposing and Signature Relaying
+The relayer is tasked with relaying signed data payloads from the DKG’s activities and plays an important role as it pertains to the Anchor Protocol. The relayer is responsible for submitting the unsigned and signed anchor update proposals to and from the DKG before and after signing occurs.
 
-   ```rust
-   edge = EdgeMetadata {
-   		src_chain_id: A,
-   		root: merkle_root_after_latest_insertion,
-   		latest_leaf_index: index_of_the_latest_leaf_inserted
-   }
-   ```
+This role can be divided into two areas:
 
-3. After constructing the edge metadata, the relayer relays this edge to all neighbouring anchors.
+1. Proposing
+2. Relaying
 
-   ```rust
-   edges(A) = all the neighboring anchors to A
-   // all the chain ids of anchors connected to anchor A
-   anchor_chain_ids(A) = edges(A).map(edge => edge.src_chain_id)
-   // send an update to each connected anchor
-   for anchor_chain_id in anchor_chain_ids(A) {
-   		propose update(anchor_chain_id, edge)
-   }
-   ```
+The relayer is the main agent in the system who proposes anchor updates to the DKG for signing. That is, the relayer acts as an oracle over the merkle trees of the Anchors and VAnchors. When new insertions into the merkle trees occur, the relayer crafts an update proposal that is eventually proposed to the DKG for signing.
 
-The above 
+The relayer is also responsible for relaying signed proposals. When anchor updates are signed, relayers are tasked with submitting these signed payloads to the smart contract SignatureBridges that verify and handle valid signed proposals. For all other signed proposals, the relayer is tasked with relaying these payloads to the SignatureBridge instances and/or Governable instances.
 
-## Relayer and DKG Interaction
+The responsibility for a relayer to the DKG (governance system) can be summarized as follows:
 
 The relayers act as proposers of proposals intended to be signed by the distributed key generation protocol (DKG).
 
-1. The relayers are listening to and proposing updates.
-2. The DKG is signing these updates using a [threshold-signature scheme](https://en.wikipedia.org/wiki/Threshold_cryptosystem).
-   1. We say its a threshold signature because it requires a threshold of participants _t-out-of-n_ to generate a full signature.
+1. he relayers are listening to and proposing updates.
+2. The DKG is signing these updates using a threshold-signature scheme.
 
-We require a threshold of relayers (_really proposers_) to agree on the update in order to move the update into a queue for the DKG to sign from.
+We require a threshold of relayers (really proposers) to agree on the update in order to move the update into a queue for the DKG to sign from.
 
 ## Relayer Roadmap
 
