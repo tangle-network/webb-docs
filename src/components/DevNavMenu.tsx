@@ -43,6 +43,10 @@ const DevNavMenu = {
             link: '/v1/dkg/overview/',
           },
           {
+            title: 'Governance Protocol',
+            link: '/v1/dkg/governance/',
+          },
+          {
             title: 'Installation',
             link: '/v1/dkg/usage/',
           },
