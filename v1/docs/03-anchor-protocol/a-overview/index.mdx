@@ -1,9 +1,9 @@
 ---
 title: Motivation
-slug: /v1/bridge-protocol/overview
+slug: /v1/anchor-protocol/overview
 version: '1.0'
 section: docs
-category: bridge-protocol
+category: anchor-protocol
 keywords: []
 ---
 
@@ -48,7 +48,7 @@ An edge is a directed connection between 2 anchors. In the language of graphs. A
 graph ***G=(A, E)*** where ***A*** is the set of anchor nodes and ***E*** is the set of directed edges between 
 them. We represent this data structure using an `Edge` or `EdgeMetadata` that looks like:
 
-```bash
+```rust
 // An edge for a specific chain
 pub struct EdgeMetadata<ChainID, Element, LastLeafIndex> {
 	/// chain id of the connected merkle tree
@@ -68,10 +68,10 @@ up to some bounded limit.
 ```rust
 /// An example of an edge list data structure
 struct EdgeList<ChainID, Element, LastLeafIndex> {
-		/// Map of edges (
-		pub edges: HashMap<ChainID, EdgeMetadata<ChainID, Element, LastLeafIndex>
-		/// Map of historical roots (chain -> index -> merkle root)
-		pub history: HashMap<ChainId, HashMap<u8, Element>>
+	/// Map of edges (
+	pub edges: HashMap<ChainID, EdgeMetadata<ChainID, Element, LastLeafIndex>
+	/// Map of historical roots (chain -> index -> merkle root)
+	pub history: HashMap<ChainId, HashMap<u8, Element>>
 }
 ```
 

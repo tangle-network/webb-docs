@@ -8,8 +8,8 @@ const redirects = [
     toPath: '/v1/getting-started/overview/',
   },
   {
-    fromPath: '/v1/bridge-protocol/',
-    toPath: '/v1/bridge-protocol/overview/',
+    fromPath: '/v1/anchor-protocol/',
+    toPath: '/v1/anchor-protocol/overview/',
   },
   {
     fromPath: '/v1/relayer/',
