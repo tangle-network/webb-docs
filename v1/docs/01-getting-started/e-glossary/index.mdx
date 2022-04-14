@@ -39,24 +39,22 @@ Every `LinkableAnchor` stores its `neighborRoots`, a mapping containing the m
 
 A message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. Below are all the proposal types in the system.
 
-| Proposals                  | Description                                                                     |
-| -------------------------- | ------------------------------------------------------------------------------- |
-| Refresh                    | Request to refresh shared public key                                            |
-| AnchorCreate               | Request to create an anchor                                                     |
-| AnchorUpdate               | Request to update merkle roots                                                  |
-| SetVerifierProposal        | Request to set the verifier                                                     |
-| TokenAdd                   | Request to add token to token wrapper                                           |
-| TokenRemove                | Request to remove token from token wrapper                                      |
-| WrappingFeeUpdate          | Request to update wrapping fee                                                  |
-| RescueToken                | Request to move accumulated fee tokens from the Treasury to a specified address |
-| MaxDepositLimitUpdate      | Request to update the maximum deposit limit on the variable anchor system       |
-| MinWithdrawalLimitUpdate   | Request to update the minimum deposit limit on the variable anchor system       |
-| FeeRecipientUpdateProposal | Request to update the minimum deposit limit on the variable anchor system       |
-| SetTreasuryHandlerProposal | Request to set the treasury handler address                                     |
-| MaxExtLimitUpdate          |                                                                                 |
-| MaxFeeLimitUpdate          |                                                                                 |
-| ResourceIdUpdate           | Request to update resource id                                                   |
-| ProposalSetUpdate          |                                                                                 |
+| Proposals                  | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| Refresh                    | Proposal to refresh a contract’s governor               |
+| AnchorCreate               | Proposal to create a new anchor                         |
+| AnchorUpdate               | Proposal to update merkle roots                         |
+| SetVerifierProposal        | Proposal to set a verifier address                      |
+| TokenAdd                   | Proposal to add token to a set                          |
+| TokenRemove                | Proposal to remove token from a set                     |
+| WrappingFeeUpdate          | Proposal to update fee parameter                        |
+| RescueToken                | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+| ResourceIdUpdate           | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate          | Proposal to update the latest proposer set state        |
 
 ### resourceID
 
