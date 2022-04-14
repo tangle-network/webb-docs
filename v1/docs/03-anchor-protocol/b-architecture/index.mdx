@@ -1,9 +1,9 @@
 ---
 title: Architecture
-slug: /v1/bridge-protocol/architecture
+slug: /v1/anchor-protocol/architecture
 version: '1.0'
 section: docs
-category: bridge-protocol
+category: anchor-protocol
 keywords: []
 ---
 
@@ -26,7 +26,7 @@ Below is an illustration of how an Anchor Protocol instance interacts with other
 key generation protocol, and the oracle / relayer network. We model the external governance system as a DKG which generates threshold 
 signatures of proposals, specifically of EdgeMetadata objects. These signed proposals are used to update the anchors on each compatible blockchain.
 
-![Webb Bridge Architecture](../../../../src/images/docs/bridge-protocol/anchor-protocol.png)
+![Webb Anchor Architecture](../../../../src/images/docs/anchor-protocol/anchor-protocol.png)
 
 **Oracle / Relayer Responsibilities**
 
@@ -49,8 +49,6 @@ signatures of proposals, specifically of EdgeMetadata objects. These signed prop
 
 1. Generate a distributed key.
 2. Sign proposals by generating a valid threshold signature if and only if a proposal receives some threshold of oracle votes.
-
-<br />
 
 ## Extra Resources
 

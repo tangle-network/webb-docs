@@ -53,15 +53,15 @@ const DevNavMenu = {
         ],
       },
       {
-        name: 'Bridge Protocol',
+        name: 'Anchor Protocol',
         items: [
           {
             title: 'Overview',
-            link: '/v1/bridge-protocol/overview/',
+            link: '/v1/anchor-protocol/overview/',
           },
           {
             title: 'Architecture',
-            link: '/v1/bridge-protocol/architecture/',
+            link: '/v1/anchor-protocol/architecture/',
           },
           // {
           //   title: 'Governance',
