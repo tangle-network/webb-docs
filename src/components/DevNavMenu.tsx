@@ -63,6 +63,10 @@ const DevNavMenu = {
             title: 'Architecture',
             link: '/v1/anchor-protocol/architecture/',
           },
+          {
+            title: 'Signature Bridge',
+            link: '/v1/anchor-protocol/signature-bridge/',
+          },
           // {
           //   title: 'Governance',
           //   link: '/v1/bridge-protocol/governance/',

@@ -1,3 +1,12 @@
+---
+title: Signature Bridge
+slug: /v1/anchor-protocol/signature-bridge
+version: '1.0'
+section: docs
+category: anchor-protocol
+keywords: []
+---
+
 # Signature Bridge
 The purpose of the signature bridge is many-fold:
 1. Verification of message signatures by the DKG
@@ -12,7 +21,7 @@ A signature bridge should support a simple API for setting resource IDs and exec
 The Signature Bridge knows which handler to route and execute a proposal through using a mapping between **Resource Ids** and **Handlers**. This mapping lives on the **Signature Bridge**.
 
 ## Execution Handlers
-The purpose of execution handlers is to parse an incoming proposal/message and call a function on a proxied smart contract. The flow looks like:
+The purpose of execution handlers is to parse an incoming proposal/message and call a function on a proxy smart contract. The flow looks like:
 - Signature Bridge -> Execution Handler -> Execution Context
 
 The Execution Handler knows which contract to interact with using a mapping between **Resource Ids** and **Execution Contexts**. This map lives on the respective **Handler**.
@@ -38,7 +47,7 @@ Examples of parameters that we may want to update:
 The purpose of the Treasury Handler is to execute parameter updates for a Treasury contract.
 
 Examples of parameters that we may want to update:
-- The recepient of fees.
+- The recipient of fees.
 - The recipient of interest on the treasury.
 - The handler controlling the treasury.
 
