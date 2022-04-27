@@ -7,13 +7,13 @@ category: anchor-protocol
 keywords: []
 ---
 
-# Signature Bridge
 The purpose of the signature bridge is many-fold:
 1. Verification of message signatures by the DKG
 2. Executing the message's execution data through the respective **Handler**.
 3. Setting new resource IDs to their **Handlers**.
 
 ## API
+
 A signature bridge should support a simple API for setting resource IDs and executing proposals:
 - `adminSetResourceWithSignature` - sets a new resource ID mapping to its respective **Handler**.
 - `executeProposalWithSignature` - verifies the proposal's signature against the governor and executes the proposal through a **Handler**.
@@ -21,12 +21,14 @@ A signature bridge should support a simple API for setting resource IDs and exec
 The Signature Bridge knows which handler to route and execute a proposal through using a mapping between **Resource Ids** and **Handlers**. This mapping lives on the **Signature Bridge**.
 
 ## Execution Handlers
+
 The purpose of execution handlers is to parse an incoming proposal/message and call a function on a proxy smart contract. The flow looks like:
 - Signature Bridge -> Execution Handler -> Execution Context
 
 The Execution Handler knows which contract to interact with using a mapping between **Resource Ids** and **Execution Contexts**. This map lives on the respective **Handler**.
 
 ### Anchor Handler
+
 The purpose of the Anchor Handler is to execute parameter updates for an Anchor contract.
 
 Examples of parameters that we may want to update:
@@ -35,6 +37,7 @@ Examples of parameters that we may want to update:
 - The verifier for the zero-knowledge proofs.
 
 ### Token Wrapper Handler
+
 The purpose of the Token Wrapper Handler is to execute parameter updates for an Token Wrapper contract.
 
 Examples of parameters that we may want to update:
@@ -44,6 +47,7 @@ Examples of parameters that we may want to update:
 - The handler controlling the token wrapper.
 
 ### Treasury Handler
+
 The purpose of the Treasury Handler is to execute parameter updates for a Treasury contract.
 
 Examples of parameters that we may want to update:
@@ -52,6 +56,7 @@ Examples of parameters that we may want to update:
 - The handler controlling the treasury.
 
 ## Resource Ids
+
 Resource IDs are identifiers of a target system and the chain that the target system lives on. Examples of these contains:
 - The anchor contract address and the typed chain ID of the chain this contract is deployed on.
 - The anchor merkle tree ID and the typed chain ID of the chain this pallet is deployed on.
@@ -60,12 +65,14 @@ Resource IDs are identifiers of a target system and the chain that the target sy
 Resource IDs are used in proposals that are sent to the DKG or any external signing/governance system. They are inserted into the proposal headers.
 
 ### Usage
+
 When we create a new contract / target system that is meant to be controlled by the Signature Bridge we must first create its resource ID. This is straightforward to do, simply:
 1. Take the contract's address / identify a numerical identifier for the storage instance (such as a tree ID).
 2. Take the typed chain ID where this target system will live.
 3. Concatenate these values in a 32-byte value.
 
 #### Example
+
 An example in Rust can be found [here](https://github.com/webb-tools/webb-rs/blob/main/proposals/src/header.rs#L215).
 ```rust
 pub fn new(
