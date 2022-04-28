@@ -1,0 +1,90 @@
+---
+title: Overview
+slug: /v1/relayer/overview
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+
+In the Webb Protocol, the relayer is a multi-faceted oracle, data relayer, and protocol governance participant. 
+Relayers fulfill the role of an oracle where the external data sources that they listen to are the state of the 
+anchors for a bridge. Relayers, as their name entails, relay information for a connected set of Anchors on a bridge. 
+This information is then used to update the state of each Anchor and allow applications to reference, both privately 
+and potentially not, properties of data stored across the other connected Anchors.
+
+The relayer system is composed of three main components. Each of these components should be thought of as entirely 
+separate because they could be handled by different entities entirely.
+
+1. Private transaction relaying (of user bridge transactions like Tornado Cash’s relayer)
+2. Data querying (for zero-knowledge proof generation)
+3. Data proposing and signature relaying (of DKG proposals)
+
+### Private Transaction Relaying
+The relayer allows for submitting proofs for privacy-preserving transactions against the Mixer, Anchor and 
+VAnchor protocols. The users generate zero-knowledge proof data, format a proper payload, and submit it to a 
+compatible relayer for submission.
+
+### Data Querying
+The relayer also supplements users who need to generate witness data for their zero-knowledge proofs. The 
+relayers cache the leaves of the trees of Mixer, Anchor or VAnchor that they are supporting. This allows users 
+to query for the leaf data faster than querying from a chain directly.
+
+### Data Proposing and Signature Relaying
+The relayer is tasked with relaying signed data payloads from the DKG’s activities and plays an important role 
+as it pertains to the Anchor Protocol. The relayer is responsible for submitting the unsigned and signed anchor 
+update proposals to and from the DKG before and after signing occurs.
+
+This role can be divided into two areas:
+
+1. Proposing
+2. Relaying
+
+The relayer is the main agent in the system who proposes anchor updates to the DKG for signing. That is, the 
+relayer acts as an oracle over the merkle trees of the Anchors and VAnchors. When new insertions into the 
+merkle trees occur, the relayer crafts an update proposal that is eventually proposed to the DKG for signing.
+
+The relayer is also responsible for relaying signed proposals. When anchor updates are signed, relayers are 
+tasked with submitting these signed payloads to the smart contract SignatureBridges that verify and handle 
+valid signed proposals. For all other signed proposals, the relayer is tasked with relaying these payloads 
+to the SignatureBridge instances and/or Governable instances.
+
+The responsibility for a relayer to the DKG (governance system) can be summarized as follows:
+
+The relayers act as proposers of proposals intended to be signed by the distributed key generation protocol (DKG).
+
+1. he relayers are listening to and proposing updates.
+2. The DKG is signing these updates using a threshold-signature scheme.
+
+We require a threshold of relayers (really proposers) to agree on the update in order to move the update into 
+a queue for the DKG to sign from.
+
+## Relayer Roadmap
+
+We aim to build a relayer infrastructure that gradually improves in its performance, efficiency, and overall 
+security. We do this in stages by first building the necessary infrastructure to listen to events across a 
+connected set of Anchors and react properly across a Bridge to preserve the liveness of the protocol.
+
+### **Version 1 - Multi-sig governance functionality**
+
+The first iteration of the bridge relayer is responsible for event listening and transaction execution.
+
+- Event listening across a set of connected anchors to learn of new deposits on a Bridge.
+- Proposal creation and vote submission over the Bridge's governance process.
+- Data replication and an API for inspecting Anchor state off-chain.
+
+### **Version 2 - Multi-party Threshold governance functionality**
+
+We then plan to integrate a DKG into a Substrate node for future governance purposes.
+
+- Direct integration into a (currently) Substrate chain or potentially other blockchain node (Cosmos-SDK)
+  - Bootstraps off existing validator set and participates in consensus.
+- Execution of a distributed key generation protocol to generate a threshold key.
+
+### **Version 3 - Auxiliary staking and punishment functionality**
+
+We will integrate the DKG directly into the Bridge governance system, allowing the bridge to be governed by a threshold key (or many).
+
+- Integrate staking mechanism over finality authorities for registering local key matter.
+- Integrate punishment mechanism over improper behavior in the DKG.
+- Develop an on-chain pallet to govern the threshold and generate threshold signatures of `Bridge.sol` governance transactions.

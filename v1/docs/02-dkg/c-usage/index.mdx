@@ -1,0 +1,150 @@
+---
+title: Usage
+slug: /v1/dkg/usage
+version: '1.0'
+section: docs
+category: dkg
+keywords: []
+---
+
+This page will guide you through the installation steps required to build the DKG.
+
+<h1 id="start"> Getting Started  🎉 </h1>
+
+The DKG is a multi-party computation protocol that generates a group public and private key. We aim to use this group keypair to sign arbitrary messages that will govern protocols deployed around the blockchain ecosystem. One primary purpose for the DKG is to govern and facilitate operations of the private signature bridge/anchor protocol.
+
+The DKG is meant to be coupled with the relayer network of the system. Currently, there is a fixed set of proposers that can propose messages to be signed by the DKG. This set includes only the active validators or collators of the underlying chain. We hope to increase the set of proposers to any relayer that is participating around the system as well.
+
+For additional information, please refer to the [Webb DKG Rust Docs](https://docs.webb.tools/dkg-substrate/dkg_gadget/index.html) 📝. Have feedback on how to improve the dkg? Or have a specific question to ask? Checkout the [DKG Feedback Discussion](https://github.com/webb-tools/feedback/discussions/categories/dkg-feedback) 💬.
+
+## Prerequisites
+
+This guide uses <https://rustup.rs> installer and the `rustup` tool to manage the Rust toolchain.
+
+First install and configure `rustup`:
+
+```bash
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Configure
+source ~/.cargo/env
+```
+
+Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+
+```bash
+rustup default nightly
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+Great! Now your Rust environment is ready! 🚀🚀
+
+**Note:** You may need additional dependencies, checkout [substrate.io](https://docs.substrate.io/v3/getting-started/installation) for more information.
+
+## Installation 💻
+
+Once the development environment is set up, build the DKG. This command will build the [Wasm Runtime](https://docs.substrate.io/v3/advanced/executor/#wasm-execution) and [native](https://docs.substrate.io/v3/advanced/executor/#native-execution) code:
+
+```bash
+cargo build --release
+```
+
+> NOTE: You _must_ use the release builds! The optimizations here are required
+> as in debug mode, it is expected that nodes are not able to run fast enough to produce blocks.
+
+### Troubleshooting for Apple Silicon users
+
+Install Homebrew if you have not already. You can check if you have it installed with the following command:
+
+```bash
+brew help
+```
+
+If you do not have it installed open the Terminal application and execute the following commands:
+
+```bash
+# Install Homebrew if necessary https://brew.sh/
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# Make sure Homebrew is up-to-date, install openssl
+brew update
+brew install openssl
+```
+
+❗ **Note:** Native ARM Homebrew installations are only going to be supported at `/opt/homebrew`. After Homebrew installs, make sure to add `/opt/homebrew/bin` to your PATH.
+
+```bash
+echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.bash_profile
+```
+
+In order to build **dkg-substrate** in `--release` mode using `aarch64-apple-darwin` Rust toolchain you need to set the following environment variables:
+
+```bash
+echo 'export RUSTFLAGS="-L /opt/homebrew/lib"' >> ~/.bash_profile
+```
+
+Ensure `gmp` dependency is installed correctly.
+
+```
+brew install gmp
+```
+
+<h2 style="border-bottom:none"> Quick Start ⚡ </h2>
+
+<h3 id="standalone"> Standalone Local Testnet </h3>
+
+Currently the easiest way to run the DKG is to use a 3-node local testnet using `dkg-standalone-node`. We will call those nodes `Alice`, `Bob` and
+`Charlie`. Each node will use the built-in development account with the same name, i.e. node `Alice` will use the `Alice` development
+account and so on. Each of the three accounts has been configured as an initial authority at genesis. So, we are using three validators
+for our testnet.
+
+`Alice` is our bootnode and is started like so:
+
+```
+$ RUST_LOG=dkg=trace ./target/release/dkg-standalone-node --tmp --alice
+```
+
+`Bob` is started like so:
+
+```
+RUST_LOG=dkg=trace ./target/release/dkg-standalone-node --tmp --bob
+```
+
+`Charlie` is started like so:
+
+```
+RUST_LOG=dkg=trace ./target/release/dkg-standalone-node --tmp --charlie
+```
+
+Note that the examples above use an ephemeral DB due to the `--tmp` CLI option. If you want a persistent DB, use `--/tmp/[node-name]`
+instead. Replace `node-name` with the actual node name (e.g. `alice`) in order to assure separate dirctories for the DB.
+
+<h3 id="launch"> Run local testnet with <a href="https://github.com/paritytech/polkadot-launch">polkadot-launch</a> ☄️</h3>
+
+The fastest way to set up the DKG to run as a parachain is to make use of [polkadot-launch](https://github.com/paritytech/polkadot-launch). Follow the below steps to get up and running! 🏃
+
+**Install polkadot-launch:**
+
+```
+npm install -g polkadot-launch
+```
+
+**Update configuration script:**
+
+1. Run: `cd scripts/polkadot-launch`
+2. Update the `bin` field for `relaychain` and `parachains` to point to appropriate paths. **Note:** You will need to have a built Polkadot binary. For Polkadot installation instructions follow the steps outlined [here](https://github.com/paritytech/polkadot).
+3. Update ports and debug logs as you see fit.
+
+**Launch Polkadot relay chain and DKG parachain:**
+
+```bash
+polkadot-launch dkg-launch.json
+```
+
+If everything went well you should see `POLKADOT LAUNCHED SUCCESSFULLY 🚀`. To follow the DKG parachain logs:
+
+```bash
+tail -f 9988.log
+```

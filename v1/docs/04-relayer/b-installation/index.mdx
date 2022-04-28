@@ -1,0 +1,190 @@
+---
+title: Installation
+slug: /v1/relayer/installation
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+
+This document serves as instructions for setting up a Webb Relayer at a publicly accessible endpoint. It will fulfill the requirements for listing your relayer on app.webb.tools. In order to integrate your relayer to app.webb.tools, please submit a PR.
+
+- Connections available via https and wss on your domain.
+
+These instructions will assume the user has created a cloud server on Ubuntu 20.04, and is logged into a user with sudo permissions.
+
+By the end of these instructions, the relayer will be running and accessible via your endpoint with nginx behind a reverse proxy.
+
+### Basic Environment Setup
+
+    ### Setup the machine's environment ###
+
+    # Update ubuntu packages
+    sudo apt update && sudo apt upgrade
+
+    # Update snap packages
+    sudo apt install -y snapd
+    sudo snap install core; sudo snap refresh core
+
+    # Install dependencies
+    sudo apt install gcc cmake pkg-config libssl-dev git clang libclang-dev
+    sudo apt install build-essential
+
+    # Install rust
+    curl https://sh.rustup.rs -sSf | sh -s -- -y
+    export PATH=~/.cargo/bin:$PATH
+    source ~/.cargo/env
+
+    # Install certbot
+    sudo snap install --classic certbot && sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+    # OPTION 1: Build from source
+    # Get the relayer code
+    git clone https://github.com/webb-tools/relayer.git
+    cd relayer && cargo build --release
+
+    # OPTION 2: Download the binary
+    curl -fsSL https://git.io/get-webb-relayer.sh | sh
+
+### Relayer Configuration
+
+Relayers can be configured multiple ways:
+
+1. The preset configurations in the `.toml` files
+2. Configuration values overwritten in the environment with the format `WEBB_xxx_xxx_xxx` (ex. WEBB_EVM_RINKEBY_ENABLED=true in `.env.example`)
+3. Custom environment variables referenced in `.toml` with `$` prefix. (ex. private key)
+
+On node startup, the command line will ask the user to specify a configuration directory. The project groups preset `.toml` configurations by features to the `config/` directory. Relayer operators may choose to support a single feature, or all features, depending on the directory passed to the command line.
+
+Create your `.env` file in the base directory of the project. A list of potential networks to support is defined below.
+
+- Make sure to provide a private key with funds on the appropriate network to cover gas costs
+
+??? example "List of supported networks .env"
+
+        # Mainnets
+        WEBB_EVM_HARMONYMAINNET0_ENABLED=true
+        WEBB_EVM_SHIDEN_ENABLED=true
+
+        HARMONYMAINNET0_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        SHIDEN_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+
+        # Testnets
+        WEBB_EVM_BERESHEET_ENABLED=true
+        WEBB_EVM_HARMONYTESTNET1_ENABLED=true
+        WEBB_EVM_RINKEBY_ENABLED=true
+        WEBB_EVM_GOERLI_ENABLED=true
+        WEBB_EVM_ROPSTEN_ENABLED=true
+        WEBB_EVM_KOVAN_ENABLED=true
+        WEBB_EVM_OPTIMISMTESTNET_ENABLED=true
+        WEBB_EVM_ARBITRUMTESTNET_ENABLED=true
+
+        HARMONYTESTNET1_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        RINKEBY_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        GOERLI_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        ROPSTEN_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        KOVAN_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        OPTIMISMTESTNET_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        ARBITRUMTESTNET_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+        BERESHEET_PRIVATE_KEY=<0x_PREFIXED_PRIVATE_KEY_AS_HEX_STRING>
+
+### Fine-tuned Configuration
+
+All configurations in the repo can be tuned to your preference. Below is a line-by-line explanation of all configurable values for an example configuration supporting Rinkeby:
+
+??? example "Rinkeby configuration"
+
+        [evm.rinkeby]
+        # MANDATORY: Endpoints to archival nodes which are running for the given network
+        http-endpoint = "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        ws-endpoint = "wss://rinkeby.infura.io/ws/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+        # OPTIONAL: The block explorer of the given network for clickable transactions in relayer logs
+        explorer = "https://rinkeby.etherscan.io"
+        # MANDATORY: The chain-id of the network
+        chain-id = 4
+        # MANDATORY: The hex string private key correlating to a value in the .env file.
+        private-key = "$RINKEBY_PRIVATE_KEY"
+        # OPTIONAL: An address for which to receive relayer rewards. Otherwise will be sent to the address correlated to the configured above, private-key
+        beneficiary = "0x7Bb1Af8D06495E85DDC1e0c49111C9E0Ab50266E"
+
+        # A network configuration can define multiple contracts to listen to
+        [[evm.rinkeby.contracts]]
+        # MANDATORY: The 'Tornado' contract is a tornado cash implementation
+        contract = "Tornado"
+        # MANDATORY: The address for the particular contract
+        address = "0x626FEc5Ffa7Bf1EE8CEd7daBdE545630473E3ABb"
+        # MANDATORY: The relayer may query for previous state starting from the deployed-at block until the present block.
+        deployed-at = 8896800
+        # MANDATORY: The denomination for mixers - applicable for 'Tornado' and 'Anchor' contracts
+        size = 0.1
+        # If the events-watcher is enabled, the relayer will poll for events of this contract at the interval and update its own
+        # storage. Used for providing leaves to clients that request them, and necessary for integration in the dapp.
+        # MANDATORY presence, optionally enabled
+        events-watcher = { enabled = false, polling-interval = 15000 }
+        # MANDATORY: The fee defined by the relayer for sending transactions on behalf of clients.
+        withdraw-fee-percentage = 0.05
+        # MANDATORY: Configurable gaslimit for transactions. Set this to a reasonable value for the given chain.
+        withdraw-gaslimit = "0x350000"
+
+        [[evm.rinkeby.contracts]]
+        # An 'Anchor' contract is the building block of the bridge protocol. It provides privacy like a 'Tornado'
+        # contract and maintains state for the anchors which link to it for cross-chain functionality.
+        contract = "Anchor"
+        address = "0x15A66977f0A9D21e09eB6C1B42b001aF992f0C8f"
+        deployed-at = 9568750
+        size = 0.01
+        events-watcher = { enabled = true, polling-interval = 15000 }
+        withdraw-fee-percentage = 0
+        withdraw-gaslimit = "0x350000"
+        linked-anchors = [
+            { chain = "ropsten", address = "0x0711Ea63FDEDD2c8a9d3C9340a5A8F6cd84b6A92" },
+            { chain = "goerli", address = "0x025348e15e9d5529E5A4A55E8eA7eC923b7fB8b6" },
+        ]
+
+### Relayer setup
+
+1.  Setup the relayer as a system service:
+
+        # Create the service file
+        sudo touch /etc/systemd/system/webb-relayer.service
+
+    ??? example "Built from source"
+
+            # This assumes the repo has been cloned in the home directory of the user
+            # Paste the following into the service file, and replace the <user>:
+
+            [Unit]
+            Description=WebbRelayer
+            [Service]
+            Type=exec
+            WorkingDirectory=/home/<user>/relayer
+            ExecStart=/home/<user>/relayer/target/release/webb-relayer -c /home/<user>/relayer/config/ -vvv
+            [Install]
+            WantedBy=multi-user.target
+
+    ??? example "Downloaded binary"
+
+            # This assumes a directory of configurations and .env file exist in a folder `/relayer` in the home directory.
+
+            [Unit]
+            Description=WebbRelayer
+            [Service]
+            Type=exec
+            WorkingDirectory=/home/<user>/relayer
+            ExecStart=/home/<user>/.webb/webb-relayer -c /home/<user>/relayer/config/ -vvv
+            [Install]
+            WantedBy=multi-user.target
+
+2.  Kick off the system service:
+
+    `sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer`
+
+### Nginx Setup
+
+1. Configure your registered domain name with your cloud service provider.
+
+2. Install nginx if it isn't already on your machine: `sudo apt install nginx`
+
+**First, we will configure the endpoint linked to your DOMAIN NAME at port 80 for certificate generation.**
+
+3. Create nginx site files for your domain: `cd /etc/nginx/sites-available && sudo cp default <domain name> && sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/`

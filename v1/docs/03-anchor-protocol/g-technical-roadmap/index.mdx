@@ -1,0 +1,48 @@
+---
+title: Technical Roadmap
+slug: /v1/anchor-protocol/technical-roadmap
+version: '1.0'
+section: docs
+category: anchor-protocol
+keywords: []
+---
+
+The Webb protocol is a private bridge protocol building on top of the chainbridge and Tornado cash protocols. It combines these architectures to create an interoperable privacy set to enable cross-chain private transactions with scalable privacy. More tokens on a particular bridge and more chains connected on a particular bridge only serve to increase the amount of privacy provided by that particular bridge.
+
+## Bridge Functionality - Roadmap
+
+A privacy bridge provides a novel primitive for constructing private applications on top. While we consider a private bridge protocol for asset transfers below, we can also consider generalizations of this to build interoperable and private applications. The buildout of non-financial components of the protocol are not roadmapped but may be worked on in the future, at hackathons, and more.
+
+We aim to build out a private bridge protocol for asset transfers in stages, starting with the most primitive use case of transferring and targetting extensions that compose nicely with existing DeFi primitives such as yield aggregators and lending solutions.
+
+### **Version 1 - Shared privacy bridge functionality**
+
+The first functionality of the protocol is cross-chain, private bridging of Webb wrapped assets. The goal here is to simply provide a protocol for wrapping a base, origin asset into a Webb wrapped asset that can be transferred privately across chains.
+
+---
+
+![darkwebb Overview](../../../../src/images/docs/anchor-protocol/darkwebb-v1-eth-polkadot.png)
+
+### **Version 1.X - Governance functionality**
+
+The second functionality of the protocol is to integrate governance functionality to allow Webb tokenholders to govern the set of whitelisted origin assets that can be wrapped into a particular bridge's Webb wrapped asset. This is motivated primarily by the ability to scale privacy sets across tokens by aggregating and unifying similar liquidity under a common representation, e.g. the particular Webb wrapped asset.
+
+---
+
+![darkwebb Overview](../../../../src/images/docs/anchor-protocol/darkwebb-v1.X-eth-polkadot.png)
+
+### **Version 2 - Stable Swap bridges**
+
+With basic functionality and governance in tact, we can create a cross-chain stable swapping pool. We aim to go live with this architecture after the previous versions are built out.
+
+---
+
+![darkwebb Overview](../../../../src/images/docs/anchor-protocol/darkwebb-v2-eth-polkadot.png)
+
+### **Version 3 - Yield Delegation**
+
+With an expressive infrastructure in tact, we can continue to expand the scope of what's possible with these interoperable, privacy sets. This bridge protocol allows users to earn yield while contributing to a compatible yield-bearing privacy set. The goal here is to lend out the underlying liquidity to DeFi protocols on each side of the bridge, taking on more risk and also earning more yield in the form of other DeFi assets.
+
+---
+
+![darkwebb Overview](../../../../src/images/docs/anchor-protocol/darkwebb-v3-eth-defi.png)

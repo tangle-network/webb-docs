@@ -1,0 +1,141 @@
+---
+title: Overview
+slug: /v1/ispp/overview
+version: '1.0'
+section: docs
+category: ispp
+keywords: []
+---
+
+## Basics of Tornado Pool
+
+Tornado Pool allows for users to deposit and withdraw arbitrary amounts. It also allows users to do a shielded transfer to another user inside the pool.
+
+## UTXO Model
+
+The project utilizes the UTXO (unspent transaction output) model to handle users' funds, so we first review it.
+
+(partially copied from Wikipedia)
+
+The total UTXOs present in the Tornado Pool represents a set (which we call the UTXO set). Every transaction consumes elements from this set and creates new ones that are added to the set. Thus, the set represents all of the funds in the Tornado Pool.
+
+put exact structure here
+
+Let's first see how different actions affect the total size of the UTXO set of the Tornado Pool.
+
+_Depositing into the Pool:_ This increases the amount of funds in the UTXO set by the deposit amount.
+
+_Withdrawing from the Pool:_ This decreases the amount of funds in the UTXO set by the withdrawal amount.
+
+_Shielded Transaction to Another User:_ This keeps the amount of funds in the UTXO set the same.
+
+We define the `inputUTXOs`to be the elements from the UTXO set that are spent during a transaction. We define the `outputUTXOs` to be the elements of the UTXO set that are created during a transaction. If there are no funds being deposited or withdrawn from the Tornado Pool, we have the following invariant for any transaction: `sum of inputUTXOs = sum of outputUTXOs`.
+
+Suppose `publicAmount` is being deposited or withdrawn from the pool. Then, for any transaction we have the following invariant `sum of inputUTXOs + publicAmount = sum of outputUTXOs`.
+
+Let's do an example with numbers:
+
+Initially the UTXO set = {} (is empty).
+
+1. Alice deposits 8 ETH into pool.
+   1. `inputUTXOs` = {0 ETH}
+   2. `publicAmount` = 8 ETH
+   3. `outputUTXOs` = {8 ETH}
+   4. UTXO Set = {8 ETH}
+2. Alice deposits 9 ETH into pool. UTXO Set = {8 ETH, 9 ETH}
+   1. `inputUTXOs` = {0 ETH}
+   2. `publicAmount` = 9 ETH
+   3. `outputUTXOs` = {9 ETH}
+   4. UTXO Set = {8 ETH, 9 ETH}
+3. Alice withdraws 11 ETH from pool.
+   1. `inputUTXOs` = {8 ETH, 9 ETH}
+   2. `publicAmount` = -11 ETH
+   3. `outputUTXOs` = {6 ETH}
+   4. UTXO Set = {6 ETH}
+4. Bob deposits 1 ETH into pool.
+   1. `inputUTXOs` = {0 ETH}
+   2. `publicAmount` = 1 ETH
+   3. `outputUTXOs` = {1 ETH}
+   4. UTXO Set = {6 ETH}
+5. Alice transfers 3 ETH to Bob.
+   1. `inputUTXOs` = {6 ETH}
+   2. `publicAmount` = 0 ETH
+   3. `outputUTXOs` = {3 ETH, 3 ETH}
+   4. UTXO Set = {3 ETH, 3 ETH, 1 ETH}
+
+Notice that the invariant `sum of inputUTXOs + publicAmount = sum of outputUTXOs` holds in each of the steps. Since this invariant covers depositing and withdrawing, we do not need separate functions for each but rather a single `transact` function which takes care of both depositing and withdrawing. When Alice calls the `transact` function on the Tornado Pool contract she will submit a proof that (amongst other things) the invariant holds for her proposed transaction.
+
+## Exact UTXO Structure
+
+Although in the examples in the previous section we represented a UTXO by its `amount`, the exact structure of a UTXO in Tornado Pool is more complex. In Tornado Pool, a UTXO is a triplet`{amount, publicKey, blinding}`and the commitiment that gets added to the Merkle tree maintained by the Tornado Pool is `Poseidon(amount, publicKey, blinding)`. The blinding is a random number, like the secret in the original Tornado cash. The public key corresponds to the owner of the UTXO and when transact is called, it is checked that only the person with the corresponding private key can spend the input (more on exactly how this happens in a later section). The private key and public key are related by: `publicKey = Poseidon(privateKey)`.
+
+### Preventing Double Spending via Nullifiers
+
+What prevents Alice from spending the same UTXO twice?
+
+Tornado Pool has a nullifier corresponding to every UTXO. When a UTXO is spent, the corresponding nullifier is recorded on the Tornado Pool smart contract, which prevents the same UTXO from being spent again. The structure of the nullifier is `Poseidon(commitment, merklePath, privateKey)`. Note this structure implies that the nullifier of each UTXO is unique.
+
+## Transaction Proof
+
+When Alice submits calls the `transact` function on the smart contract, she needs to prove the following things (there are few other things she needs to show, but we omit them for now) about her transaction:
+
+1. The `inputUTXOs` she wants to spend actually exist
+2. She owns the `inputUTXOs` that she wants to spend.
+3. The `inputUTXOs` that she wants to spend have not already been spent.
+4. The invariant `sum of inputUTXOs + publicAmount = sum of outputUTXOs` holds.
+
+She needs to do this while keeping certain information private. Therefore, like in the original Tornado Cash, Alice uses zero-knowledge proofs to convince the smart contract that she is submitting a valid transaction. To do so, we construct a `Transaction(levels, nIns, nOuts, zeroLeaf)` circuit, such that the constraints of this circuit are satisfied if and only if Alice submits a valid transaction. `levels` is the number of levels in the Tornado Pool Merkle tree, `nIns` is the number of `inputUTXOs` being spent, `nOuts` is the number of `outputUTXOs` being created, and `zeroLeaf` is `Poseidon(0, 0)`.
+
+The private inputs to the `Transaction` circuit are:
+
+1. `inAmount[nIns]` , the amount for each of the `inputUTXOs`
+2. `inPrivateKey[nIns]`, the private key for each of the `inputUTXOs`
+3. `inBlinding[nIns]`, the blinding for each of the `inputUTXOs`
+4. `inPathIndices[nIns]`, a binary string that indicates whether the corresponding `pathElement` element is on the left or right side of the Merkle tree for each `inputUTXO`
+5. `inPathElements[nIns][levels]` an array of the Merkle proof elements for each `inputUTXO`
+6. `outAmount[nOuts]`, the amount of each of the `outputUTXOs`
+7. `outPubKey[nOuts]`, the public key of each of the `outputUTXOs`
+8. `outBlinding[nOuts]`, the blinding of each of the `outputUTXOs`
+
+The public inputs to the `Transaction` circuit are:
+
+1. `root` the root of the Tornado Pool Merkle tree
+2. `publicAmount`, explained in detail in the section below
+3. `extDataHash`, hash of `extData`(which contains information like the `recipient`, `relayer` and `fee`)..not used in any computations, so we will ignore discussing it.
+4. `inputNullifier[nIns]`, the nullifier corresponding to each of the `inputUTXOs`
+5. `outputCommitment[nOuts]`, the commitment of each of the `outputUTXOs`
+
+The `Transaction` circuit works as follows:
+
+1. For each `inputUTXO`:
+   1. The public key is calculated from the private key using a `KeyPair()` gadget.
+   2. The commitment is calculated from the amount, public key and blinding.
+   3. A `MerkleProof(levels)` gadget is used to check whether the commitment exists in the Tornado Pool Merkle tree
+   4. The above three steps show that the `inputUTXOs` that Alice wants to spend exist and are owned by her.
+   5. It is also checked that the nullifiers are correctly computed. This is so that Alice doesn't submit a bogus `inputNullifier[nIns]` array and then double spend the `inputUTXOs`.
+2. For each `outputUTXO`:
+   1. It's checked that the output commitments are correctly computed.
+3. It's also checked that there are no two input nullifiers which are the same. This prevents double spending the same `inputUTXO` within a single `transact` call.
+4. The invariant `sumIns = publicAmount + sumOuts` is checked where `sumIns` is the sum of the elements in `inAmount[nIns]`and `sumOuts` is the sum of the elements in `outAmount[nOuts]`.
+
+The individual gadgets are explained in more detail here:
+
+[merkleProof.circom](./circuits/merkleProof.md)
+
+[keypair.circom](./circuits/keypair.md)
+
+## Extramount, fees, and Privacy Relayers
+
+Similar to Tornado Cash, to add more privacy, relayers are used to execute the transactions. These relayers take fees. The `publicAmount` is the amount actually transferred to/from the Tornado Pool during a `transact`. Due to relayer fees, this differs from the amount of funds a user must send during a deposit/shielded transfer or the amount the user actually receives during a withdraw transact: this amount is known as `extAmount`.
+
+The `publicAmount` is derived from `extAmount` via the formula: `publicAmount = extAmount - fee`. To see why this makes sense lets look at a concrete example where `fee = 5 ETH`. There are three cases for the three types of transactions (although recall that all of them are encompassed by the single function `transact`):
+
+1. Deposit Transact: Say we want to deposit 10 into the Tornado Pool. We really have to send 15 ETH since 5 ETH is taken by the relayer. So `15 ETH = extamount = 10 ETH + 5 ETH = publicAmount + fee`.
+2. Shielded Transfer: The `publicAmount` is 0 ETH, but we really have to send 5 ETH to pay the relayer. We have: `0 ETH = publicAmount = 5 ETH - 5 ETH = extAmount - fee`.
+3. Withdraw Transact: Say you want to withdraw 10 ETH, you really have to withdraw 15 ETH since 5 ETH will go to the relayer. So `publicAmount = -15 ETH = -10 ETH - 5 ETH = extAmount - fee`.
+
+### References
+
+[https://github.com/tornadocash/tornado-pool](https://github.com/tornadocash/tornado-pool)
+
+[https://en.wikipedia.org/wiki/Unspent_transaction_output](https://en.wikipedia.org/wiki/Unspent_transaction_output)

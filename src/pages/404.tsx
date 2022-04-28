@@ -1,0 +1,32 @@
+import * as React from 'react'
+import Layout from '../components/Layout'
+import SEO from '../components/SEO'
+import { PrimaryFixedButton } from '../components/Buttons'
+
+export default function NotFoundPage() {
+  return (
+    <Layout>
+      <SEO title={'404: Not Found'} />
+      <section>
+        <div className="w-full mx-auto mt-20 text-center self-center">
+          <div className="mb-10 four-oh-four-title text-9xl xl:text-four-oh-four">
+            404
+          </div>
+          <h2 className="text-center text-4xl mb-10 font-bold">
+            {`Something's missing`}
+          </h2>
+          <div className="flex flex-wrap pb-24 justify-center">
+            <div className="mx-4 mb-4 md:mb-0">
+              <PrimaryFixedButton link="/">Home</PrimaryFixedButton>
+            </div>
+            <div>
+              <PrimaryFixedButton link="https://github.com/webb-tools/webb-docs/issues">
+                Report a broken link
+              </PrimaryFixedButton>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  )
+}

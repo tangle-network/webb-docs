@@ -1,0 +1,70 @@
+---
+title: Glossary
+slug: /v1/getting-started/glossary
+version: '1.0'
+section: docs
+category: getting started
+keywords: []
+---
+
+This glossary defines and explains Webb ecosystem specific concepts and terminology.
+
+### anchor
+
+`Anchor`s are augmented [Tornado Cash](https://tornado.cash/) Tornados that possess graph-like data structures and functionality; that is, they can be connected and have edges. Users interact with Anchors through a deposit/withdraw API. To deposit into a Webb Anchor, a user generates a hashed commitment and submits this to the Anchor's merkle tree for insertion. The commitment contains the chainID of the chain they wish to withdraw on as well as some secret data.
+
+### anchorHandler
+
+Every `SignatureBridge` contract has a corresponding `AnchorHandler` to add or update the `neighborRoots` of the anchors on that chain after relayers pass and execute a proposals containing connected anchors' root updates. The Handler updates a specific anchor based on a mapping of a `resourceID` to a `LinkableAnchor` contract address which is set by the `SignatureBridge` admin.
+
+### authority
+
+The [nodes](https://docs.substrate.io/v3/getting-started/glossary/#node) that act as a collective to manage [consensus](https://docs.substrate.io/v3/getting-started/glossary/#consensus) on a [blockchain](https://docs.substrate.io/v3/getting-started/glossary/#blockchain) network. In a [proof-of-stake](https://docs.substrate.io/v3/getting-started/glossary/#nominated-proof-of-stake-npos) blockchain—for example, a blockchain that use the [Staking pallet](https://docs.substrate.io/v3/runtime/frame/#staking) from [FRAME](https://docs.substrate.io/v3/getting-started/glossary/#frame)—authorities are determined through a token-weighted nomination and voting system.
+
+> The terms authorities and validators sometimes seem to refer the same thing. However, validators is a broader term that can include other aspects of chain maintenance such as parachain validation. In general, authorities are a (non-strict) subset of validators and many validators are authorities.
+
+### commitment
+
+A `commitment` is generated upon a users deposit into an anchor and later used in a ZK proof for withdrawal. The commitment is the `PoseidonHash(DestinationChainID + nullifier + secret)`. DestinationChainID is a user input indicating the chain they will withdraw on.
+
+### merkle tree
+
+Merkle trees’ primary purpose is to prove the consistency of data, and is essentially a tree of hashes. **Merkle tree** is a [tree](<https://en.wikipedia.org/wiki/Tree_(data_structure)>) in which every leaf node is labelled with the hash of a data block and every non-leaf node is labelled with the [cryptographic hash](https://en.wikipedia.org/wiki/Cryptographic_hash_function) of the labels of its child nodes.
+
+### neighborRoots
+
+Every `LinkableAnchor` stores its `neighborRoots`, a mapping containing the merkle roots of the anchors it is connected to. Each anchor stores a history of 30 roots, so users can verify against a historical root while new deposits occur.
+
+### proposals
+
+A message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. Below are all the proposal types in the system.
+
+| Proposals                  | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| Refresh                    | Proposal to refresh a contract’s governor               |
+| AnchorCreate               | Proposal to create a new anchor                         |
+| AnchorUpdate               | Proposal to update merkle roots                         |
+| SetVerifierProposal        | Proposal to set a verifier address                      |
+| TokenAdd                   | Proposal to add token to a set                          |
+| TokenRemove                | Proposal to remove token from a set                     |
+| WrappingFeeUpdate          | Proposal to update fee parameter                        |
+| RescueToken                | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+| ResourceIdUpdate           | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate          | Proposal to update the latest proposer set state        |
+
+### resourceID
+
+`resourceID`'s provide a chain agnostic identifier to connect tokens with the handlers and anchors that interact with that token. A `resourceID` for a given token and denomination is defined as the hash of that token name concatenated with its denomination. The `resourceID` for a token used in public bridging that is not tied to a denomination will simply be the hash of its token name.
+
+### signature bridge
+
+The `SignatureBridge` contract allows for both fixed denomination, private bridging and standard, public bridging of assets. The private bridging functionality uses an `AnchorHandler` to track the state of connected chains while the standard bridging uses an `ERC20Handler`. The Bridge's state is is maintained by a set of relayers through voting. These relayers vote to update the latest merkle roots of connected anchors in the case of private bridging, and to distribute bridged assets in the case of public bridging.
+
+### UTXO
+
+The unspent transaction output (UTXO) model for ledger-keeping, which is most notably used by the Bitcoin blockchain, is logically more similar to a cash-based system than Ethereum's account model. In a cash-based system, a finite set of discrete units (cash) represents value. In a **UTXO**
+ system, entities may only spend the discrete units of value of which they have ownership. This means that each transaction consists of some set of "inputs" (the collection of cash that is used to pay for the transaction) and some set of "outputs" (the change that is leftover).

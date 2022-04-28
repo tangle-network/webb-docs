@@ -1,0 +1,77 @@
+---
+title: Architecture
+slug: /v1/anchor-protocol/architecture
+version: '1.0'
+section: docs
+category: anchor-protocol
+keywords: []
+---
+
+# Protocol
+
+Given ***G=(A,E)*** a graph of anchors and edges between them. Fix an element schema/structure ***S*** for element hashes inserted into 
+the anchors’ merkle trees.
+
+1. Users insert elements as hashes of the predefined structure into anchors.
+2. Oracles listen for insertions, construct `EdgeMetadata` objects, and relay these objects to the external governance system.
+3. Oracles listen for output from the external governance system and relay this output to the target anchors.
+4. Each anchor processes received output containing `EdgeMetadata` objects and updates their internal `EdgeList`.
+5. Users generate proofs of membership of their insertions in *one-of-many* of the anchors’ merkle trees and target submission on one anchor. 
+Upon completion they submit these proofs to the relayer network.
+6. Relayers listen for delegations and submit these proofs to their target anchor, where they are verified on-chain.
+
+## Architecture of an Anchor Protocol Instance
+
+Below is an illustration of how an Anchor Protocol instance interacts with other network participants, namely a governing distributed 
+key generation protocol, and the oracle / relayer network. We model the external governance system as a DKG which generates threshold 
+signatures of proposals, specifically of EdgeMetadata objects. These signed proposals are used to update the anchors on each compatible blockchain.
+
+![Webb Anchor Architecture](../../../../src/images/docs/anchor-protocol/anchor-protocol.png)
+
+**Oracle / Relayer Responsibilities**
+
+1. Listen for insertions on the anchors and construct `EdgeMetadata` events.
+2. Vote on the `EdgeMetadata` event on the DKG Signing Chain.
+3. Relay signed proposals to Signature bridge
+
+**Signature Bridge Responsibilities**
+
+1. Receive signed proposals
+2. Verify signature is signed by the DKG public key.
+3. Parse Signed Proposal data to hand off to appropriate Anchor Handlers
+
+**Anchor Responsibilities**
+
+1. Insert merkle root updates
+2. Execute proposals
+
+**DKG Responsibilities**
+
+1. Generate a distributed key.
+2. Sign proposals by generating a valid threshold signature if and only if a proposal receives some threshold of oracle votes.
+
+## Extra Resources
+
+### History
+
+The Webb ecosystem started building on top of the Chainbridge and Tornado cash protocols. We combined these architectures to create 
+an interoperable privacy set to enable cross-chain private transactions with scalable privacy and further to inspire the more general 
+Anchor Protocol spec.
+
+Our goal was to merge and augment both the Chainbridge and Tornado cash protocols and increase the relayer responsibilities to design 
+our private bridge protocol. The modifications can be summarized as:
+
+- Augmenting Tornado's into Anchor's which additionally track an edge list to other Anchors.
+    - Anchors are private transaction systems that function both as Tornados but also as cross-chain bridges.
+    - Anchors use a zero-knowledge one-of-many merkle tree membership proof instead of one for a single merkle tree.
+    - Anchors can mint/burn the underlying token being deposited and withdrawn.
+- Augmenting ChainBridge's Bridge into a private bridge protocol.
+    - We create a new AnchorHandler which modifiers the edge list of Anchors needing updates.
+    - We augment the Bridge relayers w/ a multi-party threshold signing scheme, so that one or many threshold networks can govern the bridge.
+
+## Further reading
+
+- [Chainbridge Documentation](https://chainbridge.chainsafe.io/)
+- [Chainbridge Implementation](https://github.com/ChainSafe/ChainBridge)
+- [Tornado Cash Documentation](https://docs.tornado.cash/general/readme)
+- [Tornado Cash Implementation](https://github.com/tornadocash)
