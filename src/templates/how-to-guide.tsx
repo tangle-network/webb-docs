@@ -16,14 +16,13 @@ import DocTag from '../components/DocTag'
 const DocsTemplate = ({ location, data, pageContext }: any) => {
   const { slug, version } = pageContext
   const globalDocsNav = navMenu.global()
-  const docsMenu = navMenu.knowledgebase()
+  const docsMenu = navMenu.htg()
 
   return (
     <Layout>
-      <SEO title={data.mdx.frontmatter.title} />
+      <SEO title={data.mdx ? data.mdx.frontmatter.title : null} />
       <div>
         <div className="flex flex-col lg:flex-row">
-          {/* Docs Side Bar */}
           <div className="lg:hidden">
             <DocsNavMobile
               pathname={location.pathname}
@@ -42,8 +41,6 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               section={data.mdx.frontmatter.section}
             />
           </div>
-          {/* ------------ */}
-          {/* Main Article */}
           <article className="px-4 mb-20 lg:flex lg:mx-auto">
             <div className="lg:flex-grow">
               <div
@@ -51,7 +48,7 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               >
                 <BreadCrumbNav
                   section={data.mdx.frontmatter.section}
-                  sectionURL={`/v1/getting-started/overview`}
+                  sectionURL={`/how-to-guides/v1`}
                   title={data.mdx.frontmatter.title}
                 />
                 <VersionControl
@@ -85,13 +82,10 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
                 />
               </div>
             </div>
-            {/* Table of Contents */}
             <div className="hidden xl:inline-block">
               <TableOfContent headings={data.mdx.tableOfContents} />
             </div>
-            {/* ------------ */}
           </article>
-          {/* ------------ */}
         </div>
       </div>
     </Layout>

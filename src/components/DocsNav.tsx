@@ -43,6 +43,10 @@ export default function DocsNav({
             <span className="font-bold">
               {section === 'docs'
                 ? 'Docs'
+                : section === 'tutorials'
+                ? 'Tutorials'
+                : section === 'how to guides'
+                ? 'How-to Guides'
                 : null}
             </span>
           </div>
@@ -87,6 +91,32 @@ export default function DocsNav({
                   pathname={pathname}
                   hashLink={hashLink}
                 />
+              )
+            })}
+          </div>
+          <div>
+            <hr className="mt-6" />
+            <div className="flex items-center justify-between px-20 lg:px-4 py-4">
+              <span>More Ways to Learn</span>
+            </div>
+            {globalNav.map((navItem, index) => {
+              return (
+                <div
+                  key={index}
+                  className="px-20 lg:px-4 py-4 lg:dark:bg-substrateDark"
+                >
+                  <Link to={navItem.url}>
+                    <div className="flex items-center justify-between hover:no-underline">
+                      <div className="font-medium text-substrateDark dark:text-white">
+                        {navItem.section}
+                      </div>
+                      <Icon
+                        name="arrowDown"
+                        className="fill-current text-substrateDark dark:text-white transform -rotate-90"
+                      />
+                    </div>
+                  </Link>
+                </div>
               )
             })}
           </div>

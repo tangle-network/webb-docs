@@ -41,7 +41,7 @@ export function SearchModal({ id, closeModal }: SearchModalProps) {
   const sectionNames = {
     docs: 'docs',
     // tuts: 'tutorials',
-    // htgs: 'how to guides',
+    htgs: 'how to guides',
   }
 
   const processQuery = (query: string) => {

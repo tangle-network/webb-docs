@@ -3,7 +3,12 @@ const DevNavMenu = {
     return [
       {
         section: `Docs`,
-        url: '/v1',
+        url: '/v1/',
+        external: false,
+      },
+      {
+        section: 'How-to Guides',
+        url: '/how-to-guides/',
         external: false,
       },
     ]
@@ -66,6 +71,10 @@ const DevNavMenu = {
           {
             title: 'Signature Bridge',
             link: '/v1/anchor-protocol/signature-bridge/',
+          },
+          {
+            title: 'Applications',
+            link: '/v1/anchor-protocol/applications/',
           },
           // {
           //   title: 'Governance',
@@ -139,6 +148,20 @@ const DevNavMenu = {
       // },
     ]
   },
+  htg: () => {
+    return [
+      // 1. Substrate Mixer.
+      {
+        name: 'Substrate Mixer',
+        items: [
+          {
+            title: 'Running Substrate Mixer Locally',
+            link: '/how-to-guides/v1/substrate-mixer/local-mixer/',
+          },
+        ],
+      },
+    ]
+  } 
 }
 
 export { DevNavMenu }
