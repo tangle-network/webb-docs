@@ -1,5 +1,13 @@
 const redirects = [
   {
+    fromPath: '/how-to-guides/',
+    toPath: `/how-to-guides/v1/`,
+  },
+  {
+    fromPath: '/',
+    toPath: '/v1/getting-started/overview/',
+  },
+  {
     fromPath: '/v1/',
     toPath: '/v1/getting-started/overview/',
   },
@@ -23,13 +31,13 @@ const redirects = [
     fromPath: '/v1/ispp/',
     toPath: '/v1/ispp/overview/',
   },
+  // {
+  //   fromPath: '/v1/advanced/',
+  //   toPath: `/v1/advanced/cryptography/`,
+  // },
   {
-    fromPath: '/v1/advanced/',
-    toPath: `/v1/advanced/cryptography/`,
-  },
-  {
-    fromPath: '/v1/basics/',
-    toPath: `/v1/basics/faq/`,
+    fromPath: '/how-to-guides/substrate-mixer/',
+    toPath: `/how-to-guides/v1/substrate-mixer/local-mixer/`,
   },
 ]
 

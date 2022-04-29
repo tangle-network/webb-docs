@@ -22,6 +22,7 @@ const createDocPages = async ({ graphql, actions }) => {
       }
     }
   `)
+  
   if (!result || !result.data) return
 
   result.data.allMdx.edges.forEach(({ node }) => {
@@ -30,7 +31,7 @@ const createDocPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/doc.tsx`),
       context: {
         slug: node.frontmatter.slug,
-        version: `3.0`,
+        version: `1.0`,
       },
     })
   })
@@ -52,6 +53,7 @@ const createHowToGuidePages = async ({ graphql, actions }) => {
       }
     }
   `)
+  
   if (!result || !result.data) return
 
   result.data.allMdx.edges.forEach(({ node }) => {
@@ -60,7 +62,7 @@ const createHowToGuidePages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/how-to-guide.tsx`),
       context: {
         slug: node.frontmatter.slug,
-        version: `3.0`,
+        version: `1.0`,
       },
     })
   })
@@ -90,7 +92,7 @@ const createTutorialPages = async ({ graphql, actions }) => {
       component: path.resolve(`./src/templates/tutorial.tsx`),
       context: {
         slug: node.frontmatter.slug,
-        version: `3.0`,
+        version: `1.0`,
       },
     })
   })
