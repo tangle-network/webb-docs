@@ -57,6 +57,8 @@ pub struct EdgeMetadata<ChainID, Element, LastLeafIndex> {
 	pub root: Element,
 	/// height of source chain anchor's native merkle tree
 	pub latest_leaf_index: LastLeafIndex,
+  /// target system of the anchor (contract address or tree id)
+  pub target: Element,
 }
 ```
 
