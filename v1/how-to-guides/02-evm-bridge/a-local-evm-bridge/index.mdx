@@ -1,51 +1,45 @@
 ---
-title: Running Local Substrate Mixer
-slug: /how-to-guides/v1/substrate-mixer/local-mixer
+title: Running Local EVM Bridge
+slug: /how-to-guides/v1/evm-bridge/local-bridge
 keywords:
   - basics
   - beginner
-  - mixer
+  - bridge
 version: '1.0'
 section: how to guides
-category: substrate-mixer
+category: evm-bridge
 ---
 
-This guide provides instructions on how to setup a Substrate mixer locally and explains how to interact with the DApp to deposit and withdraw funds from the mixer.
+This guide provides instructions on how to setup a EVM bridge locally and explains how to interact with the DApp to deposit and withdraw funds from the bridge.
 
-## Local Substrate Mixer Usage
+## Local EVM Bridge Usage
 
-The following guide outlines the steps necessary to utilize the Substrate mixer locally with a local relayer, and local Webb DApp. Follow the below steps to get up and running. 🏃
+The following guide outlines the steps necessary to utilize the EVM bridge locally with a local relayer, and local Webb DApp. Follow the below steps to get up and running. 🏃
 
-### Run local protocol-substrate nodes
+### Run local EVM nodes
 
-1. Clone the [protocol-substrate repo](https://github.com/webb-tools/protocol-substrate):
+1. Clone the [evm-localnet repo](https://github.com/webb-tools/evm-localnet):
 ```bash
- git clone https://github.com/webb-tools/protocol-substrate --depth 1
+ git clone https://github.com/webb-tools/evm-localnet --depth 1
 ```
 
-2. We are using [ORML](https://github.com/open-web3-stack/open-runtime-module-library/tree/a5ee7866c763efbd3afe0cd81fec54cede83a65f) fork, and fixed zero knowledge keys to run the mixers. **Run:**
+2. We are using [ORML](https://github.com/open-web3-stack/open-runtime-module-library/tree/a5ee7866c763efbd3afe0cd81fec54cede83a65f) fork, and fixed zero knowledge keys to run the bridge. **Run:**
 ```bash
 # populates fixed zero knowledge keys
 git submodule update --init
 ```
 
-3. Build the `webb-standalone-node` by running:
-
+3. Install the dependencies
 ```bash
-cargo build --release -p webb-standalone-node
+yarn install
 ```
 
-4. Startup two standalone nodes in other terminal instances:
-
+4. Start the local testnet:
 ```bash
-# Run in terminal 1
-./target/release/webb-standalone-node --dev --alice --node-key 0000000000000000000000000000000000000000000000000000000000000001 --ws-port=9944 --rpc-cors all
-
-# Run in terminal 2
-./target/release/webb-standalone-node --dev --bob --port 33334 --tmp --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+yarn start
 ```
 
-Great! Now you have 2 local protocol-substrate nodes running! Now let's setup a local relayer. 🚀
+Great! Now you have local EVM testnet running! Now let's setup a local relayer. 🚀
 
 ### Run local relayer
 
@@ -60,9 +54,9 @@ git clone https://github.com/webb-tools/relayer.git --depth 1
 cargo build --release
 ```
 
-3. Run with the local substrate configuration:
+3. Run with the local evm testnet configuration:
 ```
-./target/release/webb-relayer -c config/local-substrate -vv
+./target/release/webb-relayer -c config/local-testnet -vv
 ```
 
 Congrats! 🎉  You now have a local relayer running and listening on localhost:9955 !
@@ -91,7 +85,7 @@ yarn start:dapp
 
 Visit http://localhost:3000/ to see the Webb Dapp UI! 🕸️ 🚀 
 
-## Using the mixer from the DApp 
+## Using the bridge from the DApp 
 
 The first thing you will want to do is add `Alice` or `Bob` development accounts to your polkadot.js wallet. These accounts are pre-seeded with funds that we will use 
 to demonstrate the mixer. To add these accounts, please ensure you have installed the [polkadot.js extension](https://polkadot.js.org/extension/). For more information on these development accounts
@@ -111,12 +105,12 @@ bottom drive obey lake curtain smoke basket hold race lonely fit walk.
 
 Now that you have an account with funds lets move on to interacting with the mixer in the UI! 
 
-The below steps will guide you through interacting with the Webb DApp to connect your polkadot.js wallet, deposit funds into the mixer,
+The below steps will guide you through interacting with the Webb DApp to connect your MetaMask wallet, deposit funds into the bridge,
  and then withdraw funds from the mixer.
 
-### Connecting polkadot.js wallet 
+### Connecting MetaMask wallet 
 
-1. Select the **Mixer** from the side navigation 
+1. Select the **Bridge** from the side navigation 
 2. Select a network
 3. Under "Step 1: Select a chain", select the **Protocol Substrate Development** chain
 4. Connect polkadot.js wallet
