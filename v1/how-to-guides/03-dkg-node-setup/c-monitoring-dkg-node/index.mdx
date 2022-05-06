@@ -1,6 +1,6 @@
 ---
 title: Monitoring DKG Node
-slug: /how-to-guides/v1/node-setup/monitoring-dkg-node
+slug: /how-to-guides/v1/node-setup/monitoring
 keywords:
   - basics
   - beginner
@@ -13,8 +13,7 @@ category: node-setup
 The following is a guide outlining the steps to setup monitoring for a DKG node. If you do not have DKG node setup yet, please 
 review the dkg-node setup guide [here](https://docs.webb.tools/how-to-guides/v1/node-setup/dkg-node). It is important to note that 
 this guide's purpose is to help you get started with monitoring your DKG node, not to advise on how to setup a node securely. Please
-take additional security and privacy measures into consideration.
-
+take additional security and privacy measures into consideration. This guide was inspired by the article authored by bLd Nodes.
 
 Here is how our final configuration will look like at the end of this guide.
 
@@ -106,9 +105,7 @@ rm -rf ./process-exporter* &&
 rm -rf ./alertmanager* &&
 rm -rf ./grafana*
 ```
-
 The next series of steps will be configuring each service. 
-
 ## Configuration
 
 ### Prometheus
@@ -258,7 +255,7 @@ receivers:
 
 Of course, you have to change the email addresses and the auth_password with the one generated from Google previously. 
 
-## Service Setups 
+## Service Setup
 
 ### Prometheus
 
@@ -411,7 +408,46 @@ sudo systemctl enable grafana-server
 
 ## Run Grafana dashboard
 
-Now is the time to get the most visual part: the monitoring dashboard.
+Now we are going to setup the dashboard to visiualize the metrics we are capturing.
 
-From the browser on your local machine, navigate to `http://localhost:3000/login`.
+From the browser on your local machine, navigate to `http://localhost:3000/login`. You should be greeted with 
+the a login screen. You can login with the default credentials, `admin/admin`.
 
+**Next, we need to add Prometheus as a data source.** 
+
+1. Open the Settings menu
+2. Select __Data Sources__
+3. Select __Add Data Source__
+4. Select Prometheus
+5. Input the URL field with http://localhost:9090 
+6. Click Save & Test
+
+**Next, we need to add AlertManager as a data source.**
+
+1. Open the Settings menu
+2. Select __Data Sources__
+3. Select __Add Data Source__
+4. Select AlertManager
+5. Input the URL field with http://localhost:9093 
+6. Click Save & Test
+
+We have our data sources connected, now its time to import the dashboard we want to use. You may 
+create your own, import others but the purposes of this guide we will use the Polkadot Essentials dashboard created 
+by BLD nodes! 
+
+**To import a dashboard:**
+
+1. Select the + button 
+2. Select __Import__
+3. Input the dashboard number, **13840**
+4. Select Prometheus and AlertManager as data sources from the dropdown menu
+5. Click Load
+
+**In the dashboard selection, make sure you select:**
+
+- **Chain Metrics**: substrate
+- **Chain Instance Host**: localhost:9615 to point the chain data scrapper
+- **Chain Process Name**: the name of your node binary
+
+Congratulations!! You have now configured Grafana to visualize the metrics we are capturing. You now 
+have monitoring setup for your node!

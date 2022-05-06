@@ -92,20 +92,20 @@ Let's `exit` the shell, and log in as the new user.
 ssh -i ~/.ssh/<YOUR SSH PRIVATE KEY> <USERNAME>@<YOUR VPS PUBLIC IP ADDRESS>
 ```
 
-1. Installing dkg-substrate and setting it up as a system service
+## System service setup
+### 1. Installing dkg-substrate and setting it up as a system service
 
 First, clone the dkg-substrate repo, and install any dependencies.
-
-## Install dependencies
-
+```
 sudo apt update
 sudo apt upgrade
 sudo apt install jq
 sudo apt install unzip
 sudo apt install net-tools
 sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev && rm -rf /var/lib/apt/lists/*
+```
 
-2. Rust developer environment
+### 2. Rust developer environment
 
 This guide uses https://rustup.rs installer and the rustup tool to manage the Rust toolchain. First install and configure rustup:
 
@@ -125,7 +125,7 @@ rustup update nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
-3. Clone and build dkg-substrate repo
+### 3. Clone and build dkg-substrate repo
 ```
 git clone git@github.com:webb-tools/dkg-substrate.git
 cd dkg-substrate
@@ -133,7 +133,7 @@ cd dkg-substrate
 cargo build --release --locked -p egg-standalone-node
 ```
 
-4. Generating node keys - this file will be referenced in our service configuration file.
+### 4. Generating node keys - this file will be referenced in our service configuration file.
 
 You can generate a node's libp2p key by the following:
 
@@ -150,9 +150,11 @@ Output:
 12D3KooWAhzqC4xstZKkAVYge2Q9tAMcnFhNEabLejRNVoQWLHHC
 ```
 
-The peer ID is displayed on screen and the actual key is saved in the <output-file>.
+The peer ID is displayed on screen and the actual key is saved in the **output-file**.
 
-5. Set up the node as a system service. Run the following commands to create the service configuration file:
+### 5. Set up the node as a system service. 
+
+Run the following commands to create the service configuration file:
 
 ```
 # Move the egg-standalone-node binary to the bin directory (assumes you are in repo root directory)
@@ -165,7 +167,7 @@ cd /etc/systemd/system
 sudo touch standalone.service
 ```
 
-Add the following contents to the service configuration file. Make sure to replace the <USERNAME> with the username you created in the previous step, and update 
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update 
 any paths or ports to your own preference. 
 
 **Note:** The below configuration assumes you are targeting the Arana chain spec and has debugging logs on by default.
@@ -197,7 +199,9 @@ ExecStart=/usr/bin/egg-standalone-node \
 WantedBy=multi-user.target
 ```
 
-6. Double check that the config has been written to /etc/systemd/system/standalone.service correctly. If so, enable the service so it runs on startup, and then try to start it now:
+### 6. Enable the services
+
+Double check that the config has been written to `/etc/systemd/system/standalone.service` correctly. If so, enable the service so it runs on startup, and then try to start it now:
 
 ```
 sudo systemctl enable standalone

@@ -160,6 +160,24 @@ const DevNavMenu = {
           },
         ],
       },
+      // 2. Node Setup
+      {
+        name: 'Node Setup',
+        items: [
+          {
+            title: 'Setting up a DKG node',
+            link: '/how-to-guides/v1/node-setup/dkg-node/',
+          },
+          {
+            title: 'Configuring an SSL certificate',
+            link: '/how-to-guides/v1/node-setup/ssl/',
+          },
+          {
+            title: 'Monitoring a DKG node',
+            link: '/how-to-guides/v1/node-setup/monitoring/',
+          },
+        ],
+      },
     ]
   } 
 }
