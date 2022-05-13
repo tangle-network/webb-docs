@@ -39,6 +39,10 @@ const redirects = [
     fromPath: '/how-to-guides/substrate-mixer/',
     toPath: `/how-to-guides/v1/substrate-mixer/local-mixer/`,
   },
+  {
+    fromPath: '/how-to-guides/node-setup/',
+    toPath: `/how-to-guides/v1/node-setup/dkg-node/`,
+  },
 ]
 
 module.exports = {
