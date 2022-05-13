@@ -160,6 +160,34 @@ const DevNavMenu = {
           },
         ],
       },
+       // 2. EVM bridge.
+       {
+        name: 'EVM Bridge',
+        items: [
+          {
+            title: 'Running EVM Bridge Locally',
+            link: '/how-to-guides/v1/evm-bridge/local-bridge/',
+          },
+        ],
+      },
+      // 3. Node Setup
+      {
+        name: 'Node Setup',
+        items: [
+          {
+            title: 'Setting up a DKG node',
+            link: '/how-to-guides/v1/node-setup/dkg-node/',
+          },
+          {
+            title: 'Configuring an SSL certificate',
+            link: '/how-to-guides/v1/node-setup/ssl/',
+          },
+          {
+            title: 'Monitoring a DKG node',
+            link: '/how-to-guides/v1/node-setup/monitoring/',
+          },
+        ],
+      },
     ]
   } 
 }
