@@ -54,9 +54,20 @@ git clone https://github.com/webb-tools/relayer.git --depth 1
 cargo build --release
 ```
 
+3. Add `.env` file to the root directory:
+```bash
+WEBB_EVM_ATHENA_ENABLED=true
+WEBB_EVM_DEMETER_ENABLED=true
+WEBB_EVM_HERMES_ENABLED=true
+GOVERNOR_PRIVATE_KEY=0xc0d375903fd6f6ad3edafc2c5428900c0757ce1da10e5dd864fe387b32b91d7e
+ATHENA_PRIVATE_KEY=0x0000000000000000000000000000000000000000000000000000000000000001
+HERMES_PRIVATE_KEY=0x0000000000000000000000000000000000000000000000000000000000000001
+DEMETER_PRIVATE_KEY=0x0000000000000000000000000000000000000000000000000000000000000001
+```
+
 3. Run with the local evm testnet configuration:
 ```
-./target/release/webb-relayer -c config/local-testnet -vv
+./target/release/webb-relayer -c config/evm-localnet -vv
 ```
 
 Congrats! 🎉  You now have a local relayer running and listening on localhost:9955 !
@@ -87,43 +98,58 @@ Visit http://localhost:3000/ to see the Webb Dapp UI! 🕸️ 🚀
 
 ## Using the bridge from the DApp 
 
-The first thing you will want to do is add `Alice` or `Bob` development accounts to your polkadot.js wallet. These accounts are pre-seeded with funds that we will use 
-to demonstrate the mixer. To add these accounts, please ensure you have installed the [polkadot.js extension](https://polkadot.js.org/extension/). For more information on these development accounts
-please read the documentation [here](https://docs.substrate.io/v3/tools/subkey/#well-known-keys).
+The first thing you will want to do is add the pre-seeded development accounts to your MetaMask wallet. These accounts are pre-seeded with funds that we will use 
+to demonstrate the EVM bridge. To add these accounts, please ensure you have installed the [MetaMask extension](https://metamask.io/).
 
-Accounts like Alice, Bob, Ferdie etc are derived from a pre-known development seed. To add the accounts to your wallet, select the extension and click on the + button. 
-Then select "Import account from pre-existing seed". 
+To add the accounts to your wallet, select the extension and click on the account thumbnail. 
+Then select "Import account". 
 
-![add-dev-accounts.png](../../../../src/images/how-to/add-dev-accounts.png)
+![add-dev-accounts.png](../../../../src/images/how-to/import-account-meta.png)
 
 
-The seed to input will be the following:
+The private key to input will be the following:
 
 ```
-bottom drive obey lake curtain smoke basket hold race lonely fit walk.
+0x0000000000000000000000000000000000000000000000000000000000000001
 ```
 
-Now that you have an account with funds lets move on to interacting with the mixer in the UI! 
+You may add additional accounts with the following private keys:
+```
+0x0000000000000000000000000000000000000000000000000000000000000002
+0xc0d375903fd6f6ad3edafc2c5428900c0757ce1da10e5dd864fe387b32b91d7e
+```
+
+Now that you have an account with funds lets move on to interacting with the bridge in the UI! 
 
 The below steps will guide you through interacting with the Webb DApp to connect your MetaMask wallet, deposit funds into the bridge,
- and then withdraw funds from the mixer.
+ and then withdraw funds from the bridge.
 
 ### Connecting MetaMask wallet 
 
 1. Select the **Bridge** from the side navigation 
 2. Select a network
-3. Under "Step 1: Select a chain", select the **Protocol Substrate Development** chain
-4. Connect polkadot.js wallet
+3. Under "Step 1: Select a chain", select the **Hermes Localnet** chain
+4. Connect MetaMask wallet
 5. Authorize the DApp to connect
 
-### Depositing funds into the mixer 
+### Depositing funds into the bridge 
 
-1. The mixer interface should now be visible similar to the below images
+1. The bridge interface should now be visible similar to the below images
 
-![mixer-deposit.png](../../../../src/images/how-to/mixer-deposit.png)
+![bridge-deposit.png](../../../../src/images/how-to/bridge-deposit-interface.png)
 
-2. Select the amount 10 to deposit 10 Webb tokens in to the mixer
-3. Select **Deposit**
+2. Select the destination chain from the dropdown (e.g. Athena Localnet)
+3. Since this is a fixed anchor bridge we must select the fixed amount available, 1
+4. Select **Deposit**
+
+If you would like to see how wrapped asset deposits work you may proceed with the following steps:
+1. Select the destination chain from the dropdown (e.g. Athena Localnet)
+2. Select the "Wrap Assets?" checkbox
+3. From the Token dropdown, select "Dev" -> webbDev
+4. Select the amount to wrap
+5. Select **Wrap and Deposit**
+
+![bridge-wrapped-deposit.png](../../../../src/images/how-to/bridge-wrapped-deposit.png)
 
 ### Storing your secret note
 
@@ -133,19 +159,19 @@ In order to withdraw your deposited funds, you must have access to your generate
 2. Confirm that you have backed up your note
 3. Select **Deposit** 
 
-### Withdrawing funds from the mixer
+### Withdrawing funds from the bridge
 
-Switch to the **Withdraw** tab to withdraw funds from the mixer.
+Switch to the **Withdraw** tab to withdraw funds from the bridge.
 
 1. Paste your secret note into the **Secret Note** field
 2. Select the **Relayer** option to use our locally running relayer
 3. From the drop down menu, select the relayer url (e.g. http://localhost:9955) and exit the relayer configuration screen
 4. Paste in a recipient address to send the funds to
-5. Select Withdraw
+5. Select Withdraw (you may need to switch networks to withdraw)
 
 The transaction will then begin being processed, generating a zero knowledge proof and send the transaction to the relayer for withdrawal. At the 
 end you should see a successful transaction screen. 
 
 ![mixer-success.png](../../../../src/images/how-to/mixer-success.png)
 
-Congratulations you have successfully withdrawn your funds from the mixer! 🎉
+Congratulations you have successfully withdrawn your funds from the bridge! 🎉
