@@ -131,13 +131,13 @@ Set up an nginx configuration. This will inject the public address you have just
 } > /etc/nginx/nginx.conf
 ```
 
-Make sure that the paths of ssl_certificate and ssl_certificate_key match what Let's Encrypt produced earlier. Check that the configuration file has been created correctly.
+Make sure that the paths of `ssl_certificate` and `ssl_certificate_key` match what Let's Encrypt produced earlier. Check that the configuration file has been created correctly.
 ```
 cat /etc/nginx/nginx.conf
 nginx -t
 ```
 
-If there is an error, nginx -t should tell you where it is. Note that there may be subtle variations in how different systems are configured, e.g. some boxes may have different login users or locations for log files. It is up to you to reconcile these differences.
+If there is an error, `nginx -t` should tell you where it is. Note that there may be subtle variations in how different systems are configured, e.g. some boxes may have different login users or locations for log files. It is up to you to reconcile these differences.
 
 Start the server:
 ```
