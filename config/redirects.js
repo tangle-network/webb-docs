@@ -40,6 +40,10 @@ const redirects = [
     toPath: `/how-to-guides/v1/substrate-mixer/local-mixer/`,
   },
   {
+    fromPath: '/how-to-guides/evm-bridge/',
+    toPath: `/how-to-guides/v1/evm-bridge/local-bridge/`,
+  },
+  {
     fromPath: '/how-to-guides/node-setup/',
     toPath: `/how-to-guides/v1/node-setup/dkg-node/`,
   },

@@ -160,7 +160,17 @@ const DevNavMenu = {
           },
         ],
       },
-      // 2. Node Setup
+       // 2. EVM bridge.
+       {
+        name: 'EVM Bridge',
+        items: [
+          {
+            title: 'Running EVM Bridge Locally',
+            link: '/how-to-guides/v1/evm-bridge/local-bridge/',
+          },
+        ],
+      },
+      // 3. Node Setup
       {
         name: 'Node Setup',
         items: [
