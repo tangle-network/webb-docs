@@ -8,8 +8,7 @@ module.exports = {
   siteMetadata: {
     title: 'Webb Docs',
     siteUrl: `${process.env.GATSBY_DOCS_URL || 'https://docs.web.tools'}`,
-    // TODO: replace substrate img with webb
-    image_og: `${process.env.GATSBY_DOCS_URL}/img/webb-icon.png` || 'https://docs.web.tools/img/webb-icon.png',
+    image_og: './src/images/svgs/favicon.svg',
     description:
       'Webb is an ecosystem of privacy protocols and products for a multi-chain world.',
     keywords: [
@@ -197,7 +196,7 @@ module.exports = {
         background_color: `#000000`,
         theme_color: `#26E0A2`,
         display: `standalone`,
-        icon: `src/images/favicon.png`,
+        icon: `src/images/svgs/favicon.svg`,
       },
     },
 
