@@ -106,7 +106,7 @@ const SEO = ({ description, title, children }: SEOProps) => {
         },
         {
           name: 'twitter:image',
-          content: './images/svgs/favicon.svg',
+          content: './images/favicon.png',
         },
       ].concat(
         metaKeywords && metaKeywords.length > 0
