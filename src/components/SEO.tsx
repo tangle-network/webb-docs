@@ -106,7 +106,7 @@ const SEO = ({ description, title, children }: SEOProps) => {
         },
         {
           name: 'twitter:image',
-          content: './images/favicon.png',
+          content: 'https://github.com/webb-tools/webb-docs/blob/main/src/images/favicon.png',
         },
       ].concat(
         metaKeywords && metaKeywords.length > 0
