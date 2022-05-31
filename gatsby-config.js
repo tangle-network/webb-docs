@@ -8,7 +8,7 @@ module.exports = {
   siteMetadata: {
     title: 'Webb Docs',
     siteUrl: 'https://docs.web.tools',
-    image_og: 'https://logo-webb.s3.us-west-2.amazonaws.com/favicon.png',
+    image_og: 'https://ipfs.io/ipfs/QmaMZBZbb93P9P3oeSD9nbpkjJ7vMeW11hJBjgEmmPfT9L',
     description:
       'Webb is an ecosystem of privacy protocols and products for a multi-chain world.',
     keywords: [
