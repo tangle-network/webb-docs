@@ -94,7 +94,7 @@ const SEO = ({ description, title, children }: SEOProps) => {
         },
         {
           name: `twitter:card`,
-          content: `summary_large_image`,
+          content: `summary`,
         },
         {
           name: `twitter:title`,
