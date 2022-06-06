@@ -1,0 +1,140 @@
+---
+title: How to become a relayer
+slug: /v1/relayer/how-to-become-a-relayer
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+ 
+As previously mentioned, the relayer system is composed of three main components. Each of these components should be thought of as entirely separate because they could be handled by different entities entirely.
+ 
+1. Private transaction relaying (of user bridge transactions like Tornado Cash’s relayer)
+2. Data querying (for zero-knowledge proof generation)
+3. Data proposing and signature relaying (of DKG proposals)
+ 
+This document serves as a guide for setting up the relayer for all three components collectively or exclusively. Below you will find everything you need to join the relayer network.
+ 
+The easiest way to setup a relayer is to make use of the docker-compose file that is included in the [relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before we download and run Docker we need to configure our relayer. The first step is to create an `.env` file in the root directory which lists the networks you wish to support along with the following fields:
+
+```
+# enables the network 
+WEBB_EVM_<network>_ENABLED=true
+
+# private key with funds on the network to cover gas costs
+WEBB_EVM_<network>_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+
+# an optional beneficiary to receive rewards for relaying
+WEBB_EVM_<network>_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+```
+
+The current relayer network supports the following chains:
+- Harmony
+- Rinkeby
+- Goerli
+- Ropsten
+- Kovan
+- Optimism 
+- Arbitrum 
+
+Once you have added your `.env` file to the root directory, and provided the required fields to each network you wish to support you can proceed in configuring the relayer. 
+
+Relayers can be configured multiple ways:
+ 
+1. The preset configurations in the `.toml` files
+2. Configuration values overwritten in the environment with the format `WEBB_xxx_xxx_xxx` (ex. WEBB_EVM_RINKEBY_ENABLED=true in `.env.example`)
+3. Custom environment variables referenced in `.toml` with `$` prefix. (ex. private key)
+
+In order to run the relayer user must specify the following fields in a configuration file for each network to be supported. 
+
+#### Required Fields
+
+- Set `http-endpoint` rpc url for specific node
+- Set `ws-endpoint` websocket endpoint for long living connections
+- Set `chain-id` (1 for ETH mainnet, 5 for Goerli)
+- Set `private-key` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+
+An example configuration file at this point should look similar to this:
+
+```
+[evm.goerli]
+http-endpoint = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+ws-endpoint = "wss://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+chain-id = 5
+private-key = "$GOERLI_PRIVATE_KEY"
+```
+
+For supporting Substrate based chains you will also need to include:
+
+- Set `runtime` to indicate what runtime to use
+- Set `suri` to generate a key-pair
+
+An example configuration file at this point should look similar to this:
+
+```
+[substrate.localnode]
+http-endpoint = "http://localhost:9933/"
+ws-endpoint = "ws://localhost:9944/"
+runtime = "WebbProtocol"
+suri = "//Alice//stash"
+```
+
+### Private Transaction Relaying
+- TODO:
+  - must provide clarity for linked-anchors field 
+  - Must provide clarity on private fields
+ 
+To set up the relayer exclusively for relaying private transactions we need to provide the following fields in a configuration file for each network to be supported. 
+
+#### Required Fields
+
+- Set `contract` rpc url for specific node
+- Set `address` websocket endpoint for long living connections
+- Set `deployed-at` (1 for ETH mainnet, 5 for Goerli)
+- Set `proposal-signing-backend` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+- Set `linked-anchors` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+
+An example configuration file at this point should look similar to this:
+```
+[[evm.goerli.contracts]]
+contract = "Anchor"
+address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
+deployed-at = 6896976
+size = 0.01
+events-watcher = { enabled = true, polling-interval = 15000 }
+withdraw-fee-percentage = 0
+withdraw-gaslimit = "0x350000"
+// Potential: remove to just watch leaf exclusivity 
+linked-anchors = [
+  { chain = "ropsten", address = "0x228aC202fB6Ad3D3A39f59E4A578a0EAFD3286CD" },
+  { chain = "rinkeby", address = "0xa238c5987142AF720B9232d9d72A12A3868396e0" },
+  { chain = "polygontestnet", address = "0xA8665042EA4767FA09143bd790059cE53Bdf2a8F" },
+  { chain = "optimismtestnet", address = "0x09d2D6520BE3922549c81885477258F41c96c43f" },
+  { chain = "arbitrumtestnet", address = "0x2D21BC3f8cb399d3b7091309AFe1986cdB9F2e39" },
+]
+proposal-signing-backend = { type = "Mocked", private-key = "$GOVERNOR_PRIVATE_KEY" }
+
+[[evm.goerli.contracts]]
+contract = "SignatureBridge"
+address = "0xc11a9f2f42cedf687ec292231698a91dd6928d9a"
+deployed-at = 6896976
+events-watcher = { enabled = true, polling-interval = 10000, print-progress-interval = 0 }
+```
+ 
+### Data Querying
+ 
+To set up the relayer exclusively for relaying private transactions we need to provide the following fields in a configuration file for each network to be supported. 
+
+#### Required Fields
+- TODO
+
+
+### Data Proposing and Signature Relaying
+ 
+To set up the relayer exclusively for relaying private transactions we need to provide the following fields in a configuration file for each network to be supported. 
+
+#### Required Fields
+- TODO
+
+
+
