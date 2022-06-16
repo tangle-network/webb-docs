@@ -1,0 +1,127 @@
+---
+title: Run a Node on Eggnet Using Systemd
+slug: /v1/node-operators/run-node/systemd
+version: '1.0'
+section: docs
+category: node-operator
+keywords: []
+---
+
+## Introduction
+
+Running a full node on a Egg network allows you to connect to the network, sync with a bootnode, 
+obtain local access to RPC endpoints, author blocks on the parachain, and more.
+
+This guide is meant for people with experience compiling Substrate based blockchain nodes. 
+A parachain node is similar to a typical Substrate node, but there are some differences. 
+A Substrate parachain node will be a bigger build because it contains code to run the parachain 
+itself, as well as code to sync the relay chain, and facilitate communication between the two. 
+As such, this build is quite large and may take over 30 min and require 32GB of memory.
+
+## System service setup
+
+### Installing eggnet
+
+First, install all the dependencies.
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install jq
+sudo apt install unzip
+sudo apt install net-tools
+sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev && rm -rf /var/lib/apt/lists/*
+```
+
+### Rust developer environment
+
+This guide uses https://rustup.rs installer and the rustup tool to manage the Rust toolchain. First install and configure rustup:
+
+```
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Configure
+source ~/.cargo/env
+```
+
+Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+
+```
+rustup default stable
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+### Clone and build egg-net repo
+```
+git clone https://github.com/webb-tools/egg-net.git
+cd egg-net
+
+cargo build --release --locked -p egg-collator
+```
+
+Set up the node as a system service. 
+
+Run the following commands to create the service configuration file:
+
+```
+# Move the egg-collator binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/egg-collator /usr/bin/
+
+# navigate to /etc
+cd /etc/systemd/system
+
+# create the service configuration file
+sudo touch collator.service
+```
+
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update 
+any paths or ports to your own preference. 
+
+**Note:** The below configuration assumes you are targeting the Arana chain spec.
+
+```
+[Unit]
+Description=Eggnet Collator Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/egg-collator \
+  --base-path /tmp/collator/<USERNAME> \
+  --name <NODE-NAME> \
+  --chain "/home/<USERNAME>/egg-net/resources/arana-standalone-raw.json" \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --ws-port 9944 \
+  --validator \
+  --rpc-port 9933 \
+  --no-mdns  \
+  --rpc-cors "*"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Enable the services
+
+Double check that the config has been written to `/etc/systemd/system/collator.service` correctly. If so, enable the service so it runs on startup, and then try to start it now:
+
+```
+sudo systemctl enable collator
+sudo systemctl start collator
+```
+
+Check the status of the service:
+```
+systemctl status collator
+```
+
+You should see the node connecting to the network and syncing the latest blocks. If you need to tail the latest output, you can use:
+```
+journalctl -u collator.service -f
+```
+
