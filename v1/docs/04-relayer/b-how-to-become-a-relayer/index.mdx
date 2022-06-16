@@ -7,15 +7,20 @@ category: relayer
 keywords: []
 ---
  
-As previously mentioned, the relayer system is composed of three main components. Each of these components should be thought of as entirely separate because they could be handled by different entities entirely.
+The relayer system is composed of three main components. Each of these components should be thought 
+of as entirely separate because they could be handled by different entities entirely.
  
-1. Private transaction relaying (of user bridge transactions like Tornado Cash’s relayer)
+1. Private transaction relaying (for bridged transactions)
 2. Data querying (for zero-knowledge proof generation)
 3. Data proposing and signature relaying (of DKG proposals)
  
-This document serves as a guide for setting up the relayer for all three components collectively or exclusively. Below you will find everything you need to join the relayer network.
+This document serves as a guide for setting up the relayer for all three components collectively or exclusively. 
+Below you will find everything you need to join the Webb Relayer Network.
  
-The easiest way to setup a relayer is to make use of the docker-compose file that is included in the [relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before we download and run Docker we need to configure our relayer. The first step is to create an `.env` file in the root directory which lists the networks you wish to support along with the following fields:
+The easiest way to setup a relayer is to make use of the docker-compose file that is included in the 
+[relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before 
+we download and run Docker we need to configure our relayer. The first step is to create an `.env` file 
+in the root directory which lists the networks you wish to support along with the following fields:
 
 ```
 # enables the network 
@@ -31,30 +36,77 @@ WEBB_EVM_<network>_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 The current relayer network supports the following chains:
 - Harmony
 - Rinkeby
+- Polygon Testnet
 - Goerli
-- Ropsten
 - Kovan
 - Optimism 
 - Arbitrum 
 
-Once you have added your `.env` file to the root directory, and provided the required fields to each network you wish to support you can proceed in configuring the relayer. 
+An example `.env` file that supports all the networks mentioned above:
 
-Relayers can be configured multiple ways:
+```
+WEBB_EVM_HARMONYMAINNET0_ENABLED=true
+WEBB_EVM_RINKEBY_ENABLED=true
+WEBB_EVM_POLYGON_TESTNET_ENABLED=true
+WEBB_EVM_GOERLI_ENABLED=true
+WEBB_EVM_KOVAN_ENABLED=true
+WEBB_EVM_OPTIMISM_ENABLED=true
+WEBB_EVM_ARBITRUM_ENABLED=true
+
+RINKEBY_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+HARMONYMAINNET0_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+POLYGON_TESTNET_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+GOERLI_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+KOVAN_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+OPTIMISM_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+ARBITRUM_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+
+WEBB_EVM_RINKEBY_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_HARMONYMAINNET0_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_POLYGON_TESTNET_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_GOERLI_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_KOVAN_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_OPTIMISM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_ARBITRUM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+```
+
+### Quickstart 
+
+Now that you have an `.env` file configured, you can download the relayer docker image, run it, and begin supporting 
+the Webb Relayer Network. The docker image makes use of the preset configurations in `/config` and 
+by default supports all networks, and system components (e.g. private tx relaying, governance relaying, and data querying).
+
+Follow these instructions to get started:
+
+1. Configure `.env` file in your root directory 
+2. Run `docker-compose up` in the `/docker` directory
+3. Navigate into docker container to view relayer logs 
+
+## Network and Contract Configuration 
  
-1. The preset configurations in the `.toml` files
-2. Configuration values overwritten in the environment with the format `WEBB_xxx_xxx_xxx` (ex. WEBB_EVM_RINKEBY_ENABLED=true in `.env.example`)
-3. Custom environment variables referenced in `.toml` with `$` prefix. (ex. private key)
+The relayer's configuration is comprised of two parts:
 
-In order to run the relayer user must specify the following fields in a configuration file for each network to be supported. 
+1. Network configuration
+2. Contract configuration 
 
-#### Required Fields
+The network contract configuration is dependent on the network support configuration. That is, you cannot configure
+a specific networks contracts without first configuring the network support configuration. 
 
-- Set `http-endpoint` rpc url for specific node
-- Set `ws-endpoint` websocket endpoint for long living connections
-- Set `chain-id` (1 for ETH mainnet, 5 for Goerli)
-- Set `private-key` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+To configure the relayer we suggest making use of the preset configurations in the `/config` directory. There you will 
+see `.toml` files for all the supported networks and contracts. However, if you wish to custom configure 
+your relayer you may do so. See below for more details.
 
-An example configuration file at this point should look similar to this:
+### Network configuration
+
+The relayer must be configured with the network support configuration. User's may choose which networks they wish to support 
+but must specify these networks in a `.toml` file under the `/config` directory. The current relayer network supports both 
+EVM and Substrate based chains but differ slightly in their configuration. 
+
+#### EVM based networks configuration 
+
+The naming convention for the EVM based networks is `[evm.<network>]`. For example, to specify configuration for 
+the goerli network you need to add `[evm.goerli]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the goerli network:
 
 ```
 [evm.goerli]
@@ -64,35 +116,85 @@ chain-id = 5
 private-key = "$GOERLI_PRIVATE_KEY"
 ```
 
-For supporting Substrate based chains you will also need to include:
+#### Required Fields
 
-- Set `runtime` to indicate what runtime to use
-- Set `suri` to generate a key-pair
+These are the required fields that must be specified in order to support a network.
 
-An example configuration file at this point should look similar to this:
+- Set `http-endpoint` rpc url for a specific node
+- Set `ws-endpoint` websocket endpoint for long living connections
+- Set `chain-id` (1 for ETH mainnet, 5 for Goerli)
+- Set `private-key` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+
+#### Substrate based networks configuration 
+
+The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for 
+the Egg network you need to add `[substrate.eggnet]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the Egg network:
 
 ```
-[substrate.localnode]
-http-endpoint = "http://localhost:9933/"
-ws-endpoint = "ws://localhost:9944/"
+[substrate.eggnet]
+enabled=true
+http-endpoint = "http://standalone.webb.tools:9933/"
+ws-endpoint = "ws://standalone.webb.tools:9944/"
 runtime = "WebbProtocol"
 suri = "//Alice//stash"
+pallets = []
 ```
+
+#### Required Fields
+
+These are the required fields that must be specified in order to support a network.
+
+- Set `http-endpoint` rpc url for a specific node
+- Set `ws-endpoint` websocket endpoint for long living connections
+- Set `runtime` to indicate what runtime to use
+- Set `suri` to generate a key-pair
+- Set `pallets` to indicate which pallets to use
+
+### Network contract configuration
+
+The naming convention for the EVM based network contracts is `[evm.<network>.contracts]` and for Substrate consists of `[substrate.<network>.contracts]`. For example, to specify configuration for 
+the goerli network you need to add `[evm.goerli.contracts]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the contracts on the goerli network:
+
+```
+[[evm.goerli.contracts]]
+contract = "SignatureBridge"
+address = "0xc11a9f2f42cedf687ec292231698a91dd6928d9a"
+deployed-at = 6896976
+events-watcher = { enabled = true, polling-interval = 10000, print-progress-interval = 0 }
+```
+
+The relayer network is used to support the following contracts:
+- Anchor contract
+- VAnchor contract
+- SignatureBridge contract
+
+To support each contract you are required to specify each contract with the required fields. The required fields are 
+dependent on what actions you wish your relayer to perform (e.g. private tx relaying, governance relaying, and data querying). 
+
+## Exclusive system configuration 
+
+
 
 ### Private Transaction Relaying
 - TODO:
   - must provide clarity for linked-anchors field 
   - Must provide clarity on private fields
  
-To set up the relayer exclusively for relaying private transactions we need to provide the following fields in a configuration file for each network to be supported. 
+To set up the relayer exclusively for relaying private transactions we need to create a configuration file that outlines
+the supported networks. The required fields for relaying private transactions include:
 
 #### Required Fields
 
 - Set `contract` rpc url for specific node
 - Set `address` websocket endpoint for long living connections
-- Set `deployed-at` (1 for ETH mainnet, 5 for Goerli)
-- Set `proposal-signing-backend` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
-- Set `linked-anchors` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+- Set `events-watcher` to `false`
+- Set `withdraw-fee-percentage`
+- Set `withdraw-gaslimit`
+- Set `data-query` to `false`
+- Set `governance-relay` to `false`
+
 
 An example configuration file at this point should look similar to this:
 ```
