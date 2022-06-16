@@ -116,6 +116,31 @@ const DevNavMenu = {
         ],
       },
       {
+        name: 'Crowdloan',
+        items: [
+          {
+            title: 'Crowdloan Event',
+            link: '/v1/crowdloan/overview/',
+          },
+          {
+            title: 'Crowdloan Rewards',
+            link: '/v1/crowdloan/rewards/',
+          },
+          {
+            title: 'Contribute to Crowdloan',
+            link: '/v1/crowdloan/contribute/',
+          },
+          {
+            title: 'Claim Rewards',
+            link: '/v1/crowdloan/claim/',
+          },
+          {
+            title: 'FAQ',
+            link: '/v1/crowdloan/faq/',
+          },
+        ],
+      },
+      {
         name: 'Interoperable Shielded Pool Protocol',
         items: [
           {
