@@ -134,7 +134,7 @@ export default function Index() {
                 >
                   <Icon
                     name="nodeTemplate"
-                    className="w-8 fill-current text-substrateDark dark:text-substrateWhite"
+                    className="w-8 fill-current text-webbDark dark:text-webbWhite"
                   />
                   <div className="text-xl ml-4 font-extrabold">
                     Node Playground
@@ -148,7 +148,7 @@ export default function Index() {
                 >
                   <Icon
                     name="feTemplate"
-                    className="fill-current text-substrateDark dark:text-substrateWhite"
+                    className="fill-current text-webbDark dark:text-webbWhite"
                   />
                   <div className="text-xl ml-4 font-extrabold text-left">
                     Front-End Template Playground

@@ -8,10 +8,10 @@ interface TutorialObjectiveProps {
 export function TutorialObjective({ data }: TutorialObjectiveProps) {
   return (
     <>
-      <div className="my-2 xl:pt-4 xl:flex xl:justify-start xl:items-start xl:bg-substrateGray-light xl:dark:bg-substrateDark">
+      <div className="my-2 xl:pt-4 xl:flex xl:justify-start xl:items-start xl:bg-webbGray-light xl:dark:bg-webbDark">
         <div className="hidden xl:inline-block xl:ml-8 xl:mr-4 xl:mt-1 xl:w-7 xl:h-7">
           <svg
-            className="fill-current text-substrateGreen"
+            className="fill-current text-webbBlue"
             width="16"
             height="20"
             viewBox="0 0 16 20"
@@ -34,7 +34,7 @@ export function TutorialObjective({ data }: TutorialObjectiveProps) {
           }  xl:mr-4`}
           to={data.url}
         >
-          <button className="w-10 h-10 bg-substrateGreen rounded flex justify-center items-center">
+          <button className="w-10 h-10 bg-webbBlue rounded flex justify-center items-center">
             <svg
               width="16"
               height="10"

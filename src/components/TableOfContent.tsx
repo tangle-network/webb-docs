@@ -43,9 +43,9 @@ export default function TableOfContent({ headings }: TableOfContentProps) {
                 <div key={index}>
                   <a href={value.url}>
                     <div
-                      className={`mb-2 hover:text-substrateBlue dark:hover:text-substrateBlue-light ${
+                      className={`mb-2 hover:text-webbBlue dark:hover:text-webbBlue-light ${
                         activeHash === value.url.substr(1) &&
-                        'text-substrateBlue dark:text-substrateBlue-light'
+                        'text-webbBlue dark:text-webbBlue-light'
                       }`}
                     >
                       {value.title}

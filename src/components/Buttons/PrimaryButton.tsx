@@ -14,7 +14,7 @@ export function PrimaryButton(props: PrimaryButtonProps) {
     <>
       {props.external ? (
         <a
-          className={`bg-substrateGreen ${padding()} hover:bg-white border-2 border-transparent hover:border-substrateGreen rounded text-white hover:text-substrateGreen transform transition duration-300 ease-in-out`}
+          className={`bg-webbBlue ${padding()} hover:bg-white border-2 border-transparent hover:border-webbBlue rounded text-white hover:text-webbBlue transform transition duration-300 ease-in-out`}
           href={props.link}
           target="_blank"
           rel="noreferrer"
@@ -25,7 +25,7 @@ export function PrimaryButton(props: PrimaryButtonProps) {
         </a>
       ) : (
         <Link
-          className={`bg-substrateGreen ${padding()} hover:bg-white border-2 border-transparent hover:border-substrateGreen rounded text-white hover:text-substrateGreen transform transition duration-300 ease-in-out`}
+          className={`bg-webbBlue ${padding()} hover:bg-white border-2 border-transparent hover:border-webbBlue rounded text-white hover:text-webbBlue transform transition duration-300 ease-in-out`}
           to={props.link}
         >
           <button className={`focus:outline-none font-bold ${textSize()}`}>

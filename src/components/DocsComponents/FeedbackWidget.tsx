@@ -10,7 +10,7 @@ export function FeedbackWidget() {
       <div className="flex items-center pt-10 mb-4">
         <Icon
           name="feedbackIcon"
-          className="mr-2 fill-current text-substrateDark dark:text-substrateWhite"
+          className="mr-2 fill-current text-webbDark dark:text-webbWhite"
         />
         <span className="text-xl font-semibold">Run into problems?</span>
       </div>
@@ -20,11 +20,11 @@ export function FeedbackWidget() {
           <span className="font-semibold">Let us Know</span>
           <Icon
             name="github"
-            className="m-2 fill-current dark:text-substrateDark text-substrateWhite"
+            className="m-2 fill-current dark:text-webbDark text-webbWhite"
           />
           <Icon
             name="externalIcon"
-            className="fill-current dark:text-substrateDark text-substrateWhite"
+            className="fill-current dark:text-webbDark text-webbWhite"
           />
         </div>
       </SecondaryButton>

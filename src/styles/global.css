@@ -5,7 +5,7 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* GLOBAL Substrate platform preset */
+/* GLOBAL Webb platform preset */
 @import './tailwind-preset.css';
 /* custom project styles */
 @import './tailwind-custom.css';

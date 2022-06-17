@@ -28,16 +28,16 @@ export default function DropDown({ menuData }: DropDownMenuProps) {
         className="group focus:outline-none"
       >
         <span
-          className={`font-medium group-hover:text-substrateGreen ${
-            isComponentVisible ? 'text-substrateGreen' : null
+          className={`font-medium group-hover:text-webbBlue ${
+            isComponentVisible ? 'text-webbBlue' : null
           }`}
         >
           {name}
         </span>
         <svg
-          className={`inline-block xl:ml-2 fill-current group-hover:text-substrateGreen dark:text-white ${
+          className={`inline-block xl:ml-2 fill-current group-hover:text-webbBlue dark:text-white ${
             isComponentVisible
-              ? 'transform rotate-180 text-substrateGreen'
+              ? 'transform rotate-180 text-webbBlue'
               : `text-black`
           }`}
           xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@ export default function DropDown({ menuData }: DropDownMenuProps) {
           }`}
         >
           <ul
-            className={`m-0 list-none relative pt-4 pb-5 bg-white dark:bg-darkBackground shadow-lg ring-1 ring-substrateDark dark:ring-white rounded-md ${
+            className={`m-0 list-none relative pt-4 pb-5 bg-white dark:bg-darkBackground shadow-lg ring-1 ring-webbDark dark:ring-white rounded-md ${
               itemNavOpen ? `rounded-tr-none rounded-br-none` : null
             }`}
           >

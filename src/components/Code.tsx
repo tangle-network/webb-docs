@@ -43,7 +43,7 @@ const Code = ({ codeString, language }: any) => {
                     setTimeout(() => setIsCopied(false), 3000)
                   }}
                 >
-                  <div className="flex items-center px-4 py-1 rounded-t bg-substrateGreen">
+                  <div className="flex items-center px-4 py-1 rounded-t bg-webbBlue">
                     <div className="pr-2 font-body text-black text-xs uppercase tracking-tight">
                       {isCopied ? 'Copied!' : 'Copy'}
                     </div>
