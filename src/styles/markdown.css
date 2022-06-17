@@ -687,13 +687,13 @@
 .markdown-body h2 {
   font-size: 1.5em;
   scroll-margin-top: 100px;
-  @apply mt-16;
+  @apply mt-8;
 }
 
 .markdown-body h3 {
   font-size: 1.25em;
   scroll-margin-top: 100px;
-  @apply mt-10;
+  @apply mt-8;
 }
 
 .markdown-body h4 {
