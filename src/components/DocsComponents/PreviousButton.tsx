@@ -16,7 +16,7 @@ export function PreviousButton({ text, link }: PreviousButtonProps) {
               name="arrowMore"
               className="rotate-180 fill-current text-black dark:text-white mr-4 ml-4 transform transition-all duration-300 ease-in-out group-hover:ml-2 group-hover:mr-6"
             />
-            <button className="truncate text-lg text-black dark:text-white font-bold focus:outline-none border-b-2 border-substrateDark dark:border-white ">
+            <button className="truncate text-lg text-black dark:text-white font-bold focus:outline-none border-b-2 border-webbDark dark:border-white ">
               Back - {text}
             </button>
           </div>

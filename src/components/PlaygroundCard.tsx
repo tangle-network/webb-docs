@@ -17,15 +17,15 @@ export default function PlaygroundCard(props: PlaygroundCardProps) {
     <>
       <div className="group relative">
         {props.preSelected && (
-          <div className="absolute -top-3 -left-1 bg-substrateGreen text-white dark:text-substrateDark font-extrabold px-5 pt-2 pb-3 rounded md:mx-5">
+          <div className="absolute -top-3 -left-1 bg-webbBlue text-white dark:text-webbDark font-extrabold px-5 pt-2 pb-3 rounded md:mx-5">
             Configuration for your tutorial
           </div>
         )}
         <div
           className={cx(
-            'px-6 my-6 md:mx-5 py-10 bg-white border border-substrateDark transition-all transform duration-300 ease-in-out group-hover:border-transparent group-hover:ring-4 group-hover:ring-substrateGreen rounded max-w-md shadow-lg dark:bg-substrateDark',
+            'px-6 my-6 md:mx-5 py-10 bg-white border border-substrateDark transition-all transform duration-300 ease-in-out group-hover:border-transparent group-hover:ring-4 group-hover:ring-webbBlue rounded max-w-md shadow-lg dark:bg-webbDark',
             {
-              'ring-4 ring-substrateGreen border-transparent':
+              'ring-4 ring-webbBlue border-transparent':
                 props.preSelected,
             }
           )}
@@ -35,8 +35,8 @@ export default function PlaygroundCard(props: PlaygroundCardProps) {
               <Icon
                 name="nodeTemplate"
                 className={cx(
-                  'fill-current text-substrateDark dark:text-substrateWhite',
-                  { 'text-substrateGreen': props.preSelected }
+                  'fill-current text-webbDark dark:text-webbWhite',
+                  { 'text-webbBlue': props.preSelected }
                 )}
               />
             )}
@@ -44,8 +44,8 @@ export default function PlaygroundCard(props: PlaygroundCardProps) {
               <Icon
                 name="feTemplate"
                 className={cx(
-                  'fill-current text-substrateDark dark:text-substrateWhite',
-                  { 'text-substrateGreen': props.preSelected }
+                  'fill-current text-webbDark dark:text-webbWhite',
+                  { 'text-webbBlue': props.preSelected }
                 )}
               />
             )}
@@ -68,7 +68,7 @@ export default function PlaygroundCard(props: PlaygroundCardProps) {
             <a href={props.link}>
               <button
                 className={cx(
-                  'w-full sm:w-56 py-3 rounded bg-substrateDark bg-opacity-50 group-hover:bg-opacity-100 dark:bg-substrateWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-substrateDark text-lg font-bold focus:outline-none',
+                  'w-full sm:w-56 py-3 rounded bg-webbDark bg-opacity-50 group-hover:bg-opacity-100 dark:bg-webbWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-webbDark text-lg font-bold focus:outline-none',
                   { 'bg-opacity-100': props.preSelected }
                 )}
               >

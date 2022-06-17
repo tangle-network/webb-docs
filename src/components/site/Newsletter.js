@@ -83,9 +83,9 @@ export default function Newsletter({ layout = 'default' }) {
                 className={cn(
                   'w-full flex-1 mb-6 border-3 rounded-lg border-black text-bodyBg text-xl p-4 focus:outline-none hover:ring-2 focus:ring-2 text-center',
                   {
-                    'bg-substrateBlackish border-white text-white max-w-sm h-12':
+                    'bg-webbBlackish border-white text-white max-w-sm h-12':
                       !widget,
-                    'dark:bg-substrateDarkest dark:border-substrateGray-dark dark:placeholder-white text-black dark:text-white max-w-lg h-16':
+                    'dark:bg-webbDarkest dark:border-webbGray-dark dark:placeholder-white text-black dark:text-white max-w-lg h-16':
                       widget,
                   }
                 )}
@@ -104,7 +104,7 @@ export default function Newsletter({ layout = 'default' }) {
               >
                 <button
                   className={cn(
-                    'w-full bg-substrateGreen hover:bg-white text-white hover:text-substrateGreen align-items px-9 text-xl font-bold transition duration-200 focus:outline-none focus:ring-2 rounded-lg border-3 border-substrateGreen',
+                    'w-full bg-webbBlue hover:bg-white text-white hover:text-webbBlue align-items px-9 text-xl font-bold transition duration-200 focus:outline-none focus:ring-2 rounded-lg border-3 border-webbBlue',
                     {
                       'h-16 mb-6': widget,
                       'h-12 mb-4': !widget,

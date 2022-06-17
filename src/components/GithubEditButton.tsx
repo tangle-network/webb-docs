@@ -19,7 +19,7 @@ export default function GithubEditButton(props: GithuEditButtonProps) {
   return (
     <div className="hidden lg:block lg:pl-2">
       <a
-        className="text-sm font-medium text-substrateDark dark:text-white hover:underline lg:flex lg:items-center "
+        className="text-sm font-medium text-webbDark dark:text-white hover:underline lg:flex lg:items-center "
         href={url}
         target="_blank"
         rel="noreferrer"
@@ -27,10 +27,10 @@ export default function GithubEditButton(props: GithuEditButtonProps) {
         |{` `}
         <Icon
           name="github"
-          className="mx-2 fill-current text-substrateDark dark:text-white"
+          className="mx-2 fill-current text-webbDark dark:text-white"
         />
         {` `}
-        <span className="text-substrateDark dark:text-white">Edit</span>
+        <span className="text-webbDark dark:text-white">Edit</span>
       </a>
     </div>
   )

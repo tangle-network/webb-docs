@@ -31,12 +31,12 @@
 // Markdown Anchor Tags
 .mdx-anchor a {
   position: relative;
-  @apply text-substrateBlue dark:text-substrateBlue-light;
+  @apply text-webbBlue dark:text-webbBlue-light;
   text-decoration: none;
 }
 
 .mdx-anchor a:hover {
-  @apply text-substrateBlue dark:text-substrateBlue-light;
+  @apply text-webbBlue dark:text-webbBlue-light;
 }
 
 .mdx-anchor a::before {
@@ -47,7 +47,7 @@
   height: 1px;
   bottom: 0;
   left: 0;
-  @apply bg-substrateBlue dark:bg-substrateBlue-light;
+  @apply bg-webbBlue dark:bg-webbBlue-light;
   transform: scaleX(0);
   transform-origin: top left;
   transition: transform 0.3s ease;
