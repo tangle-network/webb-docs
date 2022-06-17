@@ -110,6 +110,18 @@ const DevNavMenu = {
             link: '/v1/relayer/how-to-become-a-relayer/',
           },
           {
+            title: 'Private Transaction Relaying',
+            link: '/v1/relayer/how-to-become-a-relayer/private-relaying',
+          },
+          {
+            title: 'Data Proposing and Signature Relaying',
+            link: 'v1/relayer/signature-relaying',
+          },
+          {
+            title: 'Data Querying',
+            link: 'v1/relayer/data-query',
+          },
+          {
             title: 'Usage',
             link: '/v1/relayer/usage',
           },

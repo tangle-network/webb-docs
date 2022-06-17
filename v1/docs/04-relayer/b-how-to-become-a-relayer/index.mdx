@@ -42,7 +42,7 @@ The current relayer network supports the following chains:
 - Optimism 
 - Arbitrum 
 
-An example `.env` file that supports all the networks mentioned above:
+An example `.env` file that supports all the networks is shown below:
 
 ```
 WEBB_EVM_HARMONYMAINNET0_ENABLED=true
@@ -70,7 +70,7 @@ WEBB_EVM_OPTIMISM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 WEBB_EVM_ARBITRUM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 ```
 
-### Quickstart 
+## Quickstart 
 
 Now that you have an `.env` file configured, you can download the relayer docker image, run it, and begin supporting 
 the Webb Relayer Network. The docker image makes use of the preset configurations in `/config` and 
@@ -80,8 +80,7 @@ Follow these instructions to get started:
 
 1. Configure `.env` file in your root directory 
 2. Run `docker-compose up` in the `/docker` directory
-3. Navigate into docker container to view relayer logs 
-
+ 
 ## Network and Contract Configuration 
  
 The relayer's configuration is comprised of two parts:
@@ -178,92 +177,20 @@ dependent on what actions you wish your relayer to perform (e.g. private tx rela
 If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions. 
 For instance, you can turn off governance relaying and data querying and only relay private transactions. 
 
-### Private Transaction Relaying
- 
-To set up the relayer exclusively for relaying private transactions we need to add the following fields to under the 
-`[evm.<network>.contracts]` section:
+<RelatedMaterialBlock
+  text={`Learn how to setup a relayer for private transaction relaying`}
+  linkText={`Private Transaction Relaying`}
+  link={`v1/relayer/how-to-become-a-relayer/private-relaying`}
+/>
 
-#### Required Fields
+<RelatedMaterialBlock
+  text={`Learn how to setup a relayer for data proposing and signature relaying`}
+  linkText={`Data Proposing and Signature Relaying`}
+  link={`v1/relayer/how-to-become-a-relayer/signature-relay`}
+/>
 
-- Set `contract`: name of the contract to support (e.g. "VAnchor")
-- Set `address`: address of the contract 
-- Set `events-watcher` to `false`
-- Set `withdraw-fee-percentage`
-- Set `withdraw-gaslimit`
-
-Under the `[features]` section we need to turn off data-querying and governance-relaying.
-
-- Set `data-query` to `false`
-- Set `governance-relay` to `false`
-
-An example configuration file for the goerli network and VAnchor contract should look similar to this:
-
-```
-[[evm.goerli.contracts]]
-contract = "VAnchor"
-address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
-deployed-at = 6896976
-events-watcher = { enabled = false }
-withdraw-fee-percentage = 0
-withdraw-gaslimit = "0x350000"
-
-[features]
-data-query = false
-governance-relay = false
-```
-
-### Data Proposing and Signature Relaying
-
-To set up the relayer exclusively for data proposing and signature relaying we need to add the following fields to under the 
-`[evm.<network>.contracts]` section:
-
-#### Required Fields
-
-- Set `contract`: name of the contract to support (e.g. "VAnchor")
-- Set `address`: address of the contract 
-- Set `events-watcher` to `true`
-- Set `withdraw-fee-percentage`
-- Set `withdraw-gaslimit`
-- Set `proposal-signing-backend`
-- Set `linked-anchors`
-
-Under the `[features]` section we need to turn off data-querying and private-relaying.
-
-- Set `data-query` to `false`
-- Set `governance-relay` to `true`
-- Set `private-relay` to `false`
-```
-
-An example configuration file for the goerli network and VAnchor and SignatureBridge contract should look similar to this:
-
-[[evm.goerli.contracts]]
-contract = "VAnchor"
-address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
-deployed-at = 6896976
-events-watcher = { enabled = true }
-withdraw-fee-percentage = 0
-withdraw-gaslimit = "0x350000"
-proposal-signing-backend = { type = "DKG", private-key = "$GOVERNOR_PRIVATE_KEY" }
-linked-anchors = [
-  { chain = "ropsten", address = "0x228aC202fB6Ad3D3A39f59E4A578a0EAFD3286CD" },
-  { chain = "rinkeby", address = "0xa238c5987142AF720B9232d9d72A12A3868396e0" },
-  { chain = "polygontestnet", address = "0xA8665042EA4767FA09143bd790059cE53Bdf2a8F" },
-  { chain = "optimismtestnet", address = "0x09d2D6520BE3922549c81885477258F41c96c43f" },
-  { chain = "arbitrumtestnet", address = "0x2D21BC3f8cb399d3b7091309AFe1986cdB9F2e39" },
-]
-
-[[evm.goerli.contracts]]
-contract = "SignatureBridge"
-address = "0xc11a9f2f42cedf687ec292231698a91dd6928d9a"
-deployed-at = 6896976
-events-watcher = { enabled = true, polling-interval = 10000, print-progress-interval = 0 }
-```
- 
-### Data Querying
- 
-To set up the relayer exclusively for relaying private transactions we need to provide the following fields in a configuration file for each network to be supported. 
-
-#### Required Fields
-- TODO
-
-
+<RelatedMaterialBlock
+  text={`Learn how to setup a relayer for data querying`}
+  linkText={`Data Querying and Storage`}
+  link={`v1/relayer/how-to-become-a-relayer/data-query`}
+/>
