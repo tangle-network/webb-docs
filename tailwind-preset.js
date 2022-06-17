@@ -1,4 +1,4 @@
-/* GLOBAL Substrate platform preset */
+/* GLOBAL Webb platform preset */
 
 module.exports = {
   mode: 'jit',
@@ -28,28 +28,28 @@ module.exports = {
     },
     extend: {
       colors: {
-        substrateGreen: {
-          light: '#D4F9EC',
-          DEFAULT: '#24CC85',
-          dark: '#22B577',
+        webbBlue: {
+          light: '#93A1F2',
+          DEFAULT: '#3351F2',
+          dark: '#3351F2',
         },
-        substrateGray: {
+        webbGray: {
           light: '#FBFBFB',
           DEFAULT: '#F2F2F2',
           dark: '#3A424E',
           darkest: '#21232d',
         },
-        substrateWhite: '#F8FAF9',
-        substrateRed: '#F2606A',
-        substratePurple: '#5A30B4',
-        substrateYellow: '#FDAB3D',
-        substrateDark: '#242A35',
-        substrateBlue: {
+        webbWhite: '#F8FAF9',
+        webbRed: '#F2606A',
+        webbPurple: '#5A30B4',
+        webbYellow: '#FDAB3D',
+        webbDark: '#242A35',
+        webbBlue: {
           light: '#0094FF',
           DEFAULT: '#4E73F2',
         },
-        substrateBlueBg: '#EEF1FE',
-        substrateDarkest: '#181A22',
+        webbBlueBg: '#EEF1FE',
+        webbDarkest: '#181A22',
         darkBackground: '#181A22',
         bgDark: '#20292A',
         lightGray: '#FAFAFA',

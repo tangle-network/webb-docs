@@ -23,7 +23,7 @@ export function PrimaryFixedButton({
       <div
         onClick={onClick}
         className={cx(
-          'group bg-substrateGreen inline-flex relative rounded-md overflow-hidden',
+          'group bg-webbBlue inline-flex relative rounded-md overflow-hidden',
           {
             'w-full justify-center': fullWidth,
           }
@@ -39,7 +39,7 @@ export function PrimaryFixedButton({
         </p>
         <div
           className={cx(
-            'bg-substrateGreen-dark absolute flex h-full transition-transform fill-current text-white',
+            'bg-webbBlue-dark absolute flex h-full transition-transform fill-current text-white',
             {
               'px-2 -right-7 group-hover:-translate-x-7': hero,
               'px-1 -right-5 group-hover:-translate-x-5': !hero,

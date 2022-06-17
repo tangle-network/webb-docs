@@ -15,7 +15,7 @@ export function SecondaryButton(props: SecondaryButtonProps) {
       {props.external ? (
         <a href={props.link} target="_blank" rel="noreferrer">
           <div
-            className={`bg-substrateDark dark:bg-substrateGray-light ${paddingSize()} ${textSize()} inline-block rounded-md hover:opacity-80 transition-opacity`}
+            className={`bg-webbDark dark:bg-webbGray-light ${paddingSize()} ${textSize()} inline-block rounded-md hover:opacity-80 transition-opacity`}
           >
             <div className="font-bold mb-0 text-white dark:text-black">
               {props.children}
@@ -25,7 +25,7 @@ export function SecondaryButton(props: SecondaryButtonProps) {
       ) : (
         <Link to={props.link}>
           <div
-            className={`bg-substrateDark dark:bg-substrateGray-light ${paddingSize()} ${textSize()} inline-block rounded-md hover:opacity-80 transition-opacity`}
+            className={`bg-webbDark dark:bg-webbGray-light ${paddingSize()} ${textSize()} inline-block rounded-md hover:opacity-80 transition-opacity`}
           >
             <div className="font-bold mb-0 text-white dark:text-black">
               {props.children}

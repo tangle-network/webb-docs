@@ -1,4 +1,4 @@
-/* docs.substrate.io config */
+/* docs.webb.tools config */
 
 module.exports = {
   presets: [require('./tailwind-preset.js')],
@@ -18,20 +18,20 @@ module.exports = {
           dark: '#F2606A',
         },
         mdxLightBg: '#FAFBFC',
-        substrateDarkThemeGrey: '#3A424E',
-        substrateGray: {
+        webbDarkThemeGrey: '#3A424E',
+        webbGray: {
           darkest: '#21232d',
         },
-        substrateGreen: {
-          light: '#D4F9EC',
-          light2: '#AEF3DC',
-          dark: '#22B577',
+        webbBlue: {
+          light: '#93A1F2',
+          DEFAULT: '#3351F2',
+          dark: '#3351F2',
         },
-        substrateBlackish: '#242A35',
-        substrateDarkest: '#181A22',
-        substrateDarkThemeLightGrey: '#F8FAF9',
-        substrateSubtleGrey: '#E0E0E0',
-        substrateDarkThemeBlue: '#0094FF',
+        webbBlackish: '#242A35',
+        webbDarkest: '#181A22',
+        webbDarkThemeLightGrey: '#F8FAF9',
+        webbSubtleGrey: '#E0E0E0',
+        webbDarkThemeBlue: '#0094FF',
         polkaPink: '#E6007A',
         transparentWhite: 'rgba(255, 255, 255, 0.1)',
         transparentDarkest: 'rgba(24, 26, 34, 0.1)',

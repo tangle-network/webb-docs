@@ -28,7 +28,7 @@ export default function RustDocs() {
               revisit previous source code documentation versions if they need
               to.
             </p>
-            <ul className="list-inside mdx-anchor text-substrateBlue dark:text-substrateBlue-light">
+            <ul className="list-inside mdx-anchor text-webbBlue dark:text-webbBlue-light">
               <li>
                 
                 {/* <Link to="https://paritytech.github.io/substrate/master/sc_service/index.html">

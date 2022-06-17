@@ -38,12 +38,12 @@ const MobileMenu = ({ toggleMenu, navItems }: MobileMenuProps) => {
   const { siteMetadata } = useSiteMetadata()
 
   return (
-    <nav className="lg:hidden absolute inset-0 bg-substrateGray-light dark:bg-darkBackground z-90 animate-fade-in-right">
+    <nav className="lg:hidden absolute inset-0 bg-webbGray-light dark:bg-darkBackground z-90 animate-fade-in-right">
       <div className="h-16 px-6 flex items-center justify-between">
         <div className="w-32">
           <Link to={siteMetadata.substrateIO}>
             <svg
-              className={`fill-current text-substrateDark dark:text-substrateWhite`}
+              className={`fill-current text-webbDark dark:text-webbWhite`}
               data-name="Layer 1"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 419.75 58.11"
@@ -58,7 +58,7 @@ const MobileMenu = ({ toggleMenu, navItems }: MobileMenuProps) => {
               <path d="M318.81,42.7V53.28h-5.54q-7.06,0-11-3.49t-3.93-11.56V23.47H293V13.1h5.4V3.24h12.32V13.1h8.06V23.47h-8.06v15a4.5,4.5,0,0,0,1,3.31,4.66,4.66,0,0,0,3.27.94Z" />
               <path d="M364.24,35.42H336.38q.21,4.55,2.3,6.52a7.43,7.43,0,0,0,5.33,2,7.32,7.32,0,0,0,4.54-1.37A6.36,6.36,0,0,0,350.92,39h13a17,17,0,0,1-3.45,7.6,18.54,18.54,0,0,1-6.77,5.26,23.17,23.17,0,0,1-19.62-.58A17.69,17.69,0,0,1,327,44.14a22.22,22.22,0,0,1-2.6-11,22.5,22.5,0,0,1,2.56-11,17.56,17.56,0,0,1,7.16-7.13,23.66,23.66,0,0,1,21,0,17.33,17.33,0,0,1,7,6.87,20.56,20.56,0,0,1,2.48,10.19A17,17,0,0,1,364.24,35.42ZM350,24.3a7.8,7.8,0,0,0-5.43-2,8,8,0,0,0-5.62,2,8.41,8.41,0,0,0-2.52,5.9h15.7C352.19,27.6,351.49,25.62,350,24.3Z" />
               <path
-                className="fill-current text-substrateGreen"
+                className="fill-current text-webbBlue"
                 d="M419.75,46.09v12H375.19v-12Z"
               />
             </svg>
@@ -66,7 +66,7 @@ const MobileMenu = ({ toggleMenu, navItems }: MobileMenuProps) => {
         </div>
         <div onClick={() => toggleMenu()} className="h-auto cursor-pointer">
           <svg
-            className="fill-current text-substrateDark dark:text-white"
+            className="fill-current text-webbDark dark:text-white"
             width="20"
             height="20"
             viewBox="0 0 20 20"
@@ -76,7 +76,7 @@ const MobileMenu = ({ toggleMenu, navItems }: MobileMenuProps) => {
           </svg>
         </div>
       </div>
-      <div className="bg-substrateGray-light dark:bg-darkBackground h-screen z-20">
+      <div className="bg-webbGray-light dark:bg-darkBackground h-screen z-20">
         <div className="py-8">
           {navItems.map((item, index: number) => {
             return (
@@ -93,7 +93,7 @@ const MobileMenu = ({ toggleMenu, navItems }: MobileMenuProps) => {
                     ? setIsEcoMenuOpen(!isEcoMenuOpen)
                     : null
                 }}
-                className="py-3 hover:bg-substrateGreen-light dark:hover:bg-green-700 font-medium transform transition-all duration-75 ease-in-out hover:font-bold"
+                className="py-3 hover:bg-webbBlue-light dark:hover:bg-blue-700 font-medium transform transition-all duration-75 ease-in-out hover:font-bold"
               >
                 <div className="px-6 flex items-center justify-between focus:outline-none cursor-pointer">
                   <div className="text-2xl">{item.name}</div>

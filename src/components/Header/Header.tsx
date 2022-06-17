@@ -38,7 +38,7 @@ export default function Header() {
   return (
     <header
       className={cx(
-        'sticky top-0 z-50 border-b border-gray-200 dark:border-substrateDarkThemeGrey bg-white dark:bg-substrateDarkest'
+        'sticky top-0 z-50 border-b border-gray-200 dark:border-webbDarkThemeGrey bg-white dark:bg-webbDarkest'
       )}
     >
       <div className="px-4 xl:px-12">
@@ -54,7 +54,7 @@ export default function Header() {
           <div className="w-40 relative transform transition-opacity duration-300 ease-in-out hover:opacity-50">
             <Link to={siteMetadata.webburl}>
               <svg
-                className={`fill-current text-substrateDark dark:text-substrateWhite`}
+                className={`fill-current text-webbDark dark:text-webbWhite`}
                 data-name="Layer 1"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 119.75 58.11"

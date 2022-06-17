@@ -1,4 +1,4 @@
-$substrateGreen: #24cc85;
+$webbBlue: #3351F2;
 $button-radius: 5px;
 
 .primary {
@@ -8,7 +8,7 @@ $button-radius: 5px;
   text-decoration: none;
   color: white;
   text-transform: capitalize;
-  background-color: $substrateGreen;
+  background-color: $webbBlue;
   font: {
     family: 'Karla', sans-serif;
     weight: 700;
@@ -52,7 +52,7 @@ $button-radius: 5px;
     right: -30px;
     width: 24px;
     height: 100%;
-    background-color: #22b577;
+    background-color: #3351F2;
     border-radius: 0px $button-radius $button-radius 0px;
     transition: all 0.2s linear 0s;
     text-align: center;

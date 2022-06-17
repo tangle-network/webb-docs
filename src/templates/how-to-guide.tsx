@@ -32,7 +32,7 @@ const DocsTemplate = ({ location, data, pageContext }: any) => {
               section={data.mdx.frontmatter.section}
             />
           </div>
-          <div className="hidden lg:inline-block lg:flex-none lg:h-auto lg:bg-substrateGray-light lg:dark:bg-substrateDark border-r border-gray-200 dark:border-gray-700">
+          <div className="hidden lg:inline-block lg:flex-none lg:h-auto lg:bg-webbGray-light lg:dark:bg-webbDark border-r border-gray-200 dark:border-gray-700">
             <DocsNav
               pathname={location.pathname}
               hashLink={location.hash}

@@ -50,7 +50,7 @@ export default function LanguageSwitcher({
             {langConfig.map((lang, index) => {
               return currentLang != lang.code ? (
                 <Link key={index} to={currentLink} language={lang.code}>
-                  <div className="my-2 mx-4 text-black dark:text-white hover:text-substrateGreen dark:hover:text-substrateGreen">
+                  <div className="my-2 mx-4 text-black dark:text-white hover:text-webbBlue dark:hover:text-webbBlue">
                     {lang.code}
                   </div>
                 </Link>
