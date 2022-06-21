@@ -1,0 +1,99 @@
+---
+title: Configuration
+slug: /v1/relayer/configuration
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+
+## Network and Contract Configuration 
+ 
+The relayer's configuration is comprised of two parts:
+
+1. Network configuration
+2. Contract configuration 
+
+The network contract configuration is dependent on the network support configuration. That is, you cannot configure
+a specific networks contracts without first configuring the network support configuration. 
+
+To configure the relayer we suggest making use of the preset configurations in the `/config` directory. There you will 
+see `.toml` files for all the supported networks and contracts. However, if you wish to custom configure 
+your relayer you may do so. See below for more details.
+
+### Network configuration
+
+The relayer must be configured with the network support configuration. User's may choose which networks they wish to support 
+but must specify these networks in a `.toml` file under the `/config` directory. The current relayer network supports both 
+EVM and Substrate based chains but differ slightly in their configuration. 
+
+#### EVM based networks configuration 
+
+The naming convention for the EVM based networks is `[evm.<network>]`. For example, to specify configuration for 
+the goerli network you need to add `[evm.goerli]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the goerli network:
+
+```
+[evm.goerli]
+http-endpoint = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+ws-endpoint = "wss://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+chain-id = 5
+private-key = "$GOERLI_PRIVATE_KEY"
+```
+
+#### Required Fields
+
+These are the required fields that must be specified in order to support a network.
+
+- Set `http-endpoint` rpc url for a specific node
+- Set `ws-endpoint` websocket endpoint for long living connections
+- Set `chain-id` (1 for ETH mainnet, 5 for Goerli)
+- Set `private-key` of this account on this network (e.g.  "$GOERLI_PRIVATE_KEY")
+
+#### Substrate based networks configuration 
+
+The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for 
+the Egg network you need to add `[substrate.eggnet]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the Egg network:
+
+```
+[substrate.eggnet]
+enabled=true
+http-endpoint = "http://standalone.webb.tools:9933/"
+ws-endpoint = "ws://standalone.webb.tools:9944/"
+runtime = "WebbProtocol"
+suri = "//Alice//stash"
+pallets = []
+```
+
+#### Required Fields
+
+These are the required fields that must be specified in order to support a network.
+
+- Set `http-endpoint` rpc url for a specific node
+- Set `ws-endpoint` websocket endpoint for long living connections
+- Set `runtime` to indicate what runtime to use
+- Set `suri` to generate a key-pair
+- Set `pallets` to indicate which pallets to use
+
+### Network contract configuration
+
+The naming convention for the EVM based network contracts is `[evm.<network>.contracts]` and for Substrate consists of `[substrate.<network>.contracts]`. For example, to specify configuration for 
+the goerli network you need to add `[evm.goerli.contracts]` at the beginning of that networks contract configuration within the `.toml` file.
+An example of the `.toml` file for the contracts on the goerli network:
+
+```
+[[evm.goerli.contracts]]
+contract = "SignatureBridge"
+address = "0xc11a9f2f42cedf687ec292231698a91dd6928d9a"
+deployed-at = 6896976
+events-watcher = { enabled = true, polling-interval = 10000, print-progress-interval = 0 }
+```
+
+The relayer network is used to support the following contracts:
+- Anchor contract
+- VAnchor contract
+- SignatureBridge contract
+
+To support each contract you are required to specify each contract with the required fields. The required fields are 
+dependent on what actions you wish your relayer to perform (e.g. private tx relaying, governance relaying, and data querying). 
