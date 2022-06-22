@@ -1,0 +1,63 @@
+---
+title: Account Management
+slug: /v1/node-operators/account-management
+version: '1.0'
+section: docs
+category: collator-operator
+keywords: []
+---
+
+Once your collator node has fully syncronized with the Kusama Relay Chain you may proceed to setup the 
+necessary accounts to operate a collator node. 
+
+## Session Keys
+
+Collator operators need to set their `Author` session keys. Run the following command to author session keys:
+```
+curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
+```
+
+Result will look like this, copy the key:
+```
+{"jsonrpc":"2.0","result":"0x400e3cef43bdessab331e4g03115c4bcecws3cxff608fa3b8sh6b07y369386570","id":1}
+```
+
+## Set session keys
+
+1. Go to the Polkadot.js portal: `Developper > Extrinsic`.
+2. Select your collator account and extrinsic type: session / setKeys.
+3. Enter the session keys and set proof to `0x00`.
+4. Submit the transaction.
+
+**TODO: add screenshot image**
+
+## Identity
+
+Collator operators need to set their identity. 
+
+1. Go to the Polkadot.js portal: `Accounts`
+2. Open the 3 dots next to your collators address: `Set on-chain Identity`
+3. Enter all fields you want to set.
+4. Send the transaction.
+
+**TODO: add screenshot image**
+
+## Request judgment
+
+1. Go to the Polkadot.js portal: `Developper > Extrinsic`
+2. Select your collator account and extrinsic type: `identity / requestJudgment`
+3. Send the transaction.
+
+## Bond funds
+
+To start collating, you need to have x EGG tokens for Egg Network.
+
+1. Go to the Egg Network Polkadot.js portal: `Developer > Extrinsic`
+2. Select your collator account and extrinsic type: `CollatorSelection / registerAsCandidate`
+3. Submit the transaction.
+
+## Production blocks
+
+Once your collator is active, you will see your name inside Network tab every time you produce a block:
+
+**TODO: add screenshot image**

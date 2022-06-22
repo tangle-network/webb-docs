@@ -111,7 +111,7 @@ const DevNavMenu = {
           },
           {
             title: 'Usage',
-            link: '/v1/relayer/usage',
+            link: '/v1/relayer/usage/',
           },
         ],
       },
@@ -128,33 +128,16 @@ const DevNavMenu = {
         name: 'How to run a node',
         items: [
           {
+            title: 'Overview',
+            link: '/v1/node-operators/run-node/overview/',
+          },
+          {
             title: 'Run a node on Egg network',
-            link: '/v1/node-operators/run-node/overview',
-          },
-          {
-            title: 'Using Docker',
-            link: '/v1/node-operators/run-node/docker',
-          },
-          {
-            title: 'Using Systemd',
-            link: '/v1/node-operators/run-node/systemd',
-          },
-        ],
-      },
-      {
-        name: 'Collators',
-        items: [
-          {
-            title: 'Run a collator on Egg network',
-            link: '/v1/node-operators/collator/overview/',
-          },
-          {
-            title: 'Requirements',
-            link: '/v1/node-operators/collator/requirements/',
+            link: '/v1/node-operators/run-eggnet-node/',
           },
           {
             title: 'Account Management',
-            link: '/v1/node-operators/collator/account-management/',
+            link: '/v1/node-operators/account-management/',
           },
         ],
       },

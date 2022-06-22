@@ -1,0 +1,236 @@
+---
+title: Run an Eggnet Node
+slug: /v1/node-operators/run-eggnet-node
+version: '1.0'
+section: docs
+category: collator-operator
+keywords: []
+---
+
+## Introduction
+
+Running a node on a Egg network allows you to connect to the network, sync with a bootnode, 
+obtain local access to RPC endpoints, author blocks on the parachain, and more.
+
+This guide is meant for people with experience compiling Substrate based blockchain nodes. 
+A parachain node is similar to a typical Substrate node, but there are some differences. 
+A Substrate parachain node will be a bigger build because it contains code to run the parachain 
+itself, as well as code to sync the relay chain, and facilitate communication between the two. 
+As such, this build is quite large and may take over 30 min and require 32GB of memory.
+
+To build an Eggnet node, you have 3 different options:
+- From source
+- From binary
+- Run a Docker container
+
+## Build from source
+
+Let's start with updating our server and installing the dependencies. Connect to your server and run:
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install jq
+sudo apt install unzip
+sudo apt install net-tools
+sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev && rm -rf /var/lib/apt/lists/*
+```
+
+Next, we will need to install Rust in order to build the Eggnet node. This guide uses https://rustup.rs 
+installer and the rustup tool to manage the Rust toolchain.
+
+```
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Configure
+source ~/.cargo/env
+```
+
+Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+
+```
+rustup default stable
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+### Clone and build egg-net repo
+```
+git clone https://github.com/webb-tools/egg-net.git
+cd egg-net
+
+cargo build --release --locked -p egg-collator
+```
+
+## Build from binaries
+The easiest way to install an Astar node is to download the binaries. You can find them here: 
+
+TODO: Need binary link for eggnet 
+
+Get the file and extract:
+```
+wget $(curl -s https://api.github.com/repos/webb-tools/eggnet/releases/latest | grep "tag_name" | awk '{print "https://github.com/webb-tools/eggnet/releases/download/" substr($2, 2, length($2)-3) "/eggnet-collator-" substr($2, 3, length($2)-4) "-ubuntu-x86_64.tar.gz"}')
+tar -xvf egg-collator*.tar.gz
+```
+
+## Run a Docker container
+
+An Eggnet node can be spun up quickly using Docker. For more information on installing Docker, 
+please visit this [page](https://docs.docker.com/get-docker/). When connecting to Eggnet on Kusama, it will take a few days to completely 
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+
+Create a local directory to store chain data:
+
+```
+mkdir /var/lib/eggnet-data
+```
+
+Next, make sure you set the ownership and permissions accordingly for the local directory that stores the chain data. 
+
+```
+# chown to a specific user
+chown DOCKER_USER /var/lib/eggnet-data
+
+# chown to current user
+sudo chown -R $(id -u):$(id -g) /var/lib/eggnet-data
+```
+
+Now, execute the docker run command:
+
+**Collator Node**
+```
+docker run --network="host" -v "/var/lib/eggnet-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/eggnet:edge \
+--base-path=/data \
+--chain eggnet \
+--name="YOUR-NODE-NAME" \
+--validator \
+--execution wasm \
+--wasm-execution compiled \
+--pruning archive \
+--state-cache-size 0 \
+--db-cache <50% RAM in MB> \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+**Full Node:**
+```
+docker run --network="host" -v "/var/lib/eggnet-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/eggnet:edge \
+--base-path=/data \
+--chain eggnet \
+--name="YOUR-NODE-NAME" \
+--execution wasm \
+--wasm-execution compiled \
+--pruning archive \
+--state-cache-size 0 \
+--db-cache <50% RAM in MB> \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+## System service setup
+
+Run the following commands to create the service configuration file:
+
+```
+# Move the egg-collator binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/egg-collator /usr/bin/
+
+# navigate to /etc
+cd /etc/systemd/system
+
+# create the service configuration file
+sudo touch collator.service
+```
+
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update 
+any paths or ports to your own preference. 
+
+**Note:** The below configuration assumes you are targeting the Arana chain spec.
+
+**Collator Node**
+```
+[Unit]
+Description=Eggnet Collator Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/egg-collator \
+  --base-path /tmp/collator/<USERNAME> \
+  --name <NODE-NAME> \
+  --chain eggnet \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --ws-port 9944 \
+  --validator \
+  --rpc-port 9933 \
+  --no-mdns  \
+  --rpc-cors "*"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Full Node**
+```
+[Unit]
+Description=Eggnet Collator Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/egg-collator \
+  --base-path /tmp/collator/<USERNAME> \
+  --name <NODE-NAME> \
+  --chain eggnet \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --ws-port 9944 \
+  --rpc-port 9933 \
+  --no-mdns  \
+  --rpc-cors "*"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Enable the services
+
+Double check that the config has been written to `/etc/systemd/system/collator.service` correctly. 
+If so, enable the service so it runs on startup, and then try to start it now:
+
+```
+sudo systemctl enable collator
+sudo systemctl start collator
+```
+
+Check the status of the service:
+```
+systemctl status collator
+```
+
+You should see the node connecting to the network and syncing the latest blocks. 
+If you need to tail the latest output, you can use:
+```
+journalctl -u collator.service -f
+```
+
+Congratulations! You have officially setup an Eggnet node using Systemd. If you are interested 
+in learning how to setup monitoring for your node, and ssl certificates please refer to the 
+how-to-guide [here](https://docs.webb.tools/how-to-guides/v1/node-setup/ssl/).
