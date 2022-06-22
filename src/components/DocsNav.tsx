@@ -37,7 +37,7 @@ export default function DocsNav({
             isOpen
               ? `transition-all transform duration-75 ease-in-out justify-start px-4`
               : `transition-all transform duration-75 ease-in-out justify-between px-4`
-          } items-center h-14 bg-substrateGray dark:bg-gray-700 mt-10 `}
+          } items-center h-14 bg-webbGray dark:bg-gray-700 mt-10 `}
         >
           <div className={`${isOpen && `hidden`}`}>
             <span className="font-bold">
@@ -52,10 +52,10 @@ export default function DocsNav({
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="bg-substrateDark dark:bg-white p-2 rounded-lg transform transition-opacity duration-300 ease-in-out hover:opacity-80 focus:outline-none"
+            className="bg-webbDark dark:bg-white p-2 rounded-lg transform transition-opacity duration-300 ease-in-out hover:opacity-80 focus:outline-none"
           >
             <svg
-              className={`fill-current text-white dark:text-substrateDark ${
+              className={`fill-current text-white dark:text-webbDark ${
                 isOpen && 'rotate-180'
               }`}
               width="12"
@@ -103,16 +103,16 @@ export default function DocsNav({
               return (
                 <div
                   key={index}
-                  className="px-20 lg:px-4 py-4 lg:dark:bg-substrateDark"
+                  className="px-20 lg:px-4 py-4 lg:dark:bg-webbDark"
                 >
                   <Link to={navItem.url}>
                     <div className="flex items-center justify-between hover:no-underline">
-                      <div className="font-medium text-substrateDark dark:text-white">
+                      <div className="font-medium text-webbDark dark:text-white">
                         {navItem.section}
                       </div>
                       <Icon
                         name="arrowDown"
-                        className="fill-current text-substrateDark dark:text-white transform -rotate-90"
+                        className="fill-current text-webbDark dark:text-white transform -rotate-90"
                       />
                     </div>
                   </Link>

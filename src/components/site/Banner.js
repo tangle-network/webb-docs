@@ -15,7 +15,7 @@ const Banner = () => {
       {hasActiveBanner && isBannerOpen && (
         <div
           className={cx(
-            'hidden md:block fixed z-50 right-10 bottom-8 max-w-sm p-6 transition-all text-white dark:text-black dark:bg-substrateGray bg-substrateBlackish m-0 shadow-xxl rounded-md'
+            'hidden md:block fixed z-50 right-10 bottom-8 max-w-sm p-6 transition-all text-white dark:text-black dark:bg-webbGray bg-webbBlackish m-0 shadow-xxl rounded-md'
           )}
         >
           {banners.map(
@@ -30,7 +30,7 @@ const Banner = () => {
             ) => (
               <Fragment key={idx}>
                 {idx > 0 && (
-                  <hr className="mt-3 mb-2 border-substrateDarkThemeGrey dark:border-substrateSubtleGrey" />
+                  <hr className="mt-3 mb-2 border-webbDarkThemeGrey dark:border-webbSubtleGrey" />
                 )}
                 <div className="banner">
                   <span className="block pr-2 mb-2 font-bold text-xl">

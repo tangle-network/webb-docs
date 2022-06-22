@@ -60,7 +60,7 @@
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   line-height: 1.8;
-  @apply font-body text-substrateDark dark:text-white;
+  @apply font-body text-webbDark dark:text-white;
   font-size: 16px;
   word-wrap: break-word;
 }
@@ -687,13 +687,13 @@
 .markdown-body h2 {
   font-size: 1.5em;
   scroll-margin-top: 100px;
-  @apply mt-16;
+  @apply mt-8;
 }
 
 .markdown-body h3 {
   font-size: 1.25em;
   scroll-margin-top: 100px;
-  @apply mt-10;
+  @apply mt-8;
 }
 
 .markdown-body h4 {
@@ -775,7 +775,7 @@
 
 .markdown-body table tr:nth-child(2n) {
   /* background-color: #f6f8fa; */
-  @apply bg-substrateGray-light dark:bg-substrateDark
+  @apply bg-webbGray-light dark:bg-webbDark
 }
 
 .markdown-body img {
@@ -796,7 +796,7 @@
   padding: 0.2em 0.4em;
   margin: 0;
   font-size: 85%;
-  @apply bg-substrateGray dark:bg-substrateDark;
+  @apply bg-webbGray dark:bg-webbDark;
   border-radius: 3px;
 }
 
@@ -829,7 +829,7 @@
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  @apply bg-substrateGray-light dark:bg-substrateDark;
+  @apply bg-webbGray-light dark:bg-webbDark;
   border-radius: 3px;
 }
 

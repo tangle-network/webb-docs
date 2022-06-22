@@ -26,7 +26,7 @@ export default function TutorialCard({
 }: TutorialCardProps) {
   const tutImage = getImage(image)
   return (
-    <div className="w-80 md:w-96 mb-8 mx-4 rounded bg-substrateGray-light dark:bg-substrateDark">
+    <div className="w-80 md:w-96 mb-8 mx-4 rounded bg-webbGray-light dark:bg-webbDark">
       <Link to={link}>
         <div className="inline-block overflow-hidden">
           <GatsbyImage
@@ -48,7 +48,7 @@ export default function TutorialCard({
             <div className="flex flex-col md:flex-row-reverse md:justify-between">
               <div className="flex items-center">
                 <svg
-                  className="fill-current text-black dark:text-substrateWhite"
+                  className="fill-current text-black dark:text-webbWhite"
                   xmlns="http://www.w3.org/2000/svg"
                   width="18"
                   height="19"
@@ -75,7 +75,7 @@ export default function TutorialCard({
         </div>
         <div className="p-4">
           <Link to={link}>
-            <button className="w-full lg:w-52 py-3 rounded bg-substrateDark dark:bg-substrateWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-substrateDark text-lg font-bold focus:outline-none">
+            <button className="w-full lg:w-52 py-3 rounded bg-webbDark dark:bg-webbWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-webbDark text-lg font-bold focus:outline-none">
               Try it now!
             </button>
           </Link>

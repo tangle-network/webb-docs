@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  @apply bg-white text-substrateDark dark:text-white text-base;
+  @apply bg-white text-webbDark dark:text-white text-base;
   background: transparent;
 }
 

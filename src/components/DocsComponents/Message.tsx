@@ -11,7 +11,7 @@ interface MessageProps {
 }
 
 export function Message({ type, title, text }: MessageProps) {
-  const iconStyles = 'fill-current text-substrateDark dark:text-substrateWhite'
+  const iconStyles = 'fill-current text-webbDark dark:text-webbWhite'
   return (
     <div
       className={`px-4 pb-2 mb-8 border-t-8 rounded ${

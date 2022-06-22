@@ -10,7 +10,7 @@ export function RelevantSkills({ data }: RelevantSkillsProps) {
       {data.map((str, index) => (
         <button
           key={index}
-          className={`bg-substrateYellow bg-opacity-10 px-4 py-2 mt-2 sm:mt-0 mr-4 border border-substrateYellow rounded cursor-text text-xs`}
+          className={`bg-webbYellow bg-opacity-10 px-4 py-2 mt-2 sm:mt-0 mr-4 border border-webbYellow rounded cursor-text text-xs`}
         >
           {str}
         </button>

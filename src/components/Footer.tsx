@@ -9,7 +9,7 @@ export default function Footer() {
   const navItems = MainNav.global()
 
   return (
-    <footer className="w-full px-4 xl:px-12 bg-substrateDark text-white font-body">
+    <footer className="w-full px-4 xl:px-12 bg-webbDark text-white font-body">
       <div className="h-auto pb-6 md:flex md:flex-row-reverse md:justify-between md:items-center">
         <div className="flex items-center py-4">
           <a
@@ -20,7 +20,7 @@ export default function Footer() {
           >
             <Icon
               name="discordOrg"
-              className="fill-current text-substrateWhite"
+              className="fill-current text-webbWhite"
             />
           </a>
           <a
@@ -31,7 +31,7 @@ export default function Footer() {
           >
             <Icon
               name="github"
-              className="h-6 w-6 fill-current text-substrateWhite"
+              className="h-6 w-6 fill-current text-webbWhite"
             />
           </a>
           <a
@@ -42,7 +42,7 @@ export default function Footer() {
           >
             <Icon
               name="twitter"
-              className="h-6 w-6 fill-current text-substrateWhite"
+              className="h-6 w-6 fill-current text-webbWhite"
             />
           </a>
         </div>

@@ -36,7 +36,7 @@ export default function DocsNav({
   return (
     <nav
       className={cx(
-        'bg-substrateGray-light dark:bg-darkBackground w-screen overflow-auto',
+        'bg-webbGray-light dark:bg-darkBackground w-screen overflow-auto',
         {
           'h-[calc(100vh-100px)] z-10': isOpen,
         }
@@ -44,7 +44,7 @@ export default function DocsNav({
     >
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-center items-center py-4 bg-substrateGray dark:bg-gray-700 cursor-pointer"
+        className="flex justify-center items-center py-4 bg-webbGray dark:bg-gray-700 cursor-pointer"
       >
         <Icon
           name="docsNavIcon"
@@ -101,12 +101,12 @@ export default function DocsNav({
                 >
                   <Link to={navItem.url}>
                     <div className="flex items-center justify-between">
-                      <div className="font-medium text-substrateDark dark:text-white">
+                      <div className="font-medium text-webbDark dark:text-white">
                         {navItem.section}
                       </div>
                       <Icon
                         name="arrowDown"
-                        className="fill-current text-substrateDark dark:text-white transform -rotate-90"
+                        className="fill-current text-webbDark dark:text-white transform -rotate-90"
                       />
                     </div>
                   </Link>

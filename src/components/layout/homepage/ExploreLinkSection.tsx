@@ -66,14 +66,14 @@ const ExploreLinkSection = ({ links }: ExploreLinkSectionProps) => {
   })
 
   return (
-    <div className="pb-10 pt-20 bg-substrateGray-light dark:bg-substrateGray-darkest">
+    <div className="pb-10 pt-20 bg-webbGray-light dark:bg-webbGray-darkest">
       <Section>
         <h4 className="text-2xl font-bold mb-16">Explore More Substrate</h4>
         <div className="md:grid grid-cols-3 gap-6 xl:gap-10">
           {currentLinks.map(
             ({ title, description, link, linkText, icon }, index) => (
               <Link key={index} to={link}>
-                <div className="h-full hover:bg-white hover:shadow-xl hover:scale-105 rounded-md p-8 mb-16 sm:mb-0 flex flex-col justify-between transition-all dark:hover:bg-substrateDark">
+                <div className="h-full hover:bg-white hover:shadow-xl hover:scale-105 rounded-md p-8 mb-16 sm:mb-0 flex flex-col justify-between transition-all dark:hover:bg-webbDark">
                   <div>
                     <Icon name={icon} className="mb-6 w-8 h-8" />
                     <h5 className="text-xl font-bold mb-6">{title}</h5>
@@ -86,7 +86,7 @@ const ExploreLinkSection = ({ links }: ExploreLinkSectionProps) => {
                       {linkText}
                     </p>{' '}
                     <span
-                      className={`fill-current text-substrateDark dark:text-white inline-block`}
+                      className={`fill-current text-webbDark dark:text-white inline-block`}
                     >
                       <Icon name="arrowMore" />
                     </span>

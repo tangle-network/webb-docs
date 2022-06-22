@@ -15,8 +15,8 @@ export function TextButton(props: TextButtonProps) {
   const textSize = () => (props.cta ? 'text-xl' : 'text-lg')
   const accentStyle = () =>
     props.accent
-      ? `text-substrateGreen dark:text-substrateGreen border-substrateGreen`
-      : `border-substrateDark dark:border-white`
+      ? `text-webbBlue dark:text-webbBlue border-webbBlue`
+      : `border-webbDark dark:border-white`
   return (
     <>
       {props.external ? (
@@ -28,7 +28,7 @@ export function TextButton(props: TextButtonProps) {
               {props.children}
             </p>{' '}
             <span
-              className={`fill-current text-substrateDark dark:text-white inline-block ${accentStyle()}`}
+              className={`fill-current text-webbDark dark:text-white inline-block ${accentStyle()}`}
             >
               <Icon name="arrowMore" />
             </span>
@@ -43,7 +43,7 @@ export function TextButton(props: TextButtonProps) {
               {props.children}
             </p>{' '}
             <span
-              className={`fill-current text-substrateDark dark:text-white inline-block ${accentStyle()}`}
+              className={`fill-current text-webbDark dark:text-white inline-block ${accentStyle()}`}
             >
               <Icon name={`arrowMore`} />
             </span>
