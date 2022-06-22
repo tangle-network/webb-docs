@@ -116,6 +116,15 @@ const DevNavMenu = {
         ],
       },
       {
+        name: 'Interoperable Shielded Pool Protocol',
+        items: [
+          {
+            title: 'Overview',
+            link: '/v1/ispp/overview/',
+          },
+        ],
+      },
+      {
         name: 'Crowdloan',
         items: [
           {
@@ -140,15 +149,6 @@ const DevNavMenu = {
           //   title: 'FAQ',
           //   link: '/v1/crowdloan/faq/',
           // },
-        ],
-      },
-      {
-        name: 'Interoperable Shielded Pool Protocol',
-        items: [
-          {
-            title: 'Overview',
-            link: '/v1/ispp/overview/',
-          },
         ],
       },
       // {
