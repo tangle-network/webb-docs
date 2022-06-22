@@ -20,13 +20,13 @@ export default function SlideDownNav({
     <>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between px-4 sm:px-20 lg:px-4 py-3 bg-substrateGray-light lg:dark:bg-substrateDark dark:bg-darkBackground cursor-pointer"
+        className="flex items-center justify-between px-4 sm:px-20 lg:px-4 py-3 bg-webbGray-light lg:dark:bg-webbDark dark:bg-darkBackground cursor-pointer"
       >
         <div className={`${isOpen ? `font-bold` : `font-medium`}`}>
           {section.name}
         </div>
         <svg
-          className={`fill-current text-substrateDark dark:text-white ${
+          className={`fill-current text-webbDark dark:text-white ${
             isOpen ? '-rotate-180' : null
           }`}
           xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +45,7 @@ export default function SlideDownNav({
             return (
               <Link key={index} to={item.link}>
                 <div
-                  className={`text-substrateDark dark:text-white text-sm pl-8 pr-6 sm:px-24 lg:pl-8 lg:pr-6 py-2 hover:font-bold ${
+                  className={`text-webbDark dark:text-white text-sm pl-8 pr-6 sm:px-24 lg:pl-8 lg:pr-6 py-2 hover:font-bold ${
                     active && `font-bold`
                   }`}
                 >

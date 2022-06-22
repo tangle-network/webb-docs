@@ -105,7 +105,7 @@ export function SearchModal({ id, closeModal }: SearchModalProps) {
       >
         <div
           ref={id}
-          className="bg-white dark:bg-gray-900 w-full max-w-screen-sm h-auto py-10 px-8 rounded-lg border-2 border-substrateDark shadow-xl"
+          className="bg-white dark:bg-gray-900 w-full max-w-screen-sm h-auto py-10 px-8 rounded-lg border-2 border-webbDark shadow-xl"
         >
           <SearchInput
             query={query}
@@ -134,7 +134,7 @@ export function SearchModal({ id, closeModal }: SearchModalProps) {
       </div>
       <div
         id="modal-background"
-        className="opacity-25 dark:opacity-90 fixed inset-0 z-40 bg-substrateDark"
+        className="opacity-25 dark:opacity-90 fixed inset-0 z-40 bg-webbDark"
       ></div>
     </>
   )

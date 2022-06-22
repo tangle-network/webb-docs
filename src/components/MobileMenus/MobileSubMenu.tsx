@@ -21,8 +21,8 @@ export default function TechSubMenu({
   navItem,
 }: MobileSubMenuProps) {
   return (
-    <div className="absolute inset-0 bg-substrateGray-light dark:bg-darkBackground h-screen animate-fade-in-right">
-      <div className="bg-substrateGreen-light dark:bg-green-700">
+    <div className="absolute inset-0 bg-webbGray-light dark:bg-darkBackground h-screen animate-fade-in-right">
+      <div className="bg-webbBlue-light dark:bg-blue-700">
         <div className="px-6 h-16 flex items-center justify-between">
           <div onClick={() => toggleSubMenu()} className="cursor-pointer">
             <svg

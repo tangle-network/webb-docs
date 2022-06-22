@@ -28,8 +28,8 @@ export default function SubMenuItem({
         onClick={() => setIsComponentVisible(!isComponentVisible)}
         className={`pl-6 py-2 pr-24 text-black dark:text-white cursor-pointer ${
           isComponentVisible
-            ? 'bg-substrateGreen-light underline dark:bg-substrateGreen-dark hover:text-black'
-            : 'hover:text-substrateGreen hover:underline'
+            ? 'bg-webbBlue-light underline dark:bg-webbBlue-dark hover:text-black'
+            : 'hover:text-webbBlue hover:underline'
         }`}
       >
         <span className="font-medium">{data.linkTitle}</span>

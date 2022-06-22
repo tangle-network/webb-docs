@@ -10,7 +10,7 @@ interface NavListItemProps {
 export default function NavListItem({ link, title }: NavListItemProps) {
   const [isCurrent, setIsCurrent] = useState(false)
   const styles =
-    'whitespace-nowrap pl-6 pr-12 py-2 focus:outline-none focus:bg-substrateBlueBg hover:text-substrateGreen hover:underline dark:text-white font-medium'
+    'whitespace-nowrap pl-6 pr-12 py-2 focus:outline-none focus:bg-webbBlueBg hover:text-webbBlue hover:underline dark:text-white font-medium'
   useEffect(() => {
     if (
       link === location.pathname ||
@@ -27,8 +27,8 @@ export default function NavListItem({ link, title }: NavListItemProps) {
       <div
         className={`${styles} ${
           isCurrent
-            ? 'text-substrateGreen underline'
-            : 'text-substrateDark dark:text-white'
+            ? 'text-webbBlue underline'
+            : 'text-webbDark dark:text-white'
         }`}
       >
         <span>{title}</span>

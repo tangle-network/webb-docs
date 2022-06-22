@@ -57,7 +57,7 @@ export function SearchSectionLabel({
         }`}
       >
         <input
-          className="h-4 w-4 md:h-[18px] md:w-[18px] rounded bg-white text-substrateDark border-2 focus:ring-0 "
+          className="h-4 w-4 md:h-[18px] md:w-[18px] rounded bg-white text-webbDark border-2 focus:ring-0 "
           type="checkbox"
           checked={checked() || false}
           onChange={() => handleChange()}
