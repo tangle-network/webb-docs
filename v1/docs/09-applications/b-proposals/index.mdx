@@ -78,12 +78,12 @@ Relevant for tracking updates to contracts.
 ### Refresh
 | Protocol | Doc | Byte Size | Arguments |
 |---|---|---|---|
-| DKG | Not documented | Total Size:  bytes | 1. Public key ( bytes)<br/>2. Nonce (4 bytes)<br/> |
+| DKG | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/struct.RefreshProposal.html) | Total Size: 72 bytes | 1. Public key (68 bytes)<br/>2. Nonce (4 bytes)<br/> |
 
 ### ProposerSetUpdate
 | Protocol | Doc | Byte Size | Arguments |
 |---|---|---|---|
-| DKG | Not documented | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/>|
+| DKG | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/>|
 
 ## Application Specific Proposals 
 
@@ -105,7 +105,6 @@ Relevant for tracking updates to contracts.
 | Protocol | Doc | Byte Size | Arguments |
 |---|---|---|---|
 | EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.FeeRecipientUpdateProposal.html) | Total Size: 60 bytes | 1. Recipient Address (20 bytes)|
-| Substrate |Unimplemented|  |  | 
 
 ### WrappingFeeUpdateProposal
 | Protocol | Doc | Byte Size | Arguments |
