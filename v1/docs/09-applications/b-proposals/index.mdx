@@ -1,0 +1,136 @@
+---
+title: Proposals
+slug: /v1/applications/proposals
+version: '1.0'
+section: docs
+category: applications
+keywords: []
+---
+
+This page will provide an overview of Webb proposals, the proposal structure for each protocol implementation and the intended use. 
+There are two distinct proposal categories:
+
+1) Global Governance Proposals <br/>
+2) Application Specific Proposals 
+
+Collectively, there are 13 distinct proposals as you can see from the table below. There are 4 global governance proposals, and 9 application specific proposals. 
+A proposal simply is a message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. 
+Below are all the proposal types in the system.
+
+| Proposals                  | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| Refresh (Governance)                    | Proposal to refresh a contract's governor               |
+| AnchorUpdate (Governance)             | Proposal to update merkle roots                         |
+| ResourceIdUpdate (Governance)          | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate (Governance)        | Proposal to update the latest proposer set state        |
+| SetVerifierProposal        | Proposal to set a verifier address                      |
+| TokenAdd                   | Proposal to add token to a set                          |
+| TokenRemove                | Proposal to remove token from a set                     |
+| WrappingFeeUpdate          | Proposal to update fee parameter                        |
+| RescueToken                | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+
+## Definitions
+
+### Typed Chain ID
+
+A unique Webb-specific chain identifier that is composed of a chain / virtual machine type and the respective identifier. <br/>
+**Size:** 6 bytes
+
+### Target System
+Relevant for identifying the actual resource / system / contract that is being targeted in the proposal lifecycle.<br/>
+**Size:** 26 bytes
+
+### Resource ID
+Relevant for identifying the system the proposal is being executed on and interacting with. The resource ID contains the target system and the target chain ID to be communicated with.<br/>
+**Size:** 32 bytes <br/>
+**Structure:** `(TargetSystem, TypedChainId)`
+
+### FunctionSig
+Relevant for EVM networks where call data is generic and not directly executable at a specific function.<br/>
+**Size:** 4 bytes
+
+### Nonce
+**Size:** 4 bytes
+
+### Proposal Header
+**Size:** 40 bytes <br/>
+**Structure: `(**Resource ID, FunctionSig, Nonce)`
+
+## Global Governance Proposals 
+
+### AnchorUpdateProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.AnchorUpdateProposal.html) | Total Size: 114 bytes | 1. Source chain type (2 bytes)<br/>2. Source chain ID (4 bytes)<br/>3. Latest leaf index (4 bytes)<br/>4. Merkle root (32 bytes)<br/>5. Target ID (32 bytes) |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.AnchorUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-substrate/blob/main/pallets/anchor-handler/src/lib.rs#L168-L178)<br/>1. Typed chain ID (6 bytes)<br/>2. Latest leaf index (4 bytes)<br/>3. Merkle root (32 bytes)<br/>4. Target ID (32 bytes) | 
+
+### ResourceIdUpdateProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.ResourceIdUpdateProposal.html) | Total Size: 112 bytes | 1. New resource ID (32 bytes)<br/>2. Handler contract address (20 bytes)<br/>3. Execution contract address (20 bytes)<br/> |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call for a specific handler pallet <br/>1. [Anchor handler pallet call](https://github.com/webb-tools/protocol-substrate/blob/main/pallets/anchor-handler/src/lib.rs#L180-L194)<br/> | 
+
+
+## Application Specific Proposals 
+
+### TokenAddProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenAddProposal.html) | Total Size: 60 bytes | 1. Token Address (20 bytes)|
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenAddProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
+| CosmWasm | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+
+### TokenRemoveProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenRemoveProposal.html) | Total Size: 60 bytes | 1. Token Address (20 bytes)|
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenRemoveProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
+| CosmWasm | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+
+### FeeRecipientUpdateProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.FeeRecipientUpdateProposal.html) | Total Size: 60 bytes | 1. Recipient Address (20 bytes)|
+| Substrate |Unimplemented|  |  | 
+
+### WrappingFeeUpdateProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.WrappingFeeUpdateProposal.html) | Total Size: 41 bytes | 1. Fee percentage (1 byte)|
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.WrappingFeeUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
+
+### RescueTokensProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.RescueTokensProposal.html) | Total Size: 112 bytes | 1. Token address (20 bytes)<br/>2. Recipient address (20 bytes)<br/>3. Amount (32 bytes)|
+| Substrate | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+
+### MaxDepositLimitProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MaxDepositLimitProposal.html) | Total Size: 72 bytes | 1. Deposit limit (32 bytes)|
+| Substrate | Not documented |  |  | 
+
+### MinWithdrawalLimitProposal
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MinWithdrawalLimitProposal.html) | Total Size: 72 bytes | 1. Withdrawal limit (32 bytes)|
+| Substrate | Not documented |  |  | 
+
+### SetTreasuryHandlerProposal
+**Note:** Not required in Substrate implementation.
+
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetTreasuryHandlerProposal.html) | Total Size: 60 bytes | 1. New handler address (20 bytes)|
+ 
+### SetVerifierProposal
+**Note:** Not required in Substrate implementation. 
+
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetVerifierProposal.html) | Total Size: 60 bytes | 1. New verifier address (20 bytes)|
