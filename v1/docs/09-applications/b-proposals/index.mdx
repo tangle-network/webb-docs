@@ -54,11 +54,12 @@ Relevant for EVM networks where call data is generic and not directly executable
 **Size:** 4 bytes
 
 ### Nonce
+Relevant for tracking updates to contracts.
 **Size:** 4 bytes
 
 ### Proposal Header
 **Size:** 40 bytes <br/>
-**Structure: `(**Resource ID, FunctionSig, Nonce)`
+**Structure:** `(**Resource ID, FunctionSig, Nonce)`
 
 ## Global Governance Proposals 
 
@@ -74,6 +75,15 @@ Relevant for EVM networks where call data is generic and not directly executable
 | EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.ResourceIdUpdateProposal.html) | Total Size: 112 bytes | 1. New resource ID (32 bytes)<br/>2. Handler contract address (20 bytes)<br/>3. Execution contract address (20 bytes)<br/> |
 | Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call for a specific handler pallet <br/>1. [Anchor handler pallet call](https://github.com/webb-tools/protocol-substrate/blob/main/pallets/anchor-handler/src/lib.rs#L180-L194)<br/> | 
 
+### Refresh
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| DKG | Not documented | Total Size:  bytes | 1. Public key ( bytes)<br/>2. Nonce (4 bytes)<br/> |
+
+### ProposerSetUpdate
+| Protocol | Doc | Byte Size | Arguments |
+|---|---|---|---|
+| DKG | Not documented | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/>|
 
 ## Application Specific Proposals 
 
@@ -82,14 +92,14 @@ Relevant for EVM networks where call data is generic and not directly executable
 |---|---|---|---|
 | EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenAddProposal.html) | Total Size: 60 bytes | 1. Token Address (20 bytes)|
 | Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenAddProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
-| CosmWasm | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+| CosmWasm | Not documented | Total Size: ≥ 40 bytes | Encoded call | 
 
 ### TokenRemoveProposal
 | Protocol | Doc | Byte Size | Arguments |
 |---|---|---|---|
 | EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenRemoveProposal.html) | Total Size: 60 bytes | 1. Token Address (20 bytes)|
 | Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenRemoveProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
-| CosmWasm | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+| CosmWasm | Not documented | Total Size: ≥ 40 bytes | Encoded call | 
 
 ### FeeRecipientUpdateProposal
 | Protocol | Doc | Byte Size | Arguments |
@@ -107,7 +117,7 @@ Relevant for EVM networks where call data is generic and not directly executable
 | Protocol | Doc | Byte Size | Arguments |
 |---|---|---|---|
 | EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.RescueTokensProposal.html) | Total Size: 112 bytes | 1. Token address (20 bytes)<br/>2. Recipient address (20 bytes)<br/>3. Amount (32 bytes)|
-| Substrate | Proposal Docs | Total Size: ≥ 40 bytes | Encoded call | 
+| Substrate | Not documented | Total Size: ≥ 40 bytes | Encoded call | 
 
 ### MaxDepositLimitProposal
 | Protocol | Doc | Byte Size | Arguments |
