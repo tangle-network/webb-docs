@@ -72,31 +72,20 @@ const DevNavMenu = {
             title: 'Signature Bridge',
             link: '/v1/anchor-protocol/signature-bridge/',
           },
-          {
-            title: 'Applications',
-            link: '/v1/anchor-protocol/applications/',
-          },
-          // {
-          //   title: 'Governance',
-          //   link: '/v1/bridge-protocol/governance/',
-          // },
-          // {
-          //   title: 'Installation',
-          //   link: '/v1/bridge-protocol/installation/',
-          // },
-          // {
-          //   title: 'Usage',
-          //   link: '/v1/bridge-protocol/usage/',
-          // },
-          // {
-          //   title: 'Technical Roadmap',
-          //   link: '/v1/bridge-protocol/technical-roadmap/',
-          // },
-          // {
-          //   title: 'Deployments',
-          //   link: '/v1/bridge-protocol/deployments/',
-          // },
         ],
+      },
+      {
+        name:'Applications',
+        items : [
+          {
+            title: 'Overview',
+            link: '/v1/applications/overview/',
+          },
+          {
+            title: 'Proposals',
+            link: '/v1/applications/proposals/',
+          },
+        ]
       },
       {
         name: 'Relayer',
@@ -111,7 +100,7 @@ const DevNavMenu = {
           },
           {
             title: 'Usage',
-            link: '/v1/relayer/usage',
+            link: '/v1/relayer/usage/',
           },
         ],
       },
@@ -121,6 +110,23 @@ const DevNavMenu = {
           {
             title: 'Overview',
             link: '/v1/ispp/overview/',
+          },
+        ],
+      },
+      {
+        name: 'How to run a node',
+        items: [
+          {
+            title: 'Overview',
+            link: '/v1/node-operators/run-node/overview/',
+          },
+          {
+            title: 'Run a node on Egg network',
+            link: '/v1/node-operators/run-eggnet-node/',
+          },
+          {
+            title: 'Account Management',
+            link: '/v1/node-operators/account-management/',
           },
         ],
       },
