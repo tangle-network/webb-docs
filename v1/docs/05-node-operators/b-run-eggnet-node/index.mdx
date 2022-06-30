@@ -18,10 +18,13 @@ A Substrate parachain node will be a bigger build because it contains code to ru
 itself, as well as code to sync the relay chain, and facilitate communication between the two. 
 As such, this build is quite large and may take over 30 min and require 32GB of memory.
 
-To build an Eggnet node, you have 3 different options:
+To build an Eggnet node, you have 2 different options:
 - From source
-- From binary
 - Run a Docker container
+
+It is also highly recommended install and configure Network Time Protocol (NTP) client if you intend to become 
+a validator on the network. For more details on how to setup please visit the guide from Polkadot 
+[here](https://wiki.polkadot.network/docs/maintain-guides-how-to-validate-polkadot#install--configure-network-time-protocol-ntp-client).
 
 ## Build from source
 
@@ -46,10 +49,10 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source ~/.cargo/env
 ```
 
-Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+Configure the Rust toolchain to default to the latest nightly version, and the nightly wasm target:
 
 ```
-rustup default stable
+rustup default nightly
 rustup update
 rustup update nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
@@ -63,16 +66,27 @@ cd egg-net
 cargo build --release --locked -p egg-collator
 ```
 
-## Build from binaries
-The easiest way to install an Astar node is to download the binaries. You can find them here: 
+### Required Keys
 
-TODO: Need binary link for eggnet 
+In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys 
+include:
+- DKG key (Ecdsa)
+- Aura key (Sr25519)
+- Grandpa key (Ed25519)
 
-Get the file and extract:
+To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install 
+subkey before running the command. Once installed, to generate the DKG key you can run the following: 
+
 ```
-wget $(curl -s https://api.github.com/repos/webb-tools/eggnet/releases/latest | grep "tag_name" | awk '{print "https://github.com/webb-tools/eggnet/releases/download/" substr($2, 2, length($2)-3) "/eggnet-collator-" substr($2, 3, length($2)-4) "-ubuntu-x86_64.tar.gz"}')
-tar -xvf egg-collator*.tar.gz
+egg-standalone-node key insert --base-path /eggnet-data \
+--chain "./resources/arana-standalone-raw.json" \
+--scheme Ecdsa \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type wdkg
 ```
+
+Ensure you have these keys accessible to the node by placing them in your base-path. This will also be required to be accessible when running the 
+node from a Docker container.  
 
 ## Run a Docker container
 
@@ -96,7 +110,7 @@ chown DOCKER_USER /var/lib/eggnet-data
 sudo chown -R $(id -u):$(id -g) /var/lib/eggnet-data
 ```
 
-Now, execute the docker run command:
+Now, execute the docker run command to run a collator node. Be sure to add your own node name!
 
 **Collator Node**
 ```
@@ -110,13 +124,13 @@ webb-tools/eggnet:edge \
 --execution wasm \
 --wasm-execution compiled \
 --pruning archive \
---state-cache-size 0 \
---db-cache <50% RAM in MB> \
 -- \
 --execution wasm \
 --pruning 1000 \
 --name="YOUR-NODE-NAME (Embedded Relay)"
 ```
+
+Now, execute the docker run command to run a full node. Be sure to add your own node name!
 
 **Full Node:**
 ```
@@ -129,8 +143,6 @@ webb-tools/eggnet:edge \
 --execution wasm \
 --wasm-execution compiled \
 --pruning archive \
---state-cache-size 0 \
---db-cache <50% RAM in MB> \
 -- \
 --execution wasm \
 --pruning 1000 \
@@ -152,7 +164,7 @@ cd /etc/systemd/system
 sudo touch collator.service
 ```
 
-Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update 
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update 
 any paths or ports to your own preference. 
 
 **Note:** The below configuration assumes you are targeting the Arana chain spec.
