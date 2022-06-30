@@ -114,10 +114,10 @@ const DevNavMenu = {
         ],
       },
       {
-        name: 'How to run a node',
+        name: 'Egg Network',
         items: [
           {
-            title: 'Overview',
+            title: 'Node Requirements Overview',
             link: '/v1/node-operators/run-node/overview/',
           },
           {
