@@ -122,6 +122,10 @@ const DevNavMenu = {
             link: 'v1/relayer/data-query',
           },
           {
+            title: 'Configuration',
+            link: ' /v1/relayer/configuration',
+          },
+          {
             title: 'Usage',
             link: '/v1/relayer/usage',
           },
