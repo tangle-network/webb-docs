@@ -114,10 +114,10 @@ const DevNavMenu = {
         ],
       },
       {
-        name: 'How to run a node',
+        name: 'Egg Network',
         items: [
           {
-            title: 'Overview',
+            title: 'Node Requirements Overview',
             link: '/v1/node-operators/run-node/overview/',
           },
           {
@@ -129,6 +129,28 @@ const DevNavMenu = {
             link: '/v1/node-operators/account-management/',
           },
         ],
+      },
+      {
+        name: 'Crowdloan',
+        items: [
+          {
+            title: 'Crowdloan Event',
+            link: '/v1/crowdloan/overview/',
+          },
+          // TODO: Will add back pages after crowdloan campaign
+          // {
+          //   title: 'Crowdloan Rewards',
+          //   link: '/v1/crowdloan/rewards/',
+          // },
+          {
+            title: 'Contribute to Crowdloan',
+            link: '/v1/crowdloan/contribute/',
+          },
+          // {
+          //   title: 'FAQ',
+          //   link: '/v1/crowdloan/faq/',
+          // },
+        ]
       },
       // {
       //   name: 'Advanced',

@@ -35,6 +35,10 @@ const redirects = [
     fromPath: '/v1/node-operators/run-node/',
     toPath: '/v1/node-operators/run-node/overview/',
   },
+  {
+    fromPath: '/v1/crowdloan/',
+    toPath: '/v1/crowdloan/overview/',
+  },
   // {
   //   fromPath: '/v1/advanced/',
   //   toPath: `/v1/advanced/cryptography/`,
