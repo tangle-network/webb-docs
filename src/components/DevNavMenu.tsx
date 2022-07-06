@@ -117,16 +117,30 @@ const DevNavMenu = {
         name: 'Egg Network',
         items: [
           {
-            title: 'Node Requirements Overview',
-            link: '/v1/node-operators/run-node/overview/',
-          },
-          {
-            title: 'Run a node on Egg network',
+            title: 'How to run a node on Eggnet',
             link: '/v1/node-operators/run-eggnet-node/',
           },
+          // TODO: Need to define collator payout scheme
+          // {
+          //   title: 'Payouts Overview',
+          //   link: '/v1/node-operators/payouts/',
+          // },
           {
-            title: 'Account Management',
-            link: '/v1/node-operators/account-management/',
+            title: 'Using systemd for Eggnet node',
+            link: '/v1/node-operators/systemd/',
+          },
+          {
+            title: 'Secure node',
+            link: '/v1/node-operators/secure-node/',
+          },
+          // TODO: Need to define instructions for reverse proxy setup
+          // {
+          //   title: 'Setup Eggnet node with NGINX Reverse Proxy',
+          //   link: '/v1/node-operators/nginx-reverse-proxy/',
+          // },
+          {
+            title: 'Monitor your node',
+            link: '/v1/node-operators/monitor-node/',
           },
         ],
       },

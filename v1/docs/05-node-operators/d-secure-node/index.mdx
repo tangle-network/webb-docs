@@ -1,0 +1,64 @@
+---
+title: Secure Node
+slug: /v1/node-operators/secure-node
+version: '1.0'
+section: docs
+category: node-operators
+keywords: []
+---
+
+It is of paramount importance for nodes operators to maintain high availability of their node setup in order to 
+keep the network secure, moving forward, and uncompromised. For additional secure setup information please refer to 
+[Polkadot's secure setup guides](https://wiki.polkadot.network/docs/maintain-guides-how-to-use-polkadot-validator-setup).
+
+This primarily means that node operators must:
+
+- Must be high availability.
+- Must have infrastructure that protects the nodes signing keys so that an attacker cannot take control and commit slashable behavior.
+
+## Key Management
+
+The keys that are of primary concern for validator infrastructure are the Session keys. These keys sign messages 
+related to consensus and parachains. Although Session keys are not account keys and therefore cannot transfer funds, 
+an attacker could use them to commit slashable behavior.
+
+Session keys are generated inside the node via RPC call. These should be generated and kept within your client. 
+When you generate new Session keys, you must submit an extrinsic (a Session certificate) from your Controller 
+key telling the chain your new Session keys.
+
+At the moment, Substrate-based chains like Eggnet can't interact with HSM/SGX, so we need to provide the signing key 
+seeds to the validator machine. This key is kept in memory for signing operations and persisted to disk (encrypted with a password).
+
+You may consider utilizing alternative key management solutions in the meantime, such as:
+- [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/)
+- [Cloud KMS](https://cloud.google.com/kms/)
+- [Azure Key Vault](https://github.com/Azure/secrets-store-csi-driver-provider-azure)
+- An open-source alternative is [HashiCorp Vault](https://github.com/hashicorp/vault) which can generate secrets on-demand for integrated services.
+
+## Linux Best Practices
+
+It is important to consider best practices when setting up your node, for linux user that includes, but not limited to:
+
+- Never using the root user.
+- Always update the security patches for your OS.
+- Enabling and set up a firewall.
+- Never allow password-based SSH, only use key-based access.
+- Disable non-essential SSH subsystems (banner, motd, scp, X11 forwarding) and harden your SSH configuration (reasonable guide to begin with).
+- Back up your storage regularly.
+
+## Other Security Considerations
+
+- Nodes should not listen on any port other than the configured p2p port
+- Ideally nodes run on bare-metal machines, as opposed to VMs. This will prevent some of the availability issues with cloud providers, along with potential attacks from other VMs on the same hardware. The provisioning of the validator machine should be automated and defined in code. This code should be kept in private version control, reviewed, audited, and tested.
+- Session keys should be generated and provided in a secure way.
+
+### NGINX Reverse Proxy Setup
+
+If you are interested in setting up a reverse proxy using NGINX in front of your Eggnet node please review and follow 
+the guide from Polkadot [here](https://wiki.polkadot.network/docs/maintain-guides-how-to-setup-a-validator-with-reverse-proxy).
+
+## Resources
+- [Figment Network's Full Disclosure of Cosmos Validator Infrastructure](https://medium.com/figment-networks/full-disclosure-figments-cosmos-validator-infrastructure-3bc707283967)
+- [Certus One's Knowledge Base](https://kb.certus.one/)
+- [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist)
+- [HSM Policies and the Important of Validator Security](https://medium.com/loom-network/hsm-policies-and-the-importance-of-validator-security-ec8a4cc1b6f)
