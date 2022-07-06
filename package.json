@@ -8,8 +8,8 @@
   "scripts": {
     "clean": "gatsby clean",
     "dev": "gatsby develop -p 8001",
-    "start": "NODE_OPTIONS=--openssl-legacy-provider && gatsby develop -p 8001",
-    "develop": "gatsby develop -p 8001",
+    "start": "NODE_OPTIONS='--openssl-legacy-provider' && gatsby develop -p 8001",
+    "develop": "NODE_OPTIONS='--openssl-legacy-provider' && gatsby develop -p 8001",
     "build": "gatsby build",
     "serve": "gatsby serve",
     "serve:fresh": "yarn clean; yarn build; yarn serve",

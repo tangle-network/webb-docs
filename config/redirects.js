@@ -31,6 +31,14 @@ const redirects = [
     fromPath: '/v1/ispp/',
     toPath: '/v1/ispp/overview/',
   },
+  {
+    fromPath: '/v1/node-operators/',
+    toPath: '/v1/node-operators/run-eggnet-node/',
+  },
+  {
+    fromPath: '/v1/crowdloan/',
+    toPath: '/v1/crowdloan/overview/',
+  },
   // {
   //   fromPath: '/v1/advanced/',
   //   toPath: `/v1/advanced/cryptography/`,

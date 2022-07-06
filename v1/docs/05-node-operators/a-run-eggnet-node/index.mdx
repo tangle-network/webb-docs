@@ -1,0 +1,335 @@
+---
+title: Run an Eggnet Node
+slug: /v1/node-operators/run-eggnet-node
+version: '1.0'
+section: docs
+category: node-operators
+keywords: []
+---
+
+## Introduction
+
+Running a node on the Eggnet allows you to connect to the network, 
+sync with a bootnode, obtain local access to RPC endpoints, and more. Running a full node
+is not the same as running a collator node. Full nodes follow the chain and import all blocks that 
+are being produced. Whereas, collator nodes do everything a full node can but can also author blocks and 
+should have more security consideration during setup. 
+
+## Requirements
+Running a parachain node is similar to a typical Substrate node, but there are some differences. A Substrate parachain node 
+is a bigger build because it contains code to run the parachain itself, as well as code to sync the relay chain, and 
+facilitate communication between the two. As such, this build is quite large and may take over 30 min and require 32GB of memory.
+
+The minimum specs recommended to run a node are shown in the following table and follow the recommended [Polkadot requirements](https://wiki.polkadot.network/docs/maintain-guides-how-to-validate-polkadot#requirements).
+
+| Component | Requirements                                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------------------------ |
+| CPU       | Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz                                                                     |
+| Storage   | An NVMe solid state drive of 1 TB (As it should be reasonably sized to deal with blockchain growth).         |
+| Memory    | 64GB ECC                                                                                                     |
+| Firewall  | P2P port must be open to incoming traffic: <br />       - Source: Any <br /> - Destination: 30333, 30334 TCP |
+            
+            
+## Running Ports
+
+As stated before, the relay/parachain nodes will listen on multiple ports. The default Substrate ports are used in the parachain, 
+while the relay chain will listen on the next higher port.
+
+The only ports that need to be open for incoming traffic are those designated for P2P. Collators must not have RPC or WS ports opened.
+
+**Default Ports for a Parachain Full-Node:**
+
+| Description | Port        |
+| ----------- | ----------- |
+| P2P         | 30333 (TCP) |
+| RPC         | 9933        |
+| WS          | 9944        |
+| Prometheus  | 9615        |
+
+
+**Default Ports of Embedded Relay Chain:**
+
+| Description | Port        |
+| ----------- | ----------- |
+| P2P         | 30334 (TCP) |
+| RPC         | 9934        |
+| WS          | 9945        |
+| Prometheus  | 9616        |
+
+
+## Install Rust and Dependencies
+
+We will need to install Rust in order to build the Eggnet node. This guide uses https://rustup.rs 
+installer and the rustup tool to manage the Rust toolchain.
+
+If you have already installed Rust, run the following command to make sure you are using the latest version.
+
+```
+rustup update
+```
+
+If not, this command will fetch the latest version of Rust and install it (make sure you have `curl` installed).
+```
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Configure
+source ~/.cargo/env
+```
+
+Verify your installation.
+```
+rustc --version
+```
+
+Configure the Rust toolchain to default to the latest nightly version, and the nightly wasm target:
+
+```
+rustup default nightly
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+Finally, run this command to install the necessary dependencies for compiling and running the Eggnet node software.
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install jq
+sudo apt install unzip
+sudo apt install net-tools
+sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev && rm -rf /var/lib/apt/lists/*
+```
+
+It is also highly recommended install and configure Network Time Protocol (NTP) client if you intend to become 
+a validator on the network. For more details on how to setup please visit the guide from Polkadot 
+[here](https://wiki.polkadot.network/docs/maintain-guides-how-to-validate-polkadot#install--configure-network-time-protocol-ntp-client).
+
+## Installation
+To build an Eggnet node, you have 2 different options:
+
+- From source
+- Run a Docker container
+
+### Eggnet Binary
+
+You will need to build the Eggnet binary from the [webb-tools/eggnet repository](https://github.com/webb-tools/egg-net) on GitHub using the source code 
+available in the `main` branch.
+
+Clone the repo: 
+```
+git clone https://github.com/webb-tools/egg-net.git
+cd egg-net
+```
+
+Build eggnet:
+```
+cargo build --release --locked -p egg-collator
+```
+
+**This step will take a while (generally 10 - 50 minutes, depending on your hardware).**
+
+If you are interested in generating keys locally, you can also install subkey from the same directory. You may then take the generated subkey executable and transfer it to an air-gapped machine for extra security.
+
+```
+cargo install --force --git https://github.com/paritytech/substrate subkey
+```
+
+### Run a Docker container
+
+An Eggnet node can be spun up quickly using Docker. For more information on installing Docker, 
+please visit this [page](https://docs.docker.com/get-docker/). When connecting to Eggnet on Kusama, it will take a few days to completely 
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+
+Create a local directory to store chain data:
+
+```
+mkdir /var/lib/eggnet-data
+```
+
+Next, make sure you set the ownership and permissions accordingly for the local directory that stores the chain data. 
+
+```
+# chown to a specific user
+chown DOCKER_USER /var/lib/eggnet-data
+
+# chown to current user
+sudo chown -R $(id -u):$(id -g) /var/lib/eggnet-data
+```
+
+Now, execute the docker run command to run a collator node. Be sure to add your own node name!
+
+**Collator Node**
+```
+docker run --network="host" -v "/var/lib/eggnet-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/eggnet:edge \
+--base-path=/data \
+--chain eggnet \
+--name="YOUR-NODE-NAME" \
+--validator \
+--execution wasm \
+--wasm-execution compiled \
+--pruning archive \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+Now, execute the docker run command to run a full node. Be sure to add your own node name!
+
+**Full Node:**
+```
+docker run --network="host" -v "/var/lib/eggnet-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/eggnet:edge \
+--base-path=/data \
+--chain eggnet \
+--name="YOUR-NODE-NAME" \
+--execution wasm \
+--wasm-execution compiled \
+--pruning archive \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+### Required Keys
+
+In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys 
+include:
+- DKG key (Ecdsa)
+- Aura key (Sr25519)
+- Account key (Sr25519)
+
+To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install 
+subkey before running the command. 
+
+**Once installed, to generate the DKG key you can run the following:** 
+```
+egg-collator key insert --base-path /eggnet-data \
+--chain "<APPLICABLE-CHAINSPEC>" \
+--scheme Ecdsa \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type wdkg
+```
+
+**To generate the Aura key you can run the following:**
+```
+egg-collator key insert --base-path /eggnet-data \
+--chain "<APPLICABLE-CHAINSPEC>" \
+--scheme Sr25519 \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type aura
+```
+
+**To generate the Account key you can run the following:**
+```
+egg-collator key insert --base-path /eggnet-data \
+--chain "<APPLICABLE-CHAINSPEC>" \
+--scheme Sr25519 \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type acco
+```
+
+### Synchronize Chain Data
+
+You can begin syncing your node by running the following command:
+```
+./target/release/egg-collator --pruning=archive
+```
+
+Once your collator node has fully syncronized with the Kusama Relay Chain you may proceed to setup the 
+necessary accounts to operate a collator node. 
+
+## Bond funds
+
+To start collating, you need to have x EGG tokens for Egg Network. It is highly recommended that you make your controller 
+and stash accounts be two separate accounts. For this, you will create two accounts and make sure each of them have at least 
+enough funds to pay the fees for making transactions. Keep most of your funds in the stash account since it is meant to be 
+the custodian of your staking funds.
+
+Make sure not to bond all your EGG balance since you will be unable to pay transaction fees from your bonded balance.
+
+It is now time to set up our validator. We will do the following:
+
+- Bond the EGG of the Stash account. These EGG tokens will be put at stake for the security of the network and can be slashed.
+- Select the Controller. This is the account that will decide when to start or stop validating.
+
+First, go to the Staking section. Click on "Account Actions", and then the "+ Stash" button. It should look something 
+similar to the below image. 
+
+![bond](../../../../src/images/docs/node-operator/bond.png)
+
+Once everything is filled in properly, click Bond and sign the transaction with your Stash account.
+
+## Session Keys
+
+Collator operators need to set their `Author` session keys. Run the following command to author session keys.
+**Note:** You may need to change `http://localhost:9933` to your correct address. 
+
+```
+curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
+```
+
+Result will look like this, copy the key:
+```
+{"jsonrpc":"2.0","result":"0x400e3cef43bdessab331e4g03115c4bcecws3cxff608fa3b8sh6b07y369386570","id":1}
+```
+
+### Set session keys
+
+1. Go to the Polkadot.js portal: `Developer > Extrinsic`.
+2. Select your collator account and extrinsic type: session / setKeys.
+3. Enter the session keys and set proof to `0x00`.
+4. Submit the transaction.
+
+### Setting identity
+
+Collator operators need to set their identity. 
+
+1. Go to the Polkadot.js portal: `Accounts`
+2. Open the 3 dots next to your collators address: `Set on-chain Identity`
+3. Enter all fields you want to set.
+4. Send the transaction.
+
+### Request judgment
+
+1. Go to the Polkadot.js portal: `Developer > Extrinsic`
+2. Select your collator account and extrinsic type: `identity / requestJudgment`
+3. Send the transaction.
+
+### Production blocks
+
+Once your collator is active, you will see your name inside Network tab every time you produce a block!
+
+## Logs and Troubleshooting
+You will see logs from both the relay chain and the parachain. The relay chain will be prefixed by [Relaychain], while the parachain has no prefix. 
+If you would like to run the node with verbose logs you may add the following arguments during initial setup. You may change the target to include `debug | error | info| trace | warn`. 
+
+```
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
+```
+
+### P2P Ports Not Open
+If you don't see an Imported message (without the [Relaychain] tag), you need to check the P2P port configuration. P2P port must be open to incoming traffic.
+
+### In Sync
+Both chains must be in sync at all times, and you should see either Imported or Idle messages and have connected peers.
+
+### Genesis Mismatching
+If you notice similar log messages as below:
+
+```
+DATE [Relaychain] Bootnode with peer id `ID` is on a different
+chain (our genesis: 0x3f5... theirs: 0x45j...)
+```
+
+This typically means that you are running an older version and will need to upgrade.

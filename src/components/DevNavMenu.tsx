@@ -72,31 +72,20 @@ const DevNavMenu = {
             title: 'Signature Bridge',
             link: '/v1/anchor-protocol/signature-bridge/',
           },
-          {
-            title: 'Applications',
-            link: '/v1/anchor-protocol/applications/',
-          },
-          // {
-          //   title: 'Governance',
-          //   link: '/v1/bridge-protocol/governance/',
-          // },
-          // {
-          //   title: 'Installation',
-          //   link: '/v1/bridge-protocol/installation/',
-          // },
-          // {
-          //   title: 'Usage',
-          //   link: '/v1/bridge-protocol/usage/',
-          // },
-          // {
-          //   title: 'Technical Roadmap',
-          //   link: '/v1/bridge-protocol/technical-roadmap/',
-          // },
-          // {
-          //   title: 'Deployments',
-          //   link: '/v1/bridge-protocol/deployments/',
-          // },
         ],
+      },
+      {
+        name:'Applications',
+        items : [
+          {
+            title: 'Overview',
+            link: '/v1/applications/overview/',
+          },
+          {
+            title: 'Proposals',
+            link: '/v1/applications/proposals/',
+          },
+        ]
       },
       {
         name: 'Relayer',
@@ -127,7 +116,7 @@ const DevNavMenu = {
           },
           {
             title: 'Usage',
-            link: '/v1/relayer/usage',
+            link: '/v1/relayer/usage/',
           },
         ],
       },
@@ -139,6 +128,59 @@ const DevNavMenu = {
             link: '/v1/ispp/overview/',
           },
         ],
+      },
+      {
+        name: 'Egg Network',
+        items: [
+          {
+            title: 'How to run a node on Eggnet',
+            link: '/v1/node-operators/run-eggnet-node/',
+          },
+          // TODO: Need to define collator payout scheme
+          // {
+          //   title: 'Payouts Overview',
+          //   link: '/v1/node-operators/payouts/',
+          // },
+          {
+            title: 'Using systemd for Eggnet node',
+            link: '/v1/node-operators/systemd/',
+          },
+          {
+            title: 'Secure node',
+            link: '/v1/node-operators/secure-node/',
+          },
+          // TODO: Need to define instructions for reverse proxy setup
+          // {
+          //   title: 'Setup Eggnet node with NGINX Reverse Proxy',
+          //   link: '/v1/node-operators/nginx-reverse-proxy/',
+          // },
+          {
+            title: 'Monitor your node',
+            link: '/v1/node-operators/monitor-node/',
+          },
+        ],
+      },
+      {
+        name: 'Crowdloan',
+        items: [
+          {
+            title: 'Crowdloan Event',
+            link: '/v1/crowdloan/overview/',
+          },
+          // TODO: Will add back pages after crowdloan campaign
+          // {
+          //   title: 'Crowdloan Rewards',
+          //   link: '/v1/crowdloan/rewards/',
+          // },
+          {
+            title: 'Contribute to Crowdloan',
+            link: '/v1/crowdloan/contribute/',
+          },
+          // {
+          //   title: 'FAQ',
+          //   link: '/v1/crowdloan/faq/',
+          // },
+        ]
       },
       // {
       //   name: 'Advanced',
