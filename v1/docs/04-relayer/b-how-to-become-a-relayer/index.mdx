@@ -1,0 +1,220 @@
+---
+title: How to become a relayer
+slug: /v1/relayer/how-to-become-a-relayer
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+ 
+The relayer system is composed of three main components. Each of these components should be thought 
+of as entirely separate because they could be handled by different entities entirely.
+ 
+1. Private transaction relaying (for bridged transactions)
+2. Data querying (for zero-knowledge proof generation)
+3. Data proposing and signature relaying (of DKG proposals)
+ 
+This document serves as a guide for setting up the relayer for all three components collectively or exclusively. 
+Below you will find everything you need to join the Webb Relayer Network.
+ 
+The easiest way to setup a relayer is to make use of the docker-compose file that is included in the 
+[relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before 
+we download and run Docker we need to configure our relayer. The first step is to create an `.env` file 
+in the root directory which lists the networks you wish to support along with the following fields:
+
+```
+# enables the network 
+WEBB_EVM_<network>_ENABLED=true
+
+# private key with funds on the network to cover gas costs
+WEBB_EVM_<network>_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+
+# an optional beneficiary to receive rewards for relaying
+WEBB_EVM_<network>_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+```
+
+The current relayer network supports the following chains:
+- Rinkeby
+- Goerli
+- Ropsten 
+- Kovan
+- Optimism Testnet
+- Arbitrum Testnet 
+- Mumbia Testnet (Polygon)
+- Moonbase Alpha (Moonbeam)
+
+An example `.env` file that supports all the networks is shown below:
+
+```
+WEBB_EVM_RINKEBY_ENABLED=true
+WEBB_EVM_GOERLI_ENABLED=true
+WEBB_EVM_ROPSTEN_ENABLED=true
+WEBB_EVM_KOVAN_ENABLED=true
+WEBB_EVM_OPTIMISM_ENABLED=true
+WEBB_EVM_ARBITRUM_ENABLED=true
+WEBB_EVM_POLYGON_TESTNET_ENABLED=true
+WEBB_EVM_MOONBASE_ENABLED=true
+
+RINKEBY_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+GOERLI_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+ROPSTEN_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+KOVAN_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+OPTIMISM_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+ARBITRUM_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+POLYGON_TESTNET_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+MOONBASE_PRIVATE_KEY=<0X_PREFIXED_PRIVATE_KEY>
+
+WEBB_EVM_RINKEBY_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_GOERLI_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_ROPSTEN_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_KOVAN_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_OPTIMISM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_ARBITRUM_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_POLYGON_TESTNET_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+WEBB_EVM_MOONBASE_BENEFICIARY=<0X_PREFIXED_ADDRESS>
+```
+
+# Network and Contract Configuration 
+ 
+The relayer's configuration is comprised of two parts:
+
+1. Network configuration
+2. Contract configuration 
+
+The network contract configuration is dependent on the network support configuration. That is, you cannot configure
+a specific networks contracts without first configuring the network support configuration. 
+
+To configure the relayer we suggest making use of the preset configurations in the `/config` directory. There you will 
+see `.toml` files for all the supported networks and contracts. However, if you wish to custom configure 
+your relayer you may do so. See below for more details.
+
+## Network configuration
+
+The relayer must be configured with the network support configuration. User's may choose which networks they wish to support 
+but must specify these networks in a `.toml` file under the `/config` directory. The current relayer network supports both 
+EVM and Substrate based chains but differ slightly in their configuration. 
+
+### EVM based networks configuration 
+
+The naming convention for the EVM based networks is `[evm.<network>]`. For example, to specify configuration for 
+the Goerli network you need to add `[evm.goerli]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the Goerli network:
+
+```
+[evm.goerli]
+http-endpoint = "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+ws-endpoint = "wss://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+chain-id = 5
+private-key = "$GOERLI_PRIVATE_KEY"
+```
+
+### Required Fields
+
+These are the required fields that must be specified in order to support a network.
+
+- **`http-endpoint`**: RPC url for a specific node
+- **`ws-endpoint`**: Websocket endpoint for long living connections
+- **`chain-id`**: Chain identifier for the specified chain (e.g. 1 for ETH mainnet, 5 for Goerli)
+- **`private-key`**: Private key for an account on this network, be sure this account has funds (e.g.  "$GOERLI_PRIVATE_KEY")
+
+### Substrate based networks configuration 
+
+The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for 
+the Egg network you need to add `[substrate.eggnet]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the Egg network:
+
+```
+[substrate.eggnet]
+enabled=true
+http-endpoint = "http://standalone.webb.tools:9933/"
+ws-endpoint = "ws://standalone.webb.tools:9944/"
+runtime = "WebbProtocol"
+suri = "//Alice//stash"
+pallets = []
+```
+
+### Required Fields
+
+These are the required fields that must be specified in order to support a network.
+
+- **`http-endpoint`**: RPC url for a specific node
+- **`ws-endpoint`**: Websocket endpoint for long living connections
+- **`runtime`**: Indicate what runtime to utilize
+- **`suri`**: Used to generate keypair for the account on this network, be sure the account has funds
+- **`pallets`**: Used to indicate what pallet to support
+
+## Network contract configuration
+
+The naming convention for the EVM based network contracts is `[evm.<network>.contracts]`. For example, to specify configuration for 
+the Goerli network you need to add `[evm.goerli.contracts]` at the beginning of that networks contract configuration within the `.toml` file.
+An example of the `.toml` file for the contracts on the Goerli network:
+
+```
+[[evm.goerli.contracts]]
+contract = "SignatureBridge"
+address = "0xc11a9f2f42cedf687ec292231698a91dd6928d9a"
+deployed-at = 6896976
+events-watcher = { enabled = true, polling-interval = 10000, print-progress-interval = 0 }
+```
+
+The relayer network is used to support the following contracts:
+- Anchor contract
+- VAnchor contract
+- SignatureBridge contract
+
+To support each contract you are required to specify each contract with the required fields. The required fields are 
+dependent on what actions you wish your relayer to perform (e.g. private tx relaying, governance relaying, and data querying). 
+
+Below is a full example of the network contract configuration for the Goerli network supporting the VAnchor bridge contract. 
+
+```
+# Block which represents the configuration for a supported contract on the network
+[[evm.goerli.contracts]]
+
+# The contract can be one of these values
+# - Anchor (Fixed Anchor)
+# - VAnchor (Variable Anchor)
+# - SignatureBridge
+contract = "VAnchor"
+
+# The address of the contract
+address = "0x682faa319bf7bae7f0cb68435e857d22bf976e17"
+
+# The deployed block number of the contract. When a relayer does not have information for
+# this contract in its store, it will start to sync and query for relevant historical data
+# starting at this block number
+deployed-at = 7146565
+
+# The minimum size configured for deposit / withdraw on the contract
+size = 0.01
+
+# Configuration for the events watcher of this contract. The events-watcher can be switched on/off
+# and the polling interval specifies the period of time (in ms) that the events-watcher thread
+# will wait before issuing another query for new events.
+events-watcher = { enabled = true, polling-interval = 15000 }
+
+# Configuration for private transaction relaying which determines the fee taken by this relayer 
+withdraw-fee-percentage = 0
+
+# Value for private transaction relaying which specifies the maximum amount of gas which will be
+# used when submitting a withdraw transaction
+withdraw-gaslimit = "0x350000"
+
+# Entries for this anchor contract's connected edges.
+# These fields are used to determine the generation of AnchorUpdate proposals
+linked-anchors = [
+  { chain = "arbitrumtestnet", address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
+  { chain = "ropsten", address = "0x66e04f6ae26c310e39f5bf24d873909e6d3b64c7" },
+  { chain = "kovan", address = "0x148e8037ea12834117f3efd9e8990c16c1ff5653" },
+  { chain = "polygontestnet", address = "0x1371efed369498718bee3eb5d58e5d3dec86be85" },
+  { chain = "optimismtestnet", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
+  { chain = "rinkeby", address = "0x91127f21d63029eb5b2de05b4b1e9fd3497ee95b"},
+  { chain = "moonbase", address = "0x0c5f4951f42eec082bd1356b9b41928b4f0e7542"}
+]
+```
+
+## Resources
+
+- [Webb Relayer Configuration Module](https://webb-tools.github.io/relayer/webb_relayer/config/index.html)
+- [Webb Relayer EvmChainConfig](https://webb-tools.github.io/relayer/webb_relayer/config/struct.EvmChainConfig.html)
+- [Webb Relayer SubstrateConfig](https://webb-tools.github.io/relayer/webb_relayer/config/struct.SubstrateConfig.html)

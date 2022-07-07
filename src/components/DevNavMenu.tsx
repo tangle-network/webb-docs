@@ -95,12 +95,12 @@ const DevNavMenu = {
             link: '/v1/relayer/overview/',
           },
           {
-            title: 'Installation',
-            link: '/v1/relayer/installation/',
+            title: 'How to become a relayer',
+            link: '/v1/relayer/how-to-become-a-relayer/',
           },
           {
-            title: 'Usage',
-            link: '/v1/relayer/usage/',
+            title: 'Exclusive strategies',
+            link: '/v1/relayer/exclusive-strategies/',
           },
         ],
       },

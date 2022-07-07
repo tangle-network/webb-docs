@@ -20,17 +20,17 @@ separate because they could be handled by different entities entirely.
 2. Data querying (for zero-knowledge proof generation)
 3. Data proposing and signature relaying (of DKG proposals)
 
-### Private Transaction Relaying
+## Private Transaction Relaying
 The relayer allows for submitting proofs for privacy-preserving transactions against the Mixer, Anchor and 
 VAnchor protocols. The users generate zero-knowledge proof data, format a proper payload, and submit it to a 
 compatible relayer for submission.
 
-### Data Querying
+## Data Querying
 The relayer also supplements users who need to generate witness data for their zero-knowledge proofs. The 
 relayers cache the leaves of the trees of Mixer, Anchor or VAnchor that they are supporting. This allows users 
 to query for the leaf data faster than querying from a chain directly.
 
-### Data Proposing and Signature Relaying
+## Data Proposing and Signature Relaying
 The relayer is tasked with relaying signed data payloads from the DKG’s activities and plays an important role 
 as it pertains to the Anchor Protocol. The relayer is responsible for submitting the unsigned and signed anchor 
 update proposals to and from the DKG before and after signing occurs.
