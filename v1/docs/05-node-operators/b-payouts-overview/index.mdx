@@ -1,9 +1,48 @@
 ---
-title: Overview
+title: Node Operator Payout
 slug: /v1/node-operators/payouts
 version: '1.0'
 section: docs
 category: node-operators
 keywords: []
 ---
+
+## Introduction
+
+Running a collator node on the Eggnet allows you to connect to the network, sync with a bootnode, obtain local access to RPC endpoints, and also 
+author blocks. The network rewards collators (users running collator nodes and actively producing blocks) by paying a set amount of network 
+tokens as rewards.
+
+## How are rewards calculated
+
+The collator rewards are paid out every block, the rewards consists of multiple components, mainly the transaction 
+fees from all transactions in the block, tips paid by users and network reward amount. The collator reward is initially paid out from
+the collator reward pot alloted at the time of genesis. Once the initial genesis supply for collator
+rewards has been exhausted, the network will issue new amount of currency (at a predetermined rate of inflation) every block to continue
+rewarding the collators. The block authors are chosen using [Aura](https://paritytech.github.io/substrate/master/sc_consensus_aura/index.html)
+and ensures every collator gets a chance at block authoring.
+
+## Reward Payout Schedule
+The collator rewards are paid out every block, there is no lockup or delay for the payout. Please note that simply authoring a block
+does not guarantee a reward, the block has to be accepted and finalised in the canonical chain for the payout to be valid. Also 
+important to remember that rewards are only paid out to block authoring collators, simply running a node/full-node does not
+make you eligible for a reward.
+            
+## Payout Example
+
+Lets say `Alice` is running a collator node on egg-net, the collator node just authored a block, for simplicity lets consider the block 
+contains 100 transactions each paying 0.1EGG in transaction fees, 5 transactions each with a tip of 1EGG.
+
+This block has generated a total of 15 EGG in transaction fees and tips. The transaction fee is divided between the treasury and
+block authory in 80:20 split. Also lets assume the `RewardAmount` for egg-net is set at 25EGG.
+
+For the above block, the reward paid to `Alice` account is as follows
+
+| Component | Payout                                                                                                 |
+| --------- | ------------------------------------------------------------------------------------------------------------ |
+| TransactionFees       | 2 EGG (20% of transaction fees)                                                                    |
+| Tips   | 5 EGG  (100% of transaction tips)       |
+| Network Reward    | 25 EGG                                                                                                     |
+| Total Payout  | 32 EGG |
+
 
