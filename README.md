@@ -79,7 +79,7 @@ guidelines if making any non-trivial PRs here.
     **Note:** You may need to run `yarn set version latest`, please do so if you run into a `Error [ERR_STREAM_PREMATURE_CLOSE]: Premature close`.
 
     ```bash
-    cd substrate-docs/
+    cd webb-docs/
     nvm install
     yarn # alias for `yarn install`
     ```
