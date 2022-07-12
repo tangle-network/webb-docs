@@ -75,8 +75,8 @@ const DevNavMenu = {
         ],
       },
       {
-        name:'Applications',
-        items : [
+        name: 'Applications',
+        items: [
           {
             title: 'Overview',
             link: '/v1/applications/overview/',
@@ -89,7 +89,7 @@ const DevNavMenu = {
             title: 'Asset Protocol',
             link: '/v1/applications/asset-protocol/',
           },
-        ]
+        ],
       },
       {
         name: 'Relayer',
@@ -117,6 +117,10 @@ const DevNavMenu = {
           {
             title: 'Relayer Roadmap',
             link: '/v1/relayer/roadmap/',
+          },
+          {
+            title: 'Cloud Setup',
+            link: '/v1/relayer/cloud-setup/',
           },
         ],
       },
@@ -171,7 +175,7 @@ const DevNavMenu = {
           //   title: 'FAQ',
           //   link: '/v1/crowdloan/faq/',
           // },
-        ]
+        ],
       },
       // {
       //   name: 'Advanced',
@@ -209,8 +213,8 @@ const DevNavMenu = {
           },
         ],
       },
-       // 2. EVM bridge.
-       {
+      // 2. EVM bridge.
+      {
         name: 'EVM Bridge',
         items: [
           {
@@ -238,7 +242,7 @@ const DevNavMenu = {
         ],
       },
     ]
-  } 
+  },
 }
 
 export { DevNavMenu }
