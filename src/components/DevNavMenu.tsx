@@ -85,6 +85,10 @@ const DevNavMenu = {
             title: 'Proposals',
             link: '/v1/applications/proposals/',
           },
+          {
+            title: 'Asset Protocol',
+            link: '/v1/applications/asset-protocol/',
+          },
         ]
       },
       {
@@ -99,17 +103,20 @@ const DevNavMenu = {
             link: '/v1/relayer/how-to-become-a-relayer/',
           },
           {
-            title: 'Exclusive strategies',
-            link: '/v1/relayer/exclusive-strategies/',
+            title: 'Private Transaction Relaying',
+            link: '/v1/relayer/private-relaying/',
           },
-        ],
-      },
-      {
-        name: 'Interoperable Shielded Pool Protocol',
-        items: [
           {
-            title: 'Overview',
-            link: '/v1/ispp/overview/',
+            title: 'Signature Relaying',
+            link: '/v1/relayer/signature-relaying/',
+          },
+          {
+            title: 'Data Querying',
+            link: '/v1/relayer/data-querying/',
+          },
+          {
+            title: 'Relayer Roadmap',
+            link: '/v1/relayer/roadmap/',
           },
         ],
       },
