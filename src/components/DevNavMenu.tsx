@@ -115,12 +115,12 @@ const DevNavMenu = {
             link: '/v1/relayer/data-querying/',
           },
           {
-            title: 'Relayer Roadmap',
-            link: '/v1/relayer/roadmap/',
-          },
-          {
             title: 'Cloud Setup',
             link: '/v1/relayer/cloud-setup/',
+          },
+          {
+            title: 'Relayer Roadmap',
+            link: '/v1/relayer/roadmap/',
           },
         ],
       },
