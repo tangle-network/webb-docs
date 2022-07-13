@@ -127,11 +127,10 @@ const DevNavMenu = {
             title: 'How to run a node on Eggnet',
             link: '/v1/node-operators/run-eggnet-node/',
           },
-          // TODO: Need to define collator payout scheme
-          // {
-          //   title: 'Payouts Overview',
-          //   link: '/v1/node-operators/payouts/',
-          // },
+          {
+            title: 'Payouts Overview',
+            link: '/v1/node-operators/payouts',
+          },
           {
             title: 'Using systemd for Eggnet node',
             link: '/v1/node-operators/systemd/',
