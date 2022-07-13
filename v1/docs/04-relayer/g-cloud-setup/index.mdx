@@ -1,0 +1,198 @@
+---
+title: Cloud Setup
+slug: /v1/relayer/cloud-setup
+version: '1.0'
+section: docs
+category: relayer
+keywords: []
+---
+
+This document serves as instructions for setting up a Webb Relayer at a publicly accessible endpoint. It will fulfill the requirements for listing your relayer on `app.webb.tools`. In order to integrate your relayer to app.webb.tools, please submit a PR.
+- Connections available via https and wss on your domain.
+
+### Instructions
+
+These instructions will assume the user has created a cloud server on Ubuntu 20.04, and is logged into a user with sudo permissions.
+
+By the end of these instructions, the relayer will be running and accessible via your endpoint with nginx behind a reverse proxy.
+
+### Basic Environment Setup
+
+```
+### Setup the machine's environment ###
+
+# Update ubuntu packages
+sudo apt update && sudo apt upgrade
+
+# Update snap packages
+sudo apt install -y snapd
+sudo snap install core; sudo snap refresh core
+
+# Install dependencies
+sudo apt install gcc cmake pkg-config libssl-dev git clang libclang-dev
+sudo apt install build-essential
+
+# Install rust
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+export PATH=~/.cargo/bin:$PATH
+source ~/.cargo/env
+
+# Install certbot
+sudo snap install --classic certbot && sudo ln -s /snap/bin/certbot /usr/bin/certbot
+
+# Build from source
+git clone https://github.com/webb-tools/relayer.git
+cd relayer && cargo build --release
+```
+
+### Relayer setup
+
+1. Setup the relayer as a system service:
+
+```
+# Create the service file
+sudo touch /etc/systemd/system/webb-relayer.service
+
+# This assumes the repo has been cloned in the home directory of the user
+# Paste the following into the service file, and replace the <user>:
+
+[Unit]
+Description=WebbRelayer
+[Service]
+Type=exec
+WorkingDirectory=/home/<user>/relayer
+ExecStart=/home/<user>/relayer/target/release/webb-relayer -c /home/<user>/relayer/config/ -vvv
+[Install]
+WantedBy=multi-user.target
+```
+
+2. Kick off the system service:
+```
+sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
+```
+
+### Nginx Setup
+
+1. Configure your registered domain name with your cloud service provider.
+
+2. Install nginx if it isn't already on your machine: 
+```
+sudo apt install nginx
+```
+
+**First, we will configure the endpoint linked to your domain name at port 80 for certificate generation**
+
+3. Create nginx site files for your domain:
+```
+cd /etc/nginx/sites-available && 
+sudo cp default <domain name> && 
+sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/
+```
+4. Modify the nginx sites-available file to:
+
+```
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/<domain name>/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name <domain name>;
+
+    location / {
+            try_files $uri $uri/ =404;
+    }
+}
+```        
+
+5. Check the nginx configuration 
+```
+sudo nginx -t
+```
+6. If no issues exist, restart the nginx service: 
+```
+sudo systemctl restart nginx
+```
+**Next we will create the self-signed certificate and reconfigure for https and wss support**
+
+7. Create the self-signed certificate:
+```
+sudo certbot certonly --nginx
+```
+8. Modify the nginx site file:
+
+```
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+}
+
+server {
+
+    # SSL configuration
+    #
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    root /var/www/<domain name>/html;
+
+    server_name <domain name>;
+    ssl_certificate /etc/letsencrypt/live/<domain name>/cert.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<domain name>/privkey.pem;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers   HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        proxy_pass http://127.0.0.1:9955;
+        proxy_pass_request_headers on;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+    }
+}
+```
+9. Check nginx configuration and restart.
+
+### Monitoring Setup
+
+Relayers will want to setup monitoring to ensure maximum uptime and automatic restarts when things go awry. 
+
+1. `sudo apt install -y monit`
+
+2. modify the monitrc file at: `/etc/monit/monitrc`
+
+```
+set httpd port 2812 and
+use address localhost
+allow localhost
+
+set daemon 10
+set log /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+set eventqueue
+    basedir /var/lib/monit/events
+    slots 100                    
+
+check process webb-relayer matching target/release/webb-relayer
+    start program = "/bin/systemctl restart webb-relayer"
+    stop program = "/bin/systemctl kill webb-relayer"
+    if cpu > 90% for 20 cycles then exec "/bin/systemctl stop webb-relayer" and repeat every 10 cycles
+    if cpu > 90% for 64 cycles then exec "/bin/systemctl kill webb-relayer" and repeat every 10 cycles
+    if cpu > 90% for 64 cycles then alert
+    if does not exist for 1 cycles then start
+```
+
+3. restart monit and validate: 
+```
+sudo monit reload && sudo monit validate
+```
+### Dapp Integration
+
+After completing the above steps, submit a PR with changes for your https endpoint: <a target="_blank" href="https://github.com/webb-tools/webb-dapp/blob/master/packages/apps/src/configs/relayer-config.ts#L14">Webb Dapp</a>.
