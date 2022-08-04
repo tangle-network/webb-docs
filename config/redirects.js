@@ -33,7 +33,7 @@ const redirects = [
   },
   {
     fromPath: '/v1/node-operators/',
-    toPath: '/v1/node-operators/run-eggnet-node/',
+    toPath: '/v1/node-operators/run-tangle-node/',
   },
   {
     fromPath: '/v1/crowdloan/',
