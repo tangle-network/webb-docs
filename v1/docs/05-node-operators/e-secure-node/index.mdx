@@ -26,7 +26,7 @@ Session keys are generated inside the node via RPC call. These should be generat
 When you generate new Session keys, you must submit an extrinsic (a Session certificate) from your Controller 
 key telling the chain your new Session keys.
 
-At the moment, Substrate-based chains like Eggnet can't interact with HSM/SGX, so we need to provide the signing key 
+At the moment, Substrate-based chains like Tangle can't interact with HSM/SGX, so we need to provide the signing key 
 seeds to the validator machine. This key is kept in memory for signing operations and persisted to disk (encrypted with a password).
 
 You may consider utilizing alternative key management solutions in the meantime, such as:
@@ -54,7 +54,7 @@ It is important to consider best practices when setting up your node, for linux 
 
 ### NGINX Reverse Proxy Setup
 
-If you are interested in setting up a reverse proxy using NGINX in front of your Eggnet node please review and follow 
+If you are interested in setting up a reverse proxy using NGINX in front of your Tangle node please review and follow 
 the guide from Polkadot [here](https://wiki.polkadot.network/docs/maintain-guides-how-to-setup-a-validator-with-reverse-proxy).
 
 ## Resources

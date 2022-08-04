@@ -10,15 +10,15 @@ keywords: []
 You can run your collator node as a systemd process so that it will automatically restart on server reboots 
 or crashes (and helps to avoid getting slashed!).
 
-Before following this guide you should have already set up your collator node by following the [How to run an eggnet](./v1/node-operators/run-eggnet-node).
+Before following this guide you should have already set up your collator node by following the [How to run a Tangle Network node](./v1/node-operators/run-tangle-node).
 
 ## System service setup
 
 Run the following commands to create the service configuration file:
 
 ```
-# Move the egg-collator binary to the bin directory (assumes you are in repo root directory)
-sudo mv ./target/release/egg-collator /usr/bin/
+# Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/tangle-collator /usr/bin/
 
 # navigate to /etc
 cd /etc/systemd/system
@@ -35,7 +35,7 @@ any paths or ports to your own preference.
 **Collator Node**
 ```
 [Unit]
-Description=Eggnet Collator Node
+Description=Tangle Collator Node
 After=network-online.target
 StartLimitIntervalSec=0
 
@@ -43,10 +43,10 @@ StartLimitIntervalSec=0
 User=<USERNAME>
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/egg-collator \
+ExecStart=/usr/bin/tangle-collator \
   --base-path /tmp/collator/<USERNAME> \
   --name <NODE-NAME> \
-  --chain eggnet \
+  --chain tangle \
   --node-key-file "/home/<USERNAME>/node-key" \
   --port 30333 \
   --ws-port 9944 \
@@ -62,7 +62,7 @@ WantedBy=multi-user.target
 **Full Node**
 ```
 [Unit]
-Description=Eggnet Node
+Description=Tangle Node
 After=network-online.target
 StartLimitIntervalSec=0
 
@@ -70,10 +70,10 @@ StartLimitIntervalSec=0
 User=<USERNAME>
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/egg-collator \
+ExecStart=/usr/bin/tangle-collator \
   --base-path /tmp/collator/<USERNAME> \
   --name <NODE-NAME> \
-  --chain eggnet \
+  --chain tangle \
   --node-key-file "/home/<USERNAME>/node-key" \
   --port 30333 \
   --ws-port 9944 \
@@ -106,6 +106,6 @@ If you need to tail the latest output, you can use:
 journalctl -u collator.service -f
 ```
 
-Congratulations! You have officially setup an Eggnet node using Systemd. If you are interested 
+Congratulations! You have officially setup an Tangle Network node using Systemd. If you are interested 
 in learning how to setup monitoring for your node, and ssl certificates please refer to the 
 how-to-guide [here](https://docs.webb.tools/how-to-guides/v1/node-setup/ssl/).

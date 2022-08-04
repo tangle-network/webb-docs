@@ -120,11 +120,11 @@ These are the required fields that must be specified in order to support a netwo
 ### Substrate based networks configuration 
 
 The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for 
-the Egg network you need to add `[substrate.eggnet]` at the beginning of the network configuration within the `.toml` file.
-An example of the `.toml` file for the Egg network:
+the Tangle network you need to add `[substrate.tangle]` at the beginning of the network configuration within the `.toml` file.
+An example of the `.toml` file for the Tangle network:
 
 ```
-[substrate.eggnet]
+[substrate.tangle]
 enabled=true
 http-endpoint = "http://standalone.webb.tools:9933/"
 ws-endpoint = "ws://standalone.webb.tools:9944/"
@@ -193,23 +193,21 @@ size = 0.01
 # will wait before issuing another query for new events.
 events-watcher = { enabled = true, polling-interval = 15000 }
 
-# Configuration for private transaction relaying which determines the fee taken by this relayer 
-withdraw-fee-percentage = 0
-
+# Configuration for private transaction relaying which determines the fee taken by this relayer.
 # Value for private transaction relaying which specifies the maximum amount of gas which will be
-# used when submitting a withdraw transaction
-withdraw-gaslimit = "0x350000"
+# used when submitting a withdraw transaction. 
+withdraw-config = { withdraw-fee-percentage = 0, withdraw-gaslimit = "0x350000" }
 
 # Entries for this anchor contract's connected edges.
 # These fields are used to determine the generation of AnchorUpdate proposals
 linked-anchors = [
-  { chain = "arbitrumtestnet", address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
-  { chain = "ropsten", address = "0x66e04f6ae26c310e39f5bf24d873909e6d3b64c7" },
-  { chain = "kovan", address = "0x148e8037ea12834117f3efd9e8990c16c1ff5653" },
-  { chain = "polygontestnet", address = "0x1371efed369498718bee3eb5d58e5d3dec86be85" },
-  { chain = "optimismtestnet", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
-  { chain = "rinkeby", address = "0x91127f21d63029eb5b2de05b4b1e9fd3497ee95b"},
-  { chain = "moonbase", address = "0x0c5f4951f42eec082bd1356b9b41928b4f0e7542"}
+  { chain = "arbitrumtestnet", chain-id = "421611",  address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
+  { chain = "ropsten", chain-id = "3", address = "0x66e04f6ae26c310e39f5bf24d873909e6d3b64c7" },
+  { chain = "kovan", chain-id = "42", address = "0x148e8037ea12834117f3efd9e8990c16c1ff5653" },
+  { chain = "polygontestnet", chain-id = "80001", address = "0x1371efed369498718bee3eb5d58e5d3dec86be85" },
+  { chain = "optimismtestnet", chain-id = "69", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
+  { chain = "rinkeby", chain-id = "4", address = "0x91127f21d63029eb5b2de05b4b1e9fd3497ee95b"},
+  { chain = "moonbase", chain-id = "1287", address = "0x0c5f4951f42eec082bd1356b9b41928b4f0e7542"}
 ]
 ```
 

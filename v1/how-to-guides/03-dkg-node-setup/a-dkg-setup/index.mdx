@@ -93,7 +93,7 @@ ssh -i ~/.ssh/<YOUR SSH PRIVATE KEY> <USERNAME>@<YOUR VPS PUBLIC IP ADDRESS>
 ```
 
 ## System service setup
-### 1. Installing egg-net and setting it up as a system service
+### 1. Installing Tangle Network node and setting it up as a system service
 
 First, install all the dependencies.
 ```
@@ -102,7 +102,7 @@ sudo apt upgrade
 sudo apt install jq
 sudo apt install unzip
 sudo apt install net-tools
-sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev && rm -rf /var/lib/apt/lists/*
+sudo apt install -y build-essential git clang curl libssl-dev pkg-config llvm libudev-dev libgmp3-dev protobuf-compiler && rm -rf /var/lib/apt/lists/*
 ```
 
 ### 2. Rust developer environment
@@ -125,12 +125,12 @@ rustup update nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
-### 3. Clone and build egg-net repo
+### 3. Clone and build tangle repo
 ```
-git clone https://github.com/webb-tools/egg-net.git
-cd egg-net
+git clone https://github.com/webb-tools/tangle.git
+cd tangle
 
-cargo build --release --locked -p egg-standalone-node
+cargo build --release --locked -p tangle-standalone-node
 ```
 
 ### 4. Generating node keys - this file will be referenced in our service configuration file.
@@ -157,8 +157,8 @@ The peer ID is displayed on screen and the actual key is saved in the **output-f
 Run the following commands to create the service configuration file:
 
 ```
-# Move the egg-standalone-node binary to the bin directory (assumes you are in repo root directory)
-sudo mv ./target/release/egg-standalone-node /usr/bin/
+# Move the tangle-standalone-node binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/tangle-standalone-node /usr/bin/
 
 # navigate to /etc
 cd /etc/systemd/system
@@ -182,10 +182,10 @@ StartLimitIntervalSec=0
 User=<USERNAME>
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/egg-standalone-node \
+ExecStart=/usr/bin/tangle-standalone-node \
   --base-path /tmp/standalone/<USERNAME> \
   --name <NODE-NAME> \
-  --chain "/home/<USERNAME>/egg-net/resources/arana-standalone-raw.json" \
+  --chain "/home/<USERNAME>/tangle/resources/arana-standalone-raw.json" \
   --node-key-file "/home/<USERNAME>/node-key" \
   --port 30333 \
   --ws-port 9944 \

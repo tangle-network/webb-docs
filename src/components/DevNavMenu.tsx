@@ -125,18 +125,22 @@ const DevNavMenu = {
         ],
       },
       {
-        name: 'Egg Network',
+        name: 'Tangle Network',
         items: [
           {
-            title: 'How to run a node on Eggnet',
-            link: '/v1/node-operators/run-eggnet-node/',
+            title: 'How to run a node on Tangle Network',
+            link: '/v1/node-operators/run-tangle-node/',
+          },
+          {
+            title: 'Required Keys Setup',
+            link: '/v1/node-operators/required-keys/',
           },
           {
             title: 'Payouts Overview',
-            link: '/v1/node-operators/payouts',
+            link: '/v1/node-operators/payouts/',
           },
           {
-            title: 'Using systemd for Eggnet node',
+            title: 'Using systemd for Tangle node',
             link: '/v1/node-operators/systemd/',
           },
           {
@@ -145,7 +149,7 @@ const DevNavMenu = {
           },
           // TODO: Need to define instructions for reverse proxy setup
           // {
-          //   title: 'Setup Eggnet node with NGINX Reverse Proxy',
+          //   title: 'Setup Tangle node with NGINX Reverse Proxy',
           //   link: '/v1/node-operators/nginx-reverse-proxy/',
           // },
           {
