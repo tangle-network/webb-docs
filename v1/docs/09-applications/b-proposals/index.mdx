@@ -17,21 +17,21 @@ Collectively, there are 13 distinct proposals as you can see from the table belo
 A proposal simply is a message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned. 
 Below are all the proposal types in the system.
 
-| Proposals                  | Description                                             |
-| -------------------------- | ------------------------------------------------------- |
-| Refresh (Governance)                    | Proposal to refresh a contract's governor               |
-| AnchorUpdate (Governance)             | Proposal to update merkle roots                         |
-| ResourceIdUpdate (Governance)          | Proposal to add/update a resource ID                    |
-| ProposalSetUpdate (Governance)        | Proposal to update the latest proposer set state        |
-| SetVerifierProposal        | Proposal to set a verifier address                      |
-| TokenAdd                   | Proposal to add token to a set                          |
-| TokenRemove                | Proposal to remove token from a set                     |
-| WrappingFeeUpdate          | Proposal to update fee parameter                        |
-| RescueToken                | Proposal to move tokens from a Treasury                 |
-| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
-| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
-| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
-| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+| Proposals                      | Description                                             |
+| ------------------------------ | ------------------------------------------------------- |
+| Refresh (Governance)           | Proposal to refresh a contract's governor               |
+| AnchorUpdate (Governance)      | Proposal to update merkle roots                         |
+| ResourceIdUpdate (Governance)  | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate (Governance) | Proposal to update the latest proposer set state        |
+| SetVerifierProposal            | Proposal to set a verifier address                      |
+| TokenAdd                       | Proposal to add token to a set                          |
+| TokenRemove                    | Proposal to remove token from a set                     |
+| WrappingFeeUpdate              | Proposal to update fee parameter                        |
+| RescueToken                    | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate          | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate       | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal     | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal     | Proposal to set a treasury handler address              |
 
 ## Definitions
 
@@ -64,93 +64,93 @@ Relevant for tracking updates to contracts.<br/>
 ## Global Governance Proposals 
 
 ### AnchorUpdateProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.AnchorUpdateProposal.html) | Total Size: 114 bytes | 1. ProposalHeader (40 bytes) <br/>  2. Source chain type (2 bytes)<br/>3. Source chain ID (4 bytes)<br/>4. Latest leaf index (4 bytes)<br/>5. Merkle root (32 bytes)<br/>6. Target ID (32 bytes) |
-| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.AnchorUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L167)<br/>1. Typed chain ID (6 bytes)<br/>2. Latest leaf index (4 bytes)<br/>3. Merkle root (32 bytes)<br/>4. Target ID (32 bytes) | 
-| Cosmwasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.AnchorUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L62)<br/>1. ProposalHeader (40 bytes) <br/> 2. Typed chain ID (6 bytes)<br/>3. Latest leaf index (4 bytes)<br/>4. Merkle root (32 bytes)<br/>5. Target ID (32 bytes) | 
+| Protocol  | Doc                                                                                                              | Byte Size              | Arguments                                                                                                                                                                                                                                                       |
+| --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.AnchorUpdateProposal.html)       | Total Size: 104 bytes  | 1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes)                                                                                                                                                                |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.AnchorUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L167)<br/>1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes)     |
+| Cosmwasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.AnchorUpdateProposal.html)  | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L62)<br/>1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes) |
 
 ### ResourceIdUpdateProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.ResourceIdUpdateProposal.html) | Total Size: 112 bytes | 1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler contract address (20 bytes)<br/>4. Execution contract address (20 bytes)<br/> |
-| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call for a specific handler pallet <br/>1. [VAnchor handler pallet call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L179)<br/> | 
-| Cosmwasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L85)<br/>1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler contract address (20 bytes)<br/>4. Execution contract address (20 bytes)<br/> | 
+| Protocol  | Doc                                                                                                                  | Byte Size              | Arguments                                                                                                                                                                                                                                                                  |
+| --------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.ResourceIdUpdateProposal.html)       | Total Size: 92 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler address (20 bytes)                                                                                                                                                                |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call for a specific handler pallet <br/>1. [VAnchor handler pallet call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L179)<br/>                                              |
+| Cosmwasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.ResourceIdUpdateProposal.html)  | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L85)<br/>1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler address (20 bytes) |
 
 ### Refresh
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| DKG | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/struct.RefreshProposal.html) | Total Size: 72 bytes | 1. Public key (68 bytes)<br/>2. Nonce (4 bytes)<br/> |
+| Protocol | Doc                                                                                                    | Byte Size            | Arguments                                            |
+| -------- | ------------------------------------------------------------------------------------------------------ | -------------------- | ---------------------------------------------------- |
+| DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/struct.RefreshProposal.html) | Total Size: 72 bytes | 1. Public key (68 bytes)<br/>2. Nonce (4 bytes)<br/> |
 
 ### ProposerSetUpdate
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| DKG | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/>|
+| Protocol | Doc                                                                                                                                           | Byte Size            | Arguments                                                                                                                           |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/> |
 
 ## Application Specific Proposals 
 
 ### TokenAddProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenAddProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes)|
-| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenAddProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.TokenAddProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/>  1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes)| 
+| Protocol  | Doc                                                                                                          | Byte Size              | Arguments                                                                          |
+| --------- | ------------------------------------------------------------------------------------------------------------ | ---------------------- | ---------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenAddProposal.html)       | Total Size: 60 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes)                     |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenAddProposal.html) | Total Size: ≥ 40 bytes | Encoded call                                                                       |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.TokenAddProposal.html)  | Total Size: ≥ 40 bytes | Encoded call <br/>  1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes) |
 
 ### TokenRemoveProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenRemoveProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes)|
-| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenRemoveProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.TokenRemoveProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/>  1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes) | 
+| Protocol  | Doc                                                                                                             | Byte Size              | Arguments                                                                          |
+| --------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.TokenRemoveProposal.html)       | Total Size: 60 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes)                     |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.TokenRemoveProposal.html) | Total Size: ≥ 40 bytes | Encoded call                                                                       |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.TokenRemoveProposal.html)  | Total Size: ≥ 40 bytes | Encoded call <br/>  1. ProposalHeader (40 bytes) <br/> 2. Token Address (20 bytes) |
 
 ### FeeRecipientUpdateProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.FeeRecipientUpdateProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Recipient Address (20 bytes)|
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.FeeRecipientUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) <br/> 2. Recipient Address (20 bytes) | 
+| Protocol | Doc                                                                                                                   | Byte Size              | Arguments                                                                             |
+| -------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------- |
+| EVM      | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.FeeRecipientUpdateProposal.html)      | Total Size: 60 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Recipient Address (20 bytes)                    |
+| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.FeeRecipientUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) <br/> 2. Recipient Address (20 bytes) |
 
 ### WrappingFeeUpdateProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.WrappingFeeUpdateProposal.html) | Total Size: 41 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Fee percentage (1 byte)|
-| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.WrappingFeeUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call | 
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.WrappingFeeUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) <br/> 2. Fee percentage (1 byte) | 
+| Protocol  | Doc                                                                                                                   | Byte Size              | Arguments                                                                        |
+| --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.WrappingFeeUpdateProposal.html)       | Total Size: 41 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Fee percentage (1 byte)                    |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.WrappingFeeUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call                                                                     |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.WrappingFeeUpdateProposal.html)  | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) <br/> 2. Fee percentage (1 byte) |
 
 ### RescueTokensProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.RescueTokensProposal.html) | Total Size: 112 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Token address (20 bytes)<br/>3. Recipient address (20 bytes)<br/>4. Amount (32 bytes)|
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.RescueTokensProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes)<br/>2. Token address (20 bytes)<br/>3. Recipient address (20 bytes)<br/>4. Amount (32 bytes) | 
-| Substrate | Not documented | Total Size: ≥ 40 bytes | Encoded call | 
+| Protocol  | Doc                                                                                                             | Byte Size              | Arguments                                                                                                                                    |
+| --------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.RescueTokensProposal.html)      | Total Size: 112 bytes  | 1. ProposalHeader (40 bytes) <br/> 2. Token address (20 bytes)<br/>3. Recipient address (20 bytes)<br/>4. Amount (32 bytes)                  |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.RescueTokensProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes)<br/>2. Token address (20 bytes)<br/>3. Recipient address (20 bytes)<br/>4. Amount (32 bytes) |
+| Substrate | Not documented                                                                                                  | Total Size: ≥ 40 bytes | Encoded call                                                                                                                                 |
 
 
 ### MaxDepositLimitProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MaxDepositLimitProposal.html) | Total Size: 72 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Deposit limit (32 bytes)|
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.MaxDepositLimitProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. Deposit limit (32 bytes)<br/> | 
-| Substrate | Not documented |  |  | 
+| Protocol  | Doc                                                                                                                | Byte Size              | Arguments                                                                        |
+| --------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------- | -------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MaxDepositLimitProposal.html)      | Total Size: 72 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Deposit limit (32 bytes)                   |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.MaxDepositLimitProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. Deposit limit (32 bytes)<br/> |
+| Substrate | Not documented                                                                                                     |                        |                                                                                  |
 
 
 ### MinWithdrawalLimitProposal
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MinWithdrawalLimitProposal.html) | Total Size: 72 bytes | 1. ProposalHeader (40 bytes) <br/> 2. Withdrawal limit (32 bytes)|
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.MinWithdrawalLimitProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. Withdrawal limit (32 bytes)<br/> | 
-| Substrate | Not documented |  |  | 
+| Protocol  | Doc                                                                                                                   | Byte Size              | Arguments                                                                           |
+| --------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.MinWithdrawalLimitProposal.html)      | Total Size: 72 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. Withdrawal limit (32 bytes)                   |
+| CosmWasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.MinWithdrawalLimitProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. Withdrawal limit (32 bytes)<br/> |
+| Substrate | Not documented                                                                                                        |                        |                                                                                     |
 
 
 ### SetTreasuryHandlerProposal
 **Note:** Not required in Substrate implementation.
 
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetTreasuryHandlerProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. New handler address (20 bytes)|
-| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.SetTreasuryHandlerProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. New handler address (20 bytes)<br/> | 
+| Protocol | Doc                                                                                                                   | Byte Size              | Arguments                                                                              |
+| -------- | --------------------------------------------------------------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------- |
+| EVM      | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetTreasuryHandlerProposal.html)      | Total Size: 60 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. New handler address (20 bytes)                   |
+| CosmWasm | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.SetTreasuryHandlerProposal.html) | Total Size: ≥ 40 bytes | Encoded call <br/> 1. ProposalHeader (40 bytes) 2. New handler address (20 bytes)<br/> |
 
 ### SetVerifierProposal
 **Note:** Not required in Substrate implementation. 
 
-| Protocol | Doc | Byte Size | Arguments |
-|---|---|---|---|
-| EVM | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetVerifierProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. New verifier address (20 bytes)|
+| Protocol | Doc                                                                                                       | Byte Size            | Arguments                                                             |
+| -------- | --------------------------------------------------------------------------------------------------------- | -------------------- | --------------------------------------------------------------------- |
+| EVM      | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.SetVerifierProposal.html) | Total Size: 60 bytes | 1. ProposalHeader (40 bytes) <br/> 2. New verifier address (20 bytes) |
