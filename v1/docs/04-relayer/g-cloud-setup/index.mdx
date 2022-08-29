@@ -42,7 +42,7 @@ sudo snap install --classic certbot && sudo ln -s /snap/bin/certbot /usr/bin/cer
 
 # Build from source
 git clone https://github.com/webb-tools/relayer.git
-cd relayer && cargo build --release
+cd relayer && cargo build --release --features cli
 ```
 
 ### Relayer setup
