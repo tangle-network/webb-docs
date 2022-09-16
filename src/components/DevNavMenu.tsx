@@ -30,10 +30,6 @@ const DevNavMenu = {
             title: 'Network Overview',
             link: '/v1/getting-started/network-overview/',
           },
-          // {
-          //   title: 'Technical Roadmap',
-          //   link: '/v1/getting-started/technical-roadmap/',
-          // },
           {
             title: 'Glossary',
             link: '/v1/getting-started/glossary/',
@@ -147,11 +143,6 @@ const DevNavMenu = {
             title: 'Secure node',
             link: '/v1/node-operators/secure-node/',
           },
-          // TODO: Need to define instructions for reverse proxy setup
-          // {
-          //   title: 'Setup Tangle node with NGINX Reverse Proxy',
-          //   link: '/v1/node-operators/nginx-reverse-proxy/',
-          // },
           {
             title: 'Monitor your node',
             link: '/v1/node-operators/monitor-node/',
