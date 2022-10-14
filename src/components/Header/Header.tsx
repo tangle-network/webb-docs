@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import MobileMenu from '../MobileMenus/MobileMenu'
 import { useSiteMetadata } from '../Hooks/use-site-metadata'
 import cx from 'classnames'
@@ -8,8 +8,10 @@ import { SearchDocs } from '../search-ui'
 import ThemeToggle from '../ThemeToggle'
 import MainNav from '../MainNav'
 import useScrollListener from '../Hooks/use-scroll-listener'
-
+import LogoSvg from '../../images/svgs/webb-logo.svg'
+import DarkLogoSvg from '../../images/svgs/dark-webb-logo.svg'
 import Link from '../Link'
+import { ThemeContext } from '../../contexts/ThemeContext'
 
 export default function Header() {
   const scroll = useScrollListener()
@@ -17,6 +19,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const toggleMenu = () => setIsMobileNavOpen(!isMobileNavOpen)
   const navItems = MainNav.global()
+  const { colorMode, setColorMode } = useContext(ThemeContext)
 
   const { siteMetadata } = useSiteMetadata()
 
@@ -34,6 +37,8 @@ export default function Header() {
       setIsScrolled(false)
     }
   }, [scroll.y])
+
+    
 
   return (
     <header
@@ -53,7 +58,8 @@ export default function Header() {
         >
           <div className="w-40 relative transform transition-opacity duration-300 ease-in-out hover:opacity-50">
             <Link to={siteMetadata.webburl}>
-              <svg
+            { colorMode === 'light' ? <LogoSvg  className={`fill-current text-webbDark dark:text-webbWhite`}/> : <DarkLogoSvg className={`fill-current text-webbDark dark:text-webbWhite`} /> }
+              {/* <svg
                 className={`fill-current text-webbDark dark:text-webbWhite`}
                 data-name="Layer 1"
                 xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +77,8 @@ export default function Header() {
                   d="M38.0761 22.8171C38.437 22.8171 38.6958 22.8957 38.8527 23.0529C39.0253 23.21 39.1116 23.4143 39.1116 23.6657C39.1116 24.0743 38.9861 24.4357 38.7351 24.75C38.4997 25.0643 38.1232 25.2293 37.6055 25.245C36.3661 25.2607 35.2522 25.1664 34.2638 24.9621C33.1656 27.3036 31.8399 29.2521 30.2867 30.8078C28.7493 32.3479 27.2275 33.1179 25.7214 33.1179C24.3408 33.1179 23.3053 32.3871 22.615 30.9257C21.9247 29.4486 21.5325 27.4764 21.4384 25.0093C20.497 27.7436 19.4302 29.7786 18.2379 31.1143C17.0612 32.45 15.8061 33.1179 14.4726 33.1179C12.9665 33.1179 11.8291 32.1829 11.0603 30.3129C10.2916 28.4271 9.90723 25.8971 9.90723 22.7228C9.90723 20.4128 10.1112 17.875 10.5191 15.1093C10.6289 14.3236 10.825 13.7814 11.1074 13.4828C11.4055 13.1686 11.8683 13.0114 12.4958 13.0114C12.9665 13.0114 13.3273 13.1136 13.5784 13.3178C13.8451 13.5221 13.9784 13.8993 13.9784 14.4493C13.9784 14.5593 13.9627 14.7714 13.9314 15.0857C13.4607 18.3071 13.2254 21.0493 13.2254 23.3121C13.2254 25.4178 13.4058 27.0443 13.7666 28.1914C14.1275 29.3386 14.6138 29.9121 15.2257 29.9121C15.7748 29.9121 16.4337 29.3386 17.2024 28.1914C17.9869 27.0286 18.7635 25.3157 19.5322 23.0529C20.3009 20.7743 20.952 18.0636 21.4854 14.9207C21.6109 14.1978 21.8384 13.7028 22.1679 13.4357C22.513 13.1528 22.9759 13.0114 23.5563 13.0114C24.0427 13.0114 24.3957 13.1214 24.6153 13.3414C24.8506 13.5457 24.9683 13.86 24.9683 14.2843C24.9683 14.5357 24.9526 14.7321 24.9212 14.8736C24.482 17.435 24.2623 19.9964 24.2623 22.5578C24.2623 24.3021 24.3172 25.6929 24.427 26.73C24.5526 27.7671 24.78 28.5607 25.1095 29.1107C25.4546 29.645 25.9488 29.9121 26.5921 29.9121C27.3451 29.9121 28.1845 29.3464 29.1101 28.215C30.0357 27.0679 30.8829 25.6457 31.6517 23.9486C30.6946 23.3514 29.973 22.5814 29.4866 21.6386C29.0003 20.68 28.7571 19.58 28.7571 18.3386C28.7571 17.0971 28.9454 16.0521 29.3219 15.2036C29.7141 14.3393 30.2397 13.695 30.8986 13.2707C31.5732 12.8464 32.3184 12.6343 33.1342 12.6343C34.1383 12.6343 34.9306 12.9957 35.5111 13.7186C36.1072 14.4414 36.4053 15.4314 36.4053 16.6886C36.4053 18.4643 36.0209 20.4364 35.2522 22.605C36.0523 22.7464 36.9936 22.8171 38.0761 22.8171ZM31.1339 18.1736C31.1339 19.7136 31.6281 20.8528 32.6165 21.5914C33.2284 19.8314 33.5343 18.3779 33.5343 17.2307C33.5343 16.5707 33.448 16.0914 33.2754 15.7928C33.1029 15.4786 32.8675 15.3214 32.5694 15.3214C32.1458 15.3214 31.8007 15.5728 31.534 16.0757C31.2673 16.5628 31.1339 17.2621 31.1339 18.1736Z"
                   fill="white"
                 />
-              </svg>
+              </svg> */}
+              
             </Link>
           </div>
           {/* ------------------ */}
