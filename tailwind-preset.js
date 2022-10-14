@@ -82,8 +82,8 @@ module.exports = {
         84: '22rem',
       },
       fontFamily: {
-        title: ['Poppins', 'sans-serif'],
-        body: ['Karla', 'sans-serif'],
+        title: ['BreezeSans', 'sans-serif'],
+        body: ['BreezeSans', 'sans-serif'],
         quote: ['serif'],
       },
       fontSize: {
