@@ -9,7 +9,7 @@ export default function Footer() {
   const navItems = MainNav.global()
 
   return (
-    <footer className="w-full px-4 xl:px-12 bg-webbDark text-white font-body">
+    <footer className="w-full px-4 xl:px-12 bg-webbDarkest text-white font-body">
       <div className="h-auto pb-6 md:flex md:flex-row-reverse md:justify-between md:items-center">
         <div className="flex items-center py-4">
           <a
@@ -18,10 +18,7 @@ export default function Footer() {
             target="_blank"
             rel="noreferrer"
           >
-            <Icon
-              name="discordOrg"
-              className="fill-current text-webbWhite"
-            />
+            <Icon name="discordOrg" className="fill-current text-webbWhite" />
           </a>
           <a
             className="mr-11 md:mr-0 md:ml-9 transform transition-all duration-300 ease-in-out hover:opacity-50"

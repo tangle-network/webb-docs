@@ -9,8 +9,8 @@ keywords: []
 
 ## Introduction
 
-Running a collator node on the Tangle Network allows you to connect to the network, sync with a bootnode, obtain local access to RPC endpoints, and also 
-author blocks. The network rewards collators (users running collator nodes and actively producing blocks) by paying a set amount of network 
+Running a collator node on the Tangle Network allows you to connect to the network, sync with a bootnode, obtain local access to RPC endpoints, and also
+author blocks. The network rewards collators (users running collator nodes and actively producing blocks) by paying a set amount of network
 tokens as rewards.
 
 ## How are rewards calculated
@@ -18,8 +18,8 @@ tokens as rewards.
 The collator rewards are paid out every block, the rewards consists of multiple components:
 
 (1) Transaction fees from all transactions in the block <br/>
-(2) Tips paid by users  <br/>
-(3) Network reward amount 
+(2) Tips paid by users <br/>
+(3) Network reward amount
 
 The collator reward is initially paid out from the collator reward pot alloted at the time of genesis. Once the initial genesis supply for collator
 rewards has been exhausted, the network will issue new amount of currency (at a predetermined rate of inflation) every block to continue
@@ -27,14 +27,15 @@ rewarding the collators. The block authors are chosen using [Aura](https://parit
 and ensures every collator gets a chance at block authoring.
 
 ## Reward Payout Schedule
+
 The collator rewards are paid out every block, there is no lockup or delay for the payout. Please note that simply authoring a block
-does not guarantee a reward, the block has to be accepted and finalised in the canonical chain for the payout to be valid. Also 
+does not guarantee a reward, the block has to be accepted and finalised in the canonical chain for the payout to be valid. Also
 important to remember that rewards are only paid out to block authoring collators, simply running a node/full-node does not
 make you eligible for a reward.
-            
+
 ## Payout Example
 
-Lets say `Alice` is running a collator node on the Tangle Network, the collator node just authored a block, for simplicity lets consider the block 
+Lets say `Alice` is running a collator node on the Tangle Network, the collator node just authored a block, for simplicity lets consider the block
 contains 100 transactions each paying 0.1 TNT in transaction fees, 5 transactions each with a tip of 1 TNT.
 
 This block has generated a total of 15 TNT in transaction fees and tips. The transaction fee is divided between the treasury and

@@ -19,22 +19,26 @@ The following guide outlines the steps necessary to utilize the EVM bridge local
 ### Run local EVM nodes
 
 1. Clone the [evm-localnet repo](https://github.com/webb-tools/evm-localnet):
+
 ```bash
  git clone https://github.com/webb-tools/evm-localnet --depth 1
 ```
 
 2. We are using zero knowledge key fixtures to generate proofs. **Run:**
+
 ```bash
 # populates fixed zero knowledge keys
 git submodule update --init
 ```
 
 3. Install the dependencies
+
 ```bash
 yarn install
 ```
 
 4. Start the local testnet:
+
 ```bash
 yarn start
 ```
@@ -50,11 +54,13 @@ git clone https://github.com/webb-tools/relayer.git --depth 1
 ```
 
 2. Build the relayer:
+
 ```bash
 cargo build --release
 ```
 
 3. Add `.env` file to the root directory:
+
 ```bash
 WEBB_EVM_ATHENA_ENABLED=true
 WEBB_EVM_DEMETER_ENABLED=true
@@ -65,11 +71,12 @@ DEMETER_PRIVATE_KEY=0x0000000000000000000000000000000000000000000000000000000000
 ```
 
 3. Run with the local evm testnet configuration:
+
 ```
 ./target/release/webb-relayer -c config/evm-localnet -vv
 ```
 
-Congrats! 🎉  You now have a local relayer running and listening on localhost:9955 !
+Congrats! 🎉 You now have a local relayer running and listening on localhost:9955 !
 
 ### Run local Webb DApp
 
@@ -93,18 +100,17 @@ yarn install
 yarn start:dapp
 ```
 
-Visit http://localhost:3000/ to see the Webb Dapp UI! 🕸️ 🚀 
+Visit http://localhost:3000/ to see the Webb Dapp UI! 🕸️ 🚀
 
-## Using the bridge from the DApp 
+## Using the bridge from the DApp
 
-The first thing you will want to do is add the pre-seeded development accounts to your MetaMask wallet. These accounts are pre-seeded with funds that we will use 
+The first thing you will want to do is add the pre-seeded development accounts to your MetaMask wallet. These accounts are pre-seeded with funds that we will use
 to demonstrate the EVM bridge. To add these accounts, please ensure you have installed the [MetaMask extension](https://metamask.io/).
 
-To add the accounts to your wallet, select the extension and click on the account thumbnail. 
-Then select "Import account". 
+To add the accounts to your wallet, select the extension and click on the account thumbnail.
+Then select "Import account".
 
 ![add-dev-accounts.png](../../../../src/images/how-to/import-account-meta.png)
-
 
 The private key to input will be the following:
 
@@ -113,25 +119,26 @@ The private key to input will be the following:
 ```
 
 You may add additional accounts with the following private keys:
+
 ```
 0x0000000000000000000000000000000000000000000000000000000000000002
 0xc0d375903fd6f6ad3edafc2c5428900c0757ce1da10e5dd864fe387b32b91d7e
 ```
 
-Now that you have an account with funds lets move on to interacting with the bridge in the UI! 
+Now that you have an account with funds lets move on to interacting with the bridge in the UI!
 
 The below steps will guide you through interacting with the Webb DApp to connect your MetaMask wallet, deposit funds into the bridge,
- and then withdraw funds from the bridge.
+and then withdraw funds from the bridge.
 
-### Connecting MetaMask wallet 
+### Connecting MetaMask wallet
 
-1. Select the **Bridge** from the side navigation 
+1. Select the **Bridge** from the side navigation
 2. Select a network
 3. Under "Step 1: Select a chain", select the **Hermes Localnet** chain
 4. Connect MetaMask wallet
 5. Authorize the DApp to connect
 
-### Depositing funds into the bridge 
+### Depositing funds into the bridge
 
 1. The bridge interface should now be visible similar to the below images
 
@@ -142,6 +149,7 @@ The below steps will guide you through interacting with the Webb DApp to connect
 4. Select **Deposit**
 
 If you would like to see how wrapped asset deposits work you may proceed with the following steps:
+
 1. Select the destination chain from the dropdown (e.g. Athena Localnet)
 2. Select the "Wrap Assets?" checkbox
 3. From the Token dropdown, select "Dev" -> webbDev
@@ -156,7 +164,7 @@ In order to withdraw your deposited funds, you must have access to your generate
 
 1. Download and copy your generated secret note
 2. Confirm that you have backed up your note
-3. Select **Deposit** 
+3. Select **Deposit**
 
 ### Withdrawing funds from the bridge
 
@@ -168,8 +176,8 @@ Switch to the **Withdraw** tab to withdraw funds from the bridge.
 4. Paste in a recipient address to send the funds to
 5. Select Withdraw (you may need to switch networks to withdraw)
 
-The transaction will then begin being processed, generating a zero knowledge proof and send the transaction to the relayer for withdrawal. At the 
-end you should see a successful transaction screen. 
+The transaction will then begin being processed, generating a zero knowledge proof and send the transaction to the relayer for withdrawal. At the
+end you should see a successful transaction screen.
 
 ![mixer-success.png](../../../../src/images/how-to/mixer-success.png)
 

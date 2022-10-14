@@ -8,6 +8,7 @@ keywords: []
 ---
 
 This document serves as instructions for setting up a Webb Relayer at a publicly accessible endpoint. It will fulfill the requirements for listing your relayer on `app.webb.tools`. In order to integrate your relayer to `app.webb.tools`, please submit a PR.
+
 - Connections available via https and wss on your domain.
 
 ### Instructions
@@ -67,6 +68,7 @@ WantedBy=multi-user.target
 ```
 
 2. Kick off the system service:
+
 ```
 sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
 ```
@@ -75,7 +77,8 @@ sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
 
 1. Configure your registered domain name with your cloud service provider.
 
-2. Install nginx if it isn't already on your machine: 
+2. Install nginx if it isn't already on your machine:
+
 ```
 sudo apt install nginx
 ```
@@ -83,11 +86,13 @@ sudo apt install nginx
 **First, we will configure the endpoint linked to your domain name at port 80 for certificate generation**
 
 3. Create nginx site files for your domain:
+
 ```
-cd /etc/nginx/sites-available && 
-sudo cp default <domain name> && 
+cd /etc/nginx/sites-available &&
+sudo cp default <domain name> &&
 sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/
 ```
+
 4. Modify the nginx sites-available file to:
 
 ```
@@ -104,22 +109,28 @@ server {
             try_files $uri $uri/ =404;
     }
 }
-```        
+```
 
-5. Check the nginx configuration 
+5. Check the nginx configuration
+
 ```
 sudo nginx -t
 ```
-6. If no issues exist, restart the nginx service: 
+
+6. If no issues exist, restart the nginx service:
+
 ```
 sudo systemctl restart nginx
 ```
+
 **Next we will create the self-signed certificate and reconfigure for https and wss support**
 
 7. Create the self-signed certificate:
+
 ```
 sudo certbot certonly --nginx
 ```
+
 8. Modify the nginx site file:
 
 ```
@@ -157,11 +168,12 @@ server {
     }
 }
 ```
+
 9. Check nginx configuration and restart.
 
 ### Monitoring Setup
 
-Relayers will want to setup monitoring to ensure maximum uptime and automatic restarts when things go awry. 
+Relayers will want to setup monitoring to ensure maximum uptime and automatic restarts when things go awry.
 
 1. `sudo apt install -y monit`
 
@@ -178,7 +190,7 @@ set idfile /var/lib/monit/id
 set statefile /var/lib/monit/state
 set eventqueue
     basedir /var/lib/monit/events
-    slots 100                    
+    slots 100
 
 check process webb-relayer matching target/release/webb-relayer
     start program = "/bin/systemctl restart webb-relayer"
@@ -189,10 +201,12 @@ check process webb-relayer matching target/release/webb-relayer
     if does not exist for 1 cycles then start
 ```
 
-3. restart monit and validate: 
+3. restart monit and validate:
+
 ```
 sudo monit reload && sudo monit validate
 ```
+
 ### Dapp Integration
 
 After completing the above steps, submit a PR with changes for your https endpoint: <a target="_blank" href="https://github.com/webb-tools/webb-dapp/blob/master/packages/apps/src/configs/relayer-config.ts#L14">Webb Dapp</a>.

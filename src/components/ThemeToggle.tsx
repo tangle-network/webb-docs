@@ -3,7 +3,7 @@ import { ThemeContext } from '../contexts/ThemeContext'
 
 export default function ThemeToggle() {
   const { colorMode, setColorMode } = useContext(ThemeContext)
-  
+
   function toggleTheme() {
     if (colorMode === 'dark') setColorMode('light')
     if (colorMode === 'light') setColorMode('dark')

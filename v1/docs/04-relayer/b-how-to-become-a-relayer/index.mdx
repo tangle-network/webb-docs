@@ -6,24 +6,24 @@ section: docs
 category: relayer
 keywords: []
 ---
- 
-The relayer system is composed of three main components. Each of these components should be thought 
+
+The relayer system is composed of three main components. Each of these components should be thought
 of as entirely separate because they could be handled by different entities entirely.
- 
+
 1. Private transaction relaying (for bridged transactions)
 2. Data querying (for zero-knowledge proof generation)
 3. Data proposing and signature relaying (of DKG proposals)
- 
-This document serves as a guide for setting up the relayer for all three components collectively or exclusively. 
+
+This document serves as a guide for setting up the relayer for all three components collectively or exclusively.
 Below you will find everything you need to join the Webb Relayer Network.
- 
-The easiest way to setup a relayer is to make use of the docker-compose file that is included in the 
-[relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before 
-we download and run Docker we need to configure our relayer. The first step is to create an `.env` file 
+
+The easiest way to setup a relayer is to make use of the docker-compose file that is included in the
+[relayer repository](https://github.com/webb-tools/relayer/blob/main/docker/docker-compose.yml) but before
+we download and run Docker we need to configure our relayer. The first step is to create an `.env` file
 in the root directory which lists the networks you wish to support along with the following fields:
 
 ```
-# enables the network 
+# enables the network
 WEBB_EVM_<network>_ENABLED=true
 
 # private key with funds on the network to cover gas costs
@@ -34,12 +34,13 @@ WEBB_EVM_<network>_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 ```
 
 The current relayer network supports the following chains:
+
 - Rinkeby
 - Goerli
-- Ropsten 
+- Ropsten
 - Kovan
 - Optimism Testnet
-- Arbitrum Testnet 
+- Arbitrum Testnet
 - Mumbia Testnet (Polygon)
 - Moonbase Alpha (Moonbeam)
 
@@ -74,29 +75,29 @@ WEBB_EVM_POLYGON_TESTNET_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 WEBB_EVM_MOONBASE_BENEFICIARY=<0X_PREFIXED_ADDRESS>
 ```
 
-# Network and Contract Configuration 
- 
+# Network and Contract Configuration
+
 The relayer's configuration is comprised of two parts:
 
 1. Network configuration
-2. Contract configuration 
+2. Contract configuration
 
 The network contract configuration is dependent on the network support configuration. That is, you cannot configure
-a specific networks contracts without first configuring the network support configuration. 
+a specific networks contracts without first configuring the network support configuration.
 
-To configure the relayer we suggest making use of the preset configurations in the `/config` directory. There you will 
-see `.toml` files for all the supported networks and contracts. However, if you wish to custom configure 
+To configure the relayer we suggest making use of the preset configurations in the `/config` directory. There you will
+see `.toml` files for all the supported networks and contracts. However, if you wish to custom configure
 your relayer you may do so. See below for more details.
 
 ## Network configuration
 
-The relayer must be configured with the network support configuration. User's may choose which networks they wish to support 
-but must specify these networks in a `.toml` file under the `/config` directory. The current relayer network supports both 
-EVM and Substrate based chains but differ slightly in their configuration. 
+The relayer must be configured with the network support configuration. User's may choose which networks they wish to support
+but must specify these networks in a `.toml` file under the `/config` directory. The current relayer network supports both
+EVM and Substrate based chains but differ slightly in their configuration.
 
-### EVM based networks configuration 
+### EVM based networks configuration
 
-The naming convention for the EVM based networks is `[evm.<network>]`. For example, to specify configuration for 
+The naming convention for the EVM based networks is `[evm.<network>]`. For example, to specify configuration for
 the Goerli network you need to add `[evm.goerli]` at the beginning of the network configuration within the `.toml` file.
 An example of the `.toml` file for the Goerli network:
 
@@ -115,11 +116,11 @@ These are the required fields that must be specified in order to support a netwo
 - **`http-endpoint`**: RPC url for a specific node
 - **`ws-endpoint`**: Websocket endpoint for long living connections
 - **`chain-id`**: Chain identifier for the specified chain (e.g. 1 for ETH mainnet, 5 for Goerli)
-- **`private-key`**: Private key for an account on this network, be sure this account has funds (e.g.  "$GOERLI_PRIVATE_KEY")
+- **`private-key`**: Private key for an account on this network, be sure this account has funds (e.g. "$GOERLI_PRIVATE_KEY")
 
-### Substrate based networks configuration 
+### Substrate based networks configuration
 
-The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for 
+The naming convention for the Substrate based networks is `[substrate.<network>]`. For example, to specify configuration for
 the Tangle network you need to add `[substrate.tangle]` at the beginning of the network configuration within the `.toml` file.
 An example of the `.toml` file for the Tangle network:
 
@@ -145,7 +146,7 @@ These are the required fields that must be specified in order to support a netwo
 
 ## Network contract configuration
 
-The naming convention for the EVM based network contracts is `[evm.<network>.contracts]`. For example, to specify configuration for 
+The naming convention for the EVM based network contracts is `[evm.<network>.contracts]`. For example, to specify configuration for
 the Goerli network you need to add `[evm.goerli.contracts]` at the beginning of that networks contract configuration within the `.toml` file.
 An example of the `.toml` file for the contracts on the Goerli network:
 
@@ -158,14 +159,15 @@ events-watcher = { enabled = true, polling-interval = 10000, print-progress-inte
 ```
 
 The relayer network is used to support the following contracts:
+
 - Anchor contract
 - VAnchor contract
 - SignatureBridge contract
 
-To support each contract you are required to specify each contract with the required fields. The required fields are 
-dependent on what actions you wish your relayer to perform (e.g. private tx relaying, governance relaying, and data querying). 
+To support each contract you are required to specify each contract with the required fields. The required fields are
+dependent on what actions you wish your relayer to perform (e.g. private tx relaying, governance relaying, and data querying).
 
-Below is a full example of the network contract configuration for the Goerli network supporting the VAnchor bridge contract. 
+Below is a full example of the network contract configuration for the Goerli network supporting the VAnchor bridge contract.
 
 ```
 # Block which represents the configuration for a supported contract on the network
@@ -195,7 +197,7 @@ events-watcher = { enabled = true, polling-interval = 15000 }
 
 # Configuration for private transaction relaying which determines the fee taken by this relayer.
 # Value for private transaction relaying which specifies the maximum amount of gas which will be
-# used when submitting a withdraw transaction. 
+# used when submitting a withdraw transaction.
 withdraw-config = { withdraw-fee-percentage = 0, withdraw-gaslimit = "0x350000" }
 
 # Entries for this anchor contract's connected edges.

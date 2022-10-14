@@ -6,19 +6,19 @@ section: docs
 category: relayer
 keywords: []
 ---
- 
-If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions. 
-For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note 
-that governace relaying, private transaction relaying and data querying are all on by default. 
- 
-To set up the relayer exclusively for relaying private transactions we need to add the following fields to under the 
+
+If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions.
+For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note
+that governace relaying, private transaction relaying and data querying are all on by default.
+
+To set up the relayer exclusively for relaying private transactions we need to add the following fields to under the
 `[evm.<network>.contracts]` section:
 
 ### Required Fields
 
 - **`contract`**: Name of the contract to support (e.g. "VAnchor", "SignatureBridge")
-- **`address`**: Address of the contract 
-- **`size`**: Represents the minimum size configured for deposit / withdraw on the contract 
+- **`address`**: Address of the contract
+- **`size`**: Represents the minimum size configured for deposit / withdraw on the contract
 - **`events-watcher`**: Event watcher should be set to `false` for this strategy
 - **`withdraw-fee-percentage`**: Determines the fee taken by this relayer
 - **`withdraw-gaslimit`**: Specifies the maximum amount of gas which will be used when submitting a withdraw transaction
@@ -37,7 +37,7 @@ contract = "VAnchor"
 address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
 deployed-at = 6896976
 size = 0.01
-events-watcher = { enabled = false } 
+events-watcher = { enabled = false }
 withdraw-config = { withdraw-fee-percentage = 0, withdraw-gaslimit = "0x350000" }
 
 [features]

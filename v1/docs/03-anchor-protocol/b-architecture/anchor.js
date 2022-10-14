@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
-import signingDark from './dkg1.png'
-import signingLight from './signing-light.png'
+import anchorLight from './anchor-light.png'
+import anchorDark from './anchor-dark.png'
 import { ThemeContext } from '../../../../src/contexts/ThemeContext.tsx'
 
-export default function DKGImages() {
+export default function AnchorImages() {
   const { colorMode, setColorMode } = useContext(ThemeContext)
 
   return (
     <>
       {colorMode === 'light' ? (
-        <img src={signingLight} />
+        <img src={anchorLight} margin="5px" />
       ) : (
-        <img src={signingDark} />
+        <img src={anchorDark} margin="5px" />
       )}
     </>
   )

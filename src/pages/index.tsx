@@ -37,7 +37,7 @@ export default function Index() {
           </div>
           <div className="flex justify-center md:w-1/2">
             <div className="lg:h-[430px] lg:w-[430px] lg:mt-8"> */}
-              {/* <Lottie
+      {/* <Lottie
                 options={{
                   animationData,
                   loop: false,
@@ -47,7 +47,7 @@ export default function Index() {
                 }}
                 isClickToPauseDisabled={true}
               /> */}
-            {/* </div>
+      {/* </div>
           </div>
         </div>
       </Section> */}

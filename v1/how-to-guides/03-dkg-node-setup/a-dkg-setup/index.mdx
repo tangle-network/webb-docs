@@ -11,7 +11,7 @@ category: node-setup
 ---
 
 The following is a guide outlining the steps to setup a standalone DKG node. The guide assumes you are setting up
-a node on an Ubuntu 20.04 machine, and already have ssh access to the server from your preferred cloud provider. 
+a node on an Ubuntu 20.04 machine, and already have ssh access to the server from your preferred cloud provider.
 This guide's purpose is to help you get started with the DKG node setup process, not to advise on how to setup a node securely. Please
 take additional security and privacy measures into consideration.
 
@@ -37,6 +37,7 @@ sudo nano /etc/hosts
 ```
 
 Change the following line:
+
 ```
 127.0.0.1 <OLD_HOST_NAME> to 127.0.0.1 <NEW_HOST_NAME>
 ```
@@ -44,6 +45,7 @@ Change the following line:
 Type `ctrl+o` to save, `ctrl+x` to exit
 
 Reboot (You will be kicked off... wait a couple minutes before logging in)
+
 ```
 reboot
 ```
@@ -51,22 +53,26 @@ reboot
 ### Create non-root user
 
 It is recommended to create a non-root user to run the node. To do this, run the following command:
+
 ```
 useradd <USERNAME> && passwd <USERNAME>
 usermod -aG sudo <USERNAME>
 ```
 
 Give permissions to new user (please type sudo here... even as root user)
+
 ```
 sudo visudo
 ```
 
 Add entry for new user under "User privilege specification"
+
 ```
 <USERNAME> ALL=(ALL:ALL) ALL
 ```
 
 Add directory and permissions
+
 ```
 # create directory
 mkdir /home/<USERNAME>
@@ -76,16 +82,18 @@ chown <USERNAME>:<USERNAME> /home/<USERNAME> -R
 ```
 
 Copy pub key to new user:
+
 ```
 rsync --archive --chown=<USERNAME>:<USERNAME> ~/.ssh /home/<USERNAME>
 ```
 
 Set new user's login shell to bash
+
 ```
 chsh -s /bin/bash <USERNAME>
 ```
 
-Great! You have now created a non-root user, given that user appropiate permissions, and created a directory for the user. 
+Great! You have now created a non-root user, given that user appropiate permissions, and created a directory for the user.
 Let's `exit` the shell, and log in as the new user.
 
 ```
@@ -93,9 +101,11 @@ ssh -i ~/.ssh/<YOUR SSH PRIVATE KEY> <USERNAME>@<YOUR VPS PUBLIC IP ADDRESS>
 ```
 
 ## System service setup
+
 ### 1. Installing Tangle Network node and setting it up as a system service
 
 First, install all the dependencies.
+
 ```
 sudo apt update
 sudo apt upgrade
@@ -126,6 +136,7 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
 ### 3. Clone and build tangle repo
+
 ```
 git clone https://github.com/webb-tools/tangle.git
 cd tangle
@@ -146,13 +157,14 @@ subkey generate-node-key --file node-key
 ```
 
 Output:
+
 ```
 12D3KooWAhzqC4xstZKkAVYge2Q9tAMcnFhNEabLejRNVoQWLHHC
 ```
 
 The peer ID is displayed on screen and the actual key is saved in the **output-file**.
 
-### 5. Set up the node as a system service. 
+### 5. Set up the node as a system service.
 
 Run the following commands to create the service configuration file:
 
@@ -167,8 +179,8 @@ cd /etc/systemd/system
 sudo touch standalone.service
 ```
 
-Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update 
-any paths or ports to your own preference. 
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, and update
+any paths or ports to your own preference.
 
 **Note:** The below configuration assumes you are targeting the Arana chain spec and has debugging logs on by default.
 
@@ -209,11 +221,13 @@ sudo systemctl start standalone
 ```
 
 Check the status of the service:
+
 ```
 systemctl status standalone
 ```
 
 You should see the node connecting to the network and syncing the latest blocks. If you need to tail the latest output, you can use:
+
 ```
 journalctl -u standalone.service -f
 ```

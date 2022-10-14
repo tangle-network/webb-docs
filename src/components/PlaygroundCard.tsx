@@ -25,8 +25,7 @@ export default function PlaygroundCard(props: PlaygroundCardProps) {
           className={cx(
             'px-6 my-6 md:mx-5 py-10 bg-white border border-substrateDark transition-all transform duration-300 ease-in-out group-hover:border-transparent group-hover:ring-4 group-hover:ring-webbBlue rounded max-w-md shadow-lg dark:bg-webbDark',
             {
-              'ring-4 ring-webbBlue border-transparent':
-                props.preSelected,
+              'ring-4 ring-webbBlue border-transparent': props.preSelected,
             }
           )}
         >

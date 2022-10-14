@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import dkg1Dark from './dkg1.png'
-import dkg1Light from './dkg1-light.png'
+import proposalsLight from './light-proposals.png'
+import proposalsDark from './dark-proposals.png'
 import { ThemeContext } from '../../../../src/contexts/ThemeContext.tsx'
 
 export default function DKGImages() {
@@ -8,7 +8,11 @@ export default function DKGImages() {
 
   return (
     <>
-      {colorMode === 'light' ? <img src={dkg1Light} /> : <img src={dkg1Dark} />}
+      {colorMode === 'light' ? (
+        <img src={proposalsLight} />
+      ) : (
+        <img src={proposalsDark} />
+      )}
     </>
   )
 }

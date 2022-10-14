@@ -6,25 +6,25 @@ section: docs
 category: relayer
 keywords: []
 ---
- 
-If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions. 
-For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note 
-that governace relaying, private transaction relaying and data querying are all on by default. 
 
-To set up the relayer exclusively for data querying we need to add the following fields to under the 
+If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions.
+For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note
+that governace relaying, private transaction relaying and data querying are all on by default.
+
+To set up the relayer exclusively for data querying we need to add the following fields to under the
 `[evm.<network>.contracts]` section:
 
 ### Required Fields
 
 - **`contract`**: Name of the contract to support (e.g. "VAnchor", "SignatureBridge")
-- **`address`**: Address of the contract 
+- **`address`**: Address of the contract
 - **`events-watcher`**: Event watcher should be set to `true` for this strategy and include a specified polling interval
-- **`linked-anchors`**:  Entries for this anchor contract's connected edges. These fields are used to determine the generation of AnchorUpdate proposals
+- **`linked-anchors`**: Entries for this anchor contract's connected edges. These fields are used to determine the generation of AnchorUpdate proposals
 
 Under the `[features]` section we need to turn off data-querying and private-relaying.
 
 - **`data-query`**: Should be set to `true` for this strategy (set to `true` by default)
-- **`governance-relay`**: Should be set to `false` for this strategy 
+- **`governance-relay`**: Should be set to `false` for this strategy
 - **`private-relay`**: Should be set to `false` for this strategy
 
 An example configuration file for the Goerli network that is configured for governance relaying:

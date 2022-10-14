@@ -11,7 +11,7 @@ category: node-setup
 ---
 
 The following is a guide outlining the steps to configure an SSL certificate for your standalone DKG node. The guide assumes you are setting up
-a node on an Ubuntu 20.04 machine, and already have ssh access to the server from your preferred cloud provider. 
+a node on an Ubuntu 20.04 machine, and already have ssh access to the server from your preferred cloud provider.
 This guide's purpose is to help you get started with the DKG node setup process, not to advise on how to setup a node securely. Please
 take additional security and privacy measures into consideration.
 
@@ -31,6 +31,7 @@ sudo apt -y install certbot python3-certbot-nginx
 ```
 
 It will guide you through getting a certificate from Let's Encrypt:
+
 ```
 certbot certonly --standalone
 ```
@@ -38,6 +39,7 @@ certbot certonly --standalone
 If you already have a web server running (e.g. nginx, Apache, etc.) you will need to stop it, by running e.g. `service nginx stop`, for this to work.
 
 Certbot will ask you some questions, start its own web server, and talk to Let's Encrypt to issue a certificate. In the end, you should see output that looks like this:
+
 ```
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Plugins selected: Authenticator standalone, Installer None
@@ -63,14 +65,17 @@ IMPORTANT NOTES:
 ## Configuring a Websockets proxy (public nodes only)
 
 First, install nginx:
+
 ```
 sudo apt -y install nginx
 ```
 
 Set the intended public address of the server, e.g. standalone.webb.tools, as an environment variable:
+
 ```
 export name=standalone.webb.tools
 ```
+
 Set up an nginx configuration. This will inject the public address you have just defined.
 
 ```
@@ -132,6 +137,7 @@ Set up an nginx configuration. This will inject the public address you have just
 ```
 
 Make sure that the paths of `ssl_certificate` and `ssl_certificate_key` match what Let's Encrypt produced earlier. Check that the configuration file has been created correctly.
+
 ```
 cat /etc/nginx/nginx.conf
 nginx -t
@@ -140,9 +146,11 @@ nginx -t
 If there is an error, `nginx -t` should tell you where it is. Note that there may be subtle variations in how different systems are configured, e.g. some boxes may have different login users or locations for log files. It is up to you to reconcile these differences.
 
 Start the server:
+
 ```
 service nginx restart
 ```
+
 You can now try to connect to your new node from polkadot.js/apps, or by making a curl request that emulates opening a secure WebSockets connection:
 
 ```

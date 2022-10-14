@@ -16,21 +16,19 @@ export default function RustDocs() {
               Webb <br /> Rust Docs
             </div>
             <p className="max-w-lg">
-              Webb uses Rust&apos;s source code documentation and crate
-              system to publish and manage its growing code base. The Webb
-              Rust docs is where all of that code lives, providing developers
-              with the ultimate source of truth for updates in versions or
-              changes in modules.
+              Webb uses Rust&apos;s source code documentation and crate system
+              to publish and manage its growing code base. The Webb Rust docs is
+              where all of that code lives, providing developers with the
+              ultimate source of truth for updates in versions or changes in
+              modules.
             </p>
             <p className="max-w-lg">
-              This page maintains a reference list of all of Webb&apos;s
-              monthly releases, for developers to be able to
-              revisit previous source code documentation versions if they need
-              to.
+              This page maintains a reference list of all of Webb&apos;s monthly
+              releases, for developers to be able to revisit previous source
+              code documentation versions if they need to.
             </p>
             <ul className="list-inside mdx-anchor text-webbBlue dark:text-webbBlue-light">
               <li>
-                
                 {/* <Link to="https://paritytech.github.io/substrate/master/sc_service/index.html">
                   Master
                 </Link>
