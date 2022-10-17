@@ -7,6 +7,9 @@ category: dkg
 keywords: []
 ---
 
+import DKGKeygenImages from './keygen-images.js'
+import DKGSignatureImages from './signing-images.js'
+
 This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is,
 its intended use, and how it interacts with the wider system.
 
@@ -17,43 +20,43 @@ actual data that it is meant to sign. Effectively, trust is placed in the DKG.
 
 ## What is a DKG
 
-A [DKG](https://en.wikipedia.org/wiki/Distributed_key_generation) stands for a distributed key 
-generation protocol. It is a cryptographic multi-party protocol in which multiple parties 
-contribute to the creation of a shared public and private key. This keypair can then be used 
-for different use cases such as signing and encryption. We call the output of these use cases 
-threshold signatures and threshold encryptions respectively. In the Webb ecosystem, our DKG is 
-primarily used for generating threshold signatures. It is comprised of two protocols that each 
+A [DKG](https://en.wikipedia.org/wiki/Distributed_key_generation) stands for a distributed key
+generation protocol. It is a cryptographic multi-party protocol in which multiple parties
+contribute to the creation of a shared public and private key. This keypair can then be used
+for different use cases such as signing and encryption. We call the output of these use cases
+threshold signatures and threshold encryptions respectively. In the Webb ecosystem, our DKG is
+primarily used for generating threshold signatures. It is comprised of two protocols that each
 network participants runs independently:
 
 1. Threshold-key-generation
 2. Threshold-signature-scheme
 
-The (1) distributed key generation protocol takes a secret parameter as input, and outputs the 
-private signing key (sk) and public key (pk). The returned private signing key (sk) is only a 
-share of the private key, where the values of all returned private signing key shares constitute 
+The (1) distributed key generation protocol takes a secret parameter as input, and outputs the
+private signing key (sk) and public key (pk). The returned private signing key (sk) is only a
+share of the private key, where the values of all returned private signing key shares constitute
 a (t,n) threshold secret sharing of the private signing key.
 
-![dkg-keygen.png](../../../../src/images/docs/dkg/dkg-keygen.png)
+<DKGKeygenImages />
 
-The (2) distributed signing protocol takes the private signing key (sk) of each network participant, 
-and the message to be signed (m) as inputs. The output is a valid signature. The public input message 
+The (2) distributed signing protocol takes the private signing key (sk) of each network participant,
+and the message to be signed (m) as inputs. The output is a valid signature. The public input message
 are updates (proposals) that are being signed using a threshold-signature-scheme.
 
-![dkg-signing](../../../../src/images/docs/dkg/dkg-signing.png)
+<DKGSignatureImages />
 
-The DKG makes use of these distributed key generation and signing protocols to govern distributed applications, 
-namely the Anchor Protocol. Each distributed application in question has a variety of parameters it needs to 
-govern. These parameters can be as simple as individual integer values or byte array or as complicated as 
+The DKG makes use of these distributed key generation and signing protocols to govern distributed applications,
+namely the Anchor Protocol. Each distributed application in question has a variety of parameters it needs to
+govern. These parameters can be as simple as individual integer values or byte array or as complicated as
 entries in a key/value storage map.
 
-Distributed applications using the DKG define a protocol for handling signed messages. After verifying the 
-signature of such a message, the application handles the message contents by mutating its internal state 
+Distributed applications using the DKG define a protocol for handling signed messages. After verifying the
+signature of such a message, the application handles the message contents by mutating its internal state
 with the newly received data.
 
-We additionally utilize any number of pre-processing protocols for decided what the DKG signs with the 
-purpose of improving the security of the end-user applications. Since we trust signatures from the DKG 
-without fault, we must ensure messages proposed for signing are not proposed maliciously. An example of 
-such a system is a majority voting protocol, i.e. that a majority of parties signal validity over a 
+We additionally utilize any number of pre-processing protocols for decided what the DKG signs with the
+purpose of improving the security of the end-user applications. Since we trust signatures from the DKG
+without fault, we must ensure messages proposed for signing are not proposed maliciously. An example of
+such a system is a majority voting protocol, i.e. that a majority of parties signal validity over a
 message before the message is processed by the DKG.
 
 ## Want to learn more?

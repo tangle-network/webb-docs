@@ -22,7 +22,7 @@ const createDocPages = async ({ graphql, actions }) => {
       }
     }
   `)
-  
+
   if (!result || !result.data) return
 
   result.data.allMdx.edges.forEach(({ node }) => {
@@ -53,7 +53,7 @@ const createHowToGuidePages = async ({ graphql, actions }) => {
       }
     }
   `)
-  
+
   if (!result || !result.data) return
 
   result.data.allMdx.edges.forEach(({ node }) => {

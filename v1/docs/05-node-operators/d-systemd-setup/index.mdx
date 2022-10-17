@@ -7,7 +7,7 @@ category: node-operators
 keywords: []
 ---
 
-You can run your collator node as a systemd process so that it will automatically restart on server reboots 
+You can run your collator node as a systemd process so that it will automatically restart on server reboots
 or crashes (and helps to avoid getting slashed!).
 
 Before following this guide you should have already set up your collator node by following the [How to run a Tangle Network node](./v1/node-operators/run-tangle-node).
@@ -27,12 +27,13 @@ cd /etc/systemd/system
 sudo touch collator.service
 ```
 
-Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update 
-any paths or ports to your own preference. 
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
+any paths or ports to your own preference.
 
 **Note:** The below configuration assumes you are targeting the Arana chain spec.
 
 **Collator Node**
+
 ```
 [Unit]
 Description=Tangle Collator Node
@@ -60,6 +61,7 @@ WantedBy=multi-user.target
 ```
 
 **Full Node**
+
 ```
 [Unit]
 Description=Tangle Node
@@ -87,7 +89,7 @@ WantedBy=multi-user.target
 
 ### Enable the services
 
-Double check that the config has been written to `/etc/systemd/system/collator.service` correctly. 
+Double check that the config has been written to `/etc/systemd/system/collator.service` correctly.
 If so, enable the service so it runs on startup, and then try to start it now:
 
 ```
@@ -96,16 +98,18 @@ sudo systemctl start collator
 ```
 
 Check the status of the service:
+
 ```
 systemctl status collator
 ```
 
-You should see the node connecting to the network and syncing the latest blocks. 
+You should see the node connecting to the network and syncing the latest blocks.
 If you need to tail the latest output, you can use:
+
 ```
 journalctl -u collator.service -f
 ```
 
-Congratulations! You have officially setup an Tangle Network node using Systemd. If you are interested 
-in learning how to setup monitoring for your node, and ssl certificates please refer to the 
+Congratulations! You have officially setup an Tangle Network node using Systemd. If you are interested
+in learning how to setup monitoring for your node, and ssl certificates please refer to the
 how-to-guide [here](https://docs.webb.tools/how-to-guides/v1/node-setup/ssl/).

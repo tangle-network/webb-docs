@@ -7,16 +7,18 @@ category: node-operators
 keywords: []
 ---
 
-In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys 
+In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys
 include:
+
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
 
-To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install 
-subkey before running the command. 
+To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install
+subkey before running the command.
 
-**Once installed, to generate the DKG key you can run the following:** 
+**Once installed, to generate the DKG key you can run the following:**
+
 ```
 tangle-collator key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
@@ -26,6 +28,7 @@ tangle-collator key insert --base-path /tangle-data \
 ```
 
 **To generate the Aura key you can run the following:**
+
 ```
 tangle-collator key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
@@ -35,6 +38,7 @@ tangle-collator key insert --base-path /tangle-data \
 ```
 
 **To generate the Account key you can run the following:**
+
 ```
 tangle-collator key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
@@ -46,18 +50,19 @@ tangle-collator key insert --base-path /tangle-data \
 ### Synchronize Chain Data
 
 You can begin syncing your node by running the following command:
+
 ```
 ./target/release/tangle-collator --pruning=archive
 ```
 
-Once your collator node has fully syncronized with the Kusama Relay Chain you may proceed to setup the 
-necessary accounts to operate a collator node. 
+Once your collator node has fully syncronized with the Kusama Relay Chain you may proceed to setup the
+necessary accounts to operate a collator node.
 
 ## Bond funds
 
-To start collating, you need to have x TNT tokens for Tangle Network. It is highly recommended that you make your controller 
-and stash accounts be two separate accounts. For this, you will create two accounts and make sure each of them have at least 
-enough funds to pay the fees for making transactions. Keep most of your funds in the stash account since it is meant to be 
+To start collating, you need to have x TNT tokens for Tangle Network. It is highly recommended that you make your controller
+and stash accounts be two separate accounts. For this, you will create two accounts and make sure each of them have at least
+enough funds to pay the fees for making transactions. Keep most of your funds in the stash account since it is meant to be
 the custodian of your staking funds.
 
 Make sure not to bond all your TNT balance since you will be unable to pay transaction fees from your bonded balance.
@@ -67,8 +72,8 @@ It is now time to set up our validator. We will do the following:
 - Bond the TNT of the Stash account. These TNT tokens will be put at stake for the security of the network and can be slashed.
 - Select the Controller. This is the account that will decide when to start or stop validating.
 
-First, go to the Staking section. Click on "Account Actions", and then the "+ Stash" button. It should look something 
-similar to the below image. 
+First, go to the Staking section. Click on "Account Actions", and then the "+ Stash" button. It should look something
+similar to the below image.
 
 ![bond](../../../../src/images/docs/node-operator/bond.png)
 
@@ -77,13 +82,14 @@ Once everything is filled in properly, click Bond and sign the transaction with 
 ## Session Keys
 
 Collator operators need to set their `Author` session keys. Run the following command to author session keys.
-**Note:** You may need to change `http://localhost:9933` to your correct address. 
+**Note:** You may need to change `http://localhost:9933` to your correct address.
 
 ```
 curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
 ```
 
 Result will look like this, copy the key:
+
 ```
 {"jsonrpc":"2.0","result":"0x400e3cef43bdessab331e4g03115c4bcecws3cxff608fa3b8sh6b07y369386570","id":1}
 ```
@@ -97,7 +103,7 @@ Result will look like this, copy the key:
 
 ### Setting identity
 
-Collator operators need to set their identity. 
+Collator operators need to set their identity.
 
 1. Go to the Polkadot.js portal: `Accounts`
 2. Open the 3 dots next to your collators address: `Set on-chain Identity`

@@ -7,8 +7,8 @@ category: node-operators
 keywords: []
 ---
 
-It is of paramount importance for nodes operators to maintain high availability of their node setup in order to 
-keep the network secure, moving forward, and uncompromised. For additional secure setup information please refer to 
+It is of paramount importance for nodes operators to maintain high availability of their node setup in order to
+keep the network secure, moving forward, and uncompromised. For additional secure setup information please refer to
 [Polkadot's secure setup guides](https://wiki.polkadot.network/docs/maintain-guides-how-to-use-polkadot-validator-setup).
 
 This primarily means that node operators must:
@@ -18,18 +18,19 @@ This primarily means that node operators must:
 
 ## Key Management
 
-The keys that are of primary concern for validator infrastructure are the Session keys. These keys sign messages 
-related to consensus and parachains. Although Session keys are not account keys and therefore cannot transfer funds, 
+The keys that are of primary concern for validator infrastructure are the Session keys. These keys sign messages
+related to consensus and parachains. Although Session keys are not account keys and therefore cannot transfer funds,
 an attacker could use them to commit slashable behavior.
 
-Session keys are generated inside the node via RPC call. These should be generated and kept within your client. 
-When you generate new Session keys, you must submit an extrinsic (a Session certificate) from your Controller 
+Session keys are generated inside the node via RPC call. These should be generated and kept within your client.
+When you generate new Session keys, you must submit an extrinsic (a Session certificate) from your Controller
 key telling the chain your new Session keys.
 
-At the moment, Substrate-based chains like Tangle can't interact with HSM/SGX, so we need to provide the signing key 
+At the moment, Substrate-based chains like Tangle can't interact with HSM/SGX, so we need to provide the signing key
 seeds to the validator machine. This key is kept in memory for signing operations and persisted to disk (encrypted with a password).
 
 You may consider utilizing alternative key management solutions in the meantime, such as:
+
 - [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/)
 - [Cloud KMS](https://cloud.google.com/kms/)
 - [Azure Key Vault](https://github.com/Azure/secrets-store-csi-driver-provider-azure)
@@ -54,10 +55,11 @@ It is important to consider best practices when setting up your node, for linux 
 
 ### NGINX Reverse Proxy Setup
 
-If you are interested in setting up a reverse proxy using NGINX in front of your Tangle node please review and follow 
+If you are interested in setting up a reverse proxy using NGINX in front of your Tangle node please review and follow
 the guide from Polkadot [here](https://wiki.polkadot.network/docs/maintain-guides-how-to-setup-a-validator-with-reverse-proxy).
 
 ## Resources
+
 - [Figment Network's Full Disclosure of Cosmos Validator Infrastructure](https://medium.com/figment-networks/full-disclosure-figments-cosmos-validator-infrastructure-3bc707283967)
 - [Certus One's Knowledge Base](https://kb.certus.one/)
 - [EOS Block Producer Security List](https://github.com/slowmist/eos-bp-nodes-security-checklist)

@@ -1,22 +1,72 @@
-/*  using font-display: block; flash of invisible text (FOIT) */
+/** Load fonts */
+
+/* Font Family Breeze Sans */
 
 @font-face {
-  font-family: 'Karla';
-  src: url('/fonts/karla/Karla-VariableFont_wght.ttf') format('truetype');
-  font-display: block;
-  font-weight: 100 800;
+  font-family: 'BreezeSans';
+  src: url('/fonts/BreezeSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Karla';
-  src: url('/fonts/karla/Karla-Italic-VariableFont_wght.ttf') format('truetype');
-  font-display: block;
-  font-style: italic;
+  font-family: 'BreezeSans';
+  src: url('/fonts/BreezeSans-Medium.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
-  font-display: block;
+  font-family: 'BreezeSans';
+  src: url('/fonts/BreezeSans-Bold.ttf') format('truetype');
   font-weight: 800;
+  font-style: normal;
+}
+
+/* Cousine */
+
+@font-face {
+  font-family: 'Cousine';
+  src: url('/fonts/Cousine-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cousine';
+  src: url('/fonts/Cousine-Bold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/** Make use fonts */
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+table,
+ol,
+ul,
+li,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.body1,
+.body2,
+.body3,
+.body4 {
+  font-family: 'BreezeSans', Arial, sans-serif;
+}
+
+code,
+.mono1,
+.mono2 {
+  font-family: 'Cousine', monospace;
+  font-size: 16px;
 }

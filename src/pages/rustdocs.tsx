@@ -16,44 +16,23 @@ export default function RustDocs() {
               Webb <br /> Rust Docs
             </div>
             <p className="max-w-lg">
-              Webb uses Rust&apos;s source code documentation and crate
-              system to publish and manage its growing code base. The Webb
-              Rust docs is where all of that code lives, providing developers
-              with the ultimate source of truth for updates in versions or
-              changes in modules.
+              Webb uses Rust&apos;s source code documentation and crate system
+              to publish and manage its growing code base. The Webb Rust docs is
+              where all of that code lives, providing developers with the
+              ultimate source of truth for updates in versions or changes in
+              modules.
             </p>
             <p className="max-w-lg">
-              This page maintains a reference list of all of Webb&apos;s
-              monthly releases, for developers to be able to
-              revisit previous source code documentation versions if they need
-              to.
+              This page maintains a reference list of all of Webb&apos;s monthly
+              releases, for developers to be able to revisit previous source
+              code documentation versions if they need to.
             </p>
             <ul className="list-inside mdx-anchor text-webbBlue dark:text-webbBlue-light">
               <li>
-                
-                {/* <Link to="https://paritytech.github.io/substrate/master/sc_service/index.html">
+                <Link to="https://webb-tools.github.io/dkg-substrate/dkg_gadget/index.html">
                   Master
                 </Link>
               </li>
-              <li>
-                <Link to="https://paritytech.github.io/substrate/monthly-2021-09+1/sc_service/index.html">
-                  Monthly-2021-09+1
-                </Link>
-                {` `}
-                <Link to="https://paritytech.github.io/substrate/latest/sc_service/index.html">
-                  {`(latest)`}
-                </Link> */}
-              </li>
-              {/* <li>
-                <Link to="https://paritytech.github.io/substrate/monthly-2021-08/sc_service/index.html">
-                  Monthly-2021-08
-                </Link>
-              </li>
-              <li>
-                <Link to="https://paritytech.github.io/substrate/v3.0.0">
-                  v3.0.0
-                </Link>
-              </li> */}
             </ul>
           </div>
           <div className="hidden lg:flex lg:justify-center lg:w-1/2 lg:px-12 xl:pr-36">

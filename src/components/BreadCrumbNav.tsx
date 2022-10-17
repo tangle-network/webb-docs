@@ -20,9 +20,7 @@ export default function BreadCrumbNav(props: BreadCrumbNavProps) {
             : 'Docs'}
         </Link>
         <span className="px-2 text-webbDark dark:text-white">»</span>
-        <span className="text-webbDark dark:text-white">
-          {props.title}
-        </span>
+        <span className="text-webbDark dark:text-white">{props.title}</span>
       </div>
     </>
   )

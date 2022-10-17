@@ -9,7 +9,7 @@ keywords: []
 
 This page will guide you through the installation steps required to build the DKG.
 
-<h1 id="start"> Getting Started  🎉 </h1>
+<h1 id="start"> Getting Started 🎉 </h1>
 
 The DKG is a multi-party computation protocol that generates a group public and private key. We aim to use this group keypair to sign arbitrary messages that will govern protocols deployed around the blockchain ecosystem. One primary purpose for the DKG is to govern and facilitate operations of the private signature bridge/anchor protocol.
 
@@ -121,7 +121,12 @@ RUST_LOG=dkg=trace ./target/release/dkg-standalone-node --tmp --charlie
 Note that the examples above use an ephemeral DB due to the `--tmp` CLI option. If you want a persistent DB, use `--/tmp/[node-name]`
 instead. Replace `node-name` with the actual node name (e.g. `alice`) in order to assure separate dirctories for the DB.
 
-<h3 id="launch"> Run local testnet with <a href="https://github.com/paritytech/polkadot-launch">polkadot-launch</a> ☄️</h3>
+<h3 id="launch">
+  {' '}
+  Run local testnet with <a href="https://github.com/paritytech/polkadot-launch">
+    polkadot-launch
+  </a> ☄️
+</h3>
 
 The fastest way to set up the DKG to run as a parachain is to make use of [polkadot-launch](https://github.com/paritytech/polkadot-launch). Follow the below steps to get up and running! 🏃
 

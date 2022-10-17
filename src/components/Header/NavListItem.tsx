@@ -16,8 +16,7 @@ export default function NavListItem({ link, title }: NavListItemProps) {
       link === location.pathname ||
       (location.pathname === '/v1/getting-started/overview' &&
         title === 'Docs') ||
-      (location.pathname.includes('how-to-guides') &&
-        title === 'How-to Guides')
+      (location.pathname.includes('how-to-guides') && title === 'How-to Guides')
     ) {
       setIsCurrent(true)
     }

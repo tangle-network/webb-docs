@@ -10,8 +10,8 @@ section: how to guides
 category: node-setup
 ---
 
-The following is a guide outlining the steps to setup monitoring for an Tangle node. If you do not have Tangle node setup yet, please 
-review the How to run an Tangle node setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). It is important to note that 
+The following is a guide outlining the steps to setup monitoring for an Tangle node. If you do not have Tangle node setup yet, please
+review the How to run an Tangle node setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). It is important to note that
 this guide's purpose is to help you get started with monitoring your DKG node, not to advise on how to setup a node securely. Please
 take additional security and privacy measures into consideration. This guide was inspired by the article authored by bLd Nodes.
 
@@ -28,7 +28,7 @@ Here is how our final configuration will look like at the end of this guide.
 
 Let's first start by downloading the latest releases of the above mentioned modules (Prometheus, Process exporter and Grafana download pages).
 
-1. Download appropiate files 
+1. Download appropiate files
 
 ```
 wget https://github.com/prometheus/prometheus/releases/download/v2.37.0/prometheus-2.37.0.linux-amd64.tar.gz &&
@@ -63,24 +63,29 @@ sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/ &&
 sudo cp ./alertmanager-*.linux-amd64/alertmanager /usr/local/bin/ &&
 sudo cp ./alertmanager-*.linux-amd64/amtool /usr/local/bin/ &&
 sudo cp loki-linux-amd64 /usr/local/bin/ &&
-sudo cp promtail-linux-amd64 /usr/local/bin/ 
+sudo cp promtail-linux-amd64 /usr/local/bin/
 ```
 
 4. Add Grafana repository to APT sources:
+
 ```
 sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
 ```
 
 5. Refresh your APT cache to update your package lists:
+
 ```
 sudo apt update
 ```
 
 6. Next, make sure Grafana will be installed from the Grafana repository:
+
 ```
 apt-cache policy grafana
 ```
+
 The output of the previous command tells you the version of Grafana that you are about to install, and where you will retrieve the package from. Verify that the installation candidate at the top of the list will come from the official Grafana repository at `https://packages.grafana.com/oss/deb`.
+
 ```
 Output of apt-cache policy grafana
 grafana:
@@ -93,9 +98,11 @@ grafana:
 ```
 
 7. You can now proceed with the installation:
+
 ```
 sudo apt install grafana
 ```
+
 8. Install the Alert manager plugin for Grafana:
 
 ```
@@ -108,22 +115,24 @@ sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
 sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin node_exporter &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin process-exporter &&
-sudo useradd --no-create-home --shell /usr/sbin/nologin alertmanager && 
-sudo useradd --no-create-home --shell /usr/sbin/nologin loki && 
+sudo useradd --no-create-home --shell /usr/sbin/nologin alertmanager &&
+sudo useradd --no-create-home --shell /usr/sbin/nologin loki &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin promtail
 ```
 
 6. Create directories for Prometheus, Process exporter and Alert manager:
+
 ```
-sudo mkdir /var/lib/prometheus && 
+sudo mkdir /var/lib/prometheus &&
 sudo mkdir /etc/process-exporter &&
 sudo mkdir /etc/alertmanager &&
 sudo mkdir /var/lib/alertmanager
 sudo mkdir /etc/loki &&
-sudo mkdir /etc/promtail 
+sudo mkdir /etc/promtail
 ```
 
 7. Change the ownership for all directories:
+
 ```
 sudo chown prometheus:prometheus /etc/prometheus/ -R &&
 sudo chown prometheus:prometheus /var/lib/prometheus/ -R &&
@@ -141,15 +150,18 @@ sudo chown promtail:promtail /usr/local/bin/promtail-linux-amd64
 ```
 
 8. Finally, clean up the download directory:
+
 ```
 rm -rf ./prometheus* &&
 rm -rf ./node_exporter* &&
 rm -rf ./process-exporter* &&
 rm -rf ./alertmanager* &&
-rm -rf ./loki-linux-amd64* && 
-rm -rf ./promtail-linux-amd64* 
+rm -rf ./loki-linux-amd64* &&
+rm -rf ./promtail-linux-amd64*
 ```
-The next series of steps will be configuring each service. 
+
+The next series of steps will be configuring each service.
+
 ## Configuration
 
 If you are interested to see how we configure the Tangle Network nodes for monitoring check out https://github.com/webb-tools/tangle/tree/main/monitoring.
@@ -157,10 +169,13 @@ If you are interested to see how we configure the Tangle Network nodes for monit
 ### Prometheus
 
 Let’s edit the Prometheus config file and add all the modules in it:
+
 ```
 sudo nano /etc/prometheus/prometheus.yml
 ```
+
 Add the following code to the file and save:
+
 ```
 global:
   scrape_interval: 15s
@@ -204,12 +219,14 @@ You can notice the first scrap where Prometheus monitors itself.
 ### Alert rules
 
 Let’s create the `rules.yml` file that will give the rules for Alert manager:
+
 ```
 sudo touch /etc/prometheus/rules.yml
 sudo nano /etc/prometheus/rules.yml
 ```
 
 We are going to create 2 basic rules that will trigger an alert in case the instance is down or the CPU usage crosses 80%. Add the following lines and save the file:
+
 ```
 groups:
   - name: alert_rules
@@ -233,14 +250,16 @@ groups:
           description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 ```
 
-The criteria for triggering an alert are set in the expr: part. You can customize these triggers as you see fit. 
+The criteria for triggering an alert are set in the expr: part. You can customize these triggers as you see fit.
 
 Then, check the rules file:
+
 ```
 promtool check rules /etc/prometheus/rules.yml
 ```
 
 And finally, check the Prometheus config file:
+
 ```
 promtool check config /etc/prometheus/prometheus.yml
 ```
@@ -248,16 +267,18 @@ promtool check config /etc/prometheus/prometheus.yml
 ### Process exporter
 
 Process exporter needs a config file to be told which processes they should take into account:
+
 ```
 sudo touch /etc/process-exporter/config.yml
 sudo nano /etc/process-exporter/config.yml
 ```
 
 Add the following code to the file and save:
+
 ```
-process_names: 
-  - name: "{{.Comm}}" 
-    cmdline: 
+process_names:
+  - name: "{{.Comm}}"
+    cmdline:
     - '.+'
 ```
 
@@ -265,14 +286,14 @@ process_names:
 
 We can use a Gmail address to send the alert emails. For that, we will need to generate an app password from our Gmail account.
 
-Note: we recommend you here to use a dedicated email address for your alerts. Review Google's own guide for 
+Note: we recommend you here to use a dedicated email address for your alerts. Review Google's own guide for
 proper set up [here](https://support.google.com/mail/answer/185833?hl=en).
 
 ### Slack notifications
 
-We can also utilize Slack notifications to send the alerts through. For that we need to a specific slack channel to send the notifications to, and 
-to install Incoming WebHooks slack application. To do so, navigate to Administration > Manage Apps. Search for "Incoming Webhooks" and install 
-into your Slack workspace. 
+We can also utilize Slack notifications to send the alerts through. For that we need to a specific slack channel to send the notifications to, and
+to install Incoming WebHooks slack application. To do so, navigate to Administration > Manage Apps. Search for "Incoming Webhooks" and install
+into your Slack workspace.
 
 ### Alert manager
 
@@ -286,6 +307,7 @@ sudo nano /etc/alertmanager/alertmanager.yml
 ```
 
 And add the Gmail configuration to it and save the file:
+
 ```
 global:
  resolve_timeout: 1m
@@ -344,12 +366,12 @@ receivers:
       {{ end }}
 ```
 
-Of course, you have to change the email addresses and the auth_password with the one generated from Google previously. 
+Of course, you have to change the email addresses and the auth_password with the one generated from Google previously.
 
-### Loki 
+### Loki
 
-Loki's configuration details what ports to listen to, how to store the logs, other configuration. 
-There are many other config options for Loki, and you can read more about Loki configuration at: https://grafana.com/docs/loki/latest/configuration/ 
+Loki's configuration details what ports to listen to, how to store the logs, other configuration.
+There are many other config options for Loki, and you can read more about Loki configuration at: https://grafana.com/docs/loki/latest/configuration/
 
 Let’s create the file:
 
@@ -408,10 +430,10 @@ table_manager:
   retention_period: 0
 ```
 
-### Promtail 
+### Promtail
 
-The promtail configuration details what logs to send to loki. In the below configuration we are indicating 
-to send the logs to loki from the `/var/log/dkg` directory. This directory can be changed based on what logs you 
+The promtail configuration details what logs to send to loki. In the below configuration we are indicating
+to send the logs to loki from the `/var/log/dkg` directory. This directory can be changed based on what logs you
 want to pick up. There are many other config options for Promtail, and you can read more about Promtail configuration at: https://grafana.com/docs/loki/latest/clients/promtail/configuration/
 
 Let’s create the file:
@@ -447,12 +469,14 @@ scrape_configs:
 ### Prometheus
 
 Create and open the Prometheus service file:
+
 ```
 sudo touch /etc/systemd/system/prometheus.service &&
 sudo nano /etc/systemd/system/prometheus.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=Prometheus Monitoring
@@ -477,19 +501,21 @@ Add the following lines:
 ### Node exporter
 
 Create and open the Node exporter service file:
+
 ```
 sudo touch /etc/systemd/system/node_exporter.service &&
 sudo nano /etc/systemd/system/node_exporter.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=Node Exporter
   Wants=network-online.target
   After=network-online.target
 
-[Service] 
+[Service]
   User=node_exporter
   Group=node_exporter
   Type=simple
@@ -502,12 +528,14 @@ Add the following lines:
 ### Process exporter
 
 Create and open the Process exporter service file:
+
 ```
 sudo touch /etc/systemd/system/process-exporter.service &&
 sudo nano /etc/systemd/system/process-exporter.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=Process Exporter
@@ -528,12 +556,14 @@ WantedBy=multi-user.target
 ### Alert manager
 
 Create and open the Alert manager service file:
+
 ```
 sudo touch /etc/systemd/system/alertmanager.service &&
 sudo nano /etc/systemd/system/alertmanager.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=AlertManager Server Service
@@ -557,12 +587,14 @@ WantedBy=multi-user.target
 ### Loki
 
 Create and open the Loki service file:
+
 ```
 sudo touch /etc/systemd/system/loki.service &&
 sudo nano /etc/systemd/system/loki.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=Loki Service
@@ -582,12 +614,14 @@ WantedBy=multi-user.target
 ### Promtail
 
 Create and open the Promtail service file:
+
 ```
 sudo touch /etc/systemd/system/promtail.service &&
 sudo nano /etc/systemd/system/promtail.service
 ```
 
 Add the following lines:
+
 ```
 [Unit]
   Description=Promtail Service
@@ -601,7 +635,7 @@ Add the following lines:
   ExecStart=/usr/local/bin/promtail-linux-amd64 -config.file /etc/promtail/config.yml
 
 [Install]
-WantedBy=multi-user.target 
+WantedBy=multi-user.target
 ```
 
 Great! You have now configured all the services needed to run Prometheus, exporters, Loki and Alert Manager.
@@ -611,11 +645,13 @@ Great! You have now configured all the services needed to run Prometheus, export
 The Grafana’s service is automatically created during extraction of the deb package, you do not need to create it manually.
 
 Launch a daemon reload to take the services into account in systemd:
+
 ```
 sudo systemctl daemon-reload
 ```
 
 Start the services:
+
 ```
 sudo systemctl start prometheus.service &&
 sudo systemctl start node_exporter.service &&
@@ -627,17 +663,18 @@ sudo systemctl start grafana-server
 ```
 
 And check that they are working fine, one by one:
+
 ```
 systemctl status prometheus.service
 systemctl status node_exporter.service
 systemctl status process-exporter.service
 systemctl status alertmanager.service
-systemctl status loki.service 
-systemctl status promtail.service 
+systemctl status loki.service
+systemctl status promtail.service
 systemctl status grafana-server
 ```
 
-If everything is working adequtely, activate the services! 
+If everything is working adequtely, activate the services!
 
 ```
 sudo systemctl enable prometheus.service &&
@@ -653,44 +690,44 @@ sudo systemctl enable grafana-server
 
 Now we are going to setup the dashboard to visiualize the metrics we are capturing.
 
-From the browser on your local machine, navigate to `http://localhost:3000/login`. You should be greeted with 
+From the browser on your local machine, navigate to `http://localhost:3000/login`. You should be greeted with
 the a login screen. You can login with the default credentials, `admin/admin`. Be sure to update your password afterwards.
 
-**Next, we need to add Prometheus as a data source.** 
+**Next, we need to add Prometheus as a data source.**
 
 1. Open the Settings menu
-2. Select __Data Sources__
-3. Select __Add Data Source__
+2. Select **Data Sources**
+3. Select **Add Data Source**
 4. Select Prometheus
-5. Input the URL field with http://localhost:9090 
+5. Input the URL field with http://localhost:9090
 6. Click Save & Test
 
 **Next, we need to add AlertManager as a data source.**
 
 1. Open the Settings menu
-2. Select __Data Sources__
-3. Select __Add Data Source__
+2. Select **Data Sources**
+3. Select **Add Data Source**
 4. Select AlertManager
-5. Input the URL field with http://localhost:9093 
+5. Input the URL field with http://localhost:9093
 6. Click Save & Test
 
 **Next, we need to add Loki as a data source.**
 
 1. Open the Settings menu
-2. Select __Data Sources__
-3. Select __Add Data Source__
+2. Select **Data Sources**
+3. Select **Add Data Source**
 4. Select Loki
-5. Input the URL field with http://localhost:3100 
+5. Input the URL field with http://localhost:3100
 6. Click Save & Test
 
-We have our data sources connected, now its time to import the dashboard we want to use. You may 
-create your own, import others but the purposes of this guide we will use the Polkadot Essentials dashboard created 
-by BLD nodes! 
+We have our data sources connected, now its time to import the dashboard we want to use. You may
+create your own, import others but the purposes of this guide we will use the Polkadot Essentials dashboard created
+by BLD nodes!
 
 **To import a dashboard:**
 
-1. Select the + button 
-2. Select __Import__
+1. Select the + button
+2. Select **Import**
 3. Input the dashboard number, **13840**
 4. Select Prometheus and AlertManager as data sources from the dropdown menu
 5. Click Load
@@ -701,5 +738,5 @@ by BLD nodes!
 - **Chain Instance Host**: localhost:9615 to point the chain data scrapper
 - **Chain Process Name**: the name of your node binary
 
-Congratulations!! You have now configured Grafana to visualize the metrics we are capturing. You now 
+Congratulations!! You have now configured Grafana to visualize the metrics we are capturing. You now
 have monitoring setup for your node!

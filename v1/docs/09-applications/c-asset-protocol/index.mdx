@@ -13,9 +13,9 @@ In our version of the asset protocol we will leverage Webb’s technology to des
 
 ### UTXO model
 
-The UTXO model for user balances is one predicated on the UTXO data structure. Each UTXO stores, among other things, a value that represents the amount of funds that can be spent and effectively transferred to another UTXO. UTXOs can be split by breaking this value into multiple parts, creating many UTXOs from one. We refer to this action as *spending* a UTXO and *splitting* its outputs.
+The UTXO model for user balances is one predicated on the UTXO data structure. Each UTXO stores, among other things, a value that represents the amount of funds that can be spent and effectively transferred to another UTXO. UTXOs can be split by breaking this value into multiple parts, creating many UTXOs from one. We refer to this action as _spending_ a UTXO and _splitting_ its outputs.
 
-We will refer to *shielded* UTXOs as UTXOs for which we use collision-resistant hash commitments to reference them. Shielded UTXOs are hidden UTXOs because an outside observer will only see the hash commitment of the UTXO and no underlying data. We will describe later on how we *spend* shielded UTXOs using only these hashes.
+We will refer to _shielded_ UTXOs as UTXOs for which we use collision-resistant hash commitments to reference them. Shielded UTXOs are hidden UTXOs because an outside observer will only see the hash commitment of the UTXO and no underlying data. We will describe later on how we _spend_ shielded UTXOs using only these hashes.
 
 For a given UTXO system, we will refer to the UTXO set as the set of all unspent transaction outputs. We will maintain the set of all spent and unspent transaction outputs in a merkle tree for efficient storage and proofs of membership and we will assume the existence of a method that allows us to check whether a transaction output has been spent or is otherwise unspent.
 
@@ -35,26 +35,29 @@ In Webb’s asset protocol, we will leverage the Anchor Protocol to manage a con
 
 ## Data Structures
 
-The main data structure presented here is the ***shielded UTXO***. A shielded UTXO contains:
+The main data structure presented here is the **_shielded UTXO_**. A shielded UTXO contains:
 
 - **Chain identifier**
-    - A unique identifier for the blockchain where the UTXO can be spent.
+  - A unique identifier for the blockchain where the UTXO can be spent.
 - **Amount**
-    - A numerical identifier for the amount of funds the UTXO represents.
+  - A numerical identifier for the amount of funds the UTXO represents.
 - **Public key**
-    - A public key pair
+  - A public key pair
 - **Blinding randomness**
-    - A random value that provides additional randomization to the hash commitment.
+  - A random value that provides additional randomization to the hash commitment.
 
-The ***shielded*** component comes from the hash commitment to the UTXO data. We take the commitment to be the Poseidon hash function of the underlying data.
+The **_shielded_** component comes from the hash commitment to the UTXO data. We take the commitment to be the Poseidon hash function of the underlying data.
+
 ```
 commitment = Poseidon(chain_id, amount, public_key, blinding)
 ```
+
 We will also define a signature and nullifier that allows us to indicate if a UTXO has been spent. We take them to be Poseidon hash functions of various pieces of data.
+
 ```
 signature = Poseidon(private_key, commitment, path_index)
 
-nullifier = Poseidon(commitment, path_index, signature) 
+nullifier = Poseidon(commitment, path_index, signature)
 ```
 
 ## API
@@ -62,10 +65,10 @@ nullifier = Poseidon(commitment, path_index, signature)
 The Asset Protocol API extends the Anchor Protocol API and adds the following functionality:
 
 - **`transact(public_amount, input_nullifiers, output_commitments, zk_proof)`**
-    - `public_amount` - a signed integer value for adding or removing funds from pool
-    - `input_nullifiers` - identifying data about input UTXOs being spent
-    - `output_commitments` - outputs commitments for new UTXOs to insert into the pool
-    - `zk_proof` - a zero-knowledge proof of the transactions validity
+  - `public_amount` - a signed integer value for adding or removing funds from pool
+  - `input_nullifiers` - identifying data about input UTXOs being spent
+  - `output_commitments` - outputs commitments for new UTXOs to insert into the pool
+  - `zk_proof` - a zero-knowledge proof of the transactions validity
 
 The protocol assumes the existence of public input variables that are globally available, namely the same values provided by the Anchor Protocol. The required global variables are:
 
@@ -82,7 +85,7 @@ The constraints required are:
 - To verify the uniqueness of input nullifiers
 - To verify the existence of input commitments
 - To verify correctness of output commitments
-- To verify ***the sum of input amounts and public amount*** = ***the sum of output amounts***
+- To verify **_the sum of input amounts and public amount_** = **_the sum of output amounts_**
 
 ### Formal description
 

@@ -82,7 +82,7 @@ A test EVM bridge deployment can be made between Ethereum, Edgeware, and Harmony
 
 - Relayer v2 is geared towards including chainbridge governance functionality. This means functionality for voting, closing, and executing proposals to update edges on the bridge. We want to test this with a sufficient relayer network and proposal passing threshold.
   - [ ] Deploy relayer v1 to test networks: Rinkeby, Harmony Shard 1, Edgeware Beresheet.
-  **Chainbridge governance:**
+        **Chainbridge governance:**
   - [ ] Listen to events on both bridges.
     1. On receive event, pass to state machine and return a transaction / call
        1. State machine should update inner state and remove transactions that get executed by other relayers.
@@ -93,7 +93,7 @@ A test EVM bridge deployment can be made between Ethereum, Edgeware, and Harmony
   - [ ] Define strategy builder class for building voting strategies.
     1. Use a state machine and local storage
     2. Strategies for honest and greedy execution.
-  **Transaction Relayer**
+       **Transaction Relayer**
   - [ ] Integration tests on all chains participating on the bridge
     - [ ] Deployment as described above in **protocol-solidity v1**.
     - [ ] Case 1:

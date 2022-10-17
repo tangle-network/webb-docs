@@ -12,9 +12,9 @@ interface MobileMenuProps {
   navItems: {
     name: string
     subMenu: {
-      linkTitle: string
-      link: string
-      external: boolean
+      // linkTitle: string
+      // link: string
+      // external: boolean
       items?: { linkTitle: string; link: string; external: boolean }[]
     }[]
   }[]
