@@ -95,7 +95,7 @@ const colors = {
     120: '#422417',
     DEFAULT: '#DD4800',
   },
-};
+}
 
 const keyframes = {
   // Dropdown menu
@@ -189,7 +189,7 @@ const keyframes = {
     from: { transform: 'translate3d(0,0,0)' },
     to: { transform: 'translate3d(100%,0,0)' },
   },
-};
+}
 
 const animation = {
   // Dropdown menu
@@ -212,18 +212,23 @@ const animation = {
   'fade-out': 'fade-out 0.2s ease',
   // Toast
   'toast-hide': 'toast-hide 100ms ease-in forwards',
-  'toast-slide-in-right': 'toast-slide-in-right 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-  'toast-slide-in-bottom': 'toast-slide-in-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+  'toast-slide-in-right':
+    'toast-slide-in-right 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+  'toast-slide-in-bottom':
+    'toast-slide-in-bottom 150ms cubic-bezier(0.16, 1, 0.3, 1)',
   'toast-swipe-out': 'toast-swipe-out 100ms ease-out forwards',
   // Drawer
   'drawer-overlay-open': 'fade-in 150ms cubic-bezier(0.22, 1, 0.36, 1)',
   'drawer-overlay-close': 'fade-out 150ms cubic-bezier(0.22, 1, 0.36, 1)',
-  'drawer-content-right-open': 'drawer-content-right-slide-in 150ms cubic-bezier(0.22, 1, 0.36, 1)',
-  'drawer-content-right-close': 'drawer-content-right-slide-out 150ms cubic-bezier(0.22, 1, 0.36, 1)',
-};
+  'drawer-content-right-open':
+    'drawer-content-right-slide-in 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+  'drawer-content-right-close':
+    'drawer-content-right-slide-out 150ms cubic-bezier(0.22, 1, 0.36, 1)',
+}
 
 module.exports = {
   presets: [require('./tailwind-preset.js')],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
