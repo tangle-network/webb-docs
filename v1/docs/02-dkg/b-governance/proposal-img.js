@@ -1,18 +1,13 @@
-import React, { useContext } from 'react'
-import proposalsLight from './light-proposals.png'
-import proposalsDark from './dark-proposals.png'
-import { ThemeContext } from '../../../../src/contexts/ThemeContext.tsx'
+import React from 'react'
+import proposalSequenceLight from './proposal_sequence_diagram_light.png'
+import proposalSequenceDark from './proposal_sequence_dark.png'
 
 export default function DKGImages() {
-  const { colorMode, setColorMode } = useContext(ThemeContext)
-
   return (
     <>
-      {colorMode === 'light' ? (
-        <img src={proposalsLight} />
-      ) : (
-        <img src={proposalsDark} />
-      )}
+      <img src={proposalSequenceLight} alt="Dkg light" className="img-light" />
+
+      <img src={proposalSequenceDark} alt="Dkg dark" className="img-dark" />
     </>
   )
 }

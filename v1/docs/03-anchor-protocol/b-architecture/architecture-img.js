@@ -1,14 +1,17 @@
-import React, { useContext } from 'react'
-import darkImg from './dark-img.png'
-import lightImg from './light-img.png'
-import { ThemeContext } from '../../../../src/contexts/ThemeContext.tsx'
+import React from 'react'
+import dkg_signing_light_diagram from './dkg_signing_light_diagram.png'
+import dkg_signing_dark_diagram from './dkg_signing_dark_diagram.png'
 
 export default function DKGImages() {
-  const { colorMode, setColorMode } = useContext(ThemeContext)
-
   return (
     <>
-      {colorMode === 'light' ? <img src={lightImg} /> : <img src={darkImg} />}
+      <img
+        src={dkg_signing_light_diagram}
+        alt="Dkg light"
+        className="img-light"
+      />
+
+      <img src={dkg_signing_dark_diagram} alt="Dkg dark" className="img-dark" />
     </>
   )
 }

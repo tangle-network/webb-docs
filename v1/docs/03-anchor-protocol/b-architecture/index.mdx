@@ -8,12 +8,8 @@ keywords: []
 ---
 
 import SystemImg from './architecture-img.js'
-import AnchorImg from './anchor.js'
-import AnchorDkgImg from './anchor-dkg.js'
 
 # Protocol
-
-<AnchorImg />
 
 Given **_G=(A,E)_** a graph of anchors and edges between them. Fix an element schema/structure **_S_** for element hashes inserted into
 the anchors’ merkle trees.
@@ -25,8 +21,6 @@ the anchors’ merkle trees.
 5. Users generate proofs of membership of their insertions in _one-of-many_ of the anchors’ merkle trees and target submission on one anchor.
    Upon completion they submit these proofs to the relayer network.
 6. Relayers listen for delegations and submit these proofs to their target anchor, where they are verified on-chain.
-
-<AnchorDkgImg />
 
 ## Architecture of an Anchor Protocol Instance
 

@@ -1,13 +1,13 @@
 import React from 'react'
-import signingLight from './signing-light.png'
-import signingDark from './signing.png'
+import dkg_signing_light from './dkg_signing_light.png'
+import dkg_signing_dark from './dkg_signing_dark.png'
 
-export default function DKGImages() {
+export default function DKGSignature_Images() {
   return (
     <>
-      <img src={signingLight} className="img-light" />
+      <img src={dkg_signing_light} alt="Dkg light" className="img-light" />
 
-      <img src={signingDark} className="img-dark" />
+      <img src={dkg_signing_dark} alt="Dkg dark" className="img-dark" />
     </>
   )
 }

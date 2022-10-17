@@ -7,8 +7,8 @@ category: dkg
 keywords: []
 ---
 
-import KeygenImg from './keygen-images.js'
-import SigningImg from './signing-images.js'
+import DKGKeygenImages from './keygen-images.js'
+import DKGSignatureImages from './signing-images.js'
 
 This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is,
 its intended use, and how it interacts with the wider system.
@@ -36,13 +36,13 @@ private signing key (sk) and public key (pk). The returned private signing key (
 share of the private key, where the values of all returned private signing key shares constitute
 a (t,n) threshold secret sharing of the private signing key.
 
-<KeygenImg />
+<DKGKeygenImages />
 
 The (2) distributed signing protocol takes the private signing key (sk) of each network participant,
 and the message to be signed (m) as inputs. The output is a valid signature. The public input message
 are updates (proposals) that are being signed using a threshold-signature-scheme.
 
-<SigningImg />
+<DKGSignatureImages />
 
 The DKG makes use of these distributed key generation and signing protocols to govern distributed applications,
 namely the Anchor Protocol. Each distributed application in question has a variety of parameters it needs to

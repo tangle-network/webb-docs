@@ -1,12 +1,9 @@
-import React, { Fragment } from 'react'
-import MainNav from './MainNav'
-import Link from './Link'
+import React from 'react'
 import Icon from './Icon'
 import { useSiteMetadata } from './Hooks/use-site-metadata'
 
 export default function Footer() {
   const { siteMetadata } = useSiteMetadata()
-  const navItems = MainNav.global()
 
   return (
     <footer className="w-full px-4 xl:px-12 bg-webbDarkest text-white font-body">

@@ -3,10 +3,9 @@ import MobileMenu from '../MobileMenus/MobileMenu'
 import { useSiteMetadata } from '../Hooks/use-site-metadata'
 import cx from 'classnames'
 import DocsButton from '../DocsButton'
-import DropDownMenu from './DropDownMenu'
 import { SearchDocs } from '../search-ui'
 import ThemeToggle from '../ThemeToggle'
-import MainNav from '../MainNav'
+import { DevNavMenu as navMenu } from '../DevNavMenu'
 import useScrollListener from '../Hooks/use-scroll-listener'
 import LogoSvg from '../../images/svgs/webb-logo.svg'
 import DarkLogoSvg from '../../images/svgs/dark-webb-logo.svg'
@@ -18,9 +17,8 @@ export default function Header() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const toggleMenu = () => setIsMobileNavOpen(!isMobileNavOpen)
-  const navItems = MainNav.global()
-  const { colorMode, setColorMode } = useContext(ThemeContext)
-
+  const navItems = navMenu.global()
+  const { colorMode } = useContext(ThemeContext)
   const { siteMetadata } = useSiteMetadata()
 
   useEffect(() => {

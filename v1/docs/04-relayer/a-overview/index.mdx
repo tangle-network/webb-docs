@@ -22,8 +22,6 @@ separate because they could be handled by different entities entirely.
 2. Data querying (for zero-knowledge proof generation)
 3. Data proposing and signature relaying (of DKG proposals)
 
-<RelayerImg />
-
 ## Private Transaction Relaying
 
 The relayer allows for submitting proofs for privacy-preserving transactions against the Mixer, Anchor and
@@ -60,8 +58,10 @@ The responsibility for a relayer to the DKG (governance system) can be summarize
 
 The relayers act as proposers of proposals intended to be signed by the distributed key generation protocol (DKG).
 
-1. he relayers are listening to and proposing updates.
+1. The relayers are listening to and proposing updates.
 2. The DKG is signing these updates using a threshold-signature scheme.
 
 We require a threshold of relayers (really proposers) to agree on the update in order to move the update into
 a queue for the DKG to sign from.
+
+<RelayerImg />

@@ -1,13 +1,13 @@
 import React from 'react'
-import dkg1Light from './dkg1-light.png'
-import dkg1Dark from './dkg1.png'
+import dkg_keygen_light from './dkg_keygen_diagram_light.png'
+import dkg_keygen_dark from './dkg_keygen_diagram_dark.png'
 
-export default function DKGImages() {
+export default function DKGKeygen_Images() {
   return (
     <>
-      <img src={dkg1Light} alt="Dkg light" className="img-light" />
+      <img src={dkg_keygen_light} alt="Dkg light" className="img-light" />
 
-      <img src={dkg1Dark} alt="Dkg dark" className="img-dark" />
+      <img src={dkg_keygen_dark} alt="Dkg dark" className="img-dark" />
     </>
   )
 }

@@ -7,6 +7,9 @@ category: anchor-protocol
 keywords: []
 ---
 
+import AnchorProtocolImages from './anchor.js'
+import AnchorRelayerDKGProtocolImages from './anchor-dkg.js'
+
 Privacy is lacking when we move our assets across chain and more generally when we send messages across chains.
 At Webb, we are working to increase privacy on cross-chain applications through our private bridge protocol
 called the Webb Anchor Protocol.
@@ -88,6 +91,8 @@ Oftentimes these hashes are hashes of structured data that are relevant for an e
 it might be the hash of a [unspent transaction output (UTXO)](https://en.wikipedia.org/wiki/Unspent_transaction_output)
 in the tree that allows someone to prove knowledge of a UTXO in one anchor from a different anchor directly.
 
+<AnchorProtocolImages />
+
 ## Zero-knowledge Membership
 
 The main utility of the Anchor Protocol is the ability to prove membership of elements in any anchor on a bridge in
@@ -118,6 +123,8 @@ We call these agents **oracles** and define their roles as:
 
 The oracles of the Anchor Protocol instance are tightly coupled with the external governance system being used. For more
 information on how these oracles are used in practice can be found [here](https://github.com/webb-tools/relayer).
+
+<AnchorRelayerDKGProtocolImages />
 
 ## Relayer Network
 

@@ -44,10 +44,6 @@ module.exports = {
         webbPurple: '#5A30B4',
         webbYellow: '#FDAB3D',
         webbDark: '#3A3E53',
-        webbBlue: {
-          light: '#0094FF',
-          DEFAULT: '#4e8cdf',
-        },
         webbBlueBg: '#EEF1FE',
         webbDarkest: '#1F1D2B',
         darkBackground: '#1F1D2B',

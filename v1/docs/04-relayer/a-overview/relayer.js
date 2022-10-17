@@ -1,14 +1,13 @@
-import React, { useContext } from 'react'
-import darkImg from './relayer-dark.png'
-import lightImg from './relayer-light.png'
-import { ThemeContext } from '../../../../src/contexts/ThemeContext.tsx'
+import React from 'react'
+import relayer_light from './relayer_light.png'
+import relayer_dark from './relayer_dark.png'
 
-export default function RelayerImages() {
-  const { colorMode, setColorMode } = useContext(ThemeContext)
-
+export default function AnchorImages() {
   return (
     <>
-      {colorMode === 'light' ? <img src={lightImg} /> : <img src={darkImg} />}
+      <img src={relayer_light} alt="Dkg light" className="img-light" />
+
+      <img src={relayer_dark} alt="Dkg dark" className="img-dark" />
     </>
   )
 }
