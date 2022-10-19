@@ -18,7 +18,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const toggleMenu = () => setIsMobileNavOpen(!isMobileNavOpen)
   const navItems = navMenu.global()
-  const { colorMode } = useContext(ThemeContext)
+  // const { colorMode } = useContext(ThemeContext)
   const { siteMetadata } = useSiteMetadata()
 
   useEffect(() => {
@@ -54,15 +54,8 @@ export default function Header() {
         >
           <div className="w-40 relative transform transition-opacity duration-300 ease-in-out hover:opacity-50">
             <Link to={siteMetadata.webburl}>
-              {colorMode === 'light' ? (
-                <LogoSvg
-                  className={`fill-current text-webbDark dark:text-webbWhite`}
-                />
-              ) : (
-                <DarkLogoSvg
-                  className={`fill-current text-webbDark dark:text-webbWhite`}
-                />
-              )}
+              <LogoSvg className={`img-light`} />
+              <DarkLogoSvg className={`img-dark`} />
             </Link>
           </div>
           {/* ------------------ */}
