@@ -1,0 +1,90 @@
+---
+title: Overview
+slug: /v1/applications/identity-protocol
+version: '1.0'
+section: docs
+category: ispp
+keywords: []
+---
+
+import ProtocolImages from './protocol.js'
+
+The asset protocol we describe here is inspired and based off of Semaphore Protocol, an identity protocol that allows for private arbitrary signaling (voting for example) on the blockchain while proving that the user is part of a group in the semaphore set.
+
+In our version of the asset protocol we will leverage Webb’s technology to design an interoperable identity protocol that allows both for signaling on the same chain as the group was initially created or on one of the other connected chains
+
+### Identities
+
+The Semaphore protocol allows us to create arbitrary merkle-trees. Each leaf has a 32byte value and a user can prove membership by proving that he knows the secret to the leaf and the merkle-path to it.
+
+Currently, each identity is just a pair (`identityNullifier`, `identityTrapdoor`), but we can use different nullifier schemes to create each leaf. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255]
+
+### Preventing double signaling
+
+Double signaling is only bad depending on the application. If we're deploying a forum, for example, a user posting twice is not only correct behaviour but expected behaviour.
+
+Because of this, the double signalling prevention is dependent on the application. E.g. For the voting system, the ballotID is the nullifier.
+
+
+% TODO: not sure what to put here. Should prob just delete this part
+## Data Structures
+
+The main data structure presented here is the **_shielded UTXO_**. A shielded UTXO contains:
+
+- **Chain identifier**
+  - A unique identifier for the blockchain where the UTXO can be spent.
+- **Amount**
+  - A numerical identifier for the amount of funds the UTXO represents.
+- **Public key**
+  - A public key pair
+- **Blinding randomness**
+  - A random value that provides additional randomization to the hash commitment.
+
+
+```
+commitment = Poseidon(nullifier, trapdoor)
+```
+
+We will also define a signature and nullifier that allows us to indicate if a UTXO has been spent. We take them to be Poseidon hash functions of various pieces of data.
+
+```
+signature = Poseidon(private_key, commitment, path_index)
+
+nullifier = Poseidon(commitment, path_index, signature)
+```
+
+% TODO: which API? all? just identityVAnchor? base Semaphore doesn't make too much sense since the nullifiers can be anything at all
+## API
+
+The Asset Protocol API extends the Anchor Protocol API and adds the following functionality:
+
+- **`transact(public_amount, input_nullifiers, output_commitments, zk_proof)`**
+  - `public_amount` - a signed integer value for adding or removing funds from pool
+  - `input_nullifiers` - identifying data about input UTXOs being spent
+  - `output_commitments` - outputs commitments for new UTXOs to insert into the pool
+  - `zk_proof` - a zero-knowledge proof of the transactions validity
+
+The protocol assumes the existence of public input variables that are globally available, namely the same values provided by the Anchor Protocol. The required global variables are:
+
+- **Roots** - The set of merkle roots for the bridged anchors provided by the Anchor Protocol
+- **Chain Id** - The active chain ID provided ideally through an un-tamperable opcode.
+
+## Circuit
+
+The zero-knowledge circuit encodes a variety of constraints to ensure that the asset transfer system works properly. This includes, among other things, the constraints necessary for preventing double spending across chains.
+
+The constraints required are:
+
+- To verify the correctness of input nullifiers
+- To verify the uniqueness of input nullifiers
+- To verify the existence of input commitments
+- To verify correctness of output commitments
+- To verify **_the sum of input amounts and public amount_** = **_the sum of output amounts_**
+
+### Formal description
+
+<ProtocolImages />
+
+## References
+
+- [https://semaphore.appliedzkp.org/](https://semaphore.appliedzkp.org/)
