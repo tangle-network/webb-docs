@@ -15,42 +15,22 @@ In our version of the asset protocol we will leverage Webb’s technology to des
 
 ### Identities
 
-The Semaphore protocol allows us to create arbitrary merkle-trees. Each leaf has a 32byte value and a user can prove membership by proving that he knows the secret to the leaf and the merkle-path to it.
+The Semaphore protocol allows us to create arbitrary merkle-trees. Each leaf has a 32-bytes value and a user can prove membership by proving that he knows the secret to the leaf and the merkle-path to it.
 
 Currently, each identity is just a pair (`identityNullifier`, `identityTrapdoor`), but we can use different nullifier schemes to create each leaf. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255]
 
 ### Preventing double signaling
 
-Double signaling is only bad depending on the application. If we're deploying a forum, for example, a user posting twice is not only correct behaviour but expected behaviour.
+Double signaling is only bad depending on the application. If we're deploying a forum, for example, a user posting twice is expected behaviour.
 
 Because of this, the double signalling prevention is dependent on the application. E.g. For the voting system, the ballotID is the nullifier.
 
+In the base contract (`Semaphore.sol`) and interface (`Semaphore.ts`), the nullifier being used for verification can be any uint256, so there's no attempt to prevent any kind of double signaling since the user can send the same signal multiple times by just generating another random nullifier each time.
 
-% TODO: not sure what to put here. Should prob just delete this part
-## Data Structures
-
-The main data structure presented here is the **_shielded UTXO_**. A shielded UTXO contains:
-
-- **Chain identifier**
-  - A unique identifier for the blockchain where the UTXO can be spent.
-- **Amount**
-  - A numerical identifier for the amount of funds the UTXO represents.
-- **Public key**
-  - A public key pair
-- **Blinding randomness**
-  - A random value that provides additional randomization to the hash commitment.
-
+On the extensions, there's an already implemented logic for preventing double signaling. On the `SemaphoreVoting.sol` example, the pollID is the same as the nullifierHash, so each user can only vote one time per poll.
 
 ```
-commitment = Poseidon(nullifier, trapdoor)
-```
-
-We will also define a signature and nullifier that allows us to indicate if a UTXO has been spent. We take them to be Poseidon hash functions of various pieces of data.
-
-```
-signature = Poseidon(private_key, commitment, path_index)
-
-nullifier = Poseidon(commitment, path_index, signature)
+identityCommitment = Poseidon(identityNullifier, identityTrapdoor)
 ```
 
 % TODO: which API? all? just identityVAnchor? base Semaphore doesn't make too much sense since the nullifiers can be anything at all
@@ -71,15 +51,14 @@ The protocol assumes the existence of public input variables that are globally a
 
 ## Circuit
 
-The zero-knowledge circuit encodes a variety of constraints to ensure that the asset transfer system works properly. This includes, among other things, the constraints necessary for preventing double spending across chains.
+The zero-knowledge circuit encodes a variety of constraints to ensure that the identity system works properly. This includes, among other things, the constraints necessary to prove that a user is part of a valid merkle-tree.
 
 The constraints required are:
 
-- To verify the correctness of input nullifiers
-- To verify the uniqueness of input nullifiers
-- To verify the existence of input commitments
-- To verify correctness of output commitments
-- To verify **_the sum of input amounts and public amount_** = **_the sum of output amounts_**
+- To verify the correctness of `identity nullifiers`
+- To verify the uniqueness of `external nullifier`
+- To verify the existence of input `identityCommitments`
+- To verify correctness of merkle-path and merkle-root
 
 ### Formal description
 
