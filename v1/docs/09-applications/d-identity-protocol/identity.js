@@ -1,8 +1,8 @@
 import React from 'react'
-import latex_light from './latex_light.png'
-import latex_dark from './latex_dark.png'
+import latex_light from './latex_identity_light.png'
+import latex_dark from './latex_identity_dark.png'
 
-export default function DKGKeygen_Images() {
+export default function IdentityImages() {
   return (
     <>
       <img src={latex_light} alt="Dkg light" className="img-light" />
