@@ -33,21 +33,9 @@ On the extensions, there's an already implemented logic for preventing double si
 identityCommitment = Poseidon(identityNullifier, identityTrapdoor)
 ```
 
-% TODO: which API? all? just identityVAnchor? base Semaphore doesn't make too much sense since the nullifiers can be anything at all
-## API
+## Developer Usage
 
-The Asset Protocol API extends the Anchor Protocol API and adds the following functionality:
-
-- **`transact(public_amount, input_nullifiers, output_commitments, zk_proof)`**
-  - `public_amount` - a signed integer value for adding or removing funds from pool
-  - `input_nullifiers` - identifying data about input UTXOs being spent
-  - `output_commitments` - outputs commitments for new UTXOs to insert into the pool
-  - `zk_proof` - a zero-knowledge proof of the transactions validity
-
-The protocol assumes the existence of public input variables that are globally available, namely the same values provided by the Anchor Protocol. The required global variables are:
-
-- **Roots** - The set of merkle roots for the bridged anchors provided by the Anchor Protocol
-- **Chain Id** - The active chain ID provided ideally through an un-tamperable opcode.
+% TODO
 
 ## Circuit
 
