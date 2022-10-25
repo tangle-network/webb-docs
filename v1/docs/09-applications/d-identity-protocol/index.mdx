@@ -33,10 +33,6 @@ On the extensions, there's an already implemented logic for preventing double si
 identityCommitment = Poseidon(identityNullifier, identityTrapdoor)
 ```
 
-## Developer Usage
-
-% TODO
-
 ## Circuit
 
 The zero-knowledge circuit encodes a variety of constraints to ensure that the identity system works properly. This includes, among other things, the constraints necessary to prove that a user is part of a valid merkle-tree.
@@ -47,6 +43,60 @@ The constraints required are:
 - To verify the uniqueness of `external nullifier`
 - To verify the existence of input `identityCommitments`
 - To verify correctness of merkle-path and merkle-root
+
+## Developer Usage
+
+One interesting possibility on how to use Semaphore is to use its contract just to manage groups, while managing circuit and double spending prevention logic on another repo. Example: `https://github.com/webb-tools/protocol-solidity/pull/182`
+
+We have a Semaphore contract deployed at the following addresses.
+```
+Ethereum testnet: TBD
+Arbitrum testnet: TBD
+...
+
+```
+
+Integration should proceed as follows
+
+1. Add the Semaphore contract interface to your contracts.
+2. Point the interface to the corresponding address to the chain you're deploying on.
+3. Add a groupId parameter to your smart-contract. You may consider making it immutable.
+4. Define your group on the Semaphore contract using the Semaphore interface by pointing to the contract address as follows:
+```
+import { Semaphore } from '@webb-tools/semaphore';
+
+const wasmPath = path.resolve(
+  __dirname,
+  <relative_path_to_wasm_file>
+);
+const witnessCalcPath = path.resolve(
+  __dirname,
+  <relative_path_to_witness_calc_file>
+);
+const zkeyPath = path.resolve(
+  __dirname,
+  <relative_path_to_zkey_file>
+);
+zkComponents2_2 = await fetchComponentsFromFilePaths(
+  wasmPath,
+  witnessCalcPath,
+  zkeyPath
+);
+// zkComponents2_2 is duplicated. This is not a good interface for a one (fixed-size) or more than two possible validator sets.
+const semaphore = Semaphore.connect("<contract_address>", zkComponents2_2, zkComponents2_2, signer);
+
+const levels = 30 // between 1 and 32
+const groupId = <random_value> // just need to make sure it isn't taken
+const maxEdges = <number_of_chains_connected_to_this_one> // Currently supported (1, 7)
+
+await semaphore.createGroup(groupId, levels,  signer.address, maxEdges);
+
+let members: List<BigNumber> = ... // Create members using same logic as in the circuit being used.
+await semaphore.addMembers(groupId, members);
+```
+
+Your group is ready on the semaphore contract. Now you should just point its interface to the correct address and group ID.
+
 
 ### Formal description
 
