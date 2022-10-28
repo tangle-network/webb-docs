@@ -33,7 +33,7 @@ The reason we must require a proof of a variety of constraints is because a spen
 
 ### Interoperable UTXO model
 
-In Webb’s asset protocol, we will leverage the Anchor Protocol to manage a connected set of shielded UTXO sets. Each shielded UTXO set will live on its respective chain and will maintain knowledge of its connections through the Anchor Protocol’s edge list data structure. Anchor’s in this protocol instance directly map to shielded UTXO sets and so we will extend the generic anchor with the capabilities to maintain a shielded transaction system, that is merkle trees of anchors become shielded UTXO sets. An Asset Protocol API augments the standard Anchor Protocol API to provide the new functionality.
+In Webb’s asset protocol, we will leverage the Anchor System to manage a connected set of shielded UTXO sets. Each shielded UTXO set will live on its respective chain and will maintain knowledge of its connections through the Anchor System's edge list data structure. Anchor’s in this protocol instance directly map to shielded UTXO sets and so we will extend the generic anchor with the capabilities to maintain a shielded transaction system, that is merkle trees of anchors become shielded UTXO sets. An Asset Protocol API augments the standard Anchor System API to provide the new functionality.
 
 ## Data Structures
 
@@ -64,7 +64,7 @@ nullifier = Poseidon(commitment, path_index, signature)
 
 ## API
 
-The Asset Protocol API extends the Anchor Protocol API and adds the following functionality:
+The Asset Protocol API extends the Anchor System API and adds the following functionality:
 
 - **`transact(public_amount, input_nullifiers, output_commitments, zk_proof)`**
   - `public_amount` - a signed integer value for adding or removing funds from pool
@@ -72,9 +72,9 @@ The Asset Protocol API extends the Anchor Protocol API and adds the following fu
   - `output_commitments` - outputs commitments for new UTXOs to insert into the pool
   - `zk_proof` - a zero-knowledge proof of the transactions validity
 
-The protocol assumes the existence of public input variables that are globally available, namely the same values provided by the Anchor Protocol. The required global variables are:
+The protocol assumes the existence of public input variables that are globally available, namely the same values provided by the Anchor System. The required global variables are:
 
-- **Roots** - The set of merkle roots for the bridged anchors provided by the Anchor Protocol
+- **Roots** - The set of merkle roots for the bridged anchors provided by the Anchor System
 - **Chain Id** - The active chain ID provided ideally through an un-tamperable opcode.
 
 ## Circuit

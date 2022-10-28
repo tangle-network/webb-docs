@@ -1,9 +1,9 @@
 ---
 title: Motivation
-slug: /v1/anchor-protocol/overview
+slug: /v1/anchor-system/overview
 version: '1.0'
 section: docs
-category: anchor-protocol
+category: anchor-system
 keywords: []
 ---
 
@@ -12,15 +12,15 @@ import AnchorRelayerDKGProtocolImages from './anchor-dkg.js'
 
 Privacy is lacking when we move our assets across chain and more generally when we send messages across chains.
 At Webb, we are working to increase privacy on cross-chain applications through our private bridge protocol
-called the Webb Anchor Protocol.
+called the Webb Anchor System.
 
-The Webb Anchor Protocol is an interoperable zero-knowledge proof based system for privately moving assets
+The Webb Anchor System is an interoperable zero-knowledge proof based system for privately moving assets
 between blockchains. We plan to extend this more generally into a cross-chain messaging system with
 zero-knowledge based property testing for data stored in the system’s anchors. We use the term anchor to
 indicate an endpoint of a bridged system, as anchors are the endpoints of spider webs. The Webb Anchor Protocol
 can be visualized like a spider web with anchors on the various blockchains we support.
 
-Currently, the Webb Anchor Protocol enables private asset transfers across EVM chains and Substrate chains
+Currently, the Webb Anchor System enables private asset transfers across EVM chains and Substrate chains
 using zero-knowledge proofs and a configurable token re-wrapping system. We are building out this asset
 protocol in many languages and environments, namely:
 
@@ -31,7 +31,7 @@ protocol in many languages and environments, namely:
 
 ## Overview
 
-The Anchor Protocol is a bridged system between a set of identical smart contract protocols.
+The Anchor System is a bridged system between a set of identical smart contract protocols.
 
 The smart contract protocol (or pallet protocol) defines a system for connecting merkle trees on different
 blockchains in a graph-like framework so that anchors maintain the latest state of their neighboring anchors.
@@ -95,40 +95,40 @@ in the tree that allows someone to prove knowledge of a UTXO in one anchor from 
 
 ## Zero-knowledge Membership
 
-The main utility of the Anchor Protocol is the ability to prove membership of elements in any anchor on a bridge in
+The main utility of the Anchor System is the ability to prove membership of elements in any anchor on a bridge in
 zero-knowledge. These proofs of membership disclose no more data than is necessary to prove that _there exists an
 element with some defined preimage structure in one-of-many of the anchors._
 
-The primary sketch for a zero-knowledge membership program and proof in the Anchor Protocol is:
+The primary sketch for a zero-knowledge membership program and proof in the Anchor System is:
 
 1. A proof of knowledge of preimage of an element in the anchor.
 2. A proof of knowledge of membership of an element in a merkle tree.
 3. A proof of knowledge of membership of a merkle root in a set of merkle roots.
 
 The membership proof here is unique for a given element but need not be in practice. That is, we could envision
-an Anchor Protocol where multiple element types are supported and multiple zero-knowledge programs are provided
-for verification of membership proofs. For example, we may consider an Anchor Protocol over a UTXO a decentralized
+an Anchor System where multiple element types are supported and multiple zero-knowledge programs are provided
+for verification of membership proofs. For example, we may consider an Anchor System over a UTXO a decentralized
 identity ([DID](https://www.w3.org/TR/did-core/)) elements together.
 
 ## Oracle Network
 
-The anchor protocol encompasses a system with a variety of agents and requires some of these agents to play the role
+The Anchor System encompasses a system with a variety of agents and requires some of these agents to play the role
 of **witnessing** and **relaying** changes across all anchors to each other and to the external governance system.
 We call these agents **oracles** and define their roles as:
 
 - Listening for new insertions into anchors’ merkle trees.
 - Composing the `EdgeMetadata` objects from these observations.
-- Relaying these `EdgeMetadata` objects to the governing system of the Anchor Protocol instance.
+- Relaying these `EdgeMetadata` objects to the governing system of the Anchor System instance.
 - Relaying the output of the governing system back to the respective anchors.
 
-The oracles of the Anchor Protocol instance are tightly coupled with the external governance system being used. For more
+The oracles of the Anchor System instance are tightly coupled with the external governance system being used. For more
 information on how these oracles are used in practice can be found [here](https://github.com/webb-tools/relayer).
 
 <AnchorRelayerDKGProtocolImages />
 
 ## Relayer Network
 
-Other agents in the anchor protocol are responsible with preserving privacy for users interacting with the anchor instances.
+Other agents in the Anchor System are responsible with preserving privacy for users interacting with the anchor instances.
 While we use the term relaying/relayer interchangeably, we remark here on a specific relaying role that involves the relaying
 of zero-knowledge proof data to their target system for users.
 
@@ -141,7 +141,7 @@ The relayer network provides this delegation service. Anyone can run a relayer a
 a relayer if they expose an API that enables the submission of zero-knowledge proofs of membership for specific anchor
 instances and if this agent submits the relevant transaction on-chain on behalf of the user delegating their proof through this API.
 
-Relayer incentives are key component of ensuring privacy for end users utilizing the applications built over the Anchor Protocol
+Relayer incentives are key component of ensuring privacy for end users utilizing the applications built over the Anchor System
 instance. Incentives are highly coupled to the applications implemented. For example, for a private bridge application, users can
 pay a fee to relayers by committing to a specified fee at proof generation which is extracted and transferred out of the users
 transfer to the relayer’s account.
@@ -150,7 +150,7 @@ transfer to the relayer’s account.
 
 In practice, the oracle and relayers roles are synergistic and often taken out by the same participant in the protocol. While we
 remark about these roles separately, we often consider them as being undertaken by the same party. We use the terms interchangeably
-to represent the network that provides **both** relaying and oracle services in the Anchor Protocol.
+to represent the network that provides **both** relaying and oracle services in the Anchor System.
 
 **References**
 

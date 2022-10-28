@@ -16,7 +16,7 @@ export function SearchResultsContainer({
   query,
   setQuery,
 }: SearchResultsContainerProps) {
-  const suggestedTerms = ['DKG', 'Anchor Protocol', 'Zero-Knowledge', 'Relayer']
+  const suggestedTerms = ['DKG', 'Anchor System', 'Zero-Knowledge', 'Relayer']
 
   return (
     <div className="h-full">
