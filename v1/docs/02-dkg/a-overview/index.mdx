@@ -13,8 +13,8 @@ import DKGSignatureImages from './signing-images.js'
 This page will provide an overview of the Distributed Key Generation (DKG) protocol, what it is,
 its intended use, and how it interacts with the wider system.
 
-The primary purpose of the DKG protocol is to govern the Anchor protocol. More precisely, the DKG
-act as a security instrument to the Anchor protocol, that is, we say that the bridge updates are
+The primary purpose of the DKG protocol is to govern the Anchor System. More precisely, the DKG
+act as a security instrument to the Anchor System, that is, we say that the bridge updates are
 valid if they are signed by the DKG. The security of the system then rests on the DKG signing the
 actual data that it is meant to sign. Effectively, trust is placed in the DKG.
 
@@ -45,7 +45,7 @@ are updates (proposals) that are being signed using a threshold-signature-scheme
 <DKGSignatureImages />
 
 The DKG makes use of these distributed key generation and signing protocols to govern distributed applications,
-namely the Anchor Protocol. Each distributed application in question has a variety of parameters it needs to
+namely the Anchor System. Each distributed application in question has a variety of parameters it needs to
 govern. These parameters can be as simple as individual integer values or byte array or as complicated as
 entries in a key/value storage map.
 

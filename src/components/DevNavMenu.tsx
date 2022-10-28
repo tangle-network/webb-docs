@@ -50,19 +50,19 @@ const DevNavMenu = {
         ],
       },
       {
-        name: 'Anchor Protocol',
+        name: 'Anchor System',
         items: [
           {
             title: 'Overview',
-            link: '/v1/anchor-protocol/overview/',
+            link: '/v1/anchor-system/overview/',
           },
           {
             title: 'Architecture',
-            link: '/v1/anchor-protocol/architecture/',
+            link: '/v1/anchor-system/architecture/',
           },
           {
             title: 'Signature Bridge',
-            link: '/v1/anchor-protocol/signature-bridge/',
+            link: '/v1/anchor-system/signature-bridge/',
           },
         ],
       },
