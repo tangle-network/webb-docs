@@ -134,7 +134,7 @@ export function SearchModal({ id, closeModal }: SearchModalProps) {
       </div>
       <div
         id="modal-background"
-        className="opacity-25 dark:opacity-90 fixed inset-0 z-40 bg-webbDark"
+        className="opacity-25 dark:opacity-90 fixed inset-0 z-40 bg-webbDarkest"
       ></div>
     </>
   )

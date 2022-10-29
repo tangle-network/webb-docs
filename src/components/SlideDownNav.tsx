@@ -20,7 +20,7 @@ export default function SlideDownNav({
     <>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between px-4 sm:px-20 lg:px-4 py-3 bg-webbGray-light lg:dark:bg-webbDark dark:bg-darkBackground cursor-pointer"
+        className="flex items-center justify-between px-4 sm:px-20 lg:px-4 py-3 bg-webbGray-light lg:dark:bg-webbDarkest dark:bg-darkBackground cursor-pointer"
       >
         <div className={`${isOpen ? `font-bold` : `font-medium`}`}>
           {section.name}

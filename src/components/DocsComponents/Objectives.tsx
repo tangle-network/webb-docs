@@ -8,7 +8,7 @@ interface ObjectivesProps {
 export function Objectives({ data }: ObjectivesProps) {
   return (
     <>
-      <div className="bg-webbGray-light dark:bg-webbDark pb-4 rounded">
+      <div className="bg-webbGray-light dark:bg-webbDarkest pb-4 rounded">
         {data.map((item, index) => (
           <div key={index}>
             <div>

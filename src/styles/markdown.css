@@ -775,7 +775,7 @@
 
 .markdown-body table tr:nth-child(2n) {
   /* background-color: #f6f8fa; */
-  @apply bg-webbGray-light dark:bg-webbDark
+  @apply bg-webbGray-light dark:bg-webbDarkest
 }
 
 .markdown-body img {
@@ -796,7 +796,7 @@
   padding: 0.2em 0.4em;
   margin: 0;
   font-size: 85%;
-  @apply bg-webbGray dark:bg-webbDark;
+  @apply bg-webbGray dark:bg-webbDarkest;
   border-radius: 3px;
 }
 
@@ -829,7 +829,7 @@
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  @apply bg-webbGray-light dark:bg-webbDark;
+  @apply bg-webbGray-light dark:bg-webbDarkest;
   border-radius: 3px;
 }
 
