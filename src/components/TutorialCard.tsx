@@ -26,7 +26,7 @@ export default function TutorialCard({
 }: TutorialCardProps) {
   const tutImage = getImage(image)
   return (
-    <div className="w-80 md:w-96 mb-8 mx-4 rounded bg-webbGray-light dark:bg-webbDark">
+    <div className="w-80 md:w-96 mb-8 mx-4 rounded bg-webbGray-light dark:bg-webbDarkest">
       <Link to={link}>
         <div className="inline-block overflow-hidden">
           <GatsbyImage
@@ -75,7 +75,7 @@ export default function TutorialCard({
         </div>
         <div className="p-4">
           <Link to={link}>
-            <button className="w-full lg:w-52 py-3 rounded bg-webbDark dark:bg-webbWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-webbDark text-lg font-bold focus:outline-none">
+            <button className="w-full lg:w-52 py-3 rounded bg-webbDarkest dark:bg-webbWhite transform transition-all duration-300 ease-in-out hover:bg-opacity-80 dark:hover:bg-opacity-80 text-white dark:text-webbDark text-lg font-bold focus:outline-none">
               Try it now!
             </button>
           </Link>

@@ -11,6 +11,7 @@ import LogoSvg from '../../images/svgs/webb-logo.svg'
 import DarkLogoSvg from '../../images/svgs/dark-webb-logo.svg'
 import Link from '../Link'
 import { ThemeContext } from '../../contexts/ThemeContext'
+import Icon from '../Icon'
 
 export default function Header() {
   const scroll = useScrollListener()
@@ -18,7 +19,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const toggleMenu = () => setIsMobileNavOpen(!isMobileNavOpen)
   const navItems = navMenu.global()
-  // const { colorMode } = useContext(ThemeContext)
+  const { colorMode } = useContext(ThemeContext)
   const { siteMetadata } = useSiteMetadata()
 
   useEffect(() => {
@@ -103,16 +104,51 @@ export default function Header() {
                 )
               })} */}
             </div>
+            <div></div>
             <div className="w-1/2 flex items-center justify-end">
-              <div>
+              <div className="pr-6">
                 <SearchDocs />
-              </div>
-              <div className="pl-8 pr-6">
-                <DocsButton />
               </div>
               <div className="w-6 h-6">
                 <ThemeToggle />
               </div>
+
+              <a
+                className="mr-11 md:mr-0 md:ml-6 transform transition-all duration-300 ease-in-out hover:opacity-50"
+                href={siteMetadata.discord}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {colorMode === 'light' ? (
+                  <Icon
+                    name="discordOrg"
+                    className="fill-current text-webbDarkest"
+                  />
+                ) : (
+                  <Icon
+                    name="discordOrg"
+                    className="fill-current text-webbWhite"
+                  />
+                )}
+              </a>
+              <a
+                className="mr-11 md:mr-0 md:ml-6 transform transition-all duration-300 ease-in-out hover:opacity-50"
+                href={siteMetadata.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {colorMode === 'light' ? (
+                  <Icon
+                    name="github"
+                    className="h-6 w-6 fill-current text-webbDarkest"
+                  />
+                ) : (
+                  <Icon
+                    name="github"
+                    className="h-6 w-6 fill-current text-webbWhite"
+                  />
+                )}
+              </a>
             </div>
           </nav>
         </div>
