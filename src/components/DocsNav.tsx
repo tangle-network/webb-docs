@@ -37,7 +37,7 @@ export default function DocsNav({
             isOpen
               ? `transition-all transform duration-75 ease-in-out justify-start px-4`
               : `transition-all transform duration-75 ease-in-out justify-between px-4`
-          } items-center h-14 bg-webbGray dark:bg-webbDarkest mt-10 `}
+          } items-center h-14 bg-webbWhite dark:bg-webbDarkest mt-10 `}
         >
           <div className={`${isOpen && `hidden`}`}>
             <span className="font-bold">

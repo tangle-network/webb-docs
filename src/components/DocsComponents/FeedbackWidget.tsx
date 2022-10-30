@@ -19,11 +19,11 @@ export function FeedbackWidget() {
           <span className="font-semibold">Let us Know</span>
           <Icon
             name="github"
-            className="m-2 fill-current dark:text-webbDark text-webbWhite"
+            className="m-2 fill-current text-webbWhite dark:text-webbWhite"
           />
           <Icon
             name="externalIcon"
-            className="fill-current dark:text-webbDark text-webbWhite"
+            className="fill-current text-webbWhite dark:text-webbWhite"
           />
         </div>
       </SecondaryButton>
