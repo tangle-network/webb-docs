@@ -41,10 +41,6 @@ In the base contract (`Semaphore.sol`) and interface (`Semaphore.ts`), the nulli
 
 On the extensions, there's an already implemented logic for preventing double signaling. On the `SemaphoreVoting.sol` example, the pollID is the same as the nullifierHash, so each user can only vote one time per poll.
 
-```
-identityCommitment = Poseidon(identityNullifier, identityTrapdoor)
-```
-
 ## Circuit
 
 The zero-knowledge circuit encodes a variety of constraints to ensure that the identity system works properly. This includes, among other things, the constraints necessary to prove that a user is part of a valid merkle-tree.
@@ -56,7 +52,7 @@ The constraints required are:
 - To verify the existence of input `identityCommitments`
 - To verify correctness of merkle-path and merkle-root
 
-## Developer Usage
+## Developer Usage: Using semaphore as external contract
 
 One interesting possibility on how to use Semaphore is to use its contract just to manage groups, while managing circuit and double spending prevention logic on another repo. Example: `https://github.com/webb-tools/protocol-solidity/pull/182`
 
@@ -109,6 +105,16 @@ await semaphore.addMembers(groupId, members);
 
 Your group is ready on the semaphore contract. Now you should just point its interface to the correct address and group ID.
 
+## Developer Usage: Developing semaphore extensions
+Development of semaphore extensions should be done under `packages/semaphore/contracts/extensions`.
+
+The main contracts you should understand the interfaces in order to develop extensions are `packages/semaphore/contracts/base/SemaphoreCore.sol` and `packages/semaphore/contracts/base/SemaphoreGroups.sol`.
+
+`SemaphoreCore.sol` Deals with proof verification. `SemaphoreGroups.sol` deals with the different linked merkle trees for each group.
+
+Note also that the extension contracts and Semaphore.sol are not interchangeable. Current implementation does not allow for deploying a `Voting/Whistleblowing` contract or a `Semaphore/Voting` contract that deals with both applications and unifies anonymity sets
+
+For API documentation on the contracts, go onto the `semaphore-anchor/packages/contracts/interfaces/`.
 
 ### Formal description
 
