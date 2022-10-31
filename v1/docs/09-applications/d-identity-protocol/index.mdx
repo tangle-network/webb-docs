@@ -11,13 +11,25 @@ import IdentityImages from './identity.js'
 
 The identity protocol we describe here is inspired and based off of Semaphore Protocol, an identity protocol that allows for private arbitrary signaling (voting for example) on the blockchain while proving that the user is part of a group in the semaphore set.
 
-In our version of the identity protocol we will leverage Webb’s technology to design an interoperable Semaphore protocol that allows for signaling from one-of-many connected Semaphore sets on potentially different blockchains. 
+In our version of the identity protocol we will leverage Webb’s technology to design an interoperable Semaphore protocol that allows for signaling from one-of-many connected Semaphore sets on potentially different blockchains. A benefit of using Webb's interoperable identity system is the ability to create and connect multiple identity sets together from potentially many distinct blockchains. Using this, we can create applications that enable participation from users in multiple communities and blockchain ecosystems at the same time.
 
-### Identities
+## Identity sets and identities
 
-The Semaphore protocol allows us to create arbitrary merkle-trees. Each leaf has a 32-bytes value and a user can prove membership by proving that he knows the secret to the leaf and the merkle-path to it.
+The Semaphore protocol allows us to create arbitrary merkle-trees to represent our identity sets. Each leaf in the merkle tree is a 32-bytes identity commitment. A user can prove membership in the Semaphore identity set by proving that they know the secret preimage to the leaf commitment and its corresponding merkle path. In Webb's extension protocol, a user can be a member of one-of-many merkle trees on potentially distinct blockchains. In this setting, the user can prove on any of the chains their membership in one of them, enabling cross-chain proofs of identities and interactions on top.
 
-Currently, each identity is just a pair (`identityNullifier`, `identityTrapdoor`), but we can use different nullifier schemes to create each leaf. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255]
+Below we document the Identity data structure.
+- Each identity is composed of a pair of random field elements: (`identityNullifier`, `identityTrapdoor`).
+- The `identitySecret` is the `Poseidon(identityNullifier, identityTrapdoor)`.
+- The `identityCommitment` is the `Poseidon(identitySecret)`.
+- The `identityCommitment` is the leaf data that we will insert into an identity set's merkle tree.
+
+For a detailed diagram on how this process is integrated into Semaphore: [linked here](https://semaphore.appliedzkp.org/docs/technical-reference/circuits)
+![image](https://user-images.githubusercontent.com/13153687/199113862-756548ae-5e57-4499-b35f-c290169b7262.png)
+
+### Controlling identity sets
+Core to having cross-chain zero-knowledge proofs of identity and group membership is actually creating and maintaining those groups. We may envision having cross-chain groups for NFT holders of specific NFT communities on Ethereum, Arbitrum, and Polygon such as a group for a certain number of Cryptopunk derivative communities. We may also envision having cross-chain groups for users of a specific social forum like Commonwealth, where communities do already live on different chains. We may now be able to leverage the power of the masses to grow the privacy these users have together and provide additional products for them. To that end, we must construct these groups at the very least.
+
+The functionality for modifying identity sets is managed by a group administrator. As is currently implemented, this is an arbitrary address whose signatures control modification of the underlying smart contract using a `modifier onlyAdmin()` style interface. This is geared towards being an EOA or user controlled smart contract that manually approves and selects users to join their community identity set. Nonetheless, this can be abstracted to provide a rule-based system for administering membership into the identity set, such as a rule proving ownership of an NFT or some # of tokens.
 
 ### Preventing double signaling
 
@@ -101,6 +113,16 @@ Your group is ready on the semaphore contract. Now you should just point its int
 ### Formal description
 
 <IdentityImages />
+
+## Research
+
+### New nullifier schemes
+There are new nullifier schemes that may be more attractive for bootstrapping identity sets on a given chain. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255] details a nullifier scheme based on ECDSA signatures. This would open up the possibility of creating cross-chain identity sets using only the underlying user's EVM address. These new schemes can be integrated in a modular manner without affecting the bridging mechanism that bridges identity sets together.
+
+### New protocol integrations
+Integrating with existing identity protocols is usually a straightforward manner. We simply take the core zero-knowledge circuit and make it a one-of-many merkle tree membership proof instead of a single merkle tree membership proof. Ideas and protocols we are interested to integrate with are:
+- **Sismo** for cross-chain zkBadges.
+- **Interrep** for cross-chain reputation.
 
 ## References
 
