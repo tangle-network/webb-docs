@@ -105,7 +105,7 @@ const theme = {
           href={`/images/favicon-${systemTheme}/favicon.ico`}
         />
         <meta name="msapplication-TileColor" content="#000000" />
-        <meta name="theme-color" content="#000" />
+        <meta name="theme-color" content="#1F1D2B" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@turborepo" />
         <meta name="twitter:creator" content="@turborepo" />

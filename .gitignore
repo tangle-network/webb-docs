@@ -4,3 +4,7 @@
 /public/feed.xml
 # Sentry
 .sentryclirc
+node_modules/
+yarn-error.log
+.next
+docs/

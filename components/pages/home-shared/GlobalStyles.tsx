@@ -7,11 +7,11 @@ export function LandingPageGlobalStyles() {
         {`
           .dark footer,
           .dark body {
-            background-color: black !important;
+            background-color: #1F1D2B !important;
           }
 
           .dark .nextra-nav-container .nextra-nav-container-blur  {
-            background-color: rgba(0,0,0,.5) !important;
+            background-color: #1F1D2B !important;
           }
     `}
       </style>

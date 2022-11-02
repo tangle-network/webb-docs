@@ -38,7 +38,7 @@ code {
 
 .dark .turborepoCardBg {
   /* background: rgba(0, 0, 0, 0.8); */
-  background: #000;
+  background: #1F1D2B;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 20px 48px rgba(0, 0, 0, 0.2);
 }
@@ -51,7 +51,7 @@ code {
 
 .dark .turbopackCardBg {
   background: rgba(0, 0, 0, 0.8);
-  background: #000;
+  background: #1F1D2B;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 20px 48px rgba(0, 0, 0, 0.2);
 }
