@@ -81,6 +81,10 @@ const DevNavMenu = {
             title: 'Asset Protocol',
             link: '/v1/applications/asset-protocol/',
           },
+          {
+            title: 'Identity Protocol',
+            link: '/v1/applications/identity-protocol/',
+          },
         ],
       },
       {
