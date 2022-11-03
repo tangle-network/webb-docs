@@ -256,6 +256,7 @@ module.exports = {
           dark: '#3351F2',
         },
         webbBlackish: '#242A35',
+        webbSecondary: `#2B2F40`,
         webbDarkest: '#1F1D2B',
         webbDarkThemeLightGrey: '#F8FAF9',
         webbSubtleGrey: '#E0E0E0',

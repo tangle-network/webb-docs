@@ -1,9 +1,9 @@
 ---
 title: Architecture
-slug: /v1/anchor-protocol/architecture
+slug: /v1/anchor-system/architecture
 version: '1.0'
 section: docs
-category: anchor-protocol
+category: anchor-system
 keywords: []
 ---
 
@@ -22,9 +22,9 @@ the anchors’ merkle trees.
    Upon completion they submit these proofs to the relayer network.
 6. Relayers listen for delegations and submit these proofs to their target anchor, where they are verified on-chain.
 
-## Architecture of an Anchor Protocol Instance
+## Architecture of an Anchor System Instance
 
-Below is an illustration of how an Anchor Protocol instance interacts with other network participants, namely a governing distributed
+Below is an illustration of how an Anchor System instance interacts with other network participants, namely a governing distributed
 key generation protocol, and the oracle / relayer network. We model the external governance system as a DKG which generates threshold
 signatures of proposals, specifically of EdgeMetadata objects. These signed proposals are used to update the anchors on each compatible blockchain.
 
@@ -36,7 +36,7 @@ signatures of proposals, specifically of EdgeMetadata objects. These signed prop
 
 The Webb ecosystem started building on top of the Chainbridge and Tornado cash protocols. We combined these architectures to create
 an interoperable privacy set to enable cross-chain private transactions with scalable privacy and further to inspire the more general
-Anchor Protocol spec.
+Anchor System spec.
 
 Our goal was to merge and augment both the Chainbridge and Tornado cash protocols and increase the relayer responsibilities to design
 our private bridge protocol. The modifications can be summarized as:
@@ -53,5 +53,3 @@ our private bridge protocol. The modifications can be summarized as:
 
 - [Chainbridge Documentation](https://chainbridge.chainsafe.io/)
 - [Chainbridge Implementation](https://github.com/ChainSafe/ChainBridge)
-- [Tornado Cash Documentation](https://docs.tornado.cash/general/readme)
-- [Tornado Cash Implementation](https://github.com/tornadocash)

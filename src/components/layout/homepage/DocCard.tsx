@@ -26,7 +26,7 @@ export default function DocCard({
         className={cx(
           'w-full text-center shadow-xl bg-white p-10 md:px-6 md:py-10 xl:p-10',
           'mb-8 lg:mb-0 m:max-w-sm hover:scale-105 transition-transform lg:w-72 xl:w-96 lg:mr-8 rounded-md',
-          'dark:bg-webbDark'
+          'dark:bg-webbDarkest'
         )}
       >
         <div className="flex justify-center mb-6">

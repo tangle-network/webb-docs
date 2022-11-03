@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from './Link'
 
-export default function DocsButton() {
+export default function DiscordIcon() {
   return (
     <Link to="/v1/">
       <button className="flex items-center justify-center bg-webbDarkest dark:bg-webbWhite text-white dark:text-webbDark text-sm py-2 w-20 rounded opacity-100 transform transition duration-300 ease-in-out hover:opacity-80 focus:outline-none">

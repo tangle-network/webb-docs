@@ -73,7 +73,7 @@ const ExploreLinkSection = ({ links }: ExploreLinkSectionProps) => {
           {currentLinks.map(
             ({ title, description, link, linkText, icon }, index) => (
               <Link key={index} to={link}>
-                <div className="h-full hover:bg-white hover:shadow-xl hover:scale-105 rounded-md p-8 mb-16 sm:mb-0 flex flex-col justify-between transition-all dark:hover:bg-webbDark">
+                <div className="h-full hover:bg-white hover:shadow-xl hover:scale-105 rounded-md p-8 mb-16 sm:mb-0 flex flex-col justify-between transition-all dark:hover:bg-webbDarkest">
                   <div>
                     <Icon name={icon} className="mb-6 w-8 h-8" />
                     <h5 className="text-xl font-bold mb-6">{title}</h5>

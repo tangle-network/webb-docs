@@ -62,7 +62,7 @@ Description=WebbRelayer
 [Service]
 Type=exec
 WorkingDirectory=/home/<user>/relayer
-ExecStart=/home/<user>/relayer/target/release/webb-relayer -c /home/<user>/relayer/config/ -vvv
+ExecStart=cargo run --features cli --bin webb-relayer -- -c /home/<user>/relayer/config/<configs> -vvv
 [Install]
 WantedBy=multi-user.target
 ```
