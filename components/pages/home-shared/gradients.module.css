@@ -136,7 +136,7 @@
 .heroHeading {
   background: linear-gradient(180deg, #ffffff 0%, #aaaaaa 100%), #ffffff;
   :global(.light) & {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, #000000 100%);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, #1F1D2B 100%);
     background-clip: text;
   }
   background-clip: text;
@@ -146,17 +146,17 @@
   opacity: 0.2;
   background: linear-gradient(
     90deg,
-    #000000 0%,
+    #1F1D2B 0%,
     #ffffff 20%,
     #ffffff 80%,
-    #000000 100%
+    #1F1D2B 100%
   );
   :global(.light) & {
     background: linear-gradient(
       90deg,
       #ffffff 0%,
-      #000000 20%,
-      #000000 80%,
+      #1F1D2B 20%,
+      #1F1D2B 80%,
       #ffffff 100%
     );
   }

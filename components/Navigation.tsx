@@ -28,7 +28,7 @@ function Navigation(props) {
   });
 
   // items last to override the default
-  return <Navbar {...props} items={headerItems} />;
+  return <Navbar {...props} items={headerItems} />
 }
 
 export default Navigation;

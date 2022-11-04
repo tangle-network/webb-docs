@@ -2,8 +2,9 @@
   "index": {
     "title": "Quickstart"
   },
+  "about-webb": "About Webb",
   "getting-started": "Getting Started",
-  "core-concepts": "Core Concepts",
+  "protocols": "Protocols",
   "handbook": "Monorepo Handbook",
   "ci": "CI Recipes",
   "reference": "API Reference",

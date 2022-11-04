@@ -19,7 +19,7 @@ export const TurbopackQuickstartArea = () => {
         feature={{
           Icon: LightBulbIcon,
           description: `Learn about the innovative architecture that powers Turbopack’s speed improvements.`,
-          name: "Core Concepts",
+          name: "Core 2",
         }}
         href="/pack/docs/core-concepts"
       ></DetailedFeatureLink>

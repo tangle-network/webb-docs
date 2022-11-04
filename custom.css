@@ -1,3 +1,25 @@
+body {
+  @apply !bg-white dark:!bg-dark;
+}
+
+.dark\:nx-bg-dark {
+  @apply !bg-white dark:!bg-dark;
+}
+
+.dark\:nx-shadow-\[0_-12px_16px_\#111\] {
+  @apply !shadow-white dark:!shadow-dark;
+}
+
+@supports (
+  ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px)))
+) {
+  html[class~="dark"] div.nextra-nav-container-blur {
+    --tw-bg-opacity: 1;
+    background-color: rgb(31 29 43 / var(--tw-bg-opacity)) !important;
+    
+  }
+}
+
 code {
   @apply text-sm;
 }
