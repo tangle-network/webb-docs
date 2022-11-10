@@ -10,17 +10,29 @@
       "toc": true
     }
   },
-  "repo": "Repo",
-  "pack": "Pack",
   "blog": {
     "title": "Blog",
     "theme": {
       "typesetting": "article"
     }
   },
-  "showcase": "Poop",
-  "enterprise": {
-    "title": "Enterprise",
+  "whitepaper": {
+    "title": "Whitepaper",
+    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "newWindow": true
+  },
+  "component-lib": {
+    "title": "Component Library",
+    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "newWindow": true
+  },
+  "stats": {
+    "title": "Stats dApp",
+    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "newWindow": true
+  },
+  "bridge": {
+    "title": "Bridge dApp",
     "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
     "newWindow": true
   },
