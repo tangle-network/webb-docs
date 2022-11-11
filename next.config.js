@@ -44,12 +44,12 @@ const nextConfig = withNextra({
     return [
       {
         source: "/repo/docs",
-        destination: "/webb/docs",
+        destination: "/docs",
         permanent: true,
       },
       {
         source: "/",
-        destination: "/webb/docs",
+        destination: "/docs",
         permanent: true,
       },
     ];
