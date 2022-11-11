@@ -49,6 +49,10 @@ const navigation = {
       href: "https://github.com/vercel/turbo",
     },
     {
+      name: "Telegram",
+      href: "https://t.me/webbprotocol",
+    },
+    {
       name: "Discord",
       href: "https://turbo.build/discord",
     },

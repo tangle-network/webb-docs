@@ -11,6 +11,21 @@
       "toc": true
     }
   },
+  "bridge": {
+    "title": "Minerva Bridge",
+    "href": "https://www.stats-dev.webb.tools/",
+    "newWindow": true
+  },
+  "stats": {
+    "title": "Stats dApp",
+    "href": "https://www.stats-dev.webb.tools/",
+    "newWindow": true
+  },
+  "component-lib": {
+    "title": "Webb UI Kit",
+    "href": "https://webb-tools.github.io/webb-dapp/",
+    "newWindow": true
+  },
   "blog": {
     "title": "Blog",
     "theme": {
@@ -20,21 +35,6 @@
   "whitepaper": {
     "title": "Whitepaper",
     "href": "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf",
-    "newWindow": true
-  },
-  "component-lib": {
-    "title": "Component Library",
-    "href": "https://webb-tools.github.io/webb-dapp/",
-    "newWindow": true
-  },
-  "stats": {
-    "title": "Stats dApp",
-    "href": "https://www.stats-dev.webb.tools/",
-    "newWindow": true
-  },
-  "bridge": {
-    "title": "Bridge dApp",
-    "href": "https://www.stats-dev.webb.tools/",
     "newWindow": true
   },
   "confirm": {

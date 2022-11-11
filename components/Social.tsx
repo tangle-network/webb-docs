@@ -1,4 +1,5 @@
 import { DiscordIcon, GitHubIcon } from "nextra/icons";
+import { TelegramIcon } from "./Icons";
 
 function Github() {
   return (
@@ -11,6 +12,21 @@ function Github() {
     >
       {/* Nextra icons have a <title> attribute providing alt text */}
       <GitHubIcon />
+    </a>
+  );
+}
+
+function Telegram() {
+  return (
+    <a
+      href="https://github.com/webb-tools"
+      className="hidden p-2 text-current sm:flex hover:opacity-75"
+      title="Webb GitHub repo"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {/* Nextra icons have a <title> attribute providing alt text */}
+      <TelegramIcon />
     </a>
   );
 }
@@ -29,4 +45,4 @@ function Discord() {
   );
 }
 
-export { Github, Discord };
+export { Github, Discord, Telegram };

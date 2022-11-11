@@ -3,7 +3,7 @@ import { useConfig, useTheme } from "nextra-theme-docs";
 import { Footer } from "./components/Footer";
 import Navigation from "./components/Navigation";
 import HeaderLogo from "./components/HeaderLogo";
-import { Discord, Github } from "./components/Social";
+import { Discord, Github, Telegram } from "./components/Social";
 
 const SITE_ROOT = "https://turbo.build";
 
@@ -14,7 +14,7 @@ const theme = {
   project: {
     icon: Github,
   },
-  chat: {
+  chat : {
     icon: Discord,
   },
   docsRepositoryBase: "https://github.com/dutterbutter/docs-turbo/blob/main/docs",
@@ -49,7 +49,7 @@ const theme = {
       router.asPath === "/" ? SITE_ROOT : `${SITE_ROOT}${router.asPath}`;
 
     const asPath = router.asPath;
-
+    
     return (
       <>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

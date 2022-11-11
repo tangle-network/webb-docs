@@ -43,7 +43,7 @@ const nextConfig = withNextra({
   async redirects() {
     return [
       {
-        source: "/repo/docs",
+        source: "/webb/docs",
         destination: "/docs",
         permanent: true,
       },
