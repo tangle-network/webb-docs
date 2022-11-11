@@ -17,7 +17,7 @@ const theme = {
   chat: {
     icon: Discord,
   },
-  docsRepositoryBase: "https://github.com/vercel/turbo/blob/main/docs",
+  docsRepositoryBase: "https://github.com/dutterbutter/docs-turbo/blob/main/docs",
   getNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();
@@ -90,7 +90,7 @@ const theme = {
         <meta property="twitter:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
         <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
         <meta property="og:locale" content="en_IE" />
-        <meta property="og:site_name" content="Turbo" />
+        <meta property="og:site_name" content="Webb" />
         <link rel="prefetch" href="/webb/docs" as="document" />
       </>
     );

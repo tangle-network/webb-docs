@@ -4,6 +4,7 @@
   },
   "index": {
     "display": "hidden",
+    "type": "page",
     "theme": {
       "layout": "raw",
       "sidebar": false,
@@ -18,22 +19,22 @@
   },
   "whitepaper": {
     "title": "Whitepaper",
-    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "href": "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf",
     "newWindow": true
   },
   "component-lib": {
     "title": "Component Library",
-    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "href": "https://webb-tools.github.io/webb-dapp/",
     "newWindow": true
   },
   "stats": {
     "title": "Stats dApp",
-    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "href": "https://www.stats-dev.webb.tools/",
     "newWindow": true
   },
   "bridge": {
     "title": "Bridge dApp",
-    "href": "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=header-enterpriseLink",
+    "href": "https://www.stats-dev.webb.tools/",
     "newWindow": true
   },
   "confirm": {
