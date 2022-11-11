@@ -3,7 +3,7 @@ import { useConfig, useTheme } from "nextra-theme-docs";
 import { Footer } from "./components/Footer";
 import Navigation from "./components/Navigation";
 import HeaderLogo from "./components/HeaderLogo";
-import { Discord, Github } from "./components/Social";
+import { Discord, Github, Telegram } from "./components/Social";
 
 const SITE_ROOT = "https://turbo.build";
 
@@ -14,28 +14,20 @@ const theme = {
   project: {
     icon: Github,
   },
-  chat: {
+  chat : {
     icon: Discord,
   },
-  docsRepositoryBase: "https://github.com/vercel/turbo/blob/main/docs",
+  docsRepositoryBase: "https://github.com/dutterbutter/docs-turbo/blob/main/docs",
   getNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();
 
-    let section = "Turbo";
-    if (router?.pathname.startsWith("/pack")) {
-      section = "Turbopack";
-    }
-    if (router?.pathname.startsWith("/repo")) {
-      section = "Turborepo";
-    }
-
-    const defaultTitle = frontMatter.overrideTitle || section;
+    const defaultTitle = frontMatter.overrideTitle;
 
     return {
       description: frontMatter.description,
       defaultTitle,
-      titleTemplate: `%s – ${section}`,
+      titleTemplate: `%s – Webb`,
     };
   },
   unstable_flexsearch: true,
@@ -57,24 +49,7 @@ const theme = {
       router.asPath === "/" ? SITE_ROOT : `${SITE_ROOT}${router.asPath}`;
 
     const asPath = router.asPath;
-
-    let ogUrl;
-
-    if (frontMatter.ogImage || asPath === "/") {
-      ogUrl = `${SITE_ROOT}/og-image.png`;
-    } else {
-      const type = asPath.startsWith("/repo")
-        ? "repo"
-        : asPath.startsWith("/pack")
-        ? "pack"
-        : "";
-      const title = frontMatter.title
-        ? `&title=${encodeURIComponent(frontMatter.title)}`
-        : "";
-
-      ogUrl = `https://turbo-site-og.vercel.app/api/og?type=${type}${title}`;
-    }
-
+    
     return (
       <>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -97,7 +72,7 @@ const theme = {
         />
         <link
           rel="mask-icon"
-          href={`/images/favicon-${systemTheme}/safari-pinned-tab.svg`}
+          href={`/images/favicon-${systemTheme}/webb.svg`}
           color="#000000"
         />
         <link
@@ -107,19 +82,16 @@ const theme = {
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" content="#1F1D2B" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@turborepo" />
-        <meta name="twitter:creator" content="@turborepo" />
+        <meta name="twitter:site" content="@webbprotocol" />
+        <meta name="twitter:creator" content="@webbprotocol" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={fullUrl} />
         <link rel="canonical" href={fullUrl} />
-        <meta property="twitter:image" content={ogUrl} />
-        <meta property="og:image" content={ogUrl} />
+        <meta property="twitter:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
+        <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
         <meta property="og:locale" content="en_IE" />
-        <meta property="og:site_name" content="Turbo" />
-        <link rel="prefetch" href="/repo" as="document" />
-        <link rel="prefetch" href="/repo/docs" as="document" />
-        <link rel="prefetch" href="/pack" as="document" />
-        <link rel="prefetch" href="/pack/docs" as="document" />
+        <meta property="og:site_name" content="Webb" />
+        <link rel="prefetch" href="/docs" as="document" />
       </>
     );
   },
