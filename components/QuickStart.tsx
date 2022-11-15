@@ -4,10 +4,13 @@ import {
   CloudUploadIcon,
   LightBulbIcon,
   LightningBoltIcon,
+  ChartBarIcon,
   PencilIcon,
   ServerIcon,
   SparklesIcon,
+  CubeIcon
 } from "@heroicons/react/outline";
+import { Discord, Github, Telegram, Twitter } from "./Social";
 import { DetailedFeatureLink } from "./Feature";
 import Turbo from "./logos/Turbo";
 
@@ -16,27 +19,35 @@ export const QuickStartArea = () => {
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
-          Icon: PencilIcon,
-          description: `Add Turborepo to any JavaScript or TypeScript project in minutes.`,
-          name: "Add to existing project",
+          Icon: Github,
+          description: `Check out our open source repos on GitHub. Open a pull request or an issue!`,
+          name: "Contribute to Webb Ecosystem.",
         }}
-        href="/webb/docs/getting-started/add-to-project"
+        href="https://github.com/webb-tools"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
-          Icon: SparklesIcon,
-          description: `Build a brand-new monorepo with shared packages powered by Turborepo.`,
-          name: "Create a new monorepo",
+          Icon: Discord,
+          description: `Interested in the latest announcements? Join our Discord server. `,
+          name: "Join our Discord community.",
         }}
-        href="/webb/docs/getting-started/create-new"
+        href="https://discord.com/invite/cv8EfJu3Tn"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
-          Icon: ServerIcon,
-          description: `Incrementally add Turborepo to your existing monorepo codebase.`,
-          name: "Add to existing monorepo",
+          Icon: Telegram,
+          description: `Want to connect with Webb Developers, or have questions? Join our Telegram group.`,
+          name: "Join our Telegram group.",
         }}
-        href="/webb/docs/getting-started/existing-monorepo"
+        href="https://t.me/webbprotocol"
+      ></DetailedFeatureLink>
+            <DetailedFeatureLink
+        feature={{
+          Icon: Twitter,
+          description: `Looking to keep up with our latest announcements and updates? Follow us on Twitter. `,
+          name: "Follow us on Twitter.",
+        }}
+        href="https://twitter.com/webbprotocol"
       ></DetailedFeatureLink>
     </div>
   );
@@ -61,28 +72,46 @@ export const MonoreposArea = () => {
         }}
         href="/docs/handbook"
       ></DetailedFeatureLink>
+       <DetailedFeatureLink
+        feature={{
+          Icon: LightBulbIcon,
+          description: `Understand why monorepos don't scale - and why Turborepo is the solution.`,
+          name: "Why Turborepo?",
+        }}
+        href="/webb/docs/core-concepts/monorepos"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
+          Icon: BookOpenIcon,
+          description: `Learn the basics of monorepos before you dive in to Turborepo.`,
+          name: "Read the Monorepo Handbook",
+        }}
+        href="/docs/handbook"
+      ></DetailedFeatureLink>
     </div>
   );
 };
 
-export const LearnMoreArea = () => {
+export const DappsArea = () => {
   return (
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
-          Icon: CloudUploadIcon,
-          description: `Turborepo remembers the output of any task you run - and can skip work that's already been done.`,
-          name: "Never do the same work twice",
+          // TODO: update icon to reflect Minerva Bridge logo
+          Icon: CubeIcon,
+          description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
+          name: "Minerva Bridge",
         }}
-        href="/webb/docs/core-concepts/caching"
+        // TODO: update link with deployed bridge instance
+        href="https://www.stats-dev.webb.tools/"
       />
       <DetailedFeatureLink
         feature={{
-          Icon: LightningBoltIcon,
-          description: `The way you run your tasks is probably not optimized. Turborepo speeds them up with smart scheduling, minimising idle CPU's.`,
-          name: "Maximum Multitasking",
+          Icon: ChartBarIcon,
+          description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
+          name: "Stats dApp",
         }}
-        href="/webb/docs/core-concepts/running-tasks"
+        href="https://www.stats-dev.webb.tools/"
       ></DetailedFeatureLink>
     </div>
   );
