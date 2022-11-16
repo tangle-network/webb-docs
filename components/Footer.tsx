@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState, ReactNode, ReactElement } from "react";
 import cn from "classnames";
 import { ThemeSwitch } from "nextra-theme-docs";
-import VercelLogo from "./logos/Vercel";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes =
@@ -29,24 +28,25 @@ function FooterHeader({ children }: { children: ReactNode }) {
 const navigation = {
   general: [
     { name: "Blog", href: "/blog" },
-    { name: "Releases", href: "https://github.com/vercel/turbo/releases" },
+    { name: "FAQ", href: "/faq" },
   ],
-  repo: [
-    { name: "Documentation", href: "/webb/docs" },
-    {
-      name: "API Reference",
-      href: "/webb/docs/reference/command-line-reference",
-    },
-    { name: "FAQ", href: "/webb/docs/faq" },
+  source: [
+    { name: "DKG", href: "/docs" },
+    { name: "Relayer", href: "/docs" },
+    { name: "Webb.js", href: "/docs" },
+    { name: "Solidity", href: "/docs" },
+    { name: "Substrate", href: "/docs" },
+    { name: "ZK Gadgets", href: "/docs" },
   ],
-  pack: [
-    { name: "Documentation", href: "/pack/docs" },
-    { name: "Features", href: "/pack/docs/features" },
+  ecosystem: [
+    { name: "Tangle", href: "/pack/docs" },
+    { name: "Statistics", href: "/pack/docs/features" },
+    { name: "Minerva Bridge", href: "/pack/docs/features" },
   ],
-  support: [
+  community: [
     {
       name: "GitHub",
-      href: "https://github.com/vercel/turbo",
+      href: "https://github.com/webb-tools",
     },
     {
       name: "Telegram",
@@ -54,24 +54,28 @@ const navigation = {
     },
     {
       name: "Discord",
-      href: "https://turbo.build/discord",
+      href: "https://discord.com/invite/cv8EfJu3Tn",
+    },
+    { 
+      name: "Twitter", 
+      href: "https://twitter.com/webbprotocol" 
+    },
+    { 
+      name: "Commonwealth", 
+      href: "https://commonwealth.im/webb" 
     },
   ],
   company: [
-    { name: "Vercel", href: "https://vercel.com" },
+    { name: "Webb", href: "https://webb.tools" },
     {
-      name: "Open Source Software",
-      href: "https://vercel.com/oss?utm_source=turbo.build&utm_medium=referral&utm_campaign=footer-ossLink",
-    },
-    {
-      name: "Contact Sales",
-      href: "https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=footer-enterpriseLink",
-    },
-    { name: "Twitter", href: "https://twitter.com/vercel" },
+      name: "Careers",
+      href: "https://angel.co/company/webb-4/jobs",
+    }
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
+    { name: "Security", href: "/terms" },
   ],
 };
 
@@ -96,9 +100,9 @@ export function FooterContent() {
                 </ul>
               </div>
               <div className="mt-12 md:!mt-0">
-                <FooterHeader>Turborepo</FooterHeader>
+                <FooterHeader>Documentation</FooterHeader>
                 <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
-                  {navigation.repo.map((item) => (
+                  {navigation.source.map((item) => (
                     <li key={item.name}>
                       <FooterLink href={item.href}>{item.name}</FooterLink>
                     </li>
@@ -106,9 +110,9 @@ export function FooterContent() {
                 </ul>
               </div>
               <div className="mt-12 md:!mt-0">
-                <FooterHeader>Turbopack</FooterHeader>
+                <FooterHeader>Ecosystem</FooterHeader>
                 <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
-                  {navigation.pack.map((item) => (
+                  {navigation.ecosystem.map((item) => (
                     <li key={item.name}>
                       <FooterLink href={item.href}>{item.name}</FooterLink>
                     </li>
@@ -136,9 +140,9 @@ export function FooterContent() {
                 </ul>
               </div>
               <div className="mt-12 md:!mt-0">
-                <FooterHeader>Support</FooterHeader>
+                <FooterHeader>Community</FooterHeader>
                 <ul role="list" className="mt-4 space-y-1.5 list-none ml-0">
-                  {navigation.support.map((item) => (
+                  {navigation.community.map((item) => (
                     <li key={item.name}>
                       <FooterLink href={item.href}>{item.name}</FooterLink>
                     </li>
@@ -150,8 +154,8 @@ export function FooterContent() {
           <div className="mt-12 xl:!mt-0">
             <FooterHeader>Subscribe to our newsletter</FooterHeader>
             <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
-              Subscribe to the Turbo newsletter and stay updated on new releases
-              and features, guides, and case studies.
+              Subscribe to the Webb newsletter and stay updated on new releases
+              and features, guides, and research.
             </p>
             <SubmitForm />
           </div>

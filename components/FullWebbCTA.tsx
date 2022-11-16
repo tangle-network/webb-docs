@@ -2,7 +2,7 @@ import { Container } from "./Container";
 import Callout from "./Callout";
 import Link from "next/link";
 
-function FullTurboCTA() {
+function FullWebbCTA() {
   return (
     <div className="flex flex-col items-start w-full gap-4 p-6 mt-8 bg-white shadow-lg md:items-center md:flex-row rounded-xl dark:bg-opacity-5">
       <div className="justify-start flex-1">
@@ -14,7 +14,7 @@ function FullTurboCTA() {
         </div>
       </div>
       <div className="flex-none">
-        <Link href="https://vercel.com/contact/turborepo?utm_source=turbo.build&utm_medium=referral&utm_campaign=turborepo_side_banner">
+        <Link href="mailto:drew@webb.tools">
           <a className="justify-center block px-4 py-2 text-black no-underline bg-white rounded-full dark:bg-opacity-5 dark:text-white">
             Connect
           </a>
@@ -35,4 +35,4 @@ function FullTurboCTA() {
   );
 }
 
-export default FullTurboCTA;
+export default FullWebbCTA;
