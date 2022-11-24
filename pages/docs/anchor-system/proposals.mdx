@@ -1,0 +1,156 @@
+---
+title: Motivation
+description: Webb Anchor System is an interoperable zero-knowledge proof based system
+---
+
+import AnchorSystem from '../../../components/images/AnchorSystem'
+import AnchorRelayerSystem from '../../../components/images/AnchorRelayerSystem'
+
+# Motivation
+
+Privacy is lacking when we move our assets across chain and more generally when we send messages across chains.
+At Webb, we are working to increase privacy on cross-chain applications through our private bridge protocol
+called the Webb Anchor System.
+
+The Webb Anchor System is an interoperable zero-knowledge proof based system for privately moving assets
+between blockchains. We plan to extend this more generally into a cross-chain messaging system with
+zero-knowledge based property testing for data stored in the system’s anchors. We use the term anchor to
+indicate an endpoint of a bridged system, as anchors are the endpoints of spider webs. The Webb Anchor System
+can be visualized like a spider web with anchors on the various blockchains we support.
+
+Currently, the Webb Anchor System enables private asset transfers across EVM chains and Substrate chains
+using zero-knowledge proofs and a configurable token re-wrapping system. We are building out this asset
+protocol in many languages and environments, namely:
+
+- [Solidity smart contracts](https://github.com/webb-tools/protocol-solidity)
+- [Substrate Pallets](https://github.com/webb-tools/protocol-substrate)
+- [Ink! smart contracts](https://github.com/webb-tools/protocol-ink)
+- [CosmWasm smart contracts](https://github.com/webb-tools/protocol-cosmwasm)
+
+## Overview
+
+The Anchor System is a bridged system between a set of identical smart contract protocols.
+
+The smart contract protocol (or pallet protocol) defines a system for connecting merkle trees on different
+blockchains in a graph-like framework so that anchors maintain the latest state of their neighboring anchors.
+This state is utilized to prove the existence of data in any anchor from any anchor. The primary goal of the
+Anchor System is to satisfy 2 properties:
+
+- **Liveness** - all anchors can continue to be updated in a partially-synchronous environment
+- **Safety** - all anchor updates are guaranteed to be valid
+
+## Data Structures
+
+Each anchor maintains an on-chain merkle tree and an edge list to the latest valid neighboring anchors’ merkle
+tree roots. Each anchor updates its edges of its neighbors using an external governance system, such as a
+single-signer, multi-signature, threshold-signature, or alternative voting / messaging protocol.
+
+An edge is a directed connection between 2 anchors. In the language of graphs. A bridge is a
+graph **_G=(A, E)_** where **_A_** is the set of anchor nodes and **_E_** is the set of directed edges between
+them. We represent this data structure using an `Edge` or `EdgeMetadata` that looks like:
+
+```rust
+// An edge for a specific chain
+pub struct EdgeMetadata<ChainID, Element, LastLeafIndex> {
+	/// chain id of the connected merkle tree
+	pub src_chain_id: ChainID,
+	/// root of source chain anchor's native merkle tree
+	pub root: Element,
+	/// height of source chain anchor's native merkle tree
+	pub latest_leaf_index: LastLeafIndex,
+	/// target system of the anchor (contract address or tree id)
+	pub target: Element,
+}
+```
+
+### Anchor state
+
+Each anchor maintains an edge list containing `EdgeMetadata` objects and a history of the merkle root updates
+up to some bounded limit.
+
+```rust
+/// An example of an edge list data structure
+struct EdgeList<ChainID, Element, LastLeafIndex> {
+	/// Map of edges (
+	pub edges: HashMap<ChainID, EdgeMetadata<ChainID, Element, LastLeafIndex>
+	/// Map of historical roots (chain -> index -> merkle root)
+	pub history: HashMap<ChainId, HashMap<u8, Element>>
+}
+```
+
+### Elements of an anchor
+
+The elements of an anchor are intended to be 32-byte hashes of arbitrary data. The preimage to these hashes
+represent the underlying application for a connected bridge of anchors. For each unique element being inserted
+into an anchor, we assume the existence of a zero-knowledge program that verifies knowledge of the preimage of
+the element.
+
+Oftentimes these hashes are hashes of structured data that are relevant for an end-user application. For example,
+it might be the hash of a [unspent transaction output (UTXO)](https://en.wikipedia.org/wiki/Unspent_transaction_output)
+in the tree that allows someone to prove knowledge of a UTXO in one anchor from a different anchor directly.
+
+<AnchorSystem />
+
+## Zero-knowledge Membership
+
+The main utility of the Anchor System is the ability to prove membership of elements in any anchor on a bridge in
+zero-knowledge. These proofs of membership disclose no more data than is necessary to prove that _there exists an
+element with some defined preimage structure in one-of-many of the anchors._
+
+The primary sketch for a zero-knowledge membership program and proof in the Anchor System is:
+
+1. A proof of knowledge of preimage of an element in the anchor.
+2. A proof of knowledge of membership of an element in a merkle tree.
+3. A proof of knowledge of membership of a merkle root in a set of merkle roots.
+
+The membership proof here is unique for a given element but need not be in practice. That is, we could envision
+an Anchor System where multiple element types are supported and multiple zero-knowledge programs are provided
+for verification of membership proofs. For example, we may consider an Anchor System over a UTXO a decentralized
+identity ([DID](https://www.w3.org/TR/did-core/)) elements together.
+
+## Oracle Network
+
+The Anchor System encompasses a system with a variety of agents and requires some of these agents to play the role
+of **witnessing** and **relaying** changes across all anchors to each other and to the external governance system.
+We call these agents **oracles** and define their roles as:
+
+- Listening for new insertions into anchors’ merkle trees.
+- Composing the `EdgeMetadata` objects from these observations.
+- Relaying these `EdgeMetadata` objects to the governing system of the Anchor System instance.
+- Relaying the output of the governing system back to the respective anchors.
+
+The oracles of the Anchor System instance are tightly coupled with the external governance system being used. For more
+information on how these oracles are used in practice can be found [here](https://github.com/webb-tools/relayer).
+
+<AnchorRelayerSystem />
+
+## Relayer Network
+
+Other agents in the Anchor System are responsible with preserving privacy for users interacting with the anchor instances.
+While we use the term relaying/relayer interchangeably, we remark here on a specific relaying role that involves the relaying
+of zero-knowledge proof data to their target system for users.
+
+In any blockchain context, users are required to possess funds in order to interact and transact with smart contracts.
+Therefore, if a privacy-interested user intends to prove membership of some element’s preimage in one of the anchors’
+merkle trees, they **must** be able to do so without compromising their privacy by requiring them to submit these proofs
+themselves. They **must** be able to delegate the submission of their proof through some overlay network.
+
+The relayer network provides this delegation service. Anyone can run a relayer and provide this service. We consider an agent
+a relayer if they expose an API that enables the submission of zero-knowledge proofs of membership for specific anchor
+instances and if this agent submits the relevant transaction on-chain on behalf of the user delegating their proof through this API.
+
+Relayer incentives are key component of ensuring privacy for end users utilizing the applications built over the Anchor System
+instance. Incentives are highly coupled to the applications implemented. For example, for a private bridge application, users can
+pay a fee to relayers by committing to a specified fee at proof generation which is extracted and transferred out of the users
+transfer to the relayer’s account.
+
+## Oracle / Relayer Similarities
+
+In practice, the oracle and relayers roles are synergistic and often taken out by the same participant in the protocol. While we
+remark about these roles separately, we often consider them as being undertaken by the same party. We use the terms interchangeably
+to represent the network that provides **both** relaying and oracle services in the Anchor System.
+
+**References**
+
+- [Merkle Tree](https://en.wikipedia.org/wiki/Merkle_tree)
+- [Unspent Transaction Output](https://en.wikipedia.org/wiki/Unspent_transaction_output)

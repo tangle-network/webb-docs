@@ -1,0 +1,6 @@
+{
+  "prometheus": "Prometheus",
+  "alert-manager": "AlertManager",
+  "grafana": "Grafana Dashboard",
+  "loki": "Loki Log Manager"
+}

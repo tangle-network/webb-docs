@@ -1,0 +1,37 @@
+---
+title: Troubleshooting
+description: Create your first monorepo or add Turborepo to an existing project.
+---
+
+## Logs and Troubleshooting
+
+You will see logs from both the relay chain and the parachain. The relay chain will be prefixed by [Relaychain], while the parachain has no prefix.
+If you would like to run the node with verbose logs you may add the following arguments during initial setup. You may change the target to include `debug | error | info| trace | warn`.
+
+```
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
+```
+
+### P2P Ports Not Open
+
+If you don't see an Imported message (without the [Relaychain] tag), you need to check the P2P port configuration. P2P port must be open to incoming traffic.
+
+### In Sync
+
+Both chains must be in sync at all times, and you should see either Imported or Idle messages and have connected peers.
+
+### Genesis Mismatching
+
+If you notice similar log messages as below:
+
+```
+DATE [Relaychain] Bootnode with peer id `ID` is on a different
+chain (our genesis: 0x3f5... theirs: 0x45j...)
+```
+
+This typically means that you are running an older version and will need to upgrade.
+

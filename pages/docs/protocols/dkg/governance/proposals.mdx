@@ -1,0 +1,127 @@
+---
+title: Global Governance Proposals
+description: An overview of global governance proposals for the DKG protocol. 
+---
+
+import DKGProposalImages from '../../../../../components/images/DKGProposalSigning'
+
+# Global Governance Proposals
+
+This page provides an overview of Webb global governance specific proposals, the proposal structure and the intended use.
+
+Collectively, there are 4 distinct global governance proposals as you can see from the table below.
+A proposal simply is a message that is voted on which suggests a change in the merkle roots or system. Proposals can be unsigned and unsigned.
+Below are all global governance proposals that the DKG protocol handles.
+
+| Proposals                      | Description                                             |
+| ------------------------------ | ------------------------------------------------------- |
+| Refresh (Governance)           | Proposal to refresh a contract's governor               |
+| AnchorUpdate (Governance)      | Proposal to update merkle roots                         |
+| ResourceIdUpdate (Governance)  | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate (Governance) | Proposal to update the latest proposer set state        |
+
+## Definitions
+
+### Typed Chain ID
+
+A unique Webb-specific chain identifier that is composed of a chain / virtual machine type and the respective identifier. <br/>
+**Size:** 6 bytes
+
+### Target System
+
+Relevant for identifying the actual resource / system / contract that is being targeted in the proposal lifecycle.<br/>
+**Size:** 26 bytes
+
+### Resource ID
+
+Relevant for identifying the system the proposal is being executed on and interacting with. The resource ID contains the target system and the target chain ID to be communicated with.<br/>
+**Size:** 32 bytes <br/>
+**Structure:** `(TargetSystem, TypedChainId)`
+
+### FunctionSig
+
+Relevant for EVM networks where call data is generic and not directly executable at a specific function.<br/>
+**Size:** 4 bytes
+
+### Nonce
+
+Relevant for tracking updates to contracts.<br/>
+**Size:** 4 bytes
+
+### Proposal Header
+
+**Size:** 40 bytes <br/>
+**Structure:** `(**Resource ID, FunctionSig, Nonce)`
+
+## Proposals
+
+### AnchorUpdateProposal
+
+| Protocol  | Doc                                                                                                              | Byte Size              | Arguments                                                                                                                                                                                                                                                       |
+| --------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.AnchorUpdateProposal.html)       | Total Size: 104 bytes  | 1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes)                                                                                                                                                                |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.AnchorUpdateProposal.html) | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L167)<br/>1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes)     |
+| Cosmwasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.AnchorUpdateProposal.html)  | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L62)<br/>1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes) |
+| ink!      | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/ink/struct.AnchorUpdateProposal.html)       | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-ink/blob/6ba2a3c748c757b70f9cfb83154deb3a1062fb5c/contracts/anchor_handler/lib.rs#L187)<br/>1. ProposalHeader (40 bytes) <br/> 2. Merkle root (32 bytes)<br/>3. Source ResourceID (32 bytes)              |
+
+### ResourceIdUpdateProposal
+
+| Protocol  | Doc                                                                                                                  | Byte Size              | Arguments                                                                                                                                                                                                                                                         |
+| --------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| EVM       | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/evm/struct.ResourceIdUpdateProposal.html)       | Total Size: 92 bytes   | 1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler address (20 bytes)                                                                                                                                                                |
+| Substrate | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/substrate/struct.ResourceIdUpdateProposal.html) | Total Size: ≥ 40 bytes | Encoded call for a specific handler pallet <br/>1. [VAnchor handler pallet call](https://github.com/webb-tools/protocol-substrate/blob/a8ef0d0fcbf060fd62ab4ad683cb7c810885a3ea/pallets/vanchor-handler/src/lib.rs#L179)<br/>                                     |
+| Cosmwasm  | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/cosmwasm/struct.ResourceIdUpdateProposal.html)  | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-cosmwasm/blob/24cd6668257b4b1938d05d539cc1fcc2944c91bd/contracts/anchor-handler/src/contract.rs#L85)<br/>1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler address (20 bytes) |
+| ink!      | [Proposal Docs](https://docs.rs/webb-proposals/latest/webb_proposals/ink/struct.ResourceIdUpdateProposal.html)       | Total Size: ≥ 40 bytes | [Encoded call](https://github.com/webb-tools/protocol-ink/blob/6ba2a3c748c757b70f9cfb83154deb3a1062fb5c/contracts/anchor_handler/lib.rs#L153)<br/> 1. ProposalHeader (40 bytes) <br/> 2. New resource ID (32 bytes)<br/>3. Handler address (20 bytes)             |
+
+### Refresh
+
+| Protocol | Doc                                                                                                    | Byte Size            | Arguments                                            |
+| -------- | ------------------------------------------------------------------------------------------------------ | -------------------- | ---------------------------------------------------- |
+| DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/struct.RefreshProposal.html) | Total Size: 68 bytes | 1. Public key (64 bytes)<br/>2. Nonce (4 bytes)<br/> |
+
+### ProposerSetUpdate
+
+| Protocol | Doc                                                                                                                                           | Byte Size            | Arguments                                                                                                                           |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/> |
+
+## How proposals are signed
+
+The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal**
+for signature.
+
+1. Proposers propose an anchor update
+2. Proposers vote to either reject or acknowledge the proposal
+3. If the majority vote to reject, the execution is canceled and the proposal rejection event is emitted
+4. If the majority vote in favour of the proposal, the execution to have that proposal signed begins
+5. The proposal is inserted into an Unsigned Proposal Queue
+6. The DKG-gadget an offchain service worker, fetches the unsigned proposal from the queue
+7. The DKG-gadget sends messages to all connected peers to be signed in the given or next round
+8. Upon the completion of the round, the now signed proposals are processed and stored in offchain storage
+9. The Proposal-Handlers offchain worker then fetches signed proposals
+10. The proposals signatures are validated and inserted into pallet storage
+11. A ProposalSigned event is emitted indicating a successfully submitted proposal
+
+<DKGProposalImages />
+
+## Supported Proposals
+
+The current DKG implementation manages the following proposals, each specify a unique change to the system
+that must be signed in order for any of these requested updates to be considered valid.
+
+| Proposals                  | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| Refresh                    | Proposal to refresh a contract’s governor               |
+| AnchorUpdate               | Proposal to update merkle roots                         |
+| SetVerifierProposal        | Proposal to set a verifier address                      |
+| TokenAdd                   | Proposal to add token to a set                          |
+| TokenRemove                | Proposal to remove token from a set                     |
+| WrappingFeeUpdate          | Proposal to update fee parameter                        |
+| RescueToken                | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+| ResourceIdUpdate           | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate          | Proposal to update the latest proposer set state        |
+

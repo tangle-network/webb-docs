@@ -1,0 +1,114 @@
+---
+title: Running with Systemd
+description: Create your first monorepo or add Turborepo to an existing project.
+---
+
+# Running with Systemd
+
+You can run your collator node as a systemd process so that it will automatically restart on server reboots
+or crashes (and helps to avoid getting slashed!).
+
+Before following this guide you should have already set up your collator node by following the [How to run a Tangle Network node](./v1/node-operators/run-tangle-node).
+
+## System service setup
+
+Run the following commands to create the service configuration file:
+
+```
+# Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/tangle-collator /usr/bin/
+
+# navigate to /etc
+cd /etc/systemd/system
+
+# create the service configuration file
+sudo touch collator.service
+```
+
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
+any paths or ports to your own preference.
+
+**Note:** The below configuration assumes you are targeting the Arana chain spec.
+
+**Collator Node**
+
+```
+[Unit]
+Description=Tangle Collator Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/tangle-collator \
+  --base-path /tmp/collator/<USERNAME> \
+  --name <NODE-NAME> \
+  --chain tangle \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --ws-port 9944 \
+  --validator \
+  --rpc-port 9933 \
+  --no-mdns  \
+  --rpc-cors "*"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Full Node**
+
+```
+[Unit]
+Description=Tangle Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/tangle-collator \
+  --base-path /tmp/collator/<USERNAME> \
+  --name <NODE-NAME> \
+  --chain tangle \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --ws-port 9944 \
+  --rpc-port 9933 \
+  --no-mdns  \
+  --rpc-cors "*"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+### Enable the services
+
+Double check that the config has been written to `/etc/systemd/system/collator.service` correctly.
+If so, enable the service so it runs on startup, and then try to start it now:
+
+```
+sudo systemctl enable collator
+sudo systemctl start collator
+```
+
+Check the status of the service:
+
+```
+systemctl status collator
+```
+
+You should see the node connecting to the network and syncing the latest blocks.
+If you need to tail the latest output, you can use:
+
+```
+journalctl -u collator.service -f
+```
+
+Congratulations! You have officially setup an Tangle Network node using Systemd. If you are interested
+in learning how to setup monitoring for your node, and ssl certificates please refer to the
+how-to-guide [here](https://docs.webb.tools/how-to-guides/v1/node-setup/ssl/).
+

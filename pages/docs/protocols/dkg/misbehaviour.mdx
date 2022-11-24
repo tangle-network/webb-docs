@@ -1,0 +1,25 @@
+---
+title: Misbehaviour Reporting & Reputation
+description: Only build the workspaces you care about
+---
+
+# Misbehaviour Reporting & Reputation
+
+Misbehaviour reporting follows an oracle based approach. The DKG protocol we utilize has identifiable aborts, meaning it is
+possible to identify the party misbehaving during the protocol’s execution. While every honest party sees this misbehaviour,
+it is tricky to identify on-chain, as it would require running the protocol itself on-chain and verifying the misbehaviour proof.
+
+Instead of pushing proofs of misbehaviour on-chain, we utilize a threshold voting based approach. For a threshold
+**_t_** and offender **_o_**, if **_t_** parties report the same misbehaviour containing the type of misbehaviour, the round of
+misbehaviour, and the offending authority, then the party’s reputation reduces according to the function:
+
+```
+$reputation(o) = \alpha *reputation(o)$
+```
+
+When a good action occurs, such as succesfully rotating keys or signing a proposal and submitting it on-chain. The reputation
+increases according to the function
+
+```
+$reputation(o) = \alpha * reputation(o) + 1,000,000,000$
+```
