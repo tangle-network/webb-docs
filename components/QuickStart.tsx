@@ -55,7 +55,7 @@ export const DeployArea = () => {
           description: `Interested in deploying a bridge? Webb makes it incredibly fast and easy!`,
           name: "Deploy a bridge in 15 mins.",
         }}
-        href="/webb/docs/core-concepts/monorepos"
+        href=""
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -63,7 +63,7 @@ export const DeployArea = () => {
           description: `Interested in Webb's identity system? Deploy in quickly to check it out!`,
           name: "Deploy identity system in 15 min.",
         }}
-        href="/docs/handbook"
+        href=""
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -71,7 +71,7 @@ export const DeployArea = () => {
           description: `Want to spin up a full node on the Tangle Network? We've made it easier than ever!`,
           name: "Deploy a Tangle node in 15 mins.",
         }}
-        href="/webb/docs/core-concepts/monorepos"
+        href=""
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -79,7 +79,7 @@ export const DeployArea = () => {
           description: `Help support the Webb ecosystem. Run a relayer and earn!`,
           name: "Deploy a relayer in 15 min.",
         }}
-        href="/docs/handbook"
+        href=""
       ></DetailedFeatureLink>
     </div>
   );
