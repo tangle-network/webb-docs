@@ -136,7 +136,7 @@ tar xvf node_exporter-*.tar.gz &&
 tar xvf process-exporter-*.tar.gz
 ```
 
-**3. Copy the Extracted Files into `/usr/local/bin`:**
+**5. Copy the Extracted Files into `/usr/local/bin`:**
 
 <Callout type="info">
   **Note:** The example below makes use of the `linux-amd64` installations, please update to make use of the target system you have installed.
@@ -162,7 +162,7 @@ sudo cp ./node_exporter-*.linux-amd64/node_exporter /usr/local/bin/ &&
 sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/
 ```
 
-**4. Create Dedicated Users:**
+**6. Create Dedicated Users:**
 
 Now we want to create dedicated users for each of the modules we have installed:
 
@@ -172,14 +172,14 @@ sudo useradd --no-create-home --shell /usr/sbin/nologin node_exporter &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin process-exporter
 ```
 
-**5. Create Directories for `Prometheus`, and `Process exporter`:**
+**7. Create Directories for `Prometheus`, and `Process exporter`:**
 
 ```
 sudo mkdir /var/lib/prometheus &&
 sudo mkdir /etc/process-exporter
 ```
 
-**6. Change the Ownership for all Directories:**
+**8. Change the Ownership for all Directories:**
 
 We need to give our user permissions to access these directories:
 
@@ -201,7 +201,7 @@ sudo chown process-exporter:process-exporter /etc/process-exporter -R &&
 sudo chown process-exporter:process-exporter /usr/local/bin/process-exporter
 ```
 
-**7. Finally, let's clean up these directories:**
+**9. Finally, let's clean up these directories:**
 
 ```
 rm -rf ./prometheus* &&
