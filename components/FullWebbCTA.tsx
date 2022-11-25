@@ -21,7 +21,7 @@ function FullWebbCTA() {
         </Link>
       </div>
       <style jsx global>{`
-        .full-turbo {
+        .full-webb {
           background-image: linear-gradient(
             60deg,
             rgba(50, 134, 241, 1) 0%,

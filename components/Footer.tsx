@@ -31,17 +31,19 @@ const navigation = {
     { name: "FAQ", href: "/faq" },
   ],
   source: [
-    { name: "DKG", href: "/docs" },
-    { name: "Relayer", href: "/docs" },
-    { name: "Webb.js", href: "/docs" },
-    { name: "Solidity", href: "/docs" },
-    { name: "Substrate", href: "/docs" },
-    { name: "ZK Gadgets", href: "/docs" },
+    { name: "DKG", href: "https://webb-tools.github.io/dkg-substrate/" },
+    { name: "Relayer", href: "https://webb-tools.github.io/relayer/" },
+    { name: "Webb.js", href: "https://webb-tools.github.io/webb.js/" },
+    { name: "Solidity", href: "https://webb-tools.github.io/protocol-solidity/" },
+    { name: "Substrate", href: "https://webb-tools.github.io/protocol-substrate/" },
+    //TODO: need source docs
+    // { name: "ZK Gadgets", href: "/docs" },
   ],
   ecosystem: [
-    { name: "Tangle", href: "/pack/docs" },
-    { name: "Statistics", href: "/pack/docs/features" },
-    { name: "Minerva Bridge", href: "/pack/docs/features" },
+    { name: "Tangle", href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle.webb.tools#/explorer" },
+    { name: "Statistics", href: "https://www.stats-dev.webb.tools/" },
+    // TODO: add bridge link
+    { name: "Minerva Bridge", href: "https://www.stats-dev.webb.tools/" },
   ],
   community: [
     {
@@ -73,6 +75,7 @@ const navigation = {
     }
   ],
   legal: [
+    // TODO: setup links
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
     { name: "Security", href: "/terms" },
@@ -164,11 +167,11 @@ export function FooterContent() {
         <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
           <div>
           <a
-        href="https://webb.tools"
-        target="_blank"
-        rel="noreferrer"
-        title="Webb homepage"
-      >
+            href="https://webb.tools"
+            target="_blank"
+            rel="noreferrer"
+            title="Webb homepage"
+          >
        <svg width="96" height="29" className="block dark:hidden" viewBox="0 0 96 29" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fillRule="evenodd" clipRule="evenodd" d="M11.5294 14.4748V16.0724C11.5294 17.1418 12.4052 18.0183 13.4764 18.0183H15.0734C16.1438 18.0183 17.0196 17.1418 17.0196 16.0724V14.4748C17.0196 13.4046 16.1438 12.5281 15.0734 12.5281H13.4764C12.4052 12.5281 11.5294 13.4046 11.5294 14.4748Z" fill="#B5A9F2"/>
         <path fillRule="evenodd" clipRule="evenodd" d="M11.5294 9.50852C11.5294 11.0717 10.3002 12.3423 8.78614 12.3423C7.27286 12.3423 6.04368 13.6121 6.04368 15.1845C6.04368 16.7477 4.81369 18.0183 3.29146 18.0183C1.77819 18.0183 0.549011 16.7477 0.549011 15.1845C0.549011 13.6121 1.77819 12.3423 3.29146 12.3423C4.81369 12.3423 6.04368 11.0717 6.04368 9.50852C6.04368 7.94447 4.81369 6.67472 3.29146 6.67472H2.49372C1.42734 6.67472 0.549011 5.76656 0.549011 4.665V3.00844C0.549011 1.90688 1.42734 0.998718 2.49372 0.998718H4.09735C5.16454 0.998718 6.04368 1.90688 6.04368 3.00844V3.84093C6.04368 5.40498 7.27286 6.67472 8.78614 6.67472C10.3002 6.67472 11.5294 7.94447 11.5294 9.50852Z" fill="#DD4800"/>
@@ -238,8 +241,12 @@ function SubmitForm() {
           },
           body: JSON.stringify({ email }),
         })
-          .then((res) => res.json())
           .then((res) => {
+            console.log("res1", res);
+            res.json()
+          })
+          .then((res) => {
+            console.log("res", res);
             return router.push("/confirm");
           });
         e.preventDefault();

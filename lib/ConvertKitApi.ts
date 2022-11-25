@@ -21,6 +21,7 @@ export function subscribeToForm({
   firstName: string;
   fields?: Record<string, any>;
 }): Promise<Subscriber> {
+  console.log("SUBSCRIBE");
   return Http(`/forms/${formId}/subscribe`, {
     method: "POST",
     data: { api_key: API_KEY, email, first_name: firstName, fields },

@@ -35,6 +35,7 @@ const nextConfig = withNextra({
         {
           source: "/sitemap.xml",
           destination:
+          //TODO: SUBMIT SITE MAP
             "https://crawled-sitemap.vercel.sh/turbobuild-sitemap.xml",
         },
       ],

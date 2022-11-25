@@ -7,3 +7,9 @@
 node_modules/
 yarn-error.log
 .next
+.env
+.env.development
+.yarn
+.cache
+/public/*
+.DS_Store

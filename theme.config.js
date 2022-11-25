@@ -5,7 +5,7 @@ import Navigation from "./components/Navigation";
 import HeaderLogo from "./components/HeaderLogo";
 import { Discord, Github, Telegram } from "./components/Social";
 
-const SITE_ROOT = "https://turbo.build";
+const SITE_ROOT = "https://docs.webb.tools";
 
 /**
  * @type {import('nextra-theme-docs').DocsThemeConfig}
@@ -17,7 +17,7 @@ const theme = {
   chat : {
     icon: Discord,
   },
-  docsRepositoryBase: "https://github.com/dutterbutter/docs-turbo/blob/main/docs",
+  docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/db/docs-migration-v1",
   getNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();

@@ -5,6 +5,7 @@ const CAMPAIGN_ID = process.env.TURBOREPO_SFDC_CAMPAIGN_ID;
 const TRAY_URL = process.env.TRAY_URL;
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
+  console.log("HANDLER CALLED");
   if (req.method === "POST") {
     const user = {
       email: req.body.email,
@@ -30,4 +31,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withSentry(handler);
+export default handler;
