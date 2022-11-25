@@ -59,7 +59,7 @@ export const MonitoringArea = () => {
           description: `Power your metrics and alerting with the leading open-source monitoring solution.`,
           name: "Prometheus Setup",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/monitoring/prometheus"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -67,7 +67,7 @@ export const MonitoringArea = () => {
           description: `Handle alerts sent by client applications such as the Prometheus server`,
           name: "AlertManager Setup",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/monitoring/alert-manager"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -75,7 +75,7 @@ export const MonitoringArea = () => {
           description: `Visualize results from multiple data sources simultaneously.`,
           name: "Grafana Dashboards",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/monitoring/grafana"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -83,7 +83,7 @@ export const MonitoringArea = () => {
           description: `Horizontally scalable, highly available, multi-tenant log aggregation system.`,
           name: "Loki Log Management",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/monitoring/loki"
       ></DetailedFeatureLink>
     </div>
   );
