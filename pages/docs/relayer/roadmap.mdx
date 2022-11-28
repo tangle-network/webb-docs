@@ -1,36 +1,34 @@
 ---
-title: Frequently Asked Questions
+title: Relayer Roadmap
 description: Frequently asked questions about Turborepo.
 ---
 
-# Frequently Asked Questions
+# Relayer Roadmap
 
-## Do I have to use Remote Caching to use Turborepo?
+We aim to build a relayer infrastructure that gradually improves in its performance, efficiency, and overall
+security. We do this in stages by first building the necessary infrastructure to listen to events across a
+connected set of Anchors and react properly across a Bridge to preserve the liveness of the protocol.
 
-No. [Remote Caching](./core-concepts/remote-caching) is optional. However, you'll find it very useful to speed up development on a team, speed up builds inside of Docker, and also save space on your own machine.
+### **Version 1 - Multi-sig governance functionality**
 
-## Does Turborepo / Remote Caching store my source code?
+The first iteration of the bridge relayer is responsible for event listening and transaction execution.
 
-No. Turborepo does not store source code. Without [Remote Caching](./core-concepts/remote-caching), no code ever leaves your machine—it will only cache artifacts to local disk.
+- Event listening across a set of connected anchors to learn of new deposits on a Bridge.
+- Proposal creation and vote submission over the Bridge's governance process.
+- Data replication and an API for inspecting Anchor state off-chain.
 
-With Turborepo's Remote Caching, you are responsible for configuring cache behavior and should only set up Turborepo to cache compiled artifacts. Please be aware that Turborepo treats all logs as artifacts and so these _will_ be stored along with other cache artifacts.
+### **Version 2 - Multi-party Threshold governance functionality**
 
-## Do I have to use Vercel to use Turborepo?
+We then plan to integrate a DKG into a Substrate node for future governance purposes.
 
-No. Turborepo is an open-source project and is not tied to any specific hosting provider or Remote Cache provider. The default Remote Cache provider is Vercel, should you opt-in to enable it. However, you can use any other provider you like if they support the same API. Several open-source community Remote Caches are compatible with Turborepo.
+- Direct integration into a (currently) Substrate chain or potentially other blockchain node (Cosmos-SDK)
+  - Bootstraps off existing validator set and participates in consensus.
+- Execution of a distributed key generation protocol to generate a threshold key.
 
-## Can I use Turborepo with a different Remote Cache provider other than Vercel?
+### **Version 3 - Auxiliary staking and punishment functionality**
 
-Yes. As long as the [Remote Cache](./core-concepts/remote-caching) provider you choose supports the same API, you can use Turborepo with it.
+We will integrate the DKG directly into the Bridge governance system, allowing the bridge to be governed by a threshold key (or many).
 
-## Does Turborepo collect any personally identifiable information?
-
-Due to the nature of Turborepo's functionality, no personal information is gathered when the open source binary is run locally. All cached artifacts are stored on your machine by default. Further, no log in information or contact details are collected by the `turbo` CLI, so Turborepo will never have access to any personally identifiable information. Thus, for any data privacy questions and concerns please refer to [Turborepo's Privacy Policy](https://turborepo.org/privacy).
-
-## Does Turborepo collect any personally identifiable information when using Remote Caching?
-
-When [Remote Caching](./core-concepts/remote-caching) is enabled, by default Turborepo will utilize your Vercel account to cache artifacts in the cloud. Thus, for any data privacy questions and concerns, please refer to [Turborepo's Privacy Policy](https://turborepo.org/privacy) and [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy). If you use a different Remote Cache provider, please refer to the provider's privacy policy.
-
-## How can I retain Fast Refresh in my Turborepo when using multiple Next.js applications?
-
-[Fast Refresh](https://nextjs.org/docs/basic-features/fast-refresh) gives you instantaneous feedback on edits made to your React components in Next.js applications. If your Turborepo has multiple Next.js applications, you can use `next-transpile-modules` to ensure that imports across workspaces will work with Fast Refresh when changes are made. Turborepo will effectively watch for any edits and the rebuild when saving. You can get started from [this example](https://github.com/vercel/turbo/tree/main/examples/basic) which is set up to handle Fast Refresh.
+- Integrate staking mechanism over finality authorities for registering local key matter.
+- Integrate punishment mechanism over improper behavior in the DKG.
+- Develop an on-chain pallet to govern the threshold and generate threshold signatures of `SignatureBridge.sol` governance transactions.
