@@ -6,10 +6,10 @@ export default function DKGKeygenImages (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={DKGKeygenLight} alt="Dkg light" fill />
+      <Image src={DKGKeygenLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={DKGKeygenDark}alt="Dkg dark" fill />
+      <Image src={DKGKeygenDark}alt="Dkg dark" />
     </div>
     </>
   )

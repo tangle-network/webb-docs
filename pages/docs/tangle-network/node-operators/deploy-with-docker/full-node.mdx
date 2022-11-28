@@ -1,0 +1,71 @@
+---
+title: Deploying with Docker
+description: Create your first monorepo or add Turborepo to an existing project.
+---
+
+# Deploying with Docker
+
+An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
+please visit this [page](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+
+The current [Dockerfile](https://github.com/webb-tools/tangle/tree/main/docker) creates the `/tangle` directory, and sets the appropiate permissions to that directory for chain data storage. However,
+if you want to specify a different directory to store chain data follow the steps below.
+
+Create a local directory to store chain data:
+
+```
+mkdir /var/lib/tangle-data
+```
+
+Next, make sure you set the ownership and permissions accordingly for the local directory that stores the chain data.
+
+```
+# chown to a specific user
+chown DOCKER_USER /var/lib/tangle-data
+
+# chown to current user
+sudo chown -R $(id -u):$(id -g) /var/lib/tangle-data
+```
+
+Now, execute the docker run command to run a collator node. Be sure to add your own node name!
+
+**Note:** The below commands utilizes the newly created directory above rather than the `/tangle` directory by default.
+
+### Run a Collator Node
+
+```
+docker run --network="host" -v "/var/lib/tangle-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/tangle:edge \
+--base-path=/data \
+--chain tangle \
+--name="YOUR-NODE-NAME" \
+--validator \
+--execution wasm \
+--wasm-execution compiled \
+--pruning archive \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+Now, execute the docker run command to run a full node. Be sure to add your own node name!
+
+### Run a Full Node
+
+```
+docker run --network="host" -v "/var/lib/tangle-data:/data" \
+-u $(id -u ${USER}):$(id -g ${USER}) \
+webb-tools/tangle:edge \
+--base-path=/data \
+--chain tangle \
+--name="YOUR-NODE-NAME" \
+--execution wasm \
+--wasm-execution compiled \
+-- \
+--execution wasm \
+--pruning 1000 \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```

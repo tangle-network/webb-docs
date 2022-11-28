@@ -6,10 +6,10 @@ export default function RelayerImages (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={relayerLight} alt="Dkg light" fill />
+      <Image src={relayerLight} alt="Dkg light"  />
     </div>
     <div className="hidden dark:block">
-      <Image src={relayerDark}alt="Dkg dark" fill />
+      <Image src={relayerDark}alt="Dkg dark"  />
     </div>
     </>
   )
