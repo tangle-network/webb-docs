@@ -1,6 +1,6 @@
 ---
 title: Running with Systemd
-description: Create your first monorepo or add Turborepo to an existing project.
+description: Run a Tangle Collator node using systemd.
 ---
 
 # Running with Systemd
@@ -43,43 +43,13 @@ User=<USERNAME>
 Restart=always
 RestartSec=3
 ExecStart=/usr/bin/tangle-collator \
-  --base-path /tmp/collator/<USERNAME> \
+  --base-path /data/collator/<USERNAME> \
   --name <NODE-NAME> \
   --chain tangle \
   --node-key-file "/home/<USERNAME>/node-key" \
   --port 30333 \
-  --ws-port 9944 \
   --validator \
-  --rpc-port 9933 \
-  --no-mdns  \
-  --rpc-cors "*"
-
-[Install]
-WantedBy=multi-user.target
-```
-
-**Full Node**
-
-```
-[Unit]
-Description=Tangle Node
-After=network-online.target
-StartLimitIntervalSec=0
-
-[Service]
-User=<USERNAME>
-Restart=always
-RestartSec=3
-ExecStart=/usr/bin/tangle-collator \
-  --base-path /tmp/collator/<USERNAME> \
-  --name <NODE-NAME> \
-  --chain tangle \
-  --node-key-file "/home/<USERNAME>/node-key" \
-  --port 30333 \
-  --ws-port 9944 \
-  --rpc-port 9933 \
-  --no-mdns  \
-  --rpc-cors "*"
+  --no-mdns
 
 [Install]
 WantedBy=multi-user.target

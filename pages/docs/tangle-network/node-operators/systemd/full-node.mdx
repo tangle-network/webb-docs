@@ -1,71 +1,83 @@
 ---
 title: Running with Systemd
-description: Create your first monorepo or add Turborepo to an existing project.
+description: Run a Tangle full node using systemd.
 ---
 
 # Running with Systemd
 
-An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
-please visit this [page](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+You can run your full node as a systemd process so that it will automatically restart on server reboots
+or crashes (and helps to avoid getting slashed!).
 
-The current [Dockerfile](https://github.com/webb-tools/tangle/tree/main/docker) creates the `/tangle` directory, and sets the appropiate permissions to that directory for chain data storage. However,
-if you want to specify a different directory to store chain data follow the steps below.
+Before following this guide you should have already set up your collator node by following the [How to run a Tangle Network node](./v1/node-operators/run-tangle-node).
 
-Create a local directory to store chain data:
+## System service setup
 
-```
-mkdir /var/lib/tangle-data
-```
-
-Next, make sure you set the ownership and permissions accordingly for the local directory that stores the chain data.
+Run the following commands to create the service configuration file:
 
 ```
-# chown to a specific user
-chown DOCKER_USER /var/lib/tangle-data
+# Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/tangle-collator /usr/bin/
 
-# chown to current user
-sudo chown -R $(id -u):$(id -g) /var/lib/tangle-data
+# navigate to /etc
+cd /etc/systemd/system
+
+# create the service configuration file
+sudo touch full.service
 ```
 
-Now, execute the docker run command to run a collator node. Be sure to add your own node name!
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
+any paths or ports to your own preference.
 
-**Note:** The below commands utilizes the newly created directory above rather than the `/tangle` directory by default.
+**Note:** The below configuration assumes you are targeting the Arana chain spec.
 
-### Run a Collator Node
-
-```
-docker run --network="host" -v "/var/lib/tangle-data:/data" \
--u $(id -u ${USER}):$(id -g ${USER}) \
-webb-tools/tangle:edge \
---base-path=/data \
---chain tangle \
---name="YOUR-NODE-NAME" \
---validator \
---execution wasm \
---wasm-execution compiled \
---pruning archive \
--- \
---execution wasm \
---pruning 1000 \
---name="YOUR-NODE-NAME (Embedded Relay)"
-```
-
-Now, execute the docker run command to run a full node. Be sure to add your own node name!
-
-### Run a Full Node
+**Full Node**
 
 ```
-docker run --network="host" -v "/var/lib/tangle-data:/data" \
--u $(id -u ${USER}):$(id -g ${USER}) \
-webb-tools/tangle:edge \
---base-path=/data \
---chain tangle \
---name="YOUR-NODE-NAME" \
---execution wasm \
---wasm-execution compiled \
--- \
---execution wasm \
---pruning 1000 \
---name="YOUR-NODE-NAME (Embedded Relay)"
+[Unit]
+Description=Tangle Full Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/tangle-collator \
+  --base-path /data/full-node \
+  --name <NODE-NAME> \
+  --chain tangle \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --port 30333 \
+  --rpc-cors all \
+  --ws-external \
+  --ws-port 9946 \
+  --no-mdns
+
+[Install]
+WantedBy=multi-user.target
 ```
+
+### Enable the services
+
+Double check that the config has been written to `/etc/systemd/system/full.service` correctly.
+If so, enable the service so it runs on startup, and then try to start it now:
+
+```
+sudo systemctl enable full
+sudo systemctl start full
+```
+
+Check the status of the service:
+
+```
+systemctl status full
+```
+
+You should see the node connecting to the network and syncing the latest blocks.
+If you need to tail the latest output, you can use:
+
+```
+journalctl -u full.service -f
+```
+
+Congratulations! You have officially setup a Tangle Network node using Systemd.
