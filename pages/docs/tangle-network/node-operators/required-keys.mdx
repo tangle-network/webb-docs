@@ -3,6 +3,8 @@ title: Required Keys
 description: Describes the keys necessary to start and run a Tangle node.
 ---
 
+import Callout from "../../../../components/Callout";
+
 # Required Keys
 
 In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys
@@ -15,10 +17,14 @@ include:
 To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install
 subkey before running the command.
 
+<Callout type="info">
+  Keep in mind the below commands are using `/tangle-data` base-path, please specify your preferred base-path during execution.
+</Callout>
+
 **Once installed, to generate the DKG key you can run the following:**
 
 ```
-tangle-collator key insert --base-path /tangle-data \
+tangle-parachain key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Ecdsa \
 --suri "<12-PHRASE-MNEMONIC>" \
@@ -28,7 +34,7 @@ tangle-collator key insert --base-path /tangle-data \
 **To generate the Aura key you can run the following:**
 
 ```
-tangle-collator key insert --base-path /tangle-data \
+tangle-parachain key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Sr25519 \
 --suri "<12-PHRASE-MNEMONIC>" \
@@ -38,7 +44,7 @@ tangle-collator key insert --base-path /tangle-data \
 **To generate the Account key you can run the following:**
 
 ```
-tangle-collator key insert --base-path /tangle-data \
+tangle-parachain key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Sr25519 \
 --suri "<12-PHRASE-MNEMONIC>" \
@@ -50,10 +56,10 @@ tangle-collator key insert --base-path /tangle-data \
 You can begin syncing your node by running the following command:
 
 ```
-./target/release/tangle-collator --pruning=archive
+./target/release/tangle-parachain
 ```
 
-Once your collator node has fully syncronized with the Kusama Relay Chain you may proceed to setup the
+Once your collator node has fully syncronized with the Relay Chain you may proceed to setup the
 necessary accounts to operate a collator node.
 
 ## Bond funds

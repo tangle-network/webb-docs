@@ -30,7 +30,8 @@
     "title": "Blog",
     "theme": {
       "typesetting": "article"
-    }
+    },
+    "display": "hidden"
   },
   "whitepaper": {
     "title": "Whitepaper",
