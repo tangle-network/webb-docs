@@ -19,11 +19,10 @@ set their keys, fetch the applicable chainspec and run the start command to get 
 **1. Pull the Tangle Docker image:** 
 
 ```
-# Here you should checkout
-# https://github.com/webb-tools/tangle/pkgs/container/tangle-collator/versions?filters%5Bversion_type%5D=tagged
-# For the latest stable version. Only use "main" if
-# you know what you are doing, it will use the latest and maybe
-# unstable version of the node.
+# Here you should checkout tangle https://github.com/webb-tools/tangle/pkgs/container/tangle-collator/versions?filters%5Bversion_type%5D=tagged
+ 
+# For the latest stable version. Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node. 
+ 
 docker pull ghcr.io/webb-tools/tangle/tangle-collator:main
 ```
 
@@ -33,11 +32,13 @@ To join the Tangle Test network as full node we need to fetch the appropiate cha
 
 ```
 # Fetches chainspec for Tangle network
+ 
 wget https://github.com/webb-tools/tangle/blob/main/chainspecs/webb_rococo_raw.json
 ```
 
 ```
 # Fetches chainspec for relay chain
+ 
 wget https://github.com/webb-tools/dkg-substrate/blob/master/chainspecs/polkadot-rococo-local-cfde.json
 ```
 
@@ -53,36 +54,41 @@ The keys we need to generate include the following:
 
 ```
 # Create a new place where we will store all Node data.
+ 
 mkdir -p ~/webb/tangle/full-node
+ 
 # Start inserting the secrets, Here, for ultimate security, we will not
+ 
 # pass the SURI in the command, instead it will be interactive, where you
+ 
 # should paste your SURI when the command ask for it.
 
 # it will ask for your suri, enter it. 
+ 
 docker run --rm -it --entrypoint ./tangle-collator -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
      key insert --base-path /data \
     --chain /data/chainspecs/parachain.json \
     --scheme Sr25519 \
     --key-type acco
-
+ 
 docker run --rm -it --entrypoint ./tangle-collator -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
     key insert --base-path /data \
     --chain /data/chainspecs/parachain.json \
     --scheme Sr25519 \
     --key-type aura
-
+ 
 docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
     key insert --base-path /data \
     --chain /data/chainspecs/parachain.json \
     --scheme Sr25519 \
     --key-type imon
-
+ 
 docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
     tangle-collator key insert --base-path /data \
     --chain /data/chainspecs/parachain.json \
     --scheme Ed25519 \
     --key-type gran
-
+ 
 docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
     tangle-collator key insert --base-path /data \
     --chain /data/chainspecs/parachain.json \
