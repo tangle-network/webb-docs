@@ -17,10 +17,10 @@ Run the following commands to create the service configuration file:
 ```
 # Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
 sudo mv ./target/release/tangle-collator /usr/bin/
-
+ 
 # navigate to /etc
 cd /etc/systemd/system
-
+ 
 # create the service configuration file
 sudo touch collator.service
 ```
@@ -37,7 +37,7 @@ any paths or ports to your own preference.
 Description=Tangle Collator Node
 After=network-online.target
 StartLimitIntervalSec=0
-
+ 
 [Service]
 User=<USERNAME>
 Restart=always
@@ -50,7 +50,7 @@ ExecStart=/usr/bin/tangle-collator \
   --port 30333 \
   --validator \
   --no-mdns
-
+ 
 [Install]
 WantedBy=multi-user.target
 ```
