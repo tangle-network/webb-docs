@@ -6,10 +6,10 @@ export default function AnchorArchitecture (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={AnchorArchitectureLight} alt="Dkg light" fill />
+      <Image src={AnchorArchitectureLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={AnchorArchitectureDark}alt="Dkg dark" fill />
+      <Image src={AnchorArchitectureDark}alt="Dkg dark" />
     </div>
     </>
   )

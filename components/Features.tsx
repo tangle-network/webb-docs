@@ -2,7 +2,7 @@ import React from "react";
 import {
   LEGACY_REPO_DOCS_FEATURES,
   LEGACY_REPO_HOME_FEATURES,
-} from "../content/legacy-features";
+} from "./legacy-features";
 import Feature from "./Feature";
 
 export function HomeFeatures() {

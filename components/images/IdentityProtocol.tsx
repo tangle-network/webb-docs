@@ -6,10 +6,10 @@ export default function IdentityImages (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={IdentityLight} alt="Dkg light" fill />
+      <Image src={IdentityLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={IdentityDark}alt="Dkg dark" fill />
+      <Image src={IdentityDark}alt="Dkg dark" />
     </div>
     </>
   )

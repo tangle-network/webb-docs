@@ -6,10 +6,10 @@ export default function AnchorSystem (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={AnchorLight} alt="Dkg light" fill />
+      <Image src={AnchorLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={AnchorDark}alt="Dkg dark" fill />
+      <Image src={AnchorDark}alt="Dkg dark" />
     </div>
     </>
   )

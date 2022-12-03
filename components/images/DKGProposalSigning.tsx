@@ -6,10 +6,10 @@ export default function DKGProposalImages (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={SequenceLight} alt="Dkg light" fill />
+      <Image src={SequenceLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={SequenceDark}alt="Dkg dark" fill />
+      <Image src={SequenceDark}alt="Dkg dark" />
     </div>
     </>
   )

@@ -7,6 +7,7 @@ const withNextra = require("nextra")({
 });
 
 const sentryWebpackPluginOptions = {
+  dryRun: process.env.VERCEL_ENV !== "production",
   silent: true,
 };
 

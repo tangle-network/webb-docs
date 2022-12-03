@@ -6,10 +6,10 @@ export default function AnchorRelayerSystem (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={AnchorRelayerLight} alt="Dkg light" fill />
+      <Image src={AnchorRelayerLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={AnchorRelayerDark}alt="Dkg dark" fill />
+      <Image src={AnchorRelayerDark}alt="Dkg dark" />
     </div>
     </>
   )
