@@ -31,14 +31,14 @@ const nextConfig = withNextra({
   },
   rewrites() {
     return {
-      beforeFiles: [
-        {
-          source: "/sitemap.xml",
-          destination:
-          //TODO: SUBMIT SITE MAP
-            "https://crawled-sitemap.vercel.sh/turbobuild-sitemap.xml",
-        },
-      ],
+      // beforeFiles: [
+      //   {
+      //     source: "/sitemap.xml",
+      //     destination:
+      //     //TODO: SUBMIT SITE MAP
+      //       "",
+      //   },
+      // ],
     };
   },
   async redirects() {

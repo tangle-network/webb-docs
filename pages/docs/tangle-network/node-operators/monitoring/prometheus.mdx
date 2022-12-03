@@ -229,16 +229,16 @@ Add the following code to the file and save:
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
-
+ 
 rule_files:
   - 'rules.yml'
-
+ 
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
       - localhost:9093
-
+ 
 scrape_configs:
   - job_name: "prometheus"
     scrape_interval: 5s
@@ -301,7 +301,7 @@ Add the following lines:
   Description=Prometheus Monitoring
   Wants=network-online.target
   After=network-online.target
-
+ 
 [Service]
   User=prometheus
   Group=prometheus
@@ -312,7 +312,7 @@ Add the following lines:
   --web.console.templates=/etc/prometheus/consoles \
   --web.console.libraries=/etc/prometheus/console_libraries
   ExecReload=/bin/kill -HUP $MAINPID
-
+ 
 [Install]
   WantedBy=multi-user.target
 ```
@@ -333,13 +333,13 @@ Add the following lines:
   Description=Node Exporter
   Wants=network-online.target
   After=network-online.target
-
+ 
 [Service]
   User=node_exporter
   Group=node_exporter
   Type=simple
   ExecStart=/usr/local/bin/node_exporter
-
+ 
 [Install]
   WantedBy=multi-user.target
 ```
@@ -360,14 +360,14 @@ Add the following lines:
   Description=Process Exporter
   Wants=network-online.target
   After=network-online.target
-
+ 
 [Service]
   User=process-exporter
   Group=process-exporter
   Type=simple
   ExecStart=/usr/local/bin/process-exporter \
   --config.path /etc/process-exporter/config.yml
-
+ 
 [Install]
 WantedBy=multi-user.target
 ```

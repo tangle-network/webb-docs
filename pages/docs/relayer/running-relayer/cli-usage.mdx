@@ -1,36 +1,94 @@
 ---
-title: Frequently Asked Questions
-description: Frequently asked questions about Turborepo.
+title: CLI Reference
+description: Explore Webb Relayers command line interface.
 ---
 
-# Frequently Asked Questions
+import { Tabs, Tab } from "../../../../components/Tabs";
 
-## Do I have to use Remote Caching to use Turborepo?
+# Command-Line Reference
 
-No. [Remote Caching](./core-concepts/remote-caching) is optional. However, you'll find it very useful to speed up development on a team, speed up builds inside of Docker, and also save space on your own machine.
+When starting up your own Webb relayer, there are some required and optional flags that can be used. 
 
-## Does Turborepo / Remote Caching store my source code?
+This page provides a comprehensive list of the available command lines available on the Webb relayer. 
 
-No. Turborepo does not store source code. Without [Remote Caching](./core-concepts/remote-caching), no code ever leaves your machine—it will only cache artifacts to local disk.
+After installing the Webb [`relayer`](/repo/docs/getting-started/add-to-project) binary (or pull from Docker), you can view the relayers command line interface (CLI). For a complete list of the available flags, you can spin up your relayer and input `--help` 
+to the end of the command. The command will vary depending on how you choose to spin up your node, and if you're using Docker or Systemd.
 
-With Turborepo's Remote Caching, you are responsible for configuring cache behavior and should only set up Turborepo to cache compiled artifacts. Please be aware that Turborepo treats all logs as artifacts and so these _will_ be stored along with other cache artifacts.
+<Tabs items={["docker", "systemd"]} storageKey="selected-binary">
+  <Tab>
 
-## Do I have to use Vercel to use Turborepo?
+    ```
+    docker run --platform linux/amd64 --features cli -- -c ./config/development/evm-localnet -vvv --entrypoint ./webb-relayer \
+    ghcr.io/webb-tools/relayer:0.5.0-rc1 \
+    --help
+    ```
 
-No. Turborepo is an open-source project and is not tied to any specific hosting provider or Remote Cache provider. The default Remote Cache provider is Vercel, should you opt-in to enable it. However, you can use any other provider you like if they support the same API. Several open-source community Remote Caches are compatible with Turborepo.
+  </Tab>
+  <Tab>
 
-## Can I use Turborepo with a different Remote Cache provider other than Vercel?
+    ```
+    # If you used the release binary
+    ./webb-relayer --help
+     
+    # Or if you compiled the binary
+    ./target/release/webb-relayer --help
+    ```
 
-Yes. As long as the [Remote Cache](./core-concepts/remote-caching) provider you choose supports the same API, you can use Turborepo with it.
+  </Tab>
+</Tabs>
 
-## Does Turborepo collect any personally identifiable information?
+Start the relayer from a config file:
+```
+webb-relayer -vvv -c <CONFIG_FILE_PATH>
+```
 
-Due to the nature of Turborepo's functionality, no personal information is gathered when the open source binary is run locally. All cached artifacts are stored on your machine by default. Further, no log in information or contact details are collected by the `turbo` CLI, so Turborepo will never have access to any personally identifiable information. Thus, for any data privacy questions and concerns please refer to [Turborepo's Privacy Policy](https://turborepo.org/privacy).
+USAGE:
+```
+webb-relayer [FLAGS] [OPTIONS]
+```
 
-## Does Turborepo collect any personally identifiable information when using Remote Caching?
+## Available Flags 
 
-When [Remote Caching](./core-concepts/remote-caching) is enabled, by default Turborepo will utilize your Vercel account to cache artifacts in the cloud. Thus, for any data privacy questions and concerns, please refer to [Turborepo's Privacy Policy](https://turborepo.org/privacy) and [Vercel's Privacy Policy](https://vercel.com/legal/privacy-policy). If you use a different Remote Cache provider, please refer to the provider's privacy policy.
+The below lists outlines the available flags for your convienance. 
 
-## How can I retain Fast Refresh in my Turborepo when using multiple Next.js applications?
+#### `--help`
 
-[Fast Refresh](https://nextjs.org/docs/basic-features/fast-refresh) gives you instantaneous feedback on edits made to your React components in Next.js applications. If your Turborepo has multiple Next.js applications, you can use `next-transpile-modules` to ensure that imports across workspaces will work with Fast Refresh when changes are made. Turborepo will effectively watch for any edits and the rebuild when saving. You can get started from [this example](https://github.com/vercel/turbo/tree/main/examples/basic) which is set up to handle Fast Refresh.
+ Prints help information
+
+```sh
+webb-relayer --help
+```
+
+#### `--tmp`
+
+Create the Database Store in a temporary directory and will be deleted when the process exits
+
+```sh
+webb-relayer --tmp
+```
+
+#### `--version`
+
+Prints relayer version information
+
+```sh
+webb-relayer --version
+```
+
+#### `--verbose`
+
+A level of verbosity, and can be used multiple times  
+
+```sh
+webb-relayer --vvvv 
+```
+
+## Available Options 
+
+#### `--config-dir <PATH>`
+
+Directory that contains configration files
+
+```sh
+webb-relayer --config dir ./config
+```

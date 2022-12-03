@@ -23,7 +23,7 @@ set their keys, fetch the applicable chainspec and run the start command to get 
  
 # For the latest stable version. Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node. 
  
-docker pull ghcr.io/webb-tools/tangle/tangle-collator:main
+docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
 ```
 
 **2. Fetch applicable chainspec(s):**
@@ -42,73 +42,14 @@ wget https://github.com/webb-tools/tangle/blob/main/chainspecs/webb_rococo_raw.j
 wget https://github.com/webb-tools/dkg-substrate/blob/master/chainspecs/polkadot-rococo-local-cfde.json
 ```
 
-Please make a reference where you have stored this `json` file as we will need it in the next steps. 
-
-**3. Generate and store keys:**
-
-We need to generate the required keys for our node. For more information on these keys, please see the [Required Keys]() section. 
-The keys we need to generate include the following:
-- DKG key (Ecdsa)
-- Aura key (Sr25519)
-- Account key (Sr25519)
-
-```
-# Create a new place where we will store all Node data.
- 
-mkdir -p ~/webb/tangle/full-node
- 
-# Start inserting the secrets, Here, for ultimate security, we will not
- 
-# pass the SURI in the command, instead it will be interactive, where you
- 
-# should paste your SURI when the command ask for it.
-
-# it will ask for your suri, enter it. 
- 
-docker run --rm -it --entrypoint ./tangle-collator -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
-     key insert --base-path /data \
-    --chain /data/chainspecs/parachain.json \
-    --scheme Sr25519 \
-    --key-type acco
- 
-docker run --rm -it --entrypoint ./tangle-collator -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
-    key insert --base-path /data \
-    --chain /data/chainspecs/parachain.json \
-    --scheme Sr25519 \
-    --key-type aura
- 
-docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
-    key insert --base-path /data \
-    --chain /data/chainspecs/parachain.json \
-    --scheme Sr25519 \
-    --key-type imon
- 
-docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
-    tangle-collator key insert --base-path /data \
-    --chain /data/chainspecs/parachain.json \
-    --scheme Ed25519 \
-    --key-type gran
- 
-docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
-    tangle-collator key insert --base-path /data \
-    --chain /data/chainspecs/parachain.json \
-    --scheme Ecdsa \
-    --key-type wdkg
-```
-
-To ensure you have successfully generated the keys correctly run:
-```
-ls ~/webb/tangle/full-node/chains/*/keystore
-# You should see a some file(s) there, these are the keys.
-```
+**Note:** Full nodes do not participate in block production or consensus so no required keys are necessary.
 
 **4. Start Tangle full node:**
 
 To start the node run the following command:
 
-
 ```
-docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-collator:main \
+docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-parachain:main \
   --chain /data/chainspec/webb_rococo_raw.json \
   --name="YOUR-NODE-NAME" \
   --base-path /data \
@@ -152,7 +93,7 @@ If you need a fresh instance of your Tangle node, you can purge your node by rem
 
 You'll first need to stop the Docker container:
 ```
-  sudo docker stop `CONTAINER_ID`
+sudo docker stop `CONTAINER_ID`
 ```
 
 If you did not use the -v flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related 

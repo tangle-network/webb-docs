@@ -11,13 +11,13 @@ function dateSortDesc(a, b) {
   return 0;
 }
 
-async function generate() {
+async function generate() { 
   const feed = new RSS({
-    title: "Turborepo Blog",
-    description: "Turborepo news, updates, and announcements.",
-    site_url: "https://turborepo.org",
-    feed_url: "https://turborepo.org/feed.xml",
-    image_url: "https://turborepo.org/og-image.png",
+    title: "Webb Blog",
+    description: "Webb news, updates, and announcements.",
+    site_url: "https://webb.tools",
+    feed_url: "https://webb.tools/feed.xml",
+    image_url: "https://webb.tools/og-image.png",
   });
 
   const posts = await fs.readdir(path.join(__dirname, "..", "pages", "blog"));
@@ -41,11 +41,11 @@ async function generate() {
     );
     feed.item({
       title: frontmatter.data.title,
-      url: "https://turborepo.org/blog/" + frontmatter.slug, // intentionally including slash here
+      url: "https://webb.tools/blog/" + frontmatter.slug, // intentionally including slash here
       date: frontmatter.data.date,
       description: frontmatter.data.description,
       enclosure: {
-        url: "https://turborepo.org" + frontmatter.data.ogImage, // intentionally omitting slash here
+        url: "https://webb.tools" + frontmatter.data.ogImage, // intentionally omitting slash here
         type: "image/png",
         size: stat.size,
       },

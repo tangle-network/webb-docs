@@ -11,7 +11,7 @@
     "rss": "node scripts/generate-rss.js",
     "schema": "turbo-gen ./public/schema.json"
   },
-  "author": "Jared Palmer",
+  "author": "Webb Team",
   "license": "MPL-2.0",
   "dependencies": {
     "@headlessui/react": "^1.7.3",

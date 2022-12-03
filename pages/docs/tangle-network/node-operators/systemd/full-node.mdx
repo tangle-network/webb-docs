@@ -16,7 +16,7 @@ Run the following commands to create the service configuration file:
 
 ```
 # Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
-sudo mv ./target/release/tangle-collator /usr/bin/
+sudo mv ./target/release/tangle-parachain /usr/bin/
  
 # navigate to /etc
 cd /etc/systemd/system
@@ -42,7 +42,7 @@ StartLimitIntervalSec=0
 User=<USERNAME>
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/tangle-collator \
+ExecStart=/usr/bin/tangle-parachain \
   --base-path /data/full-node \
   --name <NODE-NAME> \
   --chain tangle \
