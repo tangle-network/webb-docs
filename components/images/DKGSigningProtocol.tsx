@@ -6,10 +6,10 @@ export default function DKGSigningImages (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={DKGSigningLight} alt="Dkg light" fill />
+      <Image src={DKGSigningLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={DKGSigningDark}alt="Dkg dark" fill />
+      <Image src={DKGSigningDark}alt="Dkg dark" />
     </div>
     </>
   )
