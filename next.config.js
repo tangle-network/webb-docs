@@ -19,6 +19,9 @@ const nextConfig = withNextra({
   experimental: {
     legacyBrowsers: false,
   },
+  images: {
+    unoptimized: true,
+  },
   webpack: (config, { webpack }) => {
     config.plugins.push(
       new webpack.DefinePlugin({
