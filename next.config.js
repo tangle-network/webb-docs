@@ -7,6 +7,7 @@ const withNextra = require("nextra")({
 });
 
 const sentryWebpackPluginOptions = {
+  dryRun: process.env.VERCEL_ENV !== "production",
   silent: true,
 };
 
@@ -17,6 +18,9 @@ const nextConfig = withNextra({
   reactStrictMode: true,
   experimental: {
     legacyBrowsers: false,
+  },
+  images: {
+    unoptimized: true,
   },
   webpack: (config, { webpack }) => {
     config.plugins.push(

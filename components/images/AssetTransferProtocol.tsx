@@ -6,10 +6,10 @@ export default function AssetTransferImage (props) {
   return (
     <>
     <div className="block dark:hidden">
-      <Image src={latexLight} alt="Dkg light" fill />
+      <Image src={latexLight} alt="Dkg light" />
     </div>
     <div className="hidden dark:block">
-      <Image src={latexDark}alt="Dkg dark" fill />
+      <Image src={latexDark}alt="Dkg dark" />
     </div>
     </>
   )
