@@ -18,14 +18,14 @@ notes right from the interface!
 The first step to interacting with the bridge dApp is to connect a MetaMask wallet and create a `NoteAccount` using your preferred 
 MetaMask account. The below steps outline how go about creating an `NoteAccount`.
 
-### **1. Connect MetaMask Wallet**
+**1. Connect MetaMask Wallet**
 
 When you enter the bridge you will be greeted with the following screen. The bottom buttom indicates that you are required to 
 connect a wallet. 
 
 <ConnectWallet />
 
-### **2. Select Source Chain**
+**2. Select Source Chain**
 
 Upon selecting the 'Connect Wallet' button, you will be asked to select a source chain, 
 this will be the act as the source chain for the subsuqent deposit. 
@@ -34,7 +34,7 @@ this will be the act as the source chain for the subsuqent deposit.
 
 <SelectSourceChain /> 
 
-### **3. Select Wallet to Connect** 
+**3. Select Wallet to Connect** 
 
 After selecting the active chain, you will be prompted to connect to your desired wallet provider. 
 For the purposes of this walkthrough we will utilize MetaMask. Select MetaMask and wait to be prompted 
@@ -45,7 +45,7 @@ depositing into the bridge.
 
 <WalletComponent />
 
-### **4. Creating Note Account** 
+**4. Creating Note Account** 
 
 Once connected to your MetaMask account, you will need to create a NoteAccount using the connect MetaMask account. 
 To do so, select the 'Create Note Account' button as shown below. 
@@ -61,7 +61,7 @@ Once selected you will be prompted to agree to Webb's terms and conditions. Sele
 
 <CreateNoteAccountPrompt />
 
-### **5. Sign MetaMask Message** 
+**5. Sign MetaMask Message** 
 
 Upon selecting to 'Create Note Account', users will be prompted by MetaMask to sign a message from Webb. As mentioned above, 
 we use the first 32 bytes of the signed message from the MetaMask account as the secret seed to create the `NoteAccount` keypair. 
