@@ -11,7 +11,10 @@ import CreateAccountLight from './create-note-account-light.png';
 import CreateAccountDark from './create-note-account-dark.png';
 import CreateAccountPromptLight from './create-account-prompt-light.png';
 import CreateAccountPromptDark from './create-account-prompt-dark.png';
-import SignatureRequest from './signature-request-mm.png';
+import SignatureRequestLight from './signature-request-mm-light.png';
+import SignatureRequestDark from './signature-request-mm-dark.png';
+import CompletedAccountLight from './account-congrats-light.png'
+import CompletedAccountDark from './account-congrats-dark.png'
 
 export const ConnectWallet = (props) => {
   return (
@@ -94,9 +97,25 @@ export const CreateNoteAccountPrompt = () => {
 export const SignatureRequestPrompt = () => {
     return (
       <>
-      <div>
-        <Image src={SignatureRequest} alt="signature request prompt light" />
+      <div className="block dark:hidden">
+        <Image src={SignatureRequestLight} alt="create account prompt light" />
+      </div>
+      <div className="hidden dark:block">
+        <Image src={SignatureRequestDark}alt="create account prompt dark" />
       </div>
       </>
     )
+};
+
+export const AccountCongrats = () => {
+  return (
+    <>
+    <div className="block dark:hidden">
+      <Image src={CompletedAccountLight} alt="created note account light" />
+    </div>
+    <div className="hidden dark:block">
+      <Image src={CompletedAccountDark}alt="created note account dark" />
+    </div>
+    </>
+  )
 };
