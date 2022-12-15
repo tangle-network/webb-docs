@@ -3,9 +3,13 @@ title: Deposists on Minerva Bridge
 description: An overview of deposits on Minerva Bridge
 ---
 
-import { SelectSourceChain, TokenSelection, WrapDeposit, Deposit } from '../../../../../components/images/bridge/usage-guide/deposits/Deposits'; 
+import { SelectSourceChain, TokenSelection, WrapDeposit, Deposit, DepositAmount, ConfirmDeposit, InprogessDeposit, CopiedNote, SuccessDeposit } from '../../../../../components/images/bridge/usage-guide/deposits/Deposits'; 
 
 # Deposit on Minerva Bridge
+
+This guide will provide a step-by-step process to assist in making a deposit on the Minerva Bridge.
+
+## Deposit Inputs
 
 You have created your `Note Account` and are now ready to make a deposit into the Minerva Bridge. You 
 will notice the **Deposit** button to be disabled initially. We must provide the details of our transaction 
@@ -54,8 +58,66 @@ the desired destination chain by clicking the destination chain component.
 
 <SelectSourceChain />
 
-### **4. Input Amount**
+### **5. Input Amount**
 
+With the Minerva bridge you can deposit variable amounts. Input the amount you would like to deposit into the 
+Minerva bridge. If you want to deposit the entire available balance simply click **Max** for a quick input. 
 
+<br />
 
-### **5. Select Deposit** 
+<DepositAmount />
+
+We now have all the inputs necessary to make a deposit. Click the **Deposit** button to proceed in confirming the 
+details of the transaction. 
+
+## Confirming Deposit Details 
+
+Upon clicking the **Deposit** button you will be presented with the details of your transaction. It is important to 
+review these transaction details to ensure they're accurate. 
+
+### **1. Verify Deposit Details**
+
+Review the transaction details of the deposit. Pay close attention to the destination chain and amount displayed. 
+
+<br />
+
+<ConfirmDeposit />
+
+### **2. Confirm Copied Note**
+
+Within the deposit confirmation view, you will need to confirm that you have copied the spend note. The spend note should 
+be kept in confidence as anyone who gains access to your spend note will be able to withdraw your funds from the 
+bridge. Your notes are stored locally as your transact through this application as well as encrypted on-chain for persistent storage.
+
+<br />
+
+<CopiedNote />
+
+Once you have confirmed that you have copied the spend note you may proceed to click **Wrap And Deposit** to initiate the transaction.
+
+### **3. Deposit In-Progress**
+
+Before the deposit transaction can be sent to the source chain selected we transition through the following stages:
+- Fetching transaction leaves
+- Generate zero knowledge proof
+- Confirm transaction with connected wallet 
+- Send transaction to selected source chain 
+
+You may observe the progress of each stage within the deposit in-progress view. If you would like to proceed with 
+an additional transaction you can click **New Transaction** and begin on your next transaction. The Minerva dApp 
+conveniently keeps a notification card with transaction details and progress on the right side to keep you informed 
+when the transaction is successful. 
+
+<br />
+
+<InprogessDeposit />
+
+### **4. Successful Deposit**
+
+When the deposit transaction is completed you can observe a successful confetti filled message in the notification card! 
+If you want to see the transaction in a block explorer, click on the **Successfully Deposited** link within the 
+notification card.
+
+<br />
+
+<SuccessDeposit />
