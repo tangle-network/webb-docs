@@ -1,7 +1,7 @@
 {
   "account": "Account",
-  "manage-notes": "Manage Notes",
   "deposit": "Deposit",
-  "transfer": "Transfer",
-  "withdraw": "Withdraw"
+  "manage-notes": "Manage Notes",
+  "withdraw": "Withdraw",
+  "transfer": "Transfer"
 }

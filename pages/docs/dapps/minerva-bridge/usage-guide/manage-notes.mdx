@@ -1,75 +1,69 @@
 ---
-title: Accounts on Minerva Bridge
-description: An overview of accounts on Minerva Bridge
+title: Managing Notes on Minerva Bridge
+description: An overview of how to manage your notes on Minerva Bridge
 ---
 
-import { ConnectWallet, ConnectedWallet, SelectSourceChain, WalletComponent, CreateNoteAccount, CreateNoteAccountPrompt, SignatureRequestPrompt } from '../../../../../components/images/bridge/usage-guide/account/Account'; 
+import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, ShieldedAssets } from '../../../../../components/images/bridge/usage-guide/manage-notes/Notes'; 
 
-# Accounts on Minerva Bridge
+# Managing Notes
 
-The Minerva Bridge dApp allows users to manage their notes with an easy to use interface. Prior to depositing 
-into the bridge, users are required to create a `NoteAccount`. The `NoteAccount` is easily created by having the user
-sign a message using their MetaMask account. More precisely, the MetaMask `NoteAccount` uses the first 32 bytes of the signed message 
-from the MetaMask account as the secret seed. It is with this keypair that users are able to fetch, spend, and manage their 
-notes right from the interface! 
+For each deposit, transfer, and withdraw a note is generated to represent a user balance. For Webb's Minerva Bridge 
+we make use of the UTXO model for handling user balances. Each note stores, the protocol name (e.g. `vanchor`), 
+private key, blinding value, merkle path index, chainID, public key, commitment, nullifer, a value that represents the 
+amount of funds that can be spent and effectively transferred to another user. 
 
-## Creating a MetaMask `NoteAccount`
+These notes are intended to be kept in confidence, anyone who gains access to your notes can withdraw your funds from 
+the Minerva Bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain 
+for persistent storage. The below guide provides a walkthrough of how to manage your notes. 
 
-The first step to interacting with the bridge dApp is to connect a MetaMask wallet and create a `NoteAccount` using your preferred 
-MetaMask account. The below steps outline how go about creating an `NoteAccount`.
+## Shielded Assets Table
 
-**1. Connect MetaMask Wallet**
-
-When you enter the bridge you will be greeted with the following screen. The bottom buttom indicates that you are required to 
-connect a wallet. 
-
-<ConnectWallet />
-
-**2. Select Source Chain**
-
-Upon selecting the 'Connect Wallet' button, you will be asked to select a source chain, 
-this will be the act as the source chain for the subsuqent deposit. 
+Once you have made deposit(s) into the Minerva Bridge we conveniently populate the Shielded Assets table with the 
+relevant data points of all your notes. 
 
 <br />
 
-<SelectSourceChain /> 
+<ShieldedAssets />
 
-**3. Select Wallet to Connect** 
+The columns of the above pictured table represent the following:
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool 
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in 
+- **Available Balance:** the total sum of available balance to be withdrawn across all your notes for that given shielded asset
+- **Note Found:** the sum of all notes for a given shielded asset 
+- **Action:** quick action shortcuts user can make use of for transfer and withdraw 
 
-After selecting the active chain, you will be prompted to connect to your desired wallet provider. 
-For the purposes of this walkthrough we will utilize MetaMask. Select MetaMask and wait to be prompted 
-by your MetaMask extension. If you do not have MetaMask installed, you will need to install it prior to 
-depositing into the bridge. 
+The shielded asset table provides you with a holistic view of your various shielded assets that exist within the Minerva Bridge. 
 
-<br />
+## Available Spend Notes Table
 
-<WalletComponent />
-
-**4. Creating Note Account** 
-
-Once connected to your MetaMask account, you will need to create a NoteAccount using the connect MetaMask account. 
-To do so, select the 'Create Note Account' button as shown below. 
-
-<br />
-
-<CreateNoteAccount />
-
-Once selected you will be prompted to agree to Webb's terms and conditions. Select the confirm checkbox, followed with 
-'Create Note Account' 
+For every transact you have done with the Minerva Bridge a note is generated. The Available Spend table provides a record of each 
+your notes so you can conveniently access and view these notes along with relevant data. Simply the table provides a list 
+of your own available spend notes. 
 
 <br />
 
-<CreateNoteAccountPrompt />
+<AvailableSpendNotes />
 
-**5. Sign MetaMask Message** 
+The columns of the above pictured table represent the following:
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool 
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in 
+- **Available Balance:** the available balance to be withdrawn for the given shielded asset
+- **Subsequent Deposits:** the number of deposits that occurred after your own deposit. The more deposits that occurred subsequently to your own the greater the privacy achieved. 
+- **Note:** the actual note representing your claim to your deposited amount 
 
-Upon selecting to 'Create Note Account', users will be prompted by MetaMask to sign a message from Webb. As mentioned above, 
-we use the first 32 bytes of the signed message from the MetaMask account as the secret seed to create the `NoteAccount` keypair. 
+The available spend table provides you with a holistic view of each of your available spend notes. 
+
+Selecting the chevron icon next to your note will display a dropdown menu for quick action shortcuts user can make use of for transfer and withdraw.
 
 <br />
 
-<SignatureRequestPrompt />
+<AvailableNotesQuick />
 
-Once signed, you will be able to 'Get Started' with interacting with Webb's Minerva Bridge! 
+To upload or download individual notes you can simply click on the **Manage** button to display a dropdown menu for 
+**Upload** or **Download** a given note. 
 
-Now that you have created a `NoteAccount` you can make a deposit into the bridge, view, and manage all your notes from the interface! 
+<AvailableNotesManage />
+
+The Minerva Bridge makes it incredibly easy to manage and review all your deposists through these two tables. 
