@@ -1,6 +1,61 @@
 ---
 title: Deposists on Minerva Bridge
-description: An overview of deposists on Minerva Bridge
+description: An overview of deposits on Minerva Bridge
 ---
 
-# Deposists on Minerva Bridge
+import { SelectSourceChain, TokenSelection, WrapDeposit, Deposit } from '../../../../../components/images/bridge/usage-guide/deposits/Deposits'; 
+
+# Deposit on Minerva Bridge
+
+You have created your `Note Account` and are now ready to make a deposit into the Minerva Bridge. You 
+will notice the **Deposit** button to be disabled initially. We must provide the details of our transaction 
+before we can deposit.
+
+<br />
+
+<Deposit />
+
+### **1. Select Source Chain**
+
+To get started first select a source chain. Ensure that you have an available balance on the chain that you 
+select.
+
+<br />
+
+<SelectSourceChain />
+
+### **2. Select Token**
+
+Once you have selected the source chain we will need to select what token to deposit into the bridge. Clicking 
+on the token selection component will display a list of tokens. 
+
+<br />
+
+<TokenSelection />
+
+### **3. Wrap and Deposit**
+
+Be advised that deposits into the bridge are wrapped into Webb based asset. For example, if you select `ETH` to be 
+deposited, it will be wrapped in a Webb wrapped asset (e.g. `webbETH`). This is required to facilitate bridging of 
+assets across different chains. It's important to note that you can unwrap and withdraw back into `ETH` on the destination 
+chain as long as there is liquidity available on that destination chain. 
+
+<br />
+
+<WrapDeposit />
+
+### **4. Select Destination Chain**
+
+You must specify a destination chain during the deposit flow. Be advised that you cannot change the destination chain 
+after the deposit transaction is made and its only on this destination chain that you can withdraw from. Select 
+the desired destination chain by clicking the destination chain component. 
+
+<br />
+
+<SelectSourceChain />
+
+### **4. Input Amount**
+
+
+
+### **5. Select Deposit** 
