@@ -11,14 +11,14 @@ const SITE_ROOT = "https://docs.webb.tools";
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const theme = {
-  project: {
-    icon: Github,
-  },
-  chat : {
-    icon: Discord,
-  },
+  // project: {
+  //   icon: Github,
+  // },
+  // chat : {
+  //   icon: Discord,
+  // },
   docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/db/docs-migration-v1",
-  getNextSeoProps: function SEO() {
+  useNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();
 
@@ -98,7 +98,15 @@ const theme = {
   editLink: {
     text: "Edit this page on GitHub",
   },
-  navbar: Navigation,
+  navbar: {
+    component: Navigation,
+    extraContent: (
+      <>
+        <Github />
+        <Discord />
+      </>
+    ),
+  },
   footer: {
     component: Footer,
   },
