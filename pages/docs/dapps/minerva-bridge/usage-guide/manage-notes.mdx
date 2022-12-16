@@ -3,57 +3,59 @@ title: Managing Notes on Minerva Bridge
 description: An overview of how to manage your notes on Minerva Bridge
 ---
 
-import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, ShieldedAssets } from '../../../../../components/images/bridge/usage-guide/manage-notes/Notes'; 
+import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, ShieldedAssets } from '../../../../../components/images/bridge/usage-guide/manage-notes/Notes';
 
 # Managing Notes
 
-For each deposit, transfer, and withdraw a note is generated to represent a user balance. For Webb's Minerva Bridge 
-we make use of the UTXO model for handling user balances. Each note stores, the protocol name (e.g. `vanchor`), 
-private key, blinding value, merkle path index, chainID, public key, commitment, nullifer, a value that represents the 
-amount of funds that can be spent and effectively transferred to another user. 
+For each deposit, transfer, and withdraw a note is generated to represent a user balance. For Webb's Minerva Bridge
+we make use of the UTXO model for handling user balances. Each note stores, the protocol name (e.g. `vanchor`),
+private key, blinding value, merkle path index, chainID, public key, commitment, nullifer, a value that represents the
+amount of funds that can be spent and effectively transferred to another user.
 
-These notes are intended to be kept in confidence, anyone who gains access to your notes can withdraw your funds from 
-the Minerva Bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain 
-for persistent storage. The below guide provides a walkthrough of how to manage your notes. 
+These notes are intended to be kept in confidence, anyone who gains access to your notes can withdraw your funds from
+the Minerva Bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain
+for persistent storage. The below guide provides a walkthrough of how to manage your notes.
 
 ## Shielded Assets Table
 
-Once you have made deposit(s) into the Minerva Bridge we conveniently populate the Shielded Assets table with the 
-relevant data points of all your notes. 
+Once you have made deposit(s) into the Minerva Bridge we conveniently populate the Shielded Assets table with the
+relevant data points of all your notes.
 
 <br />
 
 <ShieldedAssets />
 
 The columns of the above pictured table represent the following:
-- **Chain:** the destination chain that the shielded assets may be withdrawn from
-- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool 
-- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in 
-- **Available Balance:** the total sum of available balance to be withdrawn across all your notes for that given shielded asset
-- **Note Found:** the sum of all notes for a given shielded asset 
-- **Action:** quick action shortcuts user can make use of for transfer and withdraw 
 
-The shielded asset table provides you with a holistic view of your various shielded assets that exist within the Minerva Bridge. 
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
+- **Available Balance:** the total sum of available balance to be withdrawn across all your notes for that given shielded asset
+- **Note Found:** the sum of all notes for a given shielded asset
+- **Action:** quick action shortcuts user can make use of for transfer and withdraw
+
+The shielded asset table provides you with a holistic view of your various shielded assets that exist within the Minerva Bridge.
 
 ## Available Spend Notes Table
 
-For every transact you have done with the Minerva Bridge a note is generated. The Available Spend table provides a record of each 
-your notes so you can conveniently access and view these notes along with relevant data. Simply the table provides a list 
-of your own available spend notes. 
+For every transact you have done with the Minerva Bridge a note is generated. The Available Spend table provides a record of each
+your notes so you can conveniently access and view these notes along with relevant data. Simply the table provides a list
+of your own available spend notes.
 
 <br />
 
 <AvailableSpendNotes />
 
 The columns of the above pictured table represent the following:
-- **Chain:** the destination chain that the shielded assets may be withdrawn from
-- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool 
-- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in 
-- **Available Balance:** the available balance to be withdrawn for the given shielded asset
-- **Subsequent Deposits:** the number of deposits that occurred after your own deposit. The more deposits that occurred subsequently to your own the greater the privacy achieved. 
-- **Note:** the actual note representing your claim to your deposited amount 
 
-The available spend table provides you with a holistic view of each of your available spend notes. 
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
+- **Available Balance:** the available balance to be withdrawn for the given shielded asset
+- **Subsequent Deposits:** the number of deposits that occurred after your own deposit. The more deposits that occurred subsequently to your own the greater the privacy achieved.
+- **Note:** the actual note representing your claim to your deposited amount
+
+The available spend table provides you with a holistic view of each of your available spend notes.
 
 Selecting the chevron icon next to your note will display a dropdown menu for quick action shortcuts user can make use of for transfer and withdraw.
 
@@ -61,9 +63,9 @@ Selecting the chevron icon next to your note will display a dropdown menu for qu
 
 <AvailableNotesQuick />
 
-To upload or download individual notes you can simply click on the **Manage** button to display a dropdown menu for 
-**Upload** or **Download** a given note. 
+To upload or download individual notes you can simply click on the **Manage** button to display a dropdown menu for
+**Upload** or **Download** a given note.
 
 <AvailableNotesManage />
 
-The Minerva Bridge makes it incredibly easy to manage and review all your deposists through these two tables. 
+The Minerva Bridge makes it incredibly easy to manage and review all your deposists through these two tables.

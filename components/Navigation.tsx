@@ -5,7 +5,7 @@ function Navigation(props) {
   const router = useRouter();
 
   // items last to override the default
-  return <Navbar {...props} />
+  return <Navbar {...props} />;
 }
 
 export default Navigation;

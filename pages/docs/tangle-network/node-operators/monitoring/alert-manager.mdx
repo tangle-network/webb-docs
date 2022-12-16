@@ -9,17 +9,17 @@ import Callout from "../../../../../components/Callout";
 # Alert Manager Setup
 
 The following is a guide outlining the steps to setup AlertManager to send alerts when a Tangle node or DKG is being disrupted. If you do not have Tangle node setup yet, please
-review the __How to run an Tangle node__ setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). 
+review the **How to run an Tangle node** setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node).
 
-In this guide we will configure the following modules to send alerts from a running Tangle node. 
+In this guide we will configure the following modules to send alerts from a running Tangle node.
 
 - **Alert Manager** listens to Prometheus metrics and pushes an alert as soon as a threshold is crossed (CPU % usage for example).
 
 ## What is Alert Manager?
 
-The Alertmanager handles alerts sent by client applications such as the Prometheus server. It takes care of deduplicating, grouping, 
-and routing them to the correct receiver integration such as email, PagerDuty, or OpsGenie. It also takes care of silencing and 
-inhibition of alerts. To learn more about Alertmanager, please 
+The Alertmanager handles alerts sent by client applications such as the Prometheus server. It takes care of deduplicating, grouping,
+and routing them to the correct receiver integration such as email, PagerDuty, or OpsGenie. It also takes care of silencing and
+inhibition of alerts. To learn more about Alertmanager, please
 visit the official docs site [here](https://prometheus.io/docs/alerting/latest/alertmanager/).
 
 ### Getting Started
@@ -57,7 +57,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-arm64.tar.gz &&
     ```
 
-    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/prometheus/releases). 
+    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/prometheus/releases).
 
   </Tab>
   <Tab>
@@ -77,6 +77,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
 **2. Extract the Downloaded Files:**
 
 Run the following command:
+
 ```
 tar xvf alertmanager-*.tar.gz
 ```
@@ -114,6 +115,7 @@ sudo mkdir /var/lib/alertmanager
 We need to give our user permissions to access these directories:
 
 **alertManager**:
+
 ```
 sudo chown alertmanager:alertmanager /etc/alertmanager/ -R &&
 sudo chown alertmanager:alertmanager /var/lib/alertmanager/ -R &&
@@ -124,7 +126,7 @@ sudo chown alertmanager:alertmanager /usr/local/bin/amtool
 **7. Finally, let's clean up these directories:**
 
 ```
-rm -rf ./alertmanager* 
+rm -rf ./alertmanager*
 ```
 
 Great! You have now installed and setup your environment. The next series of steps will be configuring the service.
@@ -144,7 +146,7 @@ sudo touch /etc/prometheus/rules.yml
 sudo nano /etc/prometheus/rules.yml
 ```
 
-We are going to create 2 basic rules that will trigger an alert in case the instance is down or the CPU usage crosses 80%. 
+We are going to create 2 basic rules that will trigger an alert in case the instance is down or the CPU usage crosses 80%.
 You can create all kinds of rules that can triggered, for an exhausted list of rules see our rules list [here](https://github.com/webb-tools/tangle/blob/main/monitoring/prometheus/rules.yml).
 
 Add the following lines and save the file:
@@ -161,7 +163,7 @@ groups:
         annotations:
           summary: "Instance $labels.instance down"
           description: "[{{ $labels.instance }}] of job [{{ $labels.job }}] has been down for more than 1 minute."
- 
+
       - alert: HostHighCpuLoad
         expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
         for: 0m
@@ -234,19 +236,19 @@ receivers:
     auth_identity: 'EMAIL-ADDRESS'
     auth_password: 'EMAIL-ADDRESS'
     send_resolved: true
- 
- 
+
+
 # ********************************************************************************************************************************************
 # Alert Manager for Slack Notifications  *
 # ********************************************************************************************************************************************
- 
+
  global:
    resolve_timeout: 1m
    slack_api_url: 'INSERT SLACK API URL'
- 
+
  route:
    receiver: 'slack-notifications'
- 
+
  receivers:
  - name: 'slack-notifications'
    slack_configs:
@@ -277,7 +279,6 @@ receivers:
 
 Of course, you have to change the email addresses and the auth_password with the one generated from Google previously.
 
-
 ## Service Setup
 
 ### Alert manager
@@ -296,7 +297,7 @@ Add the following lines:
   Description=AlertManager Server Service
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=alertmanager
   Group=alertmanager
@@ -306,7 +307,7 @@ Add the following lines:
   --storage.path /var/lib/alertmanager \
   --web.external-url=http://localhost:9093 \
   --cluster.advertise-address='0.0.0.0:9093'
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -322,6 +323,7 @@ sudo systemctl daemon-reload
 Next, we will want to start the alertManager service:
 
 **alertManager**:
+
 ```
 sudo systemctl start alertmanager.service
 ```
@@ -329,6 +331,7 @@ sudo systemctl start alertmanager.service
 And check that they are working fine:
 
 **alertManager**::
+
 ```
 systemctl status alertmanager.service
 ```
@@ -336,8 +339,9 @@ systemctl status alertmanager.service
 If everything is working adequtely, activate the services!
 
 **alertManager**:
+
 ```
 sudo systemctl enable alertmanager.service
 ```
 
-Amazing! We have now successfully added alert monitoring for our Tangle node! 
+Amazing! We have now successfully added alert monitoring for our Tangle node!

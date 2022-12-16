@@ -3,25 +3,25 @@ title: Accounts on Minerva Bridge
 description: An overview of accounts on Minerva Bridge
 ---
 
-import { ConnectWallet, ConnectedWallet, SelectSourceChain, WalletComponent, CreateNoteAccount, CreateNoteAccountPrompt, SignatureRequestPrompt, AccountCongrats } from '../../../../../components/images/bridge/usage-guide/account/Account'; 
+import { ConnectWallet, ConnectedWallet, SelectSourceChain, WalletComponent, CreateNoteAccount, CreateNoteAccountPrompt, SignatureRequestPrompt, AccountCongrats } from '../../../../../components/images/bridge/usage-guide/account/Account';
 
 # Accounts on Minerva Bridge
 
-The Minerva Bridge dApp allows users to manage their notes with an easy to use interface. Prior to depositing 
+The Minerva Bridge dApp allows users to manage their notes with an easy to use interface. Prior to depositing
 into the bridge, users are required to create a `NoteAccount`. The `NoteAccount` is easily created by having the user
-sign a message using their MetaMask account. More precisely, the MetaMask `NoteAccount` uses the first 32 bytes of the signed message 
-from the MetaMask account as the secret seed. It is with this keypair that users are able to fetch, spend, and manage their 
-notes right from the interface! 
+sign a message using their MetaMask account. More precisely, the MetaMask `NoteAccount` uses the first 32 bytes of the signed message
+from the MetaMask account as the secret seed. It is with this keypair that users are able to fetch, spend, and manage their
+notes right from the interface!
 
 ## Creating a `NoteAccount` with MetaMask
 
-The first step to interacting with the bridge dApp is to connect a MetaMask wallet and create a `NoteAccount` using your preferred 
+The first step to interacting with the bridge dApp is to connect a MetaMask wallet and create a `NoteAccount` using your preferred
 MetaMask account. The below steps outline how go about creating an `NoteAccount`.
 
 ### **1. Connect MetaMask Wallet**
 
-When you enter the bridge you will be greeted with the following screen. The bottom buttom indicates that you are required to 
-connect a wallet. 
+When you enter the bridge you will be greeted with the following screen. The bottom buttom indicates that you are required to
+connect a wallet.
 
 <br/>
 
@@ -29,53 +29,53 @@ connect a wallet.
 
 ### **2. Select Source Chain**
 
-Upon selecting the 'Connect Wallet' button, you will be asked to select a source chain, 
-this will be the act as the source chain for the subsuqent deposit. 
+Upon selecting the 'Connect Wallet' button, you will be asked to select a source chain,
+this will be the act as the source chain for the subsuqent deposit.
 
 <br />
 
-<SelectSourceChain /> 
+<SelectSourceChain />
 
-### **3. Select Wallet to Connect** 
+### **3. Select Wallet to Connect**
 
-After selecting the active chain, you will be prompted to connect to your desired wallet provider. 
-For the purposes of this walkthrough we will utilize MetaMask. Select MetaMask and wait to be prompted 
-by your MetaMask extension. If you do not have MetaMask installed, you will need to install it prior to 
-depositing into the bridge. 
+After selecting the active chain, you will be prompted to connect to your desired wallet provider.
+For the purposes of this walkthrough we will utilize MetaMask. Select MetaMask and wait to be prompted
+by your MetaMask extension. If you do not have MetaMask installed, you will need to install it prior to
+depositing into the bridge.
 
 <br />
 
 <WalletComponent />
 
-### **4. Creating Note Account** 
+### **4. Creating Note Account**
 
-Once connected to your MetaMask account, you will need to create a NoteAccount using the connect MetaMask account. 
-To do so, select the 'Create Note Account' button as shown below. 
+Once connected to your MetaMask account, you will need to create a NoteAccount using the connect MetaMask account.
+To do so, select the 'Create Note Account' button as shown below.
 
 <br />
 
 <CreateNoteAccount />
 
-Once selected you will be prompted to agree to Webb's terms and conditions. Select the confirm checkbox, followed with 
-'Create Note Account' 
+Once selected you will be prompted to agree to Webb's terms and conditions. Select the confirm checkbox, followed with
+'Create Note Account'
 
 <br />
 
 <CreateNoteAccountPrompt />
 
-### **5. Sign MetaMask Message** 
+### **5. Sign MetaMask Message**
 
-Upon selecting to 'Create Note Account', users will be prompted by MetaMask to sign a message from Webb. As mentioned above, 
-we use the first 32 bytes of the signed message from the MetaMask account as the secret seed to create the `NoteAccount` keypair. 
+Upon selecting to 'Create Note Account', users will be prompted by MetaMask to sign a message from Webb. As mentioned above,
+we use the first 32 bytes of the signed message from the MetaMask account as the secret seed to create the `NoteAccount` keypair.
 
 <br />
 
 <SignatureRequestPrompt />
 
-Once signed, you will have successfully created your Webb Note Account!! 
+Once signed, you will have successfully created your Webb Note Account!!
 
 <br/>
 
 <AccountCongrats />
 
-Now that you have created a `NoteAccount` you can make a deposit into the bridge, view, and manage all your notes from the interface! 
+Now that you have created a `NoteAccount` you can make a deposit into the bridge, view, and manage all your notes from the interface!

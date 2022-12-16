@@ -1,16 +1,16 @@
-import Image from 'next/image'
-import DKGKeygenLight from './dkg_keygen_diagram_light.png';
-import DKGKeygenDark from './dkg_keygen_diagram_dark.png';
+import Image from "next/image";
+import DKGKeygenLight from "./dkg_keygen_diagram_light.png";
+import DKGKeygenDark from "./dkg_keygen_diagram_dark.png";
 
-export default function DKGKeygenImages (props) {
+export default function DKGKeygenImages(props) {
   return (
     <>
-    <div className="block dark:hidden">
-      <Image src={DKGKeygenLight} alt="Dkg light" />
-    </div>
-    <div className="hidden dark:block">
-      <Image src={DKGKeygenDark}alt="Dkg dark" />
-    </div>
+      <div className="block dark:hidden">
+        <Image src={DKGKeygenLight} alt="Dkg light" />
+      </div>
+      <div className="hidden dark:block">
+        <Image src={DKGKeygenDark} alt="Dkg dark" />
+      </div>
     </>
-  )
-};
+  );
+}

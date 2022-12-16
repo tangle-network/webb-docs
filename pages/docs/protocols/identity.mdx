@@ -16,6 +16,7 @@ In our version of the identity protocol we will leverage Webb’s technology to 
 The Semaphore protocol allows us to create arbitrary merkle-trees to represent our identity sets. Each leaf in the merkle tree is a 32-bytes identity commitment. A user can prove membership in the Semaphore identity set by proving that they know the secret preimage to the leaf commitment and its corresponding merkle path. In Webb's extension protocol, a user can be a member of one-of-many merkle trees on potentially distinct blockchains. In this setting, the user can prove on any of the chains their membership in one of them, enabling cross-chain proofs of identities and interactions on top.
 
 Below we document the Identity data structure.
+
 - Each identity is composed of a pair of random field elements: (`identityNullifier`, `identityTrapdoor`).
 - The `identitySecret` is the `Poseidon(identityNullifier, identityTrapdoor)`.
 - The `identityCommitment` is the `Poseidon(identitySecret)`.
@@ -56,6 +57,7 @@ The constraints required are:
 One interesting possibility on how to use Semaphore is to use its contract just to manage groups, while managing circuit and double spending prevention logic on another repo. Example: `https://github.com/webb-tools/protocol-solidity/pull/182`
 
 We have a Semaphore contract deployed at the following addresses.
+
 ```
 Ethereum testnet: TBD
 Arbitrum testnet: TBD
@@ -106,6 +108,7 @@ await semaphore.addMembers(groupId, members);
 Your group is ready on the semaphore contract. Now you should just point its interface to the correct address and group ID.
 
 ## Developer Usage: Developing semaphore extensions
+
 Development of semaphore extensions should be done under `packages/semaphore/contracts/extensions`.
 
 The main contracts you should understand the interfaces in order to develop extensions are `packages/semaphore/contracts/base/SemaphoreCore.sol` and `packages/semaphore/contracts/base/SemaphoreGroups.sol`.
@@ -123,10 +126,13 @@ For API documentation on the contracts, go onto the `semaphore-anchor/packages/c
 ## Research
 
 ### New nullifier schemes
+
 There are new nullifier schemes that may be more attractive for bootstrapping identity sets on a given chain. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255]() details a nullifier scheme based on ECDSA signatures. This would open up the possibility of creating cross-chain identity sets using only the underlying user's EVM address. These new schemes can be integrated in a modular manner without affecting the bridging mechanism that bridges identity sets together.
 
 ### New protocol integrations
+
 Integrating with existing identity protocols is usually a straightforward manner. We simply take the core zero-knowledge circuit and make it a one-of-many merkle tree membership proof instead of a single merkle tree membership proof. Ideas and protocols we are interested to integrate with are:
+
 - **Sismo** for cross-chain zkBadges.
 - **Interrep** for cross-chain reputation.
 

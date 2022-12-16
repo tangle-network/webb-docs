@@ -7,13 +7,13 @@ description: A directory of Webb related terms and definitions.
 
 This glossary defines and explains Webb ecosystem specific concepts and terminology.
 
-### accepted proposal 
+### accepted proposal
 
-A proposal in which voting has concluded affirmatively, but the signature remains pending. 
+A proposal in which voting has concluded affirmatively, but the signature remains pending.
 
 ### acknowledge proposal
 
-A proposal that has been voted for in favour. 
+A proposal that has been voted for in favour.
 
 ### active DKG public key
 
@@ -23,7 +23,7 @@ The public key of the DKG protocol that is currently active.
 
 A validator (or validators) that a nominator has selected to nominate and is actively validating this era. The nominator is placing their stake behind this validator for this era and will potentially receive staking rewards in return for doing so.
 
-### active proposal 
+### active proposal
 
 A proposal in which voting is ongoing.
 
@@ -45,7 +45,7 @@ The [nodes](https://docs.substrate.io/v3/getting-started/glossary/#node) that 
 
 A collection of data, such as transactions, that together indicate a state transition of the blockchain.
 
-### block explorer 
+### block explorer
 
 An application that allows a user to explore the different blocks on a blockchain.
 
@@ -79,7 +79,7 @@ An epoch is a time duration in the BABE protocol that is broken into smaller tim
 
 A (whole) number of sessions, which is the period that the validator set (and each validator's active nominator set) is recalculated and where rewards are paid out.
 
-### extrinisic 
+### extrinisic
 
 State changes that come from the outside world, i.e. they are not part of the system itself. Extrinsics can take two forms, "inherents" and "transactions".
 
@@ -95,11 +95,11 @@ Every `LinkableAnchor` stores its `neighborRoots`, a mapping containing the m
 
 The public key of the DKG protocol that will be active after the next authority set change.
 
-### next session 
+### next session
 
 This indicates that the validator will be a member of the active set in the next session.
 
-### proposal header 
+### proposal header
 
 The proposal header is the first 40 bytes of the proposal. It contains the following:
 • The `ResourceId` which is a 32 byte value that uniquely identifies the target system.
@@ -134,7 +134,7 @@ The length of time within a session that a key refresh protocol will be initiate
 
 A proposal in which voting has resulted in a non-passage.
 
-### relayer 
+### relayer
 
 Relayers are oracle systems that listens to external Events, and posts this data back on chain. In Webb Protocol relayer watches for the state of anchors on bridge. This information is then used to update the anchors, acting as proposer of proposals.
 
@@ -150,7 +150,7 @@ A system-level origin in Substrate. This is the highest privilege level and can
 
 The state transition function of a blockchain. It defines a valid algorithm for determining the state of the next block given the previous state.
 
-### session 
+### session
 
 A session is a Substrate implementation term for a period that has a constant set of validators. Validators can only join or exit the validator set at a session change.
 
@@ -158,11 +158,11 @@ A session is a Substrate implementation term for a period that has a constant se
 
 The `SignatureBridge` contract allows for both fixed denomination, private bridging and standard, public bridging of assets. The private bridging functionality uses an `AnchorHandler` to track the state of connected chains while the standard bridging uses an `ERC20Handler`. The Bridge's state is is maintained by a set of relayers through voting. These relayers vote to update the latest merkle roots of connected anchors in the case of private bridging, and to distribute bridged assets in the case of public bridging.
 
-### signature threshold 
+### signature threshold
 
 The ‘t’ in (t-out-of-n) threshold signatures used in the DKG signing system. Required of DKG authorities to generate signatures.
 
-### signed proposal 
+### signed proposal
 
 A proposal in which voting has concluded affirmatively, and a signature has been made.
 
@@ -170,15 +170,15 @@ A proposal in which voting has concluded affirmatively, and a signature has been
 
 A cryptosystem that protects information by encrypting it and distributing it among a cluster of fault-tolerant computers. The message is encrypted using a public key, and the corresponding private key is shared among the participating parties. With a threshold cryptosystem, in order to decrypt an encrypted message or to sign a message, several parties (more than some threshold number) must cooperate in the decryption or signature protocol.
 
-### transaction 
+### transaction
 
 An extrinsic that is signed. Transactions are gossiped on the network and incur a transaction fee. Transactions are "provably true", unlike inherents. For example, one can prove that Alice wants to send funds to Bob by the fact that she signed a transfer-funds message with her private key.
 
-### unsigned proposal 
+### unsigned proposal
 
 A Proposal that is unsigned and is ready to be signed by the DKG authorities
 
-### unsigned queue proposal 
+### unsigned queue proposal
 
 A queue of unsigned proposals that are ready for signing.
 
@@ -187,7 +187,7 @@ A queue of unsigned proposals that are ready for signing.
 The unspent transaction output (UTXO) model for ledger-keeping, which is most notably used by the Bitcoin blockchain, is logically more similar to a cash-based system than Ethereum's account model. In a cash-based system, a finite set of discrete units (cash) represents value. In a **UTXO**
  system, entities may only spend the discrete units of value of which they have ownership. This means that each transaction consists of some set of "inputs" (the collection of cash that is used to pay for the transaction) and some set of "outputs" (the change that is leftover).
 
-### validator 
+### validator
 
 A node that secures the Relay Chain by staking, validating proofs from collators on parachains and voting on consensus along with other validators.
 

@@ -24,8 +24,7 @@ export const RepoArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: GitHubIcon,
-          description:
-            "Webb Protocol implementation in Solidity.",
+          description: "Webb Protocol implementation in Solidity.",
           name: "protocol-solidity",
         }}
         href="https://github.com/webb-tools/protocol-solidity"
@@ -33,8 +32,7 @@ export const RepoArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: GitHubIcon,
-          description:
-            "Webb protocol implementation in Substrate.",
+          description: "Webb protocol implementation in Substrate.",
           name: "protocol-substrate",
         }}
         href="https://github.com/webb-tools/protocol-substrate"
@@ -42,8 +40,7 @@ export const RepoArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: GitHubIcon,
-          description:
-            "Monorepo for Webb dApps",
+          description: "Monorepo for Webb dApps",
           name: "webb-dapp",
         }}
         href="https://github.com/webb-tools/protocol-solidity"
@@ -51,8 +48,7 @@ export const RepoArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: GitHubIcon,
-          description:
-            "The Webb Relayer Network.",
+          description: "The Webb Relayer Network.",
           name: "relayer",
         }}
         href="https://github.com/webb-tools/protocol-substrate"

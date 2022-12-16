@@ -3,7 +3,7 @@ title: Withdrawals on Minerva Bridge
 description: An overview of Withdrawls on Minerva Bridge
 ---
 
-import {  } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw'; 
+import { Withdraw, WithdrawToken, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawFixedAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
 
 # Withdrawals on Minerva Bridge
 
@@ -11,114 +11,98 @@ This guide will provide a step-by-step process to assist in making a deposit on 
 
 ## Withdrawal Inputs
 
-You have created your `Note Account` and are now ready to make a deposit into the Minerva Bridge. You 
-will notice the **Deposit** button to be disabled initially. We must provide the details of our transaction 
+You have created your `Note Account` and are now ready to make a deposit into the Minerva Bridge. You
+will notice the **Deposit** button to be disabled initially. We must provide the details of our transaction
 before we can deposit.
 
 <br />
 
-<Deposit />
+<Withdraw />
 
 ### **1. Select Source Chain**
 
-To get started first select a source chain. Ensure that you have an available balance on the chain that you 
+To get started first select a source chain. Ensure that you have an available balance on the chain that you
 select.
 
 <br />
 
-<SelectSourceChain />
-
 ### **2. Select Token**
 
-Once you have selected the source chain we will need to select what token to deposit into the bridge. Clicking 
-on the token selection component will display a list of tokens. 
+Once you have selected the source chain we will need to select what token to deposit into the bridge. Clicking
+on the token selection component will display a list of tokens.
 
 <br />
-
-<TokenSelection />
 
 ### **3. Wrap and Deposit**
 
-Be advised that deposits into the bridge are wrapped into Webb based asset. For example, if you select `ETH` to be 
-deposited, it will be wrapped in a Webb wrapped asset (e.g. `webbETH`). This is required to facilitate bridging of 
-assets across different chains. It's important to note that you can unwrap and withdraw back into `ETH` on the destination 
-chain as long as there is liquidity available on that destination chain. 
+Be advised that deposits into the bridge are wrapped into Webb based asset. For example, if you select `ETH` to be
+deposited, it will be wrapped in a Webb wrapped asset (e.g. `webbETH`). This is required to facilitate bridging of
+assets across different chains. It's important to note that you can unwrap and withdraw back into `ETH` on the destination
+chain as long as there is liquidity available on that destination chain.
 
 <br />
-
-<WrapDeposit />
 
 ### **4. Select Destination Chain**
 
-You must specify a destination chain during the deposit flow. Be advised that you cannot change the destination chain 
-after the deposit transaction is made and its only on this destination chain that you can withdraw from. Select 
-the desired destination chain by clicking the destination chain component. 
+You must specify a destination chain during the deposit flow. Be advised that you cannot change the destination chain
+after the deposit transaction is made and its only on this destination chain that you can withdraw from. Select
+the desired destination chain by clicking the destination chain component.
 
 <br />
-
-<SelectSourceChain />
 
 ### **5. Input Amount**
 
-With the Minerva bridge you can deposit variable amounts. Input the amount you would like to deposit into the 
-Minerva bridge. If you want to deposit the entire available balance simply click **Max** for a quick input. 
+With the Minerva bridge you can deposit variable amounts. Input the amount you would like to deposit into the
+Minerva bridge. If you want to deposit the entire available balance simply click **Max** for a quick input.
 
 <br />
 
-<DepositAmount />
+We now have all the inputs necessary to make a deposit. Click the **Deposit** button to proceed in confirming the
+details of the transaction.
 
-We now have all the inputs necessary to make a deposit. Click the **Deposit** button to proceed in confirming the 
-details of the transaction. 
+## Confirming Deposit Details
 
-## Confirming Deposit Details 
-
-Upon clicking the **Deposit** button you will be presented with the details of your transaction. It is important to 
-review these transaction details to ensure they're accurate. 
+Upon clicking the **Deposit** button you will be presented with the details of your transaction. It is important to
+review these transaction details to ensure they're accurate.
 
 ### **1. Verify Deposit Details**
 
-Review the transaction details of the deposit. Pay close attention to the destination chain and amount displayed. 
+Review the transaction details of the deposit. Pay close attention to the destination chain and amount displayed.
 
 <br />
-
-<ConfirmDeposit />
 
 ### **2. Confirm Copied Note**
 
-Within the deposit confirmation view, you will need to confirm that you have copied the spend note. The spend note should 
-be kept in confidence as anyone who gains access to your spend note will be able to withdraw your funds from the 
+Within the deposit confirmation view, you will need to confirm that you have copied the spend note. The spend note should
+be kept in confidence as anyone who gains access to your spend note will be able to withdraw your funds from the
 bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
 
 <br />
-
-<CopiedNote />
 
 Once you have confirmed that you have copied the spend note you may proceed to click **Wrap And Deposit** to initiate the transaction.
 
 ### **3. Withdrawal In-Progress**
 
 Before the deposit transaction can be sent to the source chain selected we transition through the following stages:
+
 - Fetching transaction leaves
 - Generate zero knowledge proof
-- Confirm transaction with connected wallet 
-- Send transaction to selected source chain 
+- Confirm transaction with connected wallet
+- Send transaction to selected source chain
 
-You may observe the progress of each stage within the deposit in-progress view. If you would like to proceed with 
-an additional transaction you can click **New Transaction** and begin on your next transaction. The Minerva dApp 
-conveniently keeps a notification card with transaction details and progress on the right side to keep you informed 
-when the transaction is successful. 
+You may observe the progress of each stage within the deposit in-progress view. If you would like to proceed with
+an additional transaction you can click **New Transaction** and begin on your next transaction. The Minerva dApp
+conveniently keeps a notification card with transaction details and progress on the right side to keep you informed
+when the transaction is successful.
 
 <br />
 
-<InprogessDeposit />
+<WithdrawInProgress />
 
 ### **4. Successful Withdraw**
 
-When the deposit transaction is completed you can observe a successful confetti filled message in the notification card! 
-If you want to see the transaction in a block explorer, click on the **Successfully Deposited** link within the 
+When the deposit transaction is completed you can observe a successful confetti filled message in the notification card!
+If you want to see the transaction in a block explorer, click on the **Successfully Deposited** link within the
 notification card.
 
 <br />
-
-<SuccessDeposit />
-

@@ -3,7 +3,7 @@ import {
   CubeIcon,
   CloudIcon,
   EyeIcon,
-  ServerIcon
+  ServerIcon,
 } from "@heroicons/react/outline";
 import { GitHubIcon, TwitterIcon, DiscordIcon, TelegramIcon } from "./Icons";
 import { DetailedFeatureLink } from "./Feature";
@@ -11,15 +11,15 @@ import { DetailedFeatureLink } from "./Feature";
 export const QuickStartArea = () => {
   return (
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
-    <DetailedFeatureLink
-      feature={{
-        Icon: GitHubIcon,
-        description: `Check out our open source repos on GitHub. Open a pull request or an issue!`,
-        name: "Contribute to Webb Ecosystem.",
-      }}
-      href="https://github.com/webb-tools"
-    ></DetailedFeatureLink>
-    <DetailedFeatureLink
+      <DetailedFeatureLink
+        feature={{
+          Icon: GitHubIcon,
+          description: `Check out our open source repos on GitHub. Open a pull request or an issue!`,
+          name: "Contribute to Webb Ecosystem.",
+        }}
+        href="https://github.com/webb-tools"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
         feature={{
           Icon: DiscordIcon,
           description: `Interested in the latest announcements? Join our Discord server. `,
@@ -34,7 +34,8 @@ export const QuickStartArea = () => {
           name: "Join our Telegram group.",
         }}
         href="https://t.me/webbprotocol"
-      /><DetailedFeatureLink
+      />
+      <DetailedFeatureLink
         feature={{
           Icon: TwitterIcon,
           description: `Looking to keep up with our latest announcements and updates? Follow us on Twitter. `,
@@ -42,7 +43,7 @@ export const QuickStartArea = () => {
         }}
         href="https://twitter.com/webbprotocol"
       />
-  </div>
+    </div>
   );
 };
 

@@ -4,22 +4,22 @@ import {
   EyeIcon,
   ServerIcon,
   BookOpenIcon,
-  BeakerIcon
+  BeakerIcon,
 } from "@heroicons/react/outline";
 import { DetailedFeatureLink } from "./Feature";
 
 export const UseCasesArea = () => {
   return (
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
-    <DetailedFeatureLink
-      feature={{
-        Icon: CubeIcon,
-        description: `Powers the ability to privately move and transfer assets between blockchains.`,
-        name: "Connected Shielded Pool Protocols",
-      }}
-      href=""
-    ></DetailedFeatureLink>
-    <DetailedFeatureLink
+      <DetailedFeatureLink
+        feature={{
+          Icon: CubeIcon,
+          description: `Powers the ability to privately move and transfer assets between blockchains.`,
+          name: "Connected Shielded Pool Protocols",
+        }}
+        href=""
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
         feature={{
           Icon: EyeIcon,
           description: `Create identities and connect groups between blockchains.`,
@@ -34,7 +34,8 @@ export const UseCasesArea = () => {
           name: "General Messaging Passing & Public Bridges",
         }}
         href=""
-      /><DetailedFeatureLink
+      />
+      <DetailedFeatureLink
         feature={{
           Icon: CloudIcon,
           description: `Leverage the Webb TSS DKG to sign payloads from data feeds for financial, identity, and other applications`,
@@ -42,7 +43,7 @@ export const UseCasesArea = () => {
         }}
         href=""
       />
-  </div>
+    </div>
   );
 };
 
@@ -88,15 +89,15 @@ export const ParticipateArea = () => {
 export const TestNetworkArea = () => {
   return (
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
-    <DetailedFeatureLink
-      feature={{
-        Icon: ServerIcon,
-        description: `Standalone AranaAlpha Network runs without a relay chain.`,
-        name: "Standalone AranaAlpha TestNet",
-      }}
-      href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Farana-alpha-1.webb.tools#/explorer"
-    ></DetailedFeatureLink>
-    <DetailedFeatureLink
+      <DetailedFeatureLink
+        feature={{
+          Icon: ServerIcon,
+          description: `Standalone AranaAlpha Network runs without a relay chain.`,
+          name: "Standalone AranaAlpha TestNet",
+        }}
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Farana-alpha-1.webb.tools#/explorer"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
           description: `Tangle Parachain TestNet runs with a self hosted relay chain.`,
@@ -104,6 +105,6 @@ export const TestNetworkArea = () => {
         }}
         href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle.webb.tools#/explorer"
       />
-  </div>
+    </div>
   );
 };

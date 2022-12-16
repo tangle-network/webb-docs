@@ -9,9 +9,9 @@ import Callout from "../../../../../components/Callout";
 # Loki Log Management
 
 The following is a guide outlining the steps to setup Loki for log management of a Tangle node. If you do not have Tangle node setup yet, please
-review the How to run an Tangle node setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). 
+review the How to run an Tangle node setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node).
 
-In this guide we will configure the following modules to scrape metrics from the running Tangle node. 
+In this guide we will configure the following modules to scrape metrics from the running Tangle node.
 
 - **Loki** provides log aggregation system and metrics.
 - **Promtail** is the agent responsible for gathering logs, and sending them to Loki.
@@ -48,7 +48,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-linux-arm64.zip"
     ```
 
-    For other linux distrubutions please visit official release page [here](https://github.com/grafana/loki/releases). 
+    For other linux distrubutions please visit official release page [here](https://github.com/grafana/loki/releases).
 
   </Tab>
   <Tab>
@@ -97,7 +97,6 @@ Let's first start by downloading the latest releases of the above mentioned modu
 
   </Tab>
 </Tabs>
-
 
 **3. Extract the Downloaded Files:**
 
@@ -165,11 +164,11 @@ sudo nano /etc/loki/config.yml
 
 ```
 auth_enabled: false
- 
+
 server:
   http_listen_port: 3100
   grpc_listen_port: 9096
- 
+
 ingester:
   lifecycler:
     address: 127.0.0.1
@@ -181,7 +180,7 @@ ingester:
   chunk_idle_period: 5m
   chunk_retain_period: 30s
   max_transfer_retries: 0
- 
+
 schema_config:
   configs:
     - from: 2020-10-24
@@ -191,23 +190,23 @@ schema_config:
       index:
         prefix: index_
         period: 168h
- 
- 
+
+
 storage_config:
   boltdb:
     directory: /data/loki/index
- 
+
   filesystem:
     directory: /data/loki/chunks
- 
+
 limits_config:
   enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: 168h
- 
+
 chunk_store_config:
   max_look_back_period: 0s
- 
+
 table_manager:
   retention_deletes_enabled: false
   retention_period: 0
@@ -230,13 +229,13 @@ sudo nano /etc/promtail/config.yml
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
- 
+
 positions:
   filename: /data/loki/positions.yaml
- 
+
 clients:
   - url: http://localhost:3100/loki/api/v1/push
- 
+
 scrape_configs:
 - job_name: system
   static_configs:
@@ -265,13 +264,13 @@ Add the following lines:
   Description=Loki Service
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=loki
   Group=loki
   Type=simple
   ExecStart=/usr/local/bin/loki-linux-amd64 -config.file /etc/loki/config.yml
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -292,13 +291,13 @@ Add the following lines:
   Description=Promtail Service
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=promtail
   Group=promtail
   Type=simple
   ExecStart=/usr/local/bin/promtail-linux-amd64 -config.file /etc/promtail/config.yml
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -323,11 +322,13 @@ sudo systemctl start promtail.service
 And check that they are working fine, one by one:
 
 **loki**:
+
 ```
 systemctl status loki.service
 ```
 
 **promtail**:
+
 ```
 systemctl status promtail.service
 ```
@@ -339,5 +340,5 @@ sudo systemctl enable loki.service &&
 sudo systemctl enable promtail.service
 ```
 
-Amazing! You have now successfully configured Loki for log management. Check out the Grafana 
-documentation to create a Loki log dashboard! 
+Amazing! You have now successfully configured Loki for log management. Check out the Grafana
+documentation to create a Loki log dashboard!

@@ -9,11 +9,11 @@ import Callout from "../../../../../components/Callout";
 # Prometheus Setup
 
 The following is a guide outlining the steps to setup Prometheus to monitor a Tangle node. If you do not have Tangle node setup yet, please
-review the __How to run an Tangle node__ setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). It is important to note that
+review the **How to run an Tangle node** setup guide [here](https://docs.webb.tools/v1/node-operators/run-tangle-node). It is important to note that
 this guide's purpose is to help you get started with monitoring your Tangle node, not to advise on how to setup a node securely. Please
 take additional security and privacy measures into consideration.
 
-In this guide we will configure the following modules to scrape metrics from the running Tangle node. 
+In this guide we will configure the following modules to scrape metrics from the running Tangle node.
 
 - **Prometheus** is the central module; it pulls metrics from different sources to provide them to the Grafana dashboard and Alert Manager.
 - **Node exporter** provides hardware metrics of the dashboard.
@@ -21,9 +21,9 @@ In this guide we will configure the following modules to scrape metrics from the
 
 ## What is Prometheus?
 
-Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud. Since its inception in 2012, 
-many companies and organizations have adopted Prometheus, and the project has a very active developer and user community. 
-It is now a standalone open source project and maintained independently of any company. To learn more about Prometheus, please 
+Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud. Since its inception in 2012,
+many companies and organizations have adopted Prometheus, and the project has a very active developer and user community.
+It is now a standalone open source project and maintained independently of any company. To learn more about Prometheus, please
 visit the official docs site [here](https://prometheus.io/docs/introduction/overview/).
 
 ### Getting Started
@@ -60,7 +60,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.linux-arm64.tar.gz
     ```
 
-    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/prometheus/releases). 
+    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/prometheus/releases).
 
   </Tab>
   <Tab>
@@ -103,7 +103,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
     wget https://github.com/prometheus/node_exporter/releases/download/v1.40.0/node_exporter-1.4.0.linux-arm64.tar.gz
     ```
 
-    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/node_exporter/releases). 
+    For other linux distrubutions please visit official release page [here](https://github.com/prometheus/node_exporter/releases).
 
   </Tab>
 </Tabs>
@@ -122,7 +122,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
     wget https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-arm64.tar.gz
     ```
 
-    For other linux distrubutions please visit official release page [here](https://github.com/ncabatoff/process-exporter/releases). 
+    For other linux distrubutions please visit official release page [here](https://github.com/ncabatoff/process-exporter/releases).
 
   </Tab>
 </Tabs>
@@ -130,6 +130,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
 **4. Extract the Downloaded Files:**
 
 Run the following command:
+
 ```
 tar xvf prometheus-*.tar.gz &&
 tar xvf node_exporter-*.tar.gz &&
@@ -148,14 +149,14 @@ We are first going to copy the `prometheus` binary:
 sudo cp ./prometheus-*.linux-amd64/prometheus /usr/local/bin/
 ```
 
-Next, we are going to copy over the `prometheus` console libraries: 
+Next, we are going to copy over the `prometheus` console libraries:
 
 ```
 sudo cp -r ./prometheus-*.linux-amd64/consoles /etc/prometheus &&
 sudo cp -r ./prometheus-*.linux-amd64/console_libraries /etc/prometheus
 ```
 
-We are going to do the same with `node-exporter` and `process-exporter`: 
+We are going to do the same with `node-exporter` and `process-exporter`:
 
 ```
 sudo cp ./node_exporter-*.linux-amd64/node_exporter /usr/local/bin/ &&
@@ -184,6 +185,7 @@ sudo mkdir /etc/process-exporter
 We need to give our user permissions to access these directories:
 
 **prometheus**:
+
 ```
 sudo chown prometheus:prometheus /etc/prometheus/ -R &&
 sudo chown prometheus:prometheus /var/lib/prometheus/ -R &&
@@ -191,11 +193,13 @@ sudo chown prometheus:prometheus /usr/local/bin/prometheus
 ```
 
 **node_exporter**:
+
 ```
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 ```
 
 **process-exporter**:
+
 ```
 sudo chown process-exporter:process-exporter /etc/process-exporter -R &&
 sudo chown process-exporter:process-exporter /usr/local/bin/process-exporter
@@ -229,16 +233,16 @@ Add the following code to the file and save:
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
- 
+
 rule_files:
   - 'rules.yml'
- 
+
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
       - localhost:9093
- 
+
 scrape_configs:
   - job_name: "prometheus"
     scrape_interval: 5s
@@ -301,7 +305,7 @@ Add the following lines:
   Description=Prometheus Monitoring
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=prometheus
   Group=prometheus
@@ -312,7 +316,7 @@ Add the following lines:
   --web.console.templates=/etc/prometheus/consoles \
   --web.console.libraries=/etc/prometheus/console_libraries
   ExecReload=/bin/kill -HUP $MAINPID
- 
+
 [Install]
   WantedBy=multi-user.target
 ```
@@ -333,13 +337,13 @@ Add the following lines:
   Description=Node Exporter
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=node_exporter
   Group=node_exporter
   Type=simple
   ExecStart=/usr/local/bin/node_exporter
- 
+
 [Install]
   WantedBy=multi-user.target
 ```
@@ -360,14 +364,14 @@ Add the following lines:
   Description=Process Exporter
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=process-exporter
   Group=process-exporter
   Type=simple
   ExecStart=/usr/local/bin/process-exporter \
   --config.path /etc/process-exporter/config.yml
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -383,16 +387,19 @@ sudo systemctl daemon-reload
 Next, we will want to start each service:
 
 **prometheus**:
+
 ```
 sudo systemctl start prometheus.service
 ```
 
 **node_exporter**:
+
 ```
 sudo systemctl start node_exporter.service
 ```
 
 **process-exporter**:
+
 ```
 sudo systemctl start process-exporter.service
 ```
@@ -400,16 +407,19 @@ sudo systemctl start process-exporter.service
 And check that they are working fine:
 
 **prometheus**:
+
 ```
 systemctl status prometheus.service
 ```
 
 **node_exporter**:
+
 ```
 systemctl status node_exporter.service
 ```
 
 **process-exporter**:
+
 ```
 systemctl status process-exporter.service
 ```
@@ -417,21 +427,24 @@ systemctl status process-exporter.service
 If everything is working adequtely, activate the services!
 
 **prometheus**:
+
 ```
 sudo systemctl enable prometheus.service
 ```
 
 **node_exporter**:
+
 ```
 sudo systemctl enable node_exporter.service
 ```
 
 **process-exporter**:
+
 ```
 sudo systemctl enable process-exporter.service
 ```
 
-Amazing! We have now completely setup our Prometheus monitoring and are scraping metrics from our 
-running Tangle node. 
+Amazing! We have now completely setup our Prometheus monitoring and are scraping metrics from our
+running Tangle node.
 
-You can view those metrics on the Prometheus dashboard by going to `http://localhost:9090/metrics` ! 
+You can view those metrics on the Prometheus dashboard by going to `http://localhost:9090/metrics` !

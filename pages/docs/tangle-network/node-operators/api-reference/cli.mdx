@@ -7,13 +7,13 @@ import { Tabs, Tab } from "../../../../../components/Tabs";
 
 # Command-Line Reference
 
-When starting up your own Tangle node, there are some required and optional flags that can be used. 
+When starting up your own Tangle node, there are some required and optional flags that can be used.
 
-This page outlines the most common flags used, for an exhaustive documentation of all available flags and options please refer to 
-the official Substrate documentation [here](https://substrate.io/), as well as, a list of out of the box command line tools that 
+This page outlines the most common flags used, for an exhaustive documentation of all available flags and options please refer to
+the official Substrate documentation [here](https://substrate.io/), as well as, a list of out of the box command line tools that
 ships with all Substrate based nodes including the Tangle node [here](https://docs.substrate.io/reference/command-line-tools/).
 
-After installing the [`tangle`](/repo/docs/getting-started/add-to-project) binary (or pull from Docker), you can view the Tangle command line interface (CLI). For a complete list of the available flags, you can spin up your Tangle node with `--help` 
+After installing the [`tangle`](/repo/docs/getting-started/add-to-project) binary (or pull from Docker), you can view the Tangle command line interface (CLI). For a complete list of the available flags, you can spin up your Tangle node with `--help`
 added to the end of the command. The command will vary depending on how you choose to spin up your node, and if you're using Docker or Systemd.
 
 <Tabs items={["docker", "systemd"]} storageKey="selected-binary">
@@ -31,7 +31,7 @@ added to the end of the command. The command will vary depending on how you choo
     ```
     # If you used the release binary
     ./tangle-parachain --help
-     
+
     # Or if you compiled the binary
     ./target/release/tangle-parachain --help
     ```
@@ -41,24 +41,26 @@ added to the end of the command. The command will vary depending on how you choo
 
 The command-line arguments provided first will be passed to the parachain node, while the arguments
 provided after `--` will be passed to the relay chain node.
+
 ```
 tangle-parachain <parachain-args> -- <relay-chain-args>
 ```
 
 USAGE:
+
 ```
 tangle-parachain [OPTIONS] [-- <RELAY_CHAIN_ARGS>...]
 tangle-parachain <SUBCOMMAND>
 ```
 
-## Common Flags 
+## Common Flags
 
-The below lists the most commonly used flags for your convienance. 
+The below lists the most commonly used flags for your convienance.
 
 #### `--alice`
 
-Shortcut for `--name Alice --validator` with session keys for `Alice` added to keystore. Commonly 
-used for development or local test networks. 
+Shortcut for `--name Alice --validator` with session keys for `Alice` added to keystore. Commonly
+used for development or local test networks.
 
 ```sh
 tangle-parachain --alice
@@ -80,8 +82,8 @@ tangle-parachain --blocks-pruning 120
 
 #### `--bob`
 
-Shortcut for `--name Bob --validator` with session keys for `Bob` added to keystore. Commonly 
-used for development or local test networks. 
+Shortcut for `--name Bob --validator` with session keys for `Bob` added to keystore. Commonly
+used for development or local test networks.
 
 ```sh
 tangle-parachain --bob
@@ -89,7 +91,7 @@ tangle-parachain --bob
 
 #### `--bootnodes`
 
-Specify a list of bootnodes.  
+Specify a list of bootnodes.
 
 ```sh
 tangle-parachain --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWAWueKNxuNwMbAtss3nDTQhMg4gG3XQBnWdQdu2DuEsZS
@@ -108,8 +110,8 @@ tangle-parachain --chain arana-local
 
 #### `--charlie`
 
-Shortcut for `--name Charlie --validator` with session keys for `Charlie` added to keystore. Commonly 
-used for development or local test networks. 
+Shortcut for `--name Charlie --validator` with session keys for `Charlie` added to keystore. Commonly
+used for development or local test networks.
 
 ```sh
 tangle-parachain --charlie
@@ -384,10 +386,10 @@ tangle-parachain --ws-port 9944
 The following subcommands are available:
 
 USAGE:
+
 ```
 tangle-parachain <SUBCOMMAND>
 ```
-
 
 | Subcommand           | Description                                                                                         |
 | -------------------- | --------------------------------------------------------------------------------------------------- |

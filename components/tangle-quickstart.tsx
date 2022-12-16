@@ -1,21 +1,25 @@
+import { ServerIcon } from "@heroicons/react/outline";
 import {
-  ServerIcon,
-} from "@heroicons/react/outline";
-import { DiscordIcon, TelegramIcon, DockerIcon, PrometheusIcon, GrafanaIcon } from "./Icons";
+  DiscordIcon,
+  TelegramIcon,
+  DockerIcon,
+  PrometheusIcon,
+  GrafanaIcon,
+} from "./Icons";
 import { DetailedFeatureLink } from "./Feature";
 
 export const DeployArea = () => {
   return (
     <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
-    <DetailedFeatureLink
-      feature={{
-        Icon: DockerIcon,
-        description: `Deploy a Tangle node in minutes using Docker.`,
-        name: "Deploy with Docker",
-      }}
-      href=""
-    ></DetailedFeatureLink>
-    <DetailedFeatureLink
+      <DetailedFeatureLink
+        feature={{
+          Icon: DockerIcon,
+          description: `Deploy a Tangle node in minutes using Docker.`,
+          name: "Deploy with Docker",
+        }}
+        href=""
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
           description: `Run a Tangle node using Systemd.`,
@@ -23,7 +27,7 @@ export const DeployArea = () => {
         }}
         href=""
       />
-  </div>
+    </div>
   );
 };
 
