@@ -14,10 +14,11 @@ function FullWebbCTA() {
         </div>
       </div>
       <div className="flex-none">
-        <Link href="mailto:drew@webb.tools">
-          <a className="justify-center block px-4 py-2 text-black no-underline bg-white rounded-full dark:bg-opacity-5 dark:text-white">
-            Connect
-          </a>
+        <Link
+          href="mailto:drew@webb.tools"
+          className="justify-center block px-4 py-2 text-black no-underline bg-white rounded-full dark:bg-opacity-5 dark:text-white"
+        >
+          Connect
         </Link>
       </div>
       <style jsx global>{`
