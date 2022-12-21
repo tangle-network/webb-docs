@@ -16,30 +16,32 @@ sync the embedded relay chain. Make sure that your system meets the requirements
 The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply pull down the image from ghcr.io,
 set their keys, fetch the applicable chainspec and run the start command to get up and running.
 
-**1. Pull the Tangle Docker image:**
+### **1. Pull the Tangle Docker image:**
 
 ```
-# Here you should checkout tangle https://github.com/webb-tools/tangle/pkgs/container/tangle-collator/versions?filters%5Bversion_type%5D=tagged
-# For the latest stable version. Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
+# Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
 docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
 ```
 
-**2. Fetch applicable chainspec(s):**
+### **2. Create a local directory to store the chain data:**
+Let us create a directory where we will store all the data for our node. This includes the chain data, and logs.
 
-To join the Tangle Test network as full node we need to fetch the appropiate chainspec for both the Tangle network and relay chain:
+```
+mkdir /var/lib/tangle/
+```
+
+### **3. Fetch applicable chainspec(s):**
+
+To join the Tangle Test network as collator we need to fetch the appropiate chainspec for the Tangle network. 
+Download the latest chainspec for parachain testnet:
 
 ```
 # Fetches chainspec for Tangle network
-
-wget https://github.com/webb-tools/tangle/blob/main/chainspecs/webb_rococo_raw.json
+wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-parachain.json
 ```
 
-```
-# Fetches chainspec for relay chain
-
-wget https://github.com/webb-tools/dkg-substrate/blob/master/chainspecs/polkadot-rococo-local-cfde.json
-```
+Please make a reference where you have stored this `json` file as we will need it in the next steps.
 
 **Note:** Full nodes do not participate in block production or consensus so no required keys are necessary.
 
@@ -48,14 +50,16 @@ wget https://github.com/webb-tools/dkg-substrate/blob/master/chainspecs/polkadot
 To start the node run the following command:
 
 ```
-docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/tangle-parachain:main \
-  --chain /data/chainspec/webb_rococo_raw.json \
+docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-parachain:main \
+  --chain /data/chainspec/tangle-parachain.json \
   --name="YOUR-NODE-NAME" \
   --base-path /data \
   --rpc-cors all \
   --ws-external \
   --ws-port 9946 \
-  -- --execution wasm --chain /data/chainspec/polkadot-rococo-local-cfde.json
+  -- \
+--execution wasm \
+--name="YOUR-NODE-NAME (Embedded Relay)"
 ```
 
 <Callout type="info">
@@ -64,8 +68,6 @@ docker run --rm -it -v ~/webb/tangle/full-node:/data ghcr.io/webb-tools/tangle/t
 
 Once Docker pulls the necessary images, your Tangle node will start, displaying lots of information,
 such as the chain specification, node name, role, genesis state, and more.
-
-// TODO insert image here
 
 If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
 blocks being produced on the Tangle network! Note that in this case you need to also sync to the Polkadot/Kusama

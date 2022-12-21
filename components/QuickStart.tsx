@@ -95,7 +95,7 @@ export const DappsArea = () => {
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
           name: "Minerva Bridge",
         }}
-        href="https://www.stats-dev.webb.tools/"
+        href="https://webb-bridge-dapp.netlify.app/"
       />
       <DetailedFeatureLink
         feature={{

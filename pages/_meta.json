@@ -13,7 +13,7 @@
   },
   "bridge": {
     "title": "Minerva Bridge",
-    "href": "https://www.stats-dev.webb.tools/",
+    "href": "https://webb-bridge-dapp.netlify.app/",
     "newWindow": true
   },
   "stats": {

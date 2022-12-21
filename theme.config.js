@@ -3,7 +3,7 @@ import { useConfig, useTheme } from "nextra-theme-docs";
 import { Footer } from "./components/Footer";
 import Navigation from "./components/Navigation";
 import HeaderLogo from "./components/HeaderLogo";
-import { Discord, Github, Telegram } from "./components/Social";
+import { Discord, Github } from "./components/Social";
 
 const SITE_ROOT = "https://docs.webb.tools";
 
@@ -11,12 +11,6 @@ const SITE_ROOT = "https://docs.webb.tools";
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const theme = {
-  // project: {
-  //   icon: Github,
-  // },
-  // chat : {
-  //   icon: Discord,
-  // },
   docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/db/docs-migration-v1",
   useNextSeoProps: function SEO() {
     const router = useRouter();

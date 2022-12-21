@@ -1,6 +1,6 @@
 {
   "running-docker": "Running with Docker",
-  "cloud-setup": "Cloud Setup",
+  "cloud-setup": "Running with Systemd",
   "config-options": "Configuration Options",
   "cli-usage": "CLI Usage"
 }

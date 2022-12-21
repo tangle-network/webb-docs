@@ -7,7 +7,7 @@ const withNextra = require("nextra")({
 });
 
 const sentryWebpackPluginOptions = {
-  dryRun: process.env.VERCEL_ENV !== "production",
+  dryRun: process.env.NETLIFY_ENV !== "production",
   silent: true,
 };
 
@@ -48,12 +48,12 @@ const nextConfig = withNextra({
   async redirects() {
     return [
       {
-        source: "/webb/docs",
+        source: "/",
         destination: "/docs",
         permanent: true,
       },
       {
-        source: "/",
+        source: "/webb/docs",
         destination: "/docs",
         permanent: true,
       },

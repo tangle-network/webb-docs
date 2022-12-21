@@ -52,7 +52,7 @@ const navigation = {
     },
     { name: "Statistics", href: "https://www.stats-dev.webb.tools/" },
     // TODO: add bridge link
-    { name: "Minerva Bridge", href: "https://www.stats-dev.webb.tools/" },
+    { name: "Minerva Bridge", href: "https://webb-bridge-dapp.netlify.app/" },
   ],
   community: [
     {

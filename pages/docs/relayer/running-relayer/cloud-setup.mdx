@@ -1,79 +1,105 @@
 ---
-title: Relayer Cloud Setup
-description: Relayer Cloud Setup
+title: Running with Systemd
+description: Running relayer with Systemd
 ---
 
-# Relayer Cloud Setup
+import Callout from "../../../../components/Callout";
 
-This document serves as instructions for setting up a Webb Relayer at a publicly accessible endpoint. It will fulfill the requirements for listing your relayer on `app.webb.tools`. In order to integrate your relayer to `app.webb.tools`, please submit a PR.
+# Running with Systemd
 
-- Connections available via https and wss on your domain.
+The following guide will walk you through setting up a relayer as a system service. By the end of this document, you will have set up a Webb Relayer at a publicly accessible via an endpoint behind a reverse proxy, and
+fulfill the requirements for listing your relayer on `app.webb.tools`.
 
-### Instructions
+## Getting Started
 
-These instructions will assume the user has created a cloud server on Ubuntu 20.04, and is logged into a user with sudo permissions.
+<Callout type="info">
+  These instructions assume the user has access to a server on any Linux VM, and is logged into a user with sudo permissions.
+</Callout>
 
-By the end of these instructions, the relayer will be running and accessible via your endpoint with nginx behind a reverse proxy.
+### Prerequisites
 
-### Basic Environment Setup
+It is a requirement to have Nginx installed on the Linux machine, for instructions on how to install Nginx on the machine
+please visit the offical Nginx installation documentation [here](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/).
 
-```
-### Setup the machine's environment ###
+## Basic Environment Setup
 
+Following the instructions below, you will be able to run the relayer as a system service.
+
+**Update ubuntu packages**
+``` 
 # Update ubuntu packages
 sudo apt update && sudo apt upgrade
+```
 
+**Update snap package**
+```
 # Update snap packages
 sudo apt install -y snapd
 sudo snap install core; sudo snap refresh core
+```
 
+**Install dependencies**
+```
 # Install dependencies
 sudo apt install gcc cmake pkg-config libssl-dev git clang libclang-dev
 sudo apt install build-essential
+```
 
+**Install rust**
+```
 # Install rust
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 export PATH=~/.cargo/bin:$PATH
 source ~/.cargo/env
+```
 
+**Install certbot**
+```
 # Install certbot
 sudo snap install --classic certbot && sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
 
+**Build Relayer from source**
+```
 # Build from source
 git clone https://github.com/webb-tools/relayer.git
 cd relayer && cargo build --release --features cli
 ```
 
-### Relayer setup
+## Creating a System Service
 
 1. Setup the relayer as a system service:
 
+Let's first create a service file for the relayer:
 ```
 # Create the service file
 sudo touch /etc/systemd/system/webb-relayer.service
+```
 
+Next, we will paste the following into the service file, and replace the `<user>` with the user that will be running the relayer:
+```
 # This assumes the repo has been cloned in the home directory of the user
 # Paste the following into the service file, and replace the <user>:
 
 [Unit]
 Description=WebbRelayer
-
+ 
 [Service]
 Type=exec
 WorkingDirectory=/home/<user>/relayer
 ExecStart=cargo run --features cli --bin webb-relayer -- -c /home/<user>/relayer/config/<configs> -vvv
-
+ 
 [Install]
 WantedBy=multi-user.target
 ```
 
-2. Kick off the system service:
+2. Enable and start the system service:
 
 ```
 sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
 ```
 
-### Nginx Setup
+## Nginx Setup
 
 1. Configure your registered domain name with your cloud service provider.
 
@@ -89,9 +115,9 @@ sudo apt install nginx
 
 ```
 cd /etc/nginx/sites-available &&
-
+ 
 sudo cp default <domain name> &&
-
+ 
 sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/
 ```
 
@@ -101,18 +127,18 @@ sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/
 server {
     listen 80;
     listen [::]:80;
-
+ 
     root /var/www/<domain name>/html;
     index index.html index.htm index.nginx-debian.html;
-
+ 
     server_name <domain name>;
-
+ 
     location / {
             try_files $uri $uri/ =404;
     }
 }
 ```
-
+ 
 5. Check the nginx configuration
 
 ```
@@ -140,16 +166,16 @@ map $http_upgrade $connection_upgrade {
     default upgrade;
     '' close;
 }
-
+ 
 server {
-
+ 
     # SSL configuration
     #
     listen 443 ssl;
     listen [::]:443 ssl;
-
+ 
     root /var/www/<domain name>/html;
-
+ 
     server_name <domain name>;
     ssl_certificate /etc/letsencrypt/live/<domain name>/cert.pem;
     ssl_certificate_key /etc/letsencrypt/live/<domain name>/privkey.pem;
@@ -157,7 +183,7 @@ server {
     ssl_protocols SSLv2 SSLv3 TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers   HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers on;
-
+ 
     location / {
         proxy_pass http://127.0.0.1:9955;
         proxy_pass_request_headers on;
@@ -171,7 +197,11 @@ server {
 }
 ```
 
-9. Check nginx configuration and restart.
+9. Check Nginx configuration and restart the service:
+
+```
+sudo nginx -t && sudo systemctl restart nginx
+```
 
 ### Monitoring Setup
 
@@ -185,7 +215,7 @@ Relayers will want to setup monitoring to ensure maximum uptime and automatic re
 set httpd port 2812 and
 use address localhost
 allow localhost
-
+ 
 set daemon 10
 set log /var/log/monit.log
 set idfile /var/lib/monit/id
@@ -193,7 +223,7 @@ set statefile /var/lib/monit/state
 set eventqueue
     basedir /var/lib/monit/events
     slots 100
-
+ 
 check process webb-relayer matching target/release/webb-relayer
     start program = "/bin/systemctl restart webb-relayer"
     stop program = "/bin/systemctl kill webb-relayer"
@@ -209,6 +239,6 @@ check process webb-relayer matching target/release/webb-relayer
 sudo monit reload && sudo monit validate
 ```
 
-### Dapp Integration
+## Dapp Integration
 
 After completing the above steps, submit a PR with changes for your https endpoint: <a target="_blank" href="https://github.com/webb-tools/webb-dapp/blob/master/packages/apps/src/configs/relayer-config.ts#L14">Webb Dapp</a>.

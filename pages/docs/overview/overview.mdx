@@ -3,6 +3,8 @@ title: Overview
 description: An outline describing Webb's motiviations.
 ---
 
+import { ProtocolImpl } from "../../../components/RepoArea";
+
 # Overview
 
 This is the official documentation hub for Webb developers. This guide is broken down into several sections that explain the principles and design decisions that make up Webb.
@@ -15,7 +17,7 @@ We believe that privacy is a fundamental human right and that this needs to exte
 
 Our mission is to change this by contributing to the growing amount of privacy tools that exist on blockchains today. We are motivated by cross-chain user behavior. Our initial focus is to work on cross-chain privacy.
 
-# Motivation
+## Motivation
 
 Privacy is lacking when we move our assets across chain and more generally when we send messages across chains.
 At Webb, we are working to increase privacy on cross-chain applications through our private bridge protocol
@@ -31,9 +33,6 @@ Currently, the Webb Anchor System enables private asset transfers across EVM cha
 using zero-knowledge proofs and a configurable token re-wrapping system. We are building out this asset
 protocol in many languages and environments, namely:
 
-- [Solidity smart contracts](https://github.com/webb-tools/protocol-solidity)
-- [Substrate Pallets](https://github.com/webb-tools/protocol-substrate)
-- [Ink! smart contracts](https://github.com/webb-tools/protocol-ink)
-- [CosmWasm smart contracts](https://github.com/webb-tools/protocol-cosmwasm)
+<ProtocolImpl />
 
 We plan to extend this into the Solana ecosystems once we deploy our first few products.
