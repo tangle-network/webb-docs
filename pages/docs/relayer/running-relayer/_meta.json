@@ -2,5 +2,6 @@
   "running-docker": "Running with Docker",
   "cloud-setup": "Running with Systemd",
   "config-options": "Configuration Options",
-  "cli-usage": "CLI Usage"
+  "cli-usage": "CLI Usage",
+  "relayer-api": "Relayer API"
 }

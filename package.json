@@ -44,6 +44,7 @@
     "@types/node": "^16.11.12",
     "@types/react": "18.0.26",
     "autoprefixer": "10.4.13",
+    "broken-link-checker": "^0.7.8",
     "csstype": "3.1.1",
     "eslint": "8.29.0",
     "eslint-config-next": "12.3.1",
