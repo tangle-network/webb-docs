@@ -95,3 +95,26 @@ export const ProtocolImpl = () => {
     </div>
   );
 };
+
+export const StatsdApp = () => {
+  return (
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
+      <DetailedFeatureLink
+        feature={{
+          Icon: GitHubIcon,
+          description: "Monorepo for Webb dApps",
+          name: "webb-dapp",
+        }}
+        href="https://github.com/webb-tools/webb-dapp"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
+          Icon: GitHubIcon,
+          description: "SubQuery implementation for DKG and Webb Networks",
+          name: "webb-subql",
+        }}
+        href="https://github.com/webb-tools/webb-subql"
+      ></DetailedFeatureLink>
+    </div>
+  );
+};

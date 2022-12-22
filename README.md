@@ -15,7 +15,7 @@
 
 ❗ **Note:** This is a fork of [Vercel Docs](https://github.com/vercel/turbo/tree/main/docs).
 
-This repository serves as the **documentation** for the **[Webb](https://www.webb.tools/)** ecosystem. The docs are written in [MDX](https://mdxjs.com/) format an extension of [markdown](https://www.markdownguide.org/), processed by [Nextra](https://github.com/shuding/nextra/tree/main), and published to Webb Docs.
+This repository serves as the **documentation** for the **[Webb](https://www.webb.tools/)** ecosystem. The docs are written in [MDX](https://mdxjs.com/) format an extension of [markdown](https://www.markdownguide.org/), processed by [Nextra](https://github.com/shuding/nextra/tree/main), and published to Webb Docs. 
 
 
 ### Directory structure
@@ -66,21 +66,7 @@ navigation.
     yarn install
     ```
 
-3.  **Configure environment variables**
-
-    Copy `example.env.development` and rename to `.env.development`
-
-    Config URL variables based on your preferable local setup. URL will be used for links generation between documentation and platform stack
-
-    - `GATSBY_DOCS_URL` represents this project serving documentation
-    - `GATSBY_IO_URL`: represents platform website
-
-    ```
-    GATSBY_IO_URL=http://localhost:8000  // local or hosted URL
-    GATSBY_DOCS_URL=http://localhost:8001 // default https://docs.web.tools if not set
-    ```
-
-4.  **Fire the engine**
+2.  **Fire the engine**
 
     Navigate into your new site’s directory and use the following command to start the development server locally.
 
@@ -88,13 +74,13 @@ navigation.
     yarn dev # alias for `yarn start` and `yarn develop`
     ```
 
-5.  **Open the code and start customizing!**
+3.  **Open the code and start customizing!**
 
     Your site is now running at [http://localhost:3000/docs](http://localhost:3000/docs).
 
     Edit to see your site update in real-time on save.
 
-6.  **Learn more about Nextra, Next, and nextra-theme-docs**
+4.  **Learn more about Nextra, Next, and nextra-theme-docs**
 
     - [Documentation](https://nextra.site/docs)
     - [Themes](https://nextra.site/docs/docs-theme)
@@ -102,7 +88,7 @@ navigation.
 
 <h2 id="contribute"> Contributing </h2>
 
-Interested in contributing to the Webb Relayer Network? Thank you so much for your interest! We are always appreciative for contributions from the open-source community!
+Interested in contributing to the Webb Documentation? Thank you so much for your interest! We are always appreciative for contributions from the open-source community!
 
 If you have a contribution in mind, please check out our [Contribution Guide](./.github/CONTRIBUTING.md) for information on how to do so. We are excited for your first contribution! If you have any further questions, please do not hesitate to reach out on our [Webb Discord channel](https://discord.com/invite/cv8EfJu3Tn)! We would love to get to know you and your work!
 

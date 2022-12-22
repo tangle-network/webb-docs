@@ -3,37 +3,40 @@ title: Withdrawals on Minerva Bridge
 description: An overview of Withdrawls on Minerva Bridge
 ---
 
-import { Withdraw, WithdrawToken, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawFixedAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
+import { Withdraw, WithdrawToken, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
 
 # Withdrawals on Minerva Bridge
 
-This guide will provide a step-by-step process to assist in making a deposit on the Minerva Bridge.
+This guide will provide a step-by-step process to assist in making a withdraw on the Minerva Bridge.
 
 ## Withdrawal Inputs
 
-You have created your `Note Account` and are now ready to make a deposit into the Minerva Bridge. You
-will notice the **Deposit** button to be disabled initially. We must provide the details of our transaction
-before we can deposit.
+You have made an deposit on the bridge and are now ready to withdraw from the shielded pool. It is important to note
+to protect and preserve your privacy you should wait some time for subsequent deposits to be made prior to withdrawing
+your funds. This will ensure that your withdrawal transaction is not linked to your deposit transaction.
+
+You will notice the **Withdraw** button to be disabled initially. We must provide the details of our transaction
+before we can withdraw.
 
 <br />
 
 <Withdraw />
 
-### **1. Select Source Chain**
+### **1. Select Appropiate Chain**
 
-To get started first select a source chain. Ensure that you have an available balance on the chain that you
-select.
-
-<br />
+To get started we want to make sure we are connected to the correct chain. The correct chain is the chain that we
+indicated as a our destination chain during the deposit flow. If you are not connected to the correct chain you will
+notice that if we try to withdraw it will indicate an insuffient balance error.
 
 ### **2. Select Token**
 
-Once you have selected the source chain we will need to select what token to deposit into the bridge. Clicking
-on the token selection component will display a list of tokens.
+Once you have selected the correct chain we will need to select what token to withdraw from the shielded pool. Clicking
+on the token selection component will display a list of tokens. Select the token that is represented in our note.
 
 <br />
+<WithdrawToken />
 
-### **3. Wrap and Deposit**
+### **3. Unwrap and Withdraw**
 
 Be advised that deposits into the bridge are wrapped into Webb based asset. For example, if you select `ETH` to be
 deposited, it will be wrapped in a Webb wrapped asset (e.g. `webbETH`). This is required to facilitate bridging of
@@ -41,34 +44,52 @@ assets across different chains. It's important to note that you can unwrap and w
 chain as long as there is liquidity available on that destination chain.
 
 <br />
-
-### **4. Select Destination Chain**
-
-You must specify a destination chain during the deposit flow. Be advised that you cannot change the destination chain
-after the deposit transaction is made and its only on this destination chain that you can withdraw from. Select
-the desired destination chain by clicking the destination chain component.
+<UnwrapWithdrawStart />
 
 <br />
+<UnwrapWithdrawToken />
+
+<br />
+<UnwrapWithdraw />
 
 ### **5. Input Amount**
 
 With the Minerva bridge you can deposit variable amounts. Input the amount you would like to deposit into the
 Minerva bridge. If you want to deposit the entire available balance simply click **Max** for a quick input.
 
+#### Fixed Amount
+
+#### Custom Amount
+
+<WithdrawCustomAmount />
 <br />
+
+<br />
+<WithdrawInputAmount />
 
 We now have all the inputs necessary to make a deposit. Click the **Deposit** button to proceed in confirming the
 details of the transaction.
 
-## Confirming Deposit Details
+### **4. Select Relayer**
 
-Upon clicking the **Deposit** button you will be presented with the details of your transaction. It is important to
+<br />
+<RelayerSelection />
+
+### **5. Input Recipient Address**
+
+<br />
+<WithdrawRecipient />
+
+## Confirming Withdraw Details
+
+Upon clicking the **Withdraw** button you will be presented with the details of your transaction. It is important to
 review these transaction details to ensure they're accurate.
 
 ### **1. Verify Deposit Details**
 
 Review the transaction details of the deposit. Pay close attention to the destination chain and amount displayed.
 
+<ConfirmWithdraw />
 <br />
 
 ### **2. Confirm Copied Note**
@@ -102,7 +123,7 @@ when the transaction is successful.
 ### **4. Successful Withdraw**
 
 When the deposit transaction is completed you can observe a successful confetti filled message in the notification card!
-If you want to see the transaction in a block explorer, click on the **Successfully Deposited** link within the
+If you want to see the transaction in a block explorer, click on the **Successfully Withdraw** link within the
 notification card.
 
 <br />

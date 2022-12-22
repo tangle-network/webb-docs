@@ -10,7 +10,7 @@ import { DetailedFeatureLink } from "./Feature";
 
 export const UseCasesArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: CubeIcon,
@@ -49,7 +49,7 @@ export const UseCasesArea = () => {
 
 export const ParticipateArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: CloudIcon,
@@ -88,7 +88,7 @@ export const ParticipateArea = () => {
 
 export const TestNetworkArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,

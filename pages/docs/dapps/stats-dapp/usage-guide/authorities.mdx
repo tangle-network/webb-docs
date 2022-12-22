@@ -1,6 +1,53 @@
 ---
-title: Overview
-description: An overview of the Webb Stats dApp.
+title: Authorities
+description: An overview of the Webb Stats dApp Authorities page.
 ---
 
+import { AuthPage, AuthDetailsPage, AuthTable, Thresholds, UpcomingThresholds } from '../../../../../components/images/stats/authorities/Authorities';
+
 # Overview
+
+The Authorities page visualizes the network threshold parameters and the DKG authorities that have participated in the network. If you are interested
+in running a DKG Authority please refer to the node operators section of the docs [here](/docs/tangle-network/node-operators/quickstart).
+
+<br />
+
+<AuthPage />
+
+## Network Thresholds
+
+The network thresholds are displayed indicating the current DKG parameters for the threshold-key-generation protocol, and
+the threshold-signature-scheme protocol. More specifically these parameters indicate:
+
+- `Keygen Threshold`: The minimum number of authorities required to produce a valid signature.
+- `Signature Threshold`: The 't' in (t-out-of-n) threshold signatures used in the DKG signing system. Required of DKG authorities to generate signatures.
+
+These params will change over time, to view the history of keygen and signature thresholds from the network you simply need to
+select **View History**. A line chart will be displayed showing the history of the keygen and signature thresholds.
+
+<br />
+<Thresholds />
+
+## Upcoming Thresholds
+
+The upcoming thresholds table displays the next keygen and signature thresholds that will be used in the upcoming session. It also displays the next
+authority set that will be used in the upcoming session.
+
+<br />
+<UpcomingThresholds/>
+
+## DKG Authorities
+
+The DKG authorities table displays all the participating authorities in previous sessions. The table provides some metadata relevant to
+each authority. If the authority node has set their location it will appear, the authorities uptime, and reputation score is also displayed.
+
+<br />
+<AuthTable />
+
+## Authority Details
+
+Selecting the **Details** button on an authority will display the authority details page. This lists all the keygens the authority has participated in,
+and idenitfying information if it is set. This may include, a link to their website, twitter profile, or email address.
+
+<br />
+<AuthDetailsPage />

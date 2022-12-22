@@ -91,10 +91,10 @@ export const RelayerSelection = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={RelayerDark} alt="relayer selection" />
+        <Image src={RelayerLight} alt="relayer selection" />
       </div>
       <div className="hidden dark:block">
-        <Image src={RelayerLight} alt="relayer selection" />
+        <Image src={RelayerDark} alt="relayer selection" />
       </div>
     </>
   );
@@ -134,6 +134,19 @@ export const UnwrapWithdrawStart = () => {
       </div>
       <div className="hidden dark:block">
         <Image src={UnwrapWithdrawDark} alt="withdraw and unwrap" />
+      </div>
+    </>
+  );
+};
+
+export const WithdrawInputAmount = () => {
+  return (
+    <>
+      <div className="block dark:hidden">
+        <Image src={WithdrawAmountLight} alt="withdraw amount" />
+      </div>
+      <div className="hidden dark:block">
+        <Image src={WithdrawAmountDark} alt="withdraw amount" />
       </div>
     </>
   );
