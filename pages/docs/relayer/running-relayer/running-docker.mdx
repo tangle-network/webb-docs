@@ -61,14 +61,14 @@ Let's update to include the required fields for data querying:
 # Webb Relayer Network Port
 # default: 9955
 port = 9955
-  
+
 [features]
 governance-relay = false
 data-query = true
 private-tx-relay = false
 ```
 
-For this example, we will use ETH Goerli Testnet (`chain_id = 5`). 
+For this example, we will use ETH Goerli Testnet (`chain_id = 5`).
 Create a file for the configuration related to this chain:
 
 ```bash
@@ -83,42 +83,42 @@ on Goerli Testnet. For an exhasutive list of configuration please refer to the [
 # Block which represents properties for a network
 [evm.goerli]
 name = "goerli"
- 
+
 # Http(s) Endpoint for quick Req/Res
 http-endpoint = "$GOERLI_HTTPS_URL"
- 
+
 # Websocket Endpoint for long living connections
 ws-endpoint = "$GOERLI_WSS_URL"
- 
+
 # Block Explorer
 # Optinal, and used for generating clickable links
 # for transactions that happen on this chain.
 explorer = "https://goerli.etherscan.io"
- 
+
 # chain specific id from evm opcode
 chain-id = 5
- 
+
 # Value to indicate that the relayer should enable services for this chain
 enabled = true
- 
+
 # No block confirmations required to process it.
 block-confirmations = 2
- 
+
 # Block which represents the configuration for a supported contract on the network
 [[evm.goerli.contracts]]
 # The contract can be one of these values
 # - VAnchor (Variable Anchor)
 # - SignatureBridge
 contract = "VAnchor"
- 
+
 # The address of the contract
 address = "0x98c1024dfd61a8f7439108acedcb51a27754f2af"
- 
+
 # The deployed block number of the contract. When a relayer does not have information for
 # this contract in its store, it will start to sync and query for relevant historical data
 # starting at this block number
 deployed-at = 7865473
-  
+
 # Configuration for the events watcher of this contract. The events-watcher can be switched on/off
 # and the polling interval specifies the period of time (in ms) that the events-watcher thread
 # will wait before issuing another query for new events.
@@ -127,13 +127,13 @@ events-watcher = { enabled = true, polling-interval = 15000 }
 
 #### Setting up `.env` File
 
-As you may have noticed, there are a few environment variables inside the configuration file, 
+As you may have noticed, there are a few environment variables inside the configuration file,
 and we will have to supply them. To do so, lets create a `.env` file with these values:
 
 ```bash
 nano ~/webb-relayer/.env
 ```
- 
+
 Add the following fields:
 
 ```bash
@@ -145,8 +145,8 @@ WEBB_PORT=9955
 # from here: https://github.com/webb-tools/relayer/pkgs/container/relayer/versions?filters%5Bversion_type%5D=tagged
 RELAYER_VERSION=0.5.0-rc1
 # These are related to the Reverse Proxy we will use.
-# Your email address. Mainly used when creating an ACME 
-# account with your CA, and is highly recommended 
+# Your email address. Mainly used when creating an ACME
+# account with your CA, and is highly recommended
 # in case there are problems with your certificates.
 LETSENCRYPT_EMAIL=me@example.com
 # This will be your domain for the relayer
@@ -160,12 +160,12 @@ GOERLI_HTTPS_URL=https://goerli.infura.io/v3/${INFURA_PROJECT_ID}
 GOERLI_WSS_URL=wss://goerli.infura.io/ws/v3/${INFURA_PROJECT_ID}
 ```
 
-Great we have successfully setup our data-querying configuration. Now we need to setup the Docker container that will 
+Great we have successfully setup our data-querying configuration. Now we need to setup the Docker container that will
 run the reverse proxy and the Webb relayer.
 
 ## Creating Docker Compose File
 
-The section will cover setting up the required docker service in a docker compose file. Let's start by creating 
+The section will cover setting up the required docker service in a docker compose file. Let's start by creating
 a docker-compose file:
 
 ```bash
@@ -176,7 +176,7 @@ Add the following lines:
 
 ```yaml
 version: "3"
- 
+
 services:
   caddy:
     image: caddy:alpine
@@ -190,7 +190,7 @@ services:
       - $PWD/config/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
- 
+
   webb_relayer:
     image: ghcr.io/webb-tools/relayer:$RELAYER_VERSION
     container_name: webb_relayer
@@ -204,7 +204,7 @@ services:
       - relayer_data:/store
     restart: always
     command: /webb-relayer -vvv -c /config
- 
+
 volumes:
   relayer_data:
     driver: local
@@ -223,7 +223,7 @@ volumes:
 
 ### Caddy Reverse Proxy
 
-This guide makes use of [Caddy](https://caddyserver.com/) as a reverse proxy. Caddy is a powerful reverse proxy that 
+This guide makes use of [Caddy](https://caddyserver.com/) as a reverse proxy. Caddy is a powerful reverse proxy that
 makes it incredibly easy to setup with only a few lines. Let's take a look at the configuration:
 
 ```bash
@@ -268,7 +268,7 @@ cd ~/webb-relayer
 docker compose up # add -d if you want to run it in the backgroud.
 ```
 
-You should see a lot of logs, and if everything is working correctly, we should be able to query our relayers 
+You should see a lot of logs, and if everything is working correctly, we should be able to query our relayers
 endpoint to view the configuration we outlined above.
 
 ### Test the Setup
@@ -326,4 +326,4 @@ To configure your relayer further, checkout our [Config directory](https://githu
 
 ## Dapp Integration
 
-After completing the above steps, submit a PR with changes for your https endpoint: <a target="_blank" href="https://github.com/webb-tools/webb-dapp/blob/master/packages/apps/src/configs/relayer-config.ts#L14">Webb Dapp</a>.
+After completing the above steps, submit a PR with changes for your https endpoint in the [Webb Dapp](https://github.com/webb-tools/webb-dapp) repo.

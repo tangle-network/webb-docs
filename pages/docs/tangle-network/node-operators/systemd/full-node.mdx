@@ -8,7 +8,8 @@ description: Run a Tangle full node using systemd.
 You can run your full node as a systemd process so that it will automatically restart on server reboots
 or crashes (and helps to avoid getting slashed!).
 
-Before following this guide you should have already set up your collator node by following the [How to run a Tangle Network node](./v1/node-operators/run-tangle-node).
+Before following this guide you should have already set up your machines environment, installed the dependencies, and
+compiled the Tangle binary. If you have not done so, please refer to the [Requirements](/docs/tangle-network/node-operators/requirements) page.
 
 ## System service setup
 
@@ -17,10 +18,10 @@ Run the following commands to create the service configuration file:
 ```
 # Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
 sudo mv ./target/release/tangle-parachain /usr/bin/
- 
+
 # navigate to /etc
 cd /etc/systemd/system
- 
+
 # create the service configuration file
 sudo touch full.service
 ```
@@ -28,7 +29,7 @@ sudo touch full.service
 Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
 any paths or ports to your own preference.
 
-**Note:** The below configuration assumes you are targeting the Arana chain spec.
+**Note:** The below configuration assumes you are targeting the Tangle Network chainspec.
 
 **Full Node**
 
@@ -37,7 +38,7 @@ any paths or ports to your own preference.
 Description=Tangle Full Node
 After=network-online.target
 StartLimitIntervalSec=0
- 
+
 [Service]
 User=<USERNAME>
 Restart=always
@@ -52,7 +53,7 @@ ExecStart=/usr/bin/tangle-parachain \
   --ws-external \
   --ws-port 9946 \
   --no-mdns
- 
+
 [Install]
 WantedBy=multi-user.target
 ```
@@ -64,7 +65,7 @@ If so, enable the service so it runs on startup, and then try to start it now:
 
 ```
 sudo systemctl enable full
- 
+
 sudo systemctl start full
 ```
 

@@ -10,14 +10,14 @@ import { DetailedFeatureLink } from "./Feature";
 
 export const DeployArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: DockerIcon,
           description: `Deploy a Tangle node in minutes using Docker.`,
           name: "Deploy with Docker",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/deploy-with-docker/collator-node"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -25,7 +25,7 @@ export const DeployArea = () => {
           description: `Run a Tangle node using Systemd.`,
           name: "Run with Systemd",
         }}
-        href=""
+        href="/docs/tangle-network/node-operators/systemd/collator-node"
       />
     </div>
   );
@@ -33,7 +33,7 @@ export const DeployArea = () => {
 
 export const SupportArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: DiscordIcon,
@@ -56,7 +56,7 @@ export const SupportArea = () => {
 
 export const MonitoringArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: PrometheusIcon,

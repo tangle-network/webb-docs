@@ -163,7 +163,7 @@ groups:
         annotations:
           summary: "Instance $labels.instance down"
           description: "[{{ $labels.instance }}] of job [{{ $labels.job }}] has been down for more than 1 minute."
- 
+
       - alert: HostHighCpuLoad
         expr: 100 - (avg by(instance)(rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
         for: 0m
@@ -222,10 +222,10 @@ And add the Gmail configuration to it and save the file:
 ```
 global:
  resolve_timeout: 1m
- 
+
 route:
  receiver: 'gmail-notifications'
- 
+
 receivers:
 - name: 'gmail-notifications'
   email_configs:
@@ -236,19 +236,19 @@ receivers:
     auth_identity: 'EMAIL-ADDRESS'
     auth_password: 'EMAIL-ADDRESS'
     send_resolved: true
- 
- 
+
+
 # ********************************************************************************************************************************************
 # Alert Manager for Slack Notifications  *
 # ********************************************************************************************************************************************
- 
+
  global:
    resolve_timeout: 1m
    slack_api_url: 'INSERT SLACK API URL'
- 
+
  route:
    receiver: 'slack-notifications'
- 
+
  receivers:
  - name: 'slack-notifications'
    slack_configs:
@@ -297,7 +297,7 @@ Add the following lines:
   Description=AlertManager Server Service
   Wants=network-online.target
   After=network-online.target
- 
+
 [Service]
   User=alertmanager
   Group=alertmanager
@@ -307,7 +307,7 @@ Add the following lines:
   --storage.path /var/lib/alertmanager \
   --web.external-url=http://localhost:9093 \
   --cluster.advertise-address='0.0.0.0:9093'
- 
+
 [Install]
 WantedBy=multi-user.target
 ```

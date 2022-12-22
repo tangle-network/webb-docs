@@ -9,7 +9,7 @@ import Callout from "../../../../../components/Callout";
 
 An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
 please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
 
 ## Docker Quickstart
 
@@ -25,6 +25,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
+
 Let us create a directory where we will store all the data for our node. This includes the chain data, and logs.
 
 ```
@@ -33,7 +34,7 @@ mkdir /var/lib/tangle/
 
 ### **3. Fetch applicable chainspec(s):**
 
-To join the Tangle Test network as collator we need to fetch the appropiate chainspec for the Tangle network. 
+To join the Tangle Test network as collator we need to fetch the appropiate chainspec for the Tangle network.
 Download the latest chainspec for parachain testnet:
 
 ```

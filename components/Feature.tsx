@@ -51,7 +51,7 @@ export const DetailedFeatureLink = (props: {
   feature: FeatureProps["feature"];
 }) => {
   return (
-    <Link href={props.href} className={featureWrapperClasses}>
+    <Link href={props.href} className={featureWrapperClasses} target="_blank">
       <DetailedFeatureInner feature={props.feature}></DetailedFeatureInner>
     </Link>
   );

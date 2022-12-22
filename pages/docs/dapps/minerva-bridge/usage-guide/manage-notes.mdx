@@ -8,9 +8,23 @@ import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, Shielde
 # Managing Notes
 
 For each deposit, transfer, and withdraw a note is generated to represent a user balance. For Webb's Minerva Bridge
-we make use of the UTXO model for handling user balances. Each note stores, the protocol name (e.g. `vanchor`),
-private key, blinding value, merkle path index, chainID, public key, commitment, nullifer, a value that represents the
-amount of funds that can be spent and effectively transferred to another user.
+we make use of the UTXO model for handling user balances. Each note contains the following attributes:
+
+- the protocol name (e.g. `vanchor`),
+- private key,
+- blinding value,
+- merkle path index,
+- chainID,
+- public key,
+- commitment,
+- nullifer,
+- a value that represents the amount of funds that can be spent and effectively transferred to another user
+
+An example note may look similar to the following:
+
+```
+webb://v1:vanchor/1099522782887:1099522782887/0x965c94a6e1b713e751164d2ba09aa0306f48ee74:0x965c94a6e1b713e751164d2ba09aa0306f48ee74/0000010000aa36a7:0000000000000000003c6568f12e8000:1d81f339efc951a8d19133c4a050159662b28d4021e75c66af29cb93f427b331:003feb82b9da3e335d6312f94670ea0317035d34c4addb31fad674af1f4c8059/?curve=Bn254&width=5&exp=5&hf=Poseidon&backend=Circom&token=webbETH&denom=18&amount=17000000000000000
+```
 
 These notes are intended to be kept in confidence, anyone who gains access to your notes can withdraw your funds from
 the Minerva Bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain

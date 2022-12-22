@@ -7,9 +7,9 @@ import Callout from "../../../../../components/Callout";
 
 # Deploying Tangle Collator and Relayer
 
-It is likely that network participants that are running a Tangle collator node may also want to run a relayer node. This guide 
-will walk you through the process of deploying a Tangle collator and a Webb Relayer. By the end of this document, you will have set up a Webb Relayer 
-at a publicly accessible endpoint alongside a Tangle Collator node both of which will be running within a Docker container. 
+It is likely that network participants that are running a Tangle collator node may also want to run a relayer node. This guide
+will walk you through the process of deploying a Tangle collator and a Webb Relayer. By the end of this document, you will have set up a Webb Relayer
+at a publicly accessible endpoint alongside a Tangle Collator node both of which will be running within a Docker container.
 
 ## Prerequisites
 
@@ -17,12 +17,12 @@ It is a requirement to have Docker installed on the Linux machine, for instructi
 please visit the offical Docker installation documentation [here](https://docs.docker.com/desktop/install/linux-install/).
 
 When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
 
 ## Docker Quickstart
 
-The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply 
-create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start 
+The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
+create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
 command to get up and running.
 
 ### **1. Pull the Tangle Docker image:**
@@ -34,6 +34,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-parachain-with-relayer:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
+
 Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
 
 ```
@@ -48,7 +49,6 @@ The keys we need to generate include the following:
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
-
 
 Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
 should paste your SURI when the command asks for it.
@@ -107,8 +107,8 @@ ls ~/webb/tangle/collator/chains/*/keystore
 
 ### **4. Start Tangle Collator and Relayer:**
 
-The docker-compose file will spin up a container running Tangle Collator node and another running Relayer, 
-but you have to set the following environment variables. Remember to customize your the values depending on 
+The docker-compose file will spin up a container running Tangle Collator node and another running Relayer,
+but you have to set the following environment variables. Remember to customize your the values depending on
 your environment and then copy paste this to CLI.
 
 ```
@@ -164,8 +164,3 @@ sudo rm -rf /data/polkadot/*
 ```
 
 Now that your chain data has been purged, you can start a new node with a fresh data directory!
-
-
-
-
-

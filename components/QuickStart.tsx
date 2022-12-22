@@ -10,7 +10,7 @@ import { DetailedFeatureLink } from "./Feature";
 
 export const QuickStartArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: GitHubIcon,
@@ -49,8 +49,8 @@ export const QuickStartArea = () => {
 
 export const DeployArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
-      <DetailedFeatureLink
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
+      {/* <DetailedFeatureLink
         feature={{
           Icon: CubeIcon,
           description: `Interested in deploying a bridge? Webb makes it incredibly fast and easy!`,
@@ -65,22 +65,22 @@ export const DeployArea = () => {
           name: "Deploy identity system in 15 min.",
         }}
         href=""
-      ></DetailedFeatureLink>
+      ></DetailedFeatureLink> */}
       <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
           description: `Want to spin up a full node on the Tangle Network? We've made it easier than ever!`,
-          name: "Deploy a Tangle node in 15 mins.",
+          name: "Deploy a Tangle Node!",
         }}
-        href=""
+        href="./docs/tangle-network/node-operators/quickstart#deploy-quickly"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
           Icon: CloudIcon,
           description: `Help support the Webb ecosystem. Run a relayer and earn!`,
-          name: "Deploy a relayer in 15 min.",
+          name: "Deploy a relayer!",
         }}
-        href=""
+        href="./docs/relayer/running-relayer/running-docker"
       ></DetailedFeatureLink>
     </div>
   );
@@ -88,7 +88,7 @@ export const DeployArea = () => {
 
 export const DappsArea = () => {
   return (
-    <div className="grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:gap-x-8 lg:gap-y-12">
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
           Icon: CubeIcon,

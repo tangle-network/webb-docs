@@ -9,12 +9,12 @@ import Callout from "../../../../../components/Callout";
 
 An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
 please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/v1/node-operators/run-node/overview/#requirements).
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
 
 ## Docker Quickstart
 
-The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply 
-create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start 
+The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
+create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
 command to get up and running.
 
 ### **1. Pull the Tangle Docker image:**
@@ -26,6 +26,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
+
 Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
 
 ```
@@ -34,7 +35,7 @@ mkdir /var/lib/tangle/
 
 ### **3. Fetch applicable chainspec(s):**
 
-To join the Tangle Test network as collator we need to fetch the appropiate chainspec for the Tangle network. 
+To join the Tangle Test network as collator we need to fetch the appropiate chainspec for the Tangle network.
 Download the latest chainspec for parachain testnet:
 
 ```
@@ -52,7 +53,6 @@ The keys we need to generate include the following:
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
-
 
 Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
 should paste your SURI when the command asks for it.
@@ -141,12 +141,14 @@ relay chain, which might take a few days.
 ### Run via Docker Compose
 
 The docker-compose file will spin up a container running tangle standalone node, but you have to set the following environment variables. Remember to customize your the values depending on your environment and then copy paste this to CLI.
+
 ```
 RELEASE_VERSION=main
 CHAINSPEC_PATH=/tmp/chainspec/
 ```
 
 After that run:
+
 ```
 docker compose up -d
 ```
