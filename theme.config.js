@@ -85,7 +85,7 @@ const theme = {
         <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
         <meta property="og:locale" content="en_IE" />
         <meta property="og:site_name" content="Webb" />
-        <link rel="prefetch" href="/docs" as="document" />
+        <link rel="prefetch" href="/" as="document" />
       </>
     );
   },

@@ -47,16 +47,6 @@ const nextConfig = withNextra({
   },
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "/docs",
-        permanent: true,
-      },
-      {
-        source: "/webb/docs",
-        destination: "/docs",
-        permanent: true,
-      },
     ];
   },
 });

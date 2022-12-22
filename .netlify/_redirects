@@ -1,5 +1,2 @@
-## Production: Webb Docs
-/                                             /docs     301! 
-
-### Production: Quickstart
-/                                             /docs     301! 
+# Redirects from what the browser requests to what we serve
+/              /docs

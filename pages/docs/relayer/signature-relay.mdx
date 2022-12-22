@@ -3,6 +3,8 @@ title: Signature Relaying
 description: A description of Webb relayer signature relaying capabilities. 
 ---
 
+import Callout from "../../../components/Callout";
+
 # Signature Relaying
 
 If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions.
@@ -28,6 +30,10 @@ Under the `[features]` section we need to turn off data-querying and private-rel
 
 An example configuration file for the Goerli network that is configured for governance relaying:
 
+<Callout type="info">
+  You will need to update the linked-anchors and contract addresses for the applicable chains.
+</Callout>
+
 ```
 [[evm.goerli.contracts]]
 contract = "VAnchor"
@@ -41,7 +47,7 @@ linked-anchors = [
   { chain = "optimismtestnet", chain-id = "69", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
   { chain = "arbitrumtestnet", chain-id = "421611",  address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
 ]
-
+ 
 [features]
 private-relay = false
 data-query = false
