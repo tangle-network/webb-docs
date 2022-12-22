@@ -14,7 +14,9 @@ type NextraAppProps = AppProps & {
 
 // Shim requestIdleCallback in Safari
 if (typeof window !== "undefined" && !("requestIdleCallback" in window)) {
+  // @ts-ignore
   window.requestIdleCallback = (fn) => setTimeout(fn, 1);
+  // @ts-ignore
   window.cancelIdleCallback = (e) => clearTimeout(e);
 }
 
