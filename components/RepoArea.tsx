@@ -1,5 +1,6 @@
 import { DetailedFeatureLink } from "./Feature";
 import { GitHubIcon } from "./Icons";
+import { ChartBarIcon, CodeIcon } from "@heroicons/react/outline";
 
 export const RepoArea = () => {
   return (
@@ -106,6 +107,22 @@ export const StatsdApp = () => {
           name: "webb-dapp",
         }}
         href="https://github.com/webb-tools/webb-dapp"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
+          Icon: ChartBarIcon,
+          description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
+          name: "Stats dApp",
+        }}
+        href="https://www.stats-dev.webb.tools/"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
+          Icon: CodeIcon,
+          description: `The GraphQL Playground provides a way to query the SubQuery API`,
+          name: "GraphQL Playground",
+        }}
+        href="https://tangle-subquery.webb.tools/graphql"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{

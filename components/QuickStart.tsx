@@ -108,3 +108,26 @@ export const DappsArea = () => {
     </div>
   );
 };
+
+export const DappsAreaBridge = () => {
+  return (
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
+      <DetailedFeatureLink
+        feature={{
+          Icon: CubeIcon,
+          description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
+          name: "Minerva Bridge",
+        }}
+        href="https://webb-bridge-dapp.netlify.app/"
+      />
+      <DetailedFeatureLink
+        feature={{
+          Icon: GitHubIcon,
+          description: "Monorepo for Webb dApps",
+          name: "webb-dapp",
+        }}
+        href="https://github.com/webb-tools/webb-dapp"
+      ></DetailedFeatureLink>
+    </div>
+  );
+};
