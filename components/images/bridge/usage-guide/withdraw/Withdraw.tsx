@@ -21,6 +21,8 @@ import WithdrawAmountLight from "./withdraw-amount-light.png";
 import WithdrawAmountDark from "./withdraw-amount-dark.png";
 import WithdrawInprogessLight from "./withdraw-inprogress-light.png";
 import WithdrawInprogessDark from "./withdraw-inprogress-dark.png";
+import FixedAmountLight from "./fixed-amount-light.png";
+import FixedAmountDark from "./fixed-amount-dark.png";
 
 export const Withdraw = (props) => {
   return (
@@ -156,10 +158,10 @@ export const WithdrawFixedAmount = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={WithdrawAmountLight} alt="withdraw amount" />
+        <Image src={FixedAmountLight} alt="withdraw amount" />
       </div>
       <div className="hidden dark:block">
-        <Image src={WithdrawAmountDark} alt="withdraw amount" />
+        <Image src={FixedAmountDark} alt="withdraw amount" />
       </div>
     </>
   );

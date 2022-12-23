@@ -19,7 +19,7 @@ please visit the offical Docker installation documentation [here](https://docs.d
 When connecting to Tangle on Kusama, it will take a few days to completely
 sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
 
-## Docker Quickstart
+## Using Docker Compose
 
 The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
 create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
@@ -27,10 +27,12 @@ command to get up and running.
 
 ### **1. Pull the Tangle Docker image:**
 
+We will used the pre-built Tangle Docker image to generate and insert the required keys for our node.
+
 ```
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
-docker pull ghcr.io/webb-tools/tangle/tangle-parachain-with-relayer:main
+docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
@@ -105,19 +107,107 @@ ls ~/webb/tangle/collator/chains/*/keystore
 # You should see a some file(s) there, these are the keys.
 ```
 
-### **4. Start Tangle Collator and Relayer:**
+### **4.Creating Docker compose file:**
 
-The docker-compose file will spin up a container running Tangle Collator node and another running Relayer,
-but you have to set the following environment variables. Remember to customize your the values depending on
-your environment and then copy paste this to CLI.
+Now that we have generated the keys, we can start the Tangle Collator and Relayer. We will use the `docker-compose` file provided
+in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-parachain-with-relayer).
 
+Let's start by creating a docker-compose file:
+
+```bash
+nano ~/webb/tangle/docker-compose.yml
 ```
+
+Add the following lines:
+
+```yaml
+# This an example of a docker compose file which contains both Relayer and Tangle Node.
+version: "3"
+
+services:
+  webb_relayer:
+    # Here you should checkout
+    # https://github.com/webb-tools/relayer/pkgs/container/relayer/versions?filters%5Bversion_type%5D=tagged
+    # For the latest stable version. Only use "edge" if
+    # you know what you are doing, it will use the latest and maybe
+    # unstable version of the relayer.
+    image: ghcr.io/webb-tools/relayer:${RELAYER_RELEASE_VERSION}
+    container_name: webb_relayer
+    env_file: .env
+    depends_on:
+      - caddy
+    ports:
+      - "$WEBB_PORT:$WEBB_PORT"
+    volumes:
+      - $PWD/config:/config
+      - relayer_data:/store
+    restart: always
+    command: /webb-relayer -vvv -c /config
+
+  tangle_parachain:
+    # Here you should checkout
+    # https://github.com/webb-tools/tangle/pkgs/container/tangle-parachain/versions?filters%5Bversion_type%5D=tagged
+    # For the latest stable version. Only use "main" if
+    # you know what you are doing, it will use the latest and maybe
+    # unstable version of the node.
+    image: ghcr.io/webb-tools/tangle/tangle-parachain:${TANGLE_RELEASE_VERSION}
+    container_name: tangle_parachain
+    env_file: .env
+    ports:
+      - "30333:30333"
+      - "9933:9933"
+      - "9944:9944"
+      - "9615:9615"
+    volumes:
+      - tangle_data:/data
+    restart: always
+    entrypoint: /tangle-parachain
+    command:
+      [
+        "--base-path=/data",
+        "--collator",
+        "--chain=/data/chainspecs/parachain.json",
+        "--",
+        "--execution=wasm",
+      ]
+
+volumes:
+  relayer_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/relayer/data
+  tangle_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: $PWD/tangle/collator
+```
+
+### **5. Set environment variables:**
+
+Prior to spinning up the Docker containers, we need to set some environment variables. Below displays an example `.env` file
+but you will need to update to reflect your own environment.
+
+```bash
 export TANGLE_RELEASE_VERSION=main
 export RELAYER_RELEASE_VERSION=0.5.0-rc1
 export BASE_PATH=/tmp/data/
 export CHAINSPEC_PATH=/tmp/chainspec
 export WEBB_PORT=9955
 ```
+
+### **5. Start Relayer and Collator node:**
+
+With our keys generated and our docker-compose file created, we can now start the relayer and collator node.
+
+```bash
+docker compose up -d
+```
+
+The `docker-compose` file will spin up a container running Tangle Collator node and another running a Webb Relayer.
 
 ## Update the Client
 

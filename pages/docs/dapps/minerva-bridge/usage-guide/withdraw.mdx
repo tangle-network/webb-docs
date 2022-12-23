@@ -3,7 +3,7 @@ title: Withdrawals on Minerva Bridge
 description: An overview of Withdrawls on Minerva Bridge
 ---
 
-import { Withdraw, WithdrawToken, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
+import { Withdraw, WithdrawToken, WithdrawFixedAmount, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
 
 # Withdrawals on Minerva Bridge
 
@@ -25,57 +25,86 @@ before we can withdraw.
 ### **1. Select Appropiate Chain**
 
 To get started we want to make sure we are connected to the correct chain. The correct chain is the chain that we
-indicated as a our destination chain during the deposit flow. If you are not connected to the correct chain you will
+indicated as a our destination chain during the deposit. If you are not connected to the correct chain you will
 notice that if we try to withdraw it will indicate an insuffient balance error.
+
+To see the destination chain of your previous deposits, just scroll down to the **Available Spend Notes** tab to view the
+note and its destination chain.
 
 ### **2. Select Token**
 
 Once you have selected the correct chain we will need to select what token to withdraw from the shielded pool. Clicking
-on the token selection component will display a list of tokens. Select the token that is represented in our note.
+on the token selection component will display a list of tokens. Select the token that is represented in the note.
 
 <br />
 <WithdrawToken />
 
 ### **3. Unwrap and Withdraw**
 
-Be advised that deposits into the bridge are wrapped into Webb based asset. For example, if you select `ETH` to be
-deposited, it will be wrapped in a Webb wrapped asset (e.g. `webbETH`). This is required to facilitate bridging of
-assets across different chains. It's important to note that you can unwrap and withdraw back into `ETH` on the destination
-chain as long as there is liquidity available on that destination chain.
+When we make a deposit on the Minerva bridge the depositing asset is wrapped into a Webb based asset. Thus, during the
+withdraw process we can either unwrap the asset into a supported underlying asset of the specified shielded pool or we can
+withdraw the Webb wrapped asset as is (e.g. `WebbETH`).
+
+Be advised in order to unwrap and withdraw the underlying asset there must be sufficient liquidity on the destination chain. Otherwise,
+you will be required to withdraw the Webb wrapped asset as is or wait for sufficient liquidity on that particular chain. That does **not** mean you are unable to unwrap and withdraw the underlying asset completely, only
+that you will need to withdraw the Webb wrapped asset and then perform a separate transaction to unwrap the asset on a destination chain that has sufficient liquidity if you
+want to withdraw the underlying asset (e.g. `ETH`).
+
+To begin with the unwrap and withdraw process, toggle the **Unwrap and Withdraw** switch. This will display the unwrap and withdraw option within the withdraw component.
+Next, select the token you would like to unwrap from by clicking on the **Select Unwrapping Asset** component.
 
 <br />
 <UnwrapWithdrawStart />
 
+Select the token you would like to unwrap from the list of tokens. The tokens listed will only be the tokens that are supported.
+
 <br />
 <UnwrapWithdrawToken />
+
+In the below example, we are attempting to unwrap `WebbETH` into `ETH`. That is, once we complete the withdraw process we will receive `ETH` on the destination chain.
 
 <br />
 <UnwrapWithdraw />
 
-### **5. Input Amount**
+### **4. Input Amount**
 
-With the Minerva bridge you can deposit variable amounts. Input the amount you would like to deposit into the
-Minerva bridge. If you want to deposit the entire available balance simply click **Max** for a quick input.
+With the Minerva bridge you can withdraw variable amounts, however, users are encouraged to withdraw fixed amounts to further protect their privacy and the privacy of the
+protocol as a whole. Nonetheless the dApp supports withdrawing both fixed and variable amounts.
 
 #### Fixed Amount
 
+To withdraw a fixed amount simply select an amount outlined within the dApp.
+
+<br />
+<WithdrawFixedAmount />
+
 #### Custom Amount
 
+To withdraw a custom amount user will need to hover on the chevron icon to the right of **Fixed Amount**. This will display a pop up where you can proceed to
+select **Custom Amount**.
+
+<br />
 <WithdrawCustomAmount />
 <br />
+
+Once you have selected **Custom Amount** you will be able to input the amount you would like to withdraw.
 
 <br />
 <WithdrawInputAmount />
 
-We now have all the inputs necessary to make a deposit. Click the **Deposit** button to proceed in confirming the
-details of the transaction.
+### **5. Select Relayer**
 
-### **4. Select Relayer**
+For maximum privacy it is recommended to make use of a relayer to perform the transaction. The relayer will be the one to submit the transaction to the chain and send the funds to the recipient address.
+To select a relayer, select the **Add a relayer** component which will display a list of relayers that are supported. The decision of which relayer to use is up to the user, and will primarily be
+made based on the relayers advertised commission fee. Proceed to select a supported relayer to continue.
 
 <br />
 <RelayerSelection />
 
-### **5. Input Recipient Address**
+### **6. Input Recipient Address**
+
+The recipient address is the address that the funds will be sent to. The recipient address can be any address supported on the destination chain. To maximize the privacy of your transaction it
+is recommended to use a new address for each transaction.
 
 <br />
 <WithdrawRecipient />
@@ -85,33 +114,22 @@ details of the transaction.
 Upon clicking the **Withdraw** button you will be presented with the details of your transaction. It is important to
 review these transaction details to ensure they're accurate.
 
-### **1. Verify Deposit Details**
+### **1. Verify Withdraw Details**
 
-Review the transaction details of the deposit. Pay close attention to the destination chain and amount displayed.
+Review the transaction details of the withdrawal. Pay close attention to the recipient address you have provided and ensure its accuracy.
 
+<br />
 <ConfirmWithdraw />
-<br />
 
-### **2. Confirm Copied Note**
+### **2. Withdrawal In-Progress**
 
-Within the deposit confirmation view, you will need to confirm that you have copied the spend note. The spend note should
-be kept in confidence as anyone who gains access to your spend note will be able to withdraw your funds from the
-bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
-
-<br />
-
-Once you have confirmed that you have copied the spend note you may proceed to click **Wrap And Deposit** to initiate the transaction.
-
-### **3. Withdrawal In-Progress**
-
-Before the deposit transaction can be sent to the source chain selected we transition through the following stages:
+Before the withdraw transaction can be completed we transition through the following stages:
 
 - Fetching transaction leaves
 - Generate zero knowledge proof
-- Confirm transaction with connected wallet
-- Send transaction to selected source chain
+- Send transaction to recipient address
 
-You may observe the progress of each stage within the deposit in-progress view. If you would like to proceed with
+You may observe the progress of each stage within the withdraw in-progress view. If you would like to proceed with
 an additional transaction you can click **New Transaction** and begin on your next transaction. The Minerva dApp
 conveniently keeps a notification card with transaction details and progress on the right side to keep you informed
 when the transaction is successful.
@@ -120,10 +138,14 @@ when the transaction is successful.
 
 <WithdrawInProgress />
 
+### **3. Confirm Change Note is Copied**
+
+Within the withdraw in-progress view, you will need to confirm that you have copied the change note. A change note is a new note generated from your remaining balance. The change note should
+be kept in confidence as anyone who gains access to the note will be able to withdraw your funds from the
+bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
+
 ### **4. Successful Withdraw**
 
-When the deposit transaction is completed you can observe a successful confetti filled message in the notification card!
+When the withdraw transaction is completed you can observe a successful confetti filled message in the notification card!
 If you want to see the transaction in a block explorer, click on the **Successfully Withdraw** link within the
 notification card.
-
-<br />
