@@ -93,7 +93,7 @@ export const DappsArea = () => {
         feature={{
           Icon: CubeIcon,
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
-          name: "Minerva Bridge",
+          name: "Hubble Bridge",
         }}
         href="https://webb-bridge-dapp.netlify.app/"
       />
@@ -116,7 +116,7 @@ export const DappsAreaBridge = () => {
         feature={{
           Icon: CubeIcon,
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
-          name: "Minerva Bridge",
+          name: "Hubble Bridge",
         }}
         href="https://webb-bridge-dapp.netlify.app/"
       />
