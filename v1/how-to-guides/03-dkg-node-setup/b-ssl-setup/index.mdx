@@ -154,5 +154,12 @@ service nginx restart
 You can now try to connect to your new node from polkadot.js/apps, or by making a curl request that emulates opening a secure WebSockets connection:
 
 ```
-curl --include --no-buffer --header "Connection: Upgrade" --header "Upgrade: websocket" --header "Host: $name:80" --header "Origin: http://$name:80" --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" --header "Sec-WebSocket-Version: 13" http://$name:9944/
+curl --include --no-buffer \
+  --header "Connection: Upgrade" \
+  --header "Upgrade: websocket" \
+  --header "Host: $name:80" \
+  --header "Origin: http://$name:80" \
+  --header "Sec-WebSocket-Key: SGVsbG8sIHdvcmxkIQ==" \
+  --header "Sec-WebSocket-Version: 13" \
+  http://$name:9944/
 ```
