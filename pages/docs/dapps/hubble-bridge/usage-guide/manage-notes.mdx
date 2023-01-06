@@ -7,7 +7,7 @@ import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, Shielde
 
 # Managing Notes
 
-For each deposit, transfer, and withdraw a note is generated to represent a user balance. For Webb's Hubble Bridge
+For each deposit, transfer, and withdrawal a note is generated to represent a user balance. For Webb's Hubble Bridge
 we make use of the UTXO model for handling user balances. Each note contains the following attributes:
 
 - the protocol name (e.g. `vanchor`),
@@ -17,7 +17,7 @@ we make use of the UTXO model for handling user balances. Each note contains the
 - chainID,
 - public key,
 - commitment,
-- nullifer,
+- nullifier,
 - a value that represents the amount of funds that can be spent and effectively transferred to another user
 
 An example note may look similar to the following:
@@ -42,11 +42,11 @@ relevant data points of all your notes.
 The columns of the above pictured table represent the following:
 
 - **Chain:** the destination chain that the shielded assets may be withdrawn from
-- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool
+- **Shieled Asset:** the name of the shielded asset that you have claim to in the pool
 - **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
 - **Available Balance:** the total sum of available balance to be withdrawn across all your notes for that given shielded asset
 - **Note Found:** the sum of all notes for a given shielded asset
-- **Action:** quick action shortcuts user can make use of for transfer and withdraw
+- **Action:** quick action shortcuts user can make use of for deposit, transfer and withdrawal
 
 The shielded asset table provides you with a holistic view of your various shielded assets that exist within the Hubble Bridge.
 
@@ -63,7 +63,7 @@ of your own available spend notes.
 The columns of the above pictured table represent the following:
 
 - **Chain:** the destination chain that the shielded assets may be withdrawn from
-- **ShieledAsset:** the name of the shielded asset that you have claim to in the pool
+- **Shieled Asset:** the name of the shielded asset that you have claim to in the pool
 - **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
 - **Available Balance:** the available balance to be withdrawn for the given shielded asset
 - **Subsequent Deposits:** the number of deposits that occurred after your own deposit. The more deposits that occurred subsequently to your own the greater the privacy achieved.
@@ -82,4 +82,4 @@ To upload or download individual notes you can simply click on the **Manage** bu
 
 <AvailableNotesManage />
 
-The Hubble Bridge makes it incredibly easy to manage and review all your deposists through these two tables.
+The Hubble Bridge makes it incredibly easy to manage and review all your deposits through these two tables.
