@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { useState, ReactNode, ReactElement } from "react";
+import { useState, ReactNode, ReactElement, FC, useCallback } from "react";
 import cn from "classnames";
 import { ThemeSwitch } from "nextra-theme-docs";
 
@@ -92,6 +92,9 @@ const navigation = {
 };
 
 export function FooterContent() {
+  // State for subscription success
+  const [success, setSuccess] = useState(false);
+
   return (
     <div className="w-full" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
@@ -163,14 +166,26 @@ export function FooterContent() {
               </div>
             </div>
           </div>
-          <div className="mt-12 xl:!mt-0">
-            <FooterHeader>Subscribe to our newsletter</FooterHeader>
-            <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
-              Subscribe to the Webb newsletter and stay updated on new releases
-              and features, guides, and research.
-            </p>
-            <SubmitForm />
-          </div>
+          {!success && (
+            <div className="mt-12 xl:!mt-0">
+              <FooterHeader>Subscribe to our newsletter</FooterHeader>
+              <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
+                Subscribe to the Webb newsletter and stay updated on new
+                releases and features, guides, and research.
+              </p>
+
+              <SubmitForm onSuccess={() => setSuccess(true)} />
+            </div>
+          )}
+          {success && (
+            <div className="mt-12 xl:!mt-0">
+              <FooterHeader>Thanks for Subscribing!</FooterHeader>
+              <p className="mt-4 text-sm text-gray-600 dark:text-[#888888]">
+                Thanks for signing up! Keep an eye on your inbox for updates
+                from the Webb community.
+              </p>
+            </div>
+          )}
         </div>
 
         <div className="pt-8 mt-8 sm:flex sm:items-center sm:justify-between">
@@ -377,56 +392,69 @@ export function FooterContent() {
   );
 }
 
-function SubmitForm() {
+const SubmitForm: FC<{ onSuccess: (isSuccess: boolean) => void }> = ({
+  onSuccess,
+}) => {
   const [email, setEmail] = useState("");
-  const router = useRouter();
+  // State for error handling
+  const [error, setError] = useState<string | null>(null);
+
   return (
-    <form
-      className="mt-4 sm:flex sm:max-w-md"
-      onSubmit={(e) => {
-        fetch("/api/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        })
-          .then((res) => {
-            console.log("res1", res);
-            res.json();
-          })
-          .then((res) => {
-            console.log("res", res);
-            return router.push("/confirm");
+    <>
+      <form
+        className="mt-4 sm:flex sm:max-w-md"
+        onSubmit={(e) => {
+          fetch("/api/subscribers", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email }),
+          }).then((res) => {
+            if (res.ok) {
+              setError(null);
+              onSuccess(true);
+              res.json();
+            } else {
+              // error handling
+              res.json();
+              setError("Something went wrong: " + res.statusText);
+            }
           });
-        e.preventDefault();
-      }}
-    >
-      <label htmlFor="email-address" className="sr-only">
-        Email address
-      </label>
-      <input
-        type="email"
-        name="email-address"
-        id="email-address"
-        autoComplete="email"
-        required
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border-[#666666] dark:border-[#888888] w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border rounded-md appearance-none dark:text-white sm:text-sm dark:bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:border-white focus:placeholder-gray-400"
-        placeholder="you@example.com"
-      />
-      <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-        <button
-          type="submit"
-          className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md dark:bg-white dark:text-black sm:text-sm betterhover:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-white dark:betterhover:hover:bg-gray-300"
-        >
-          Subscribe
-        </button>
-      </div>
-    </form>
+          e.preventDefault();
+        }}
+      >
+        <label htmlFor="email-address" className="sr-only">
+          Email address
+        </label>
+        <input
+          type="email"
+          name="email-address"
+          id="email-address"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="border-[#666666] dark:border-[#888888] w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border rounded-md appearance-none dark:text-white sm:text-sm dark:bg-transparent focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:border-white focus:placeholder-gray-400"
+          placeholder="you@example.com"
+        />
+        <div className="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+          <button
+            type="submit"
+            className="flex items-center justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md dark:bg-white dark:text-black sm:text-sm betterhover:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:focus:ring-white dark:betterhover:hover:bg-gray-300"
+          >
+            Subscribe
+          </button>
+        </div>
+      </form>
+      {error && (
+        <span className="flex mt-4 text-red dark:red">
+          <p className="text-red dark:red">{error}</p>
+        </span>
+      )}
+    </>
   );
-}
+};
 
 export function Footer({ menu }: { menu?: boolean }): ReactElement {
   return (
