@@ -31,7 +31,7 @@ would love to get to know you and your work!
 ### Directory structure
 
 The content of this website is versioned in separate directories, where `v<VERSION>` is the convention
-used. The devhub is then hierarchically separated into the three main types of
+used. The devhub is then hierarchically separated into three main types of
 content: docs, how-to-guides, and tutorials.
 
 Sub folders in these are of the form:
@@ -171,11 +171,11 @@ excluded because for:
   redirection is handled by netlify redirect feature. Gatsby server will just rendered them as 404
   pages.
 
-- `/www.substrate.io`, `/docs.substrate.io`: these are public substrate.io pages that can be remove
+- `/www.substrate.io`, `/docs.substrate.io`: these are public substrate.io pages that can be removed
   from the excluded list once [substrate.io](https://www.substrate.io) is launched.
 
 - `/crates.io`, `/fonts.gstatic.com`, `/github.com`, `/wwww.nuget.org`: they either have
-  rate-limiting check or doesn't welcome web crawlers to fetch them and just return a 404 page.
+  rate-limiting check or don't welcome web crawlers to fetch them and just return a 404 page.
 
 ## License
 
