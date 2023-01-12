@@ -152,7 +152,7 @@ If you are interested to see how we configure the Tangle Network nodes for monit
 
 ### Loki
 
-Loki's configuration details what ports to listen to, how to store the logs, other configuration.
+Loki's configuration details what ports to listen to, how to store the logs, and other configuration options.
 There are many other config options for Loki, and you can read more about Loki configuration at: https://grafana.com/docs/loki/latest/configuration/
 
 Let’s create the file:
@@ -214,8 +214,8 @@ table_manager:
 
 ### Promtail
 
-The promtail configuration details what logs to send to loki. In the below configuration we are indicating
-to send the logs to loki from the `/var/log/dkg` directory. This directory can be changed based on what logs you
+The Promtail configuration details what logs to send to Loki. In the below configuration we are indicating
+to send the logs to Loki from the `/var/log/dkg` directory. This directory can be changed based on what logs you
 want to pick up. There are many other config options for Promtail, and you can read more about Promtail configuration at: https://grafana.com/docs/loki/latest/clients/promtail/configuration/
 
 Let’s create the file:
@@ -333,7 +333,7 @@ systemctl status loki.service
 systemctl status promtail.service
 ```
 
-If everything is working adequtely, activate the services!
+If everything is working adequately, activate the services!
 
 ```
 sudo systemctl enable loki.service &&

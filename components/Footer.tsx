@@ -52,7 +52,10 @@ const navigation = {
     },
     { name: "Statistics", href: "https://www.stats-dev.webb.tools/" },
     // TODO: add bridge link
-    { name: "Hubble Bridge", href: "https://webb-bridge-dapp.netlify.app/" },
+    {
+      name: "Hubble Bridge",
+      href: "https://development-hubble-bridge.netlify.app/",
+    },
   ],
   community: [
     {

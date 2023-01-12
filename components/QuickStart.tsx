@@ -95,7 +95,7 @@ export const DappsArea = () => {
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
           name: "Hubble Bridge",
         }}
-        href="https://webb-bridge-dapp.netlify.app/"
+        href="https://development-hubble-bridge.netlify.app/"
       />
       <DetailedFeatureLink
         feature={{
@@ -118,7 +118,7 @@ export const DappsAreaBridge = () => {
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
           name: "Hubble Bridge",
         }}
-        href="https://webb-bridge-dapp.netlify.app/"
+        href="https://development-hubble-bridge.netlify.app/"
       />
       <DetailedFeatureLink
         feature={{

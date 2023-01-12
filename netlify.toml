@@ -1,9 +1,3 @@
 [build]
     command = "next build"
     publish = ".next"
-
-[[redirects]]
-  from = "/"
-  to = "/docs"
-  status = 301
-  force = true

@@ -197,8 +197,8 @@ proper set up [here](https://support.google.com/mail/answer/185833?hl=en).
 
 ### Slack notifications
 
-We can also utilize Slack notifications to send the alerts through. For that we need to a specific slack channel to send the notifications to, and
-to install Incoming WebHooks slack application.
+We can also utilize Slack notifications to send the alerts through. For that we need to a specific Slack channel to send the notifications to, and
+to install Incoming WebHooks Slack application.
 
 To do so, navigate to:
 
@@ -303,10 +303,10 @@ Add the following lines:
   Group=alertmanager
   Type=simple
   ExecStart=/usr/local/bin/alertmanager \
-  --config.file /etc/alertmanager/alertmanager.yml \
-  --storage.path /var/lib/alertmanager \
-  --web.external-url=http://localhost:9093 \
-  --cluster.advertise-address='0.0.0.0:9093'
+   --config.file /etc/alertmanager/alertmanager.yml \
+   --storage.path /var/lib/alertmanager \
+   --web.external-url=http://localhost:9093 \
+   --cluster.advertise-address='0.0.0.0:9093'
 
 [Install]
 WantedBy=multi-user.target
@@ -336,7 +336,7 @@ And check that they are working fine:
 systemctl status alertmanager.service
 ```
 
-If everything is working adequtely, activate the services!
+If everything is working adequately, activate the services!
 
 **alertManager**:
 
