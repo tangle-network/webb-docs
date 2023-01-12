@@ -19,9 +19,7 @@ const nextConfig = withNextra({
   experimental: {
     legacyBrowsers: false,
   },
-  images: {
-    unoptimized: true,
-  },
+  trailingSlash: true,
   webpack: (config, { webpack }) => {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -47,6 +45,11 @@ const nextConfig = withNextra({
   },
   async redirects() {
     return [
+      {
+        source: "/",
+        destination: "/docs",
+        permanent: true,
+      },
     ];
   },
 });

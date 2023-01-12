@@ -9,7 +9,6 @@
     "build": "next build",
     "export": "next export",
     "lint": "next lint",
-    "rss": "node scripts/generate-rss.js",
     "schema": "turbo-gen ./public/schema.json",
     "format": "prettier --write \"{components,pages}/**/*.{mdx,ts,js,jsx,tsx,json}\" "
   },
@@ -37,6 +36,7 @@
     "react-hot-toast": "2.4.0",
     "react-use": "^17.4.0",
     "react-use-measure": "^2.1.1",
+    "sharp": "^0.31.3",
     "swr": "1.3.0"
   },
   "devDependencies": {
