@@ -415,10 +415,12 @@ const SubmitForm: FC<{ onSuccess: (isSuccess: boolean) => void }> = ({
             body: JSON.stringify({ email }),
           }).then((res) => {
             if (res.ok) {
+              console.log("success");
               setError(null);
               onSuccess(true);
               return res.json();
             } else {
+              console.log("FAILED");
               // error handling
               res.json();
               setError("Something went wrong: " + res.statusText);
