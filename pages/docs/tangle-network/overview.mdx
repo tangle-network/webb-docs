@@ -24,11 +24,11 @@ relay chain.
 
 ## How it Works
 
-The Tangle Network uses a multi-stage governance system to sign payloads with threshold signatures. In order to achieve strong security, we utilize a light-client based approach for signing messages; that is, every message signed by the TSS is crypto-economically enforced to have been verified again a trustless on-chain light-client.
+The Tangle Network uses a multi-stage governance system to sign payloads with threshold signatures. In order to achieve strong security, we utilize a light-client based approach for signing messages; that is, every message signed by the TSS is crypto-economically enforced to have been verified again by a trustless on-chain light-client.
 
 The governance system works as follows:
 
-- Relayers propose payloads to the governance system by providing merkle trie proofs of inclusion of state and events agains their respective blockchains.
+- Relayers propose payloads to the governance system by providing merkle trie proofs of inclusion of state and events against their respective blockchains.
 - Payloads are verified on-chain and added to an unsigned proposal queue for the Tangle Network DKG Authorities to read.
 - Payloads are signed off-chain by the Tangle Network DKG Authorities using their respective DKG shares.
 - Signatures are aggregated and combined and, once formed, submitted back on-chain, where they are cross-referenced with a previously generated unsigned proposal. If successful, the unsigned proposal is cleared from the Tangle Network’s on-chain storage and the signed proposal is inserted into the Tangle Network’s on-chain storage.
