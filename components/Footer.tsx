@@ -417,11 +417,12 @@ const SubmitForm: FC<{ onSuccess: (isSuccess: boolean) => void }> = ({
             if (res.ok) {
               setError(null);
               onSuccess(true);
-              res.json();
+              return res.json();
             } else {
               // error handling
               res.json();
               setError("Something went wrong: " + res.statusText);
+              return
             }
           });
           e.preventDefault();
