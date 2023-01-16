@@ -420,7 +420,7 @@ const SubmitForm: FC<{ onSuccess: (isSuccess: boolean) => void }> = ({
               onSuccess(true);
               return res.json();
             } else {
-              console.log("FAILED");
+              console.log("FAILED::", res);
               // error handling
               res.json();
               setError("Something went wrong: " + res.statusText);

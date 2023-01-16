@@ -7,6 +7,7 @@ type BodyType = {
 };
 
 const isBodyType = (body: any): body is BodyType => {
+  console.log("isBodyType function")
   return typeof body.email === "string";
 };
 
