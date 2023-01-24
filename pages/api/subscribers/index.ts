@@ -1,10 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-import isValidEmail from "./utils";
-
 type BodyType = {
   email: string;
+  name: string;
 };
+
+function isValidEmail(email: string): boolean {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
 const isBodyType = (body: any): body is BodyType => {
   console.log("isBodyType function")
@@ -47,6 +52,7 @@ export default async function handler(
       "api-key": apiKey,
     },
     body: JSON.stringify({
+      attributes: { FIRSTNAME: 'Dustin' },
       updateEnabled: false,
       email,
     }),
@@ -55,7 +61,7 @@ export default async function handler(
   try {
     console.log("try-catch block");
     const response = await fetch(url, options);
-
+    console.log("response::::: ", response);
     if (response.status === 201) {
       res.status(200).send({ message: "Email added to list" });
     } else {
@@ -65,7 +71,7 @@ export default async function handler(
       res.status(500).send({ message: json.message });
     }
   } catch (error) {
-    console.log(error);
+    console.log("BIG ERRROR ::: ",error);
     res.status(500).send({ message: "Error while sending email" });
   }
 }
