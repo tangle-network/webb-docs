@@ -27,8 +27,8 @@ function FooterHeader({ children }: { children: ReactNode }) {
 
 const navigation = {
   general: [
-    { name: "Blog", href: "/blog" },
-    { name: "FAQ", href: "/faq" },
+    { name: "Whitepaper", href: "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf" },
+    // { name: "FAQ", href: "/faq" },
   ],
   source: [
     { name: "DKG", href: "https://webb-tools.github.io/dkg-substrate/" },
@@ -48,7 +48,7 @@ const navigation = {
   ecosystem: [
     {
       name: "Tangle",
-      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle.webb.tools#/explorer",
+      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer",
     },
     { name: "Statistics", href: "https://www.stats-dev.webb.tools/" },
     // TODO: add bridge link
@@ -88,9 +88,9 @@ const navigation = {
   ],
   legal: [
     // TODO: setup links
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Security", href: "/terms" },
+    { name: "Privacy Policy", href: "" },
+    { name: "Terms of Service", href: "" },
+    { name: "Security", href: "" },
   ],
 };
 
