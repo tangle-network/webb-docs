@@ -35,7 +35,7 @@ if image assets are added to a given section you must provide both a dark and li
 
 1. Navigate to the desired page to update (e.g. `/pages/docs/anchor-system/overview.mdx`)
 2. Make applicable changes
-3. Test those changes locally `yarn dev`
+3. Test those changes locally `yarn install && yarn dev`
 
 **Adding content for existing section**
 
@@ -43,7 +43,7 @@ if image assets are added to a given section you must provide both a dark and li
 2. Create a new mdx file that represents new page for desired section (e.g. `advanced.mdx`)
 3. Write desired content for the new mdx file 
 4. Update the `_meta.json` file within the section directory to include your new page into the navigation
-5. Test those changes locally `yarn dev`
+5. Test those changes locally `yarn install && yarn dev`
 
 **Note:** To create a section with dropdown navigation, simply create a folder and specify the new navigation in `_meta.json`, create new your new files in the new directory along with its own `_meta.json` to outline the desired 
 navigation.  

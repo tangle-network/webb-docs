@@ -92,7 +92,7 @@ export const DappsArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: CubeIcon,
-          description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
+          description: `Private cross-chain bridge. Dedicated UI for moving digital assets privately cross-chain.`,
           name: "Hubble Bridge",
         }}
         href="https://development-hubble-bridge.netlify.app/"
