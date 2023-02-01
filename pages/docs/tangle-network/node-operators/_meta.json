@@ -1,0 +1,10 @@
+{
+  "quickstart": "Quickstart",
+  "requirements": "Requirements",
+  "required-keys": "Required Keys",
+  "deploy-with-docker": "Deploying with Docker",
+  "systemd": "Running with Systemd",
+  "monitoring": "Monitoring",
+  "api-reference": "API Reference",
+  "troubleshooting": "Troubleshooting"
+}

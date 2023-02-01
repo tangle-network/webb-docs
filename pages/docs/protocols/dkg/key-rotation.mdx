@@ -1,0 +1,19 @@
+---
+title: Key rotation
+description: Only build the workspaces you care about
+---
+
+# Key rotation
+
+The DKG required network participants to rotate their shared private signing keys in an effort to keep the
+network secure. On a new session, the new authorities (from validators or collators) are selected and the
+next authorities are selected.
+
+1. These next authorities run **_keygen_** protocol discussed above and output a new group keypair on-chain,
+   denoted `next_dkg_public_key`.
+2. The current authorities (having already run this process in the step before) see this event and if it is time
+   to refresh, they begin to sign the `next_dkg_public_key` with their key, the `dkg_public_key`.
+3. The signature from the active keypair of the next keypair is posted on-chain.
+4. Once this signature is posted, anyone can propagate it.
+   - Any relayer.
+   - Any user who wants to update the governor of their contract.

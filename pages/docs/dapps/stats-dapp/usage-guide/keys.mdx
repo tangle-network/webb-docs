@@ -1,0 +1,48 @@
+---
+title: Keys
+description: An overview of the Webb Stats dApp Keys page.
+---
+
+import { KeysPage, KeysDetailsPage, ActiveKey, KeygenTable } from '../../../../../components/images/stats/keys/Keys';
+
+# Overview
+
+The Keys page visualizes the keys generated during the DKG's threshold-key-generation protocol that are being used to govern distributed applications,
+namely the Anchor System.
+
+<br />
+
+<KeysPage />
+
+## Active Key
+
+The active key section displays the **current** active key. The active key is the key that is currently being used to sign proposals into existence. The dApp
+visualizes the start or when the key became active, and the end or when the next key is rotated in. The component provides insight into what session the
+current key became active in, and you may copy the compressed key to your clipboard.
+
+<ActiveKey />
+
+## Keygen List
+
+The keygen list displays all the keys that have been generated during the DKG's threshold-key-generation protocol, the participating authorities used to generate the
+key, the block height and session the key was generated in. In addition it displays the keygen and signature thresholds during the key's active session. More precisely,
+the table headers can be defined as the following:
+
+- `Height`: The block height the key was generated in.
+- `Session`: The session the key was generated in.
+- `Keygen Threshold`: The keygen threshold set during the keys generation which is the minimum number of authorities required to produce a valid signature.
+- `Signature Threshold`: The 't' in (t-out-of-n) threshold signatures used in the DKG signing system. Required of DKG authorities to generate signatures.
+- `Authorities`: The authorities that participated in the key generation.
+
+<br />
+
+<KeygenTable />
+
+## Key Details
+
+To view additional data about any given key you may click on the key's row in the keygen list. This will display the key's details page. The key details page illustrates
+the compressed and uncompressed key, the key's history details, and the authorities that were active participants.
+
+<br />
+
+<KeysDetailsPage />

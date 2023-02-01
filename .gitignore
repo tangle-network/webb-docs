@@ -1,0 +1,17 @@
+/public/*.st
+/public/*.toml
+/public/schema.json
+/public/feed.xml
+# Sentry
+.sentryclirc
+node_modules/
+yarn-error.log
+.next
+.env
+.env.development
+.yarn
+.cache
+/public/*
+.DS_Store
+out/*
+out

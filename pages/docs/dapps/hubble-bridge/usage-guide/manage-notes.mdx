@@ -1,0 +1,85 @@
+---
+title: Managing Notes on Hubble Bridge
+description: An overview of how to manage your notes on Hubble Bridge
+---
+
+import { AvailableNotesManage, AvailableNotesQuick, AvailableSpendNotes, ShieldedAssets } from '../../../../../components/images/bridge/usage-guide/manage-notes/Notes';
+
+# Managing Notes
+
+For each deposit, transfer, and withdrawal a note is generated to represent a user balance. For Webb's Hubble Bridge
+we make use of the UTXO model for handling user balances. Each note contains the following attributes:
+
+- the protocol name (e.g. `vanchor`),
+- private key,
+- blinding value,
+- merkle path index,
+- chainID,
+- public key,
+- commitment,
+- nullifier,
+- a value that represents the amount of funds that can be spent and effectively transferred to another user
+
+An example note may look similar to the following:
+
+```
+webb://v1:vanchor/1099522782887:1099522782887/0x965c94a6e1b713e751164d2ba09aa0306f48ee74:0x965c94a6e1b713e751164d2ba09aa0306f48ee74/0000010000aa36a7:0000000000000000003c6568f12e8000:1d81f339efc951a8d19133c4a050159662b28d4021e75c66af29cb93f427b331:003feb82b9da3e335d6312f94670ea0317035d34c4addb31fad674af1f4c8059/?curve=Bn254&width=5&exp=5&hf=Poseidon&backend=Circom&token=webbETH&denom=18&amount=17000000000000000
+```
+
+These notes are intended to be kept in confidence, anyone who gains access to your notes can withdraw your funds from
+the Hubble Bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain
+for persistent storage. The below guide provides a walkthrough of how to manage your notes.
+
+## Shielded Assets Table
+
+Once you have made deposit(s) into the Hubble Bridge we conveniently populate the Shielded Assets table with the
+relevant data points of all your notes.
+
+<br />
+
+<ShieldedAssets />
+
+The columns of the above pictured table represent the following:
+
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **Shieled Asset:** the name of the shielded asset that you have claim to in the pool
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
+- **Available Balance:** the total sum of available balance to be withdrawn across all your notes for that given shielded asset
+- **Note Found:** the sum of all notes for a given shielded asset
+- **Action:** quick action shortcuts user can make use of for deposit, transfer and withdrawal
+
+The shielded asset table provides you with a holistic view of your various shielded assets that exist within the Hubble Bridge.
+
+## Available Spend Notes Table
+
+For every transact you have done with the Hubble Bridge a note is generated. The Available Spend table provides a record of each
+your notes so you can conveniently access and view these notes along with relevant data. Simply the table provides a list
+of your own available spend notes.
+
+<br />
+
+<AvailableSpendNotes />
+
+The columns of the above pictured table represent the following:
+
+- **Chain:** the destination chain that the shielded assets may be withdrawn from
+- **Shieled Asset:** the name of the shielded asset that you have claim to in the pool
+- **Composition:** the configuration of tokens that make up the pool in which your shielded assets exist in
+- **Available Balance:** the available balance to be withdrawn for the given shielded asset
+- **Subsequent Deposits:** the number of deposits that occurred after your own deposit. The more deposits that occurred subsequently to your own the greater the privacy achieved.
+- **Note:** the actual note representing your claim to your deposited amount
+
+The available spend table provides you with a holistic view of each of your available spend notes.
+
+Selecting the chevron icon next to your note will display a dropdown menu for quick action shortcuts user can make use of for transfer and withdraw.
+
+<br />
+
+<AvailableNotesQuick />
+
+To upload or download individual notes you can simply click on the **Manage** button to display a dropdown menu for
+**Upload** or **Download** a given note.
+
+<AvailableNotesManage />
+
+The Hubble Bridge makes it incredibly easy to manage and review all your deposits through these two tables.

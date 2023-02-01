@@ -1,0 +1,53 @@
+{
+  "*": {
+    "type": "page"
+  },
+  "index": {
+    "display": "hidden",
+    "type": "page",
+    "theme": {
+      "layout": "raw",
+      "sidebar": false,
+      "toc": true
+    }
+  },
+  "bridge": {
+    "title": "Hubble Bridge",
+    "href": "https://development-hubble-bridge.netlify.app/",
+    "newWindow": true
+  },
+  "stats": {
+    "title": "Stats dApp",
+    "href": "https://www.stats-dev.webb.tools/",
+    "newWindow": true
+  },
+  "component-lib": {
+    "title": "Webb UI Kit",
+    "href": "https://webb-tools.github.io/webb-dapp/",
+    "newWindow": true
+  },
+  "blog": {
+    "title": "Blog",
+    "theme": {
+      "typesetting": "article"
+    },
+    "display": "hidden"
+  },
+  "whitepaper": {
+    "title": "Whitepaper",
+    "href": "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf",
+    "newWindow": true
+  },
+  "confirm": {
+    "title": "Confirm",
+    "display": "hidden"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "display": "hidden"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "display": "hidden"
+  }
+}

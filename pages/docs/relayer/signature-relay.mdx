@@ -1,0 +1,55 @@
+---
+title: Signature Relaying
+description: A description of Webb relayer signature relaying capabilities. 
+---
+
+import Callout from "../../../components/Callout";
+
+# Signature Relaying
+
+If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions.
+For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note
+that governace relaying, private transaction relaying and data querying are all on by default.
+
+To set up the relayer exclusively for data proposing and signature relaying we need to add the following fields to under the
+`[evm.<network>.contracts]` section:
+
+### Required Fields
+
+- **`contract`**: Name of the contract to support (e.g. "VAnchor", "SignatureBridge")
+- **`address`**: Address of the contract
+- **`events-watcher`**: Event watcher should be set to `true` for this strategy and include a specified polling interval
+- **`proposal-signing-backend`**: Indicates how proposals are signed (e.g. "Mocked", "DKG")
+- **`linked-anchors`**: Entries for this anchor contract's connected edges. These fields are used to determine the generation of AnchorUpdate proposals
+
+Under the `[features]` section we need to turn off data-querying and private-relaying.
+
+- **`data-query`**: Should be set to `false` for this strategy
+- **`governance-relay`**: Should be set to `true` for this strategy (set to `true` by default)
+- **`private-relay`**: Should be set to `false` for this strategy
+
+An example configuration file for the Goerli network that is configured for governance relaying:
+
+<Callout type="info">
+  You will need to update the linked-anchors and contract addresses for the applicable chains.
+</Callout>
+
+```
+[[evm.goerli.contracts]]
+contract = "VAnchor"
+address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
+events-watcher = { enabled = true, polling-interval = 10000 }
+proposal-signing-backend = { type = "DKG", private-key = "$GOVERNOR_PRIVATE_KEY" }
+linked-anchors = [
+  { chain = "ropsten", chain-id = "3", address = "0x66e04f6ae26c310e39f5bf24d873909e6d3b64c7" },
+  { chain = "rinkeby", chain-id = "4", address = "0x91127f21d63029eb5b2de05b4b1e9fd3497ee95b"},
+  { chain = "polygontestnet", chain-id = "80001", address = "0x1371efed369498718bee3eb5d58e5d3dec86be85" },
+  { chain = "optimismtestnet", chain-id = "69", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
+  { chain = "arbitrumtestnet", chain-id = "421611",  address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
+]
+
+[features]
+private-relay = false
+data-query = false
+governance-relay = true
+```

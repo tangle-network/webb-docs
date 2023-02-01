@@ -1,0 +1,141 @@
+---
+title: Identity
+description: Describes the identity protocol.
+---
+
+import IdentityImages from '../../../components/images/IdentityProtocol'
+
+# Identity
+
+The identity protocol we describe here is inspired and based off of Semaphore Protocol, an identity protocol that allows for private arbitrary signaling (voting for example) on the blockchain while proving that the user is part of a group in the semaphore set.
+
+In our version of the identity protocol we will leverage Webb’s technology to design an interoperable Semaphore protocol that allows for signaling from one-of-many connected Semaphore sets on potentially different blockchains. A benefit of using Webb's interoperable identity system is the ability to create and connect multiple identity sets together from potentially many distinct blockchains. Using this, we can create applications that enable participation from users in multiple communities and blockchain ecosystems at the same time.
+
+## Identity sets and identities
+
+The Semaphore protocol allows us to create arbitrary merkle-trees to represent our identity sets. Each leaf in the merkle tree is a 32-bytes identity commitment. A user can prove membership in the Semaphore identity set by proving that they know the secret preimage to the leaf commitment and its corresponding merkle path. In Webb's extension protocol, a user can be a member of one-of-many merkle trees on potentially distinct blockchains. In this setting, the user can prove on any of the chains their membership in one of them, enabling cross-chain proofs of identities and interactions on top.
+
+Below we document the Identity data structure.
+
+- Each identity is composed of a pair of random field elements: (`identityNullifier`, `identityTrapdoor`).
+- The `identitySecret` is the `Poseidon(identityNullifier, identityTrapdoor)`.
+- The `identityCommitment` is the `Poseidon(identitySecret)`.
+- The `identityCommitment` is the leaf data that we will insert into an identity set's merkle tree.
+
+For a detailed diagram on how this process is integrated into Semaphore: [linked here](https://semaphore.appliedzkp.org/docs/technical-reference/circuits)
+![image](https://user-images.githubusercontent.com/13153687/199113862-756548ae-5e57-4499-b35f-c290169b7262.png)
+
+### Controlling identity sets
+
+Core to having cross-chain zero-knowledge proofs of identity and group membership is actually creating and maintaining those groups. We may envision having cross-chain groups for NFT holders of specific NFT communities on Ethereum, Arbitrum, and Polygon such as a group for a certain number of Cryptopunk derivative communities. We may also envision having cross-chain groups for users of a specific social forum like Commonwealth, where communities do already live on different chains. We may now be able to leverage the power of the masses to grow the privacy these users have together and provide additional products for them. To that end, we must construct these groups at the very least.
+
+The functionality for modifying identity sets is managed by a group administrator. As is currently implemented, this is an arbitrary address whose signatures control modification of the underlying smart contract using a `modifier onlyAdmin()` style interface. This is geared towards being an EOA or user controlled smart contract that manually approves and selects users to join their community identity set. Nonetheless, this can be abstracted to provide a rule-based system for administering membership into the identity set, such as a rule proving ownership of an NFT or some # of tokens.
+
+### Preventing double signaling
+
+Double signaling is only bad depending on the application. If we're deploying a forum, for example, a user posting twice is expected behaviour.
+
+Because of this, the double signalling prevention is dependent on the application. E.g. For the voting system, the ballotID is the nullifier.
+
+In the base contract (`Semaphore.sol`) and interface (`Semaphore.ts`), the nullifier being used for verification can be any uint256, so there's no attempt to prevent any kind of double signaling since the user can send the same signal multiple times by just generating another random nullifier each time.
+
+On the extensions, there's an already implemented logic for preventing double signaling. On the `SemaphoreVoting.sol` example, the pollID is the same as the nullifierHash, so each user can only vote one time per poll.
+
+## Circuit
+
+The zero-knowledge circuit encodes a variety of constraints to ensure that the identity system works properly. This includes, among other things, the constraints necessary to prove that a user is part of a valid merkle-tree.
+
+The constraints required are:
+
+- To verify the correctness of `identity nullifiers`
+- To verify the uniqueness of `external nullifier`
+- To verify the existence of input `identityCommitments`
+- To verify correctness of merkle-path and merkle-root
+
+## Developer Usage: Using semaphore as external contract
+
+One interesting possibility on how to use Semaphore is to use its contract just to manage groups, while managing circuit and double spending prevention logic on another repo. Example: `https://github.com/webb-tools/protocol-solidity/pull/182`
+
+We have a Semaphore contract deployed at the following addresses.
+
+```
+Ethereum testnet: TBD
+Arbitrum testnet: TBD
+...
+
+```
+
+Integration should proceed as follows
+
+1. Add the Semaphore contract interface to your contracts.
+2. Point the interface to the corresponding address to the chain you're deploying on.
+3. Add a groupId parameter to your smart-contract. You may consider making it immutable.
+4. Define your group on the Semaphore contract using the Semaphore interface by pointing to the contract address as follows:
+
+```
+import { Semaphore } from '@webb-tools/semaphore';
+
+const wasmPath = path.resolve(
+  __dirname,
+  <relative_path_to_wasm_file>
+);
+const witnessCalcPath = path.resolve(
+  __dirname,
+  <relative_path_to_witness_calc_file>
+);
+const zkeyPath = path.resolve(
+  __dirname,
+  <relative_path_to_zkey_file>
+);
+zkComponents2_2 = await fetchComponentsFromFilePaths(
+  wasmPath,
+  witnessCalcPath,
+  zkeyPath
+);
+// zkComponents2_2 is duplicated. This is not a good interface for a one (fixed-size) or more than two possible validator sets.
+const semaphore = Semaphore.connect("<contract_address>", zkComponents2_2, zkComponents2_2, signer);
+
+const levels = 30 // between 1 and 32
+const groupId = <random_value> // just need to make sure it isn't taken
+const maxEdges = <number_of_chains_connected_to_this_one> // Currently supported (1, 7)
+
+await semaphore.createGroup(groupId, levels,  signer.address, maxEdges);
+
+let members: List<BigNumber> = ... // Create members using same logic as in the circuit being used.
+await semaphore.addMembers(groupId, members);
+```
+
+Your group is ready on the semaphore contract. Now you should just point its interface to the correct address and group ID.
+
+## Developer Usage: Developing semaphore extensions
+
+Development of semaphore extensions should be done under `packages/semaphore/contracts/extensions`.
+
+The main contracts you should understand the interfaces in order to develop extensions are `packages/semaphore/contracts/base/SemaphoreCore.sol` and `packages/semaphore/contracts/base/SemaphoreGroups.sol`.
+
+`SemaphoreCore.sol` Deals with proof verification. `SemaphoreGroups.sol` deals with the different linked merkle trees for each group.
+
+Note also that the extension contracts and Semaphore.sol are not interchangeable. Current implementation does not allow for deploying a `Voting/Whistleblowing` contract or a `Semaphore/Voting` contract that deals with both applications and unifies anonymity sets
+
+For API documentation on the contracts, go onto the `semaphore-anchor/packages/contracts/interfaces/`.
+
+### Formal description
+
+<IdentityImages />
+
+## Research
+
+### New nullifier schemes
+
+There are new nullifier schemes that may be more attractive for bootstrapping identity sets on a given chain. For example the VUF Nullifier scheme as described in [https://eprint.iacr.org/2022/1255]() details a nullifier scheme based on ECDSA signatures. This would open up the possibility of creating cross-chain identity sets using only the underlying user's EVM address. These new schemes can be integrated in a modular manner without affecting the bridging mechanism that bridges identity sets together.
+
+### New protocol integrations
+
+Integrating with existing identity protocols is usually a straightforward manner. We simply take the core zero-knowledge circuit and make it a one-of-many merkle tree membership proof instead of a single merkle tree membership proof. Ideas and protocols we are interested to integrate with are:
+
+- **Sismo** for cross-chain zkBadges.
+- **Interrep** for cross-chain reputation.
+
+## References
+
+- [https://semaphore.appliedzkp.org/](https://semaphore.appliedzkp.org/)

@@ -1,0 +1,56 @@
+---
+title: Proposals
+description: An overview of the Webb Stats dApp Proposals page.
+---
+
+import { ProposalsPage, ProposalsDetailsPage, ProposalsTable, ProposalsChart, ProposalStatus } from '../../../../../components/images/stats/proposals/Proposals';
+
+# Overview
+
+The Proposal page visualizes the proposer threshold parameters, and all the proposals that have been proposed to the DKG to be signed. Proposals are
+essentially messages that have been proposed to enact a change within the protocol. Proposals are proposed by proposers and must pass a threshold in
+order to be signed by the DKG.
+
+<br />
+<ProposalsPage />
+
+## Proposal Status
+
+The Proposal Status section displays the current state of the proposal threshold parameters. The parameters are as follows:
+
+- Proposal threshold: Active proposers vote on and if the vote threshold is met, the proposal is passed on to the DKG to be signed.
+- Proposers: Vote on proposals to be signed by the DKG. The valid proposers is superset of the current DKG authorities. Active DKG authorities are continuously rotated into the proposer set.
+
+<br />
+<ProposalStatus />
+
+## Proposals Overtime
+
+The stacked area graph displays the number of proposals that have been proposed overtime. The graph is broken down by the proposal type. For an in-depth review of
+all proposal types please refer to the application specific proposals and global proposals [here](/docs/protocols/asset-transfer/governance-proposals), and [here](/docs/protocols/dkg/governance/proposals).
+
+<br />
+<ProposalsChart />
+
+## Proposals Table
+
+The proposal table displays all the proposals that have been submitted to the network, the status of those proposals, the type of
+proposal, and the chain in which the proposal was derived from. More precisely,
+the table headers can be defined as the following:
+
+- `Status`: The status of the proposal (e.g. signed, opened, rejected).
+- `Height`: The block height the proposal was submitted in.
+- `Type`: The type of proposal (e.g. AnchorUpdate, AddToken).
+- `Proposers`: The proposers that voted on the proposal.
+- `Chain`: The chain the proposal was submitted from.
+
+<br />
+<ProposalsTable />
+
+## Proposal Details
+
+Selecting the **Details** button on a proposal will display the proposal details page. Here you can view the decoded
+data of the proposal, the proposers that voted on the proposal, and the distribution of votes.
+
+<br />
+<ProposalsDetailsPage />

@@ -1,0 +1,5 @@
+{
+  "full-node": "Full Node",
+  "collator-node": "Collator Node",
+  "relayer-node": "Collator Node with Relayer"
+}

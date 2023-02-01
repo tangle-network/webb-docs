@@ -1,0 +1,203 @@
+---
+title: Deploying with Docker
+description: Deploy a Tangle collator node with only a few steps.
+---
+
+import Callout from "../../../../../components/Callout";
+
+# Deploying with Docker
+
+An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
+please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
+
+## Using Docker
+
+The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
+create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
+command to get up and running.
+
+### **1. Pull the Tangle Docker image:**
+
+Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-parachain), we pull the `tangle-parachain:main` Docker image from ghcr.io
+so that we can generate and insert our required keys before starting the node.
+
+```
+# Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
+
+docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
+```
+
+### **2. Create a local directory to store the chain data:**
+
+Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
+
+```
+mkdir /var/lib/tangle/
+```
+
+### **3. Fetch applicable chainspec(s):**
+
+To join the Tangle Test network as collator we need to fetch the appropriate chainspec for the Tangle network.
+Download the latest chainspec for parachain testnet:
+
+```
+# Fetches chainspec for Tangle network
+wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-parachain.json
+```
+
+Please make a reference where you have stored this `json` file as we will need it in the next steps.
+
+### **4. Generate and store keys:**
+
+We need to generate the required keys for our node. For more information on these keys, please see the [Required Keys]() section.
+The keys we need to generate include the following:
+
+- DKG key (Ecdsa)
+- Aura key (Sr25519)
+- Account key (Sr25519)
+
+Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
+should paste your SURI when the command asks for it.
+
+**Account Keys**
+
+```
+# it will ask for your suri, enter it.
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+     key insert --base-path /var/lib/tangle/ \
+    --chain /data/chainspecs/tangle-parachain.json \
+    --scheme Sr25519 \
+    --key-type acco
+```
+
+**Aura Keys**
+
+```
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    key insert --base-path /var/lib/tangle/ \
+    --chain /data/chainspecs/tangle-parachain.json \
+    --scheme Sr25519 \
+    --key-type aura
+```
+
+**Im-online Keys** - **these keys are optional**
+
+```
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    key insert --base-path /var/lib/tangle/ \
+    --chain /data/chainspecs/tangle-parachain.json \
+    --scheme Sr25519 \
+    --key-type imon
+```
+
+**DKG Keys**
+
+```
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
+    --scheme Ecdsa \
+    --key-type wdkg
+```
+
+To ensure you have successfully generated the keys correctly run:
+
+```
+ls ~/webb/tangle/collator/chains/*/keystore
+# You should see a some file(s) there, these are the keys.
+```
+
+### **5. Start Tangle Collator node:**
+
+To start the node run the following command:
+
+```
+docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-parachain \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+--base-path=/data \
+--chain dev \
+--name="YOUR-NODE-NAME" \
+--execution wasm \
+--wasm-execution compiled \
+--trie-cache-size 0 \
+-- \
+--execution wasm \
+--name="YOUR-NODE-NAME (Embedded Relay)"
+```
+
+<Callout type="info">
+  For an overview of the above flags, please refer to the [CLI Usage]() page of our documentation.
+</Callout>
+
+Once Docker pulls the necessary images, your Tangle node will start, displaying lots of information,
+such as the chain specification, node name, role, genesis state, and more.
+
+If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
+blocks being produced on the Tangle network! Note that in this case you need to also sync to the Polkadot/Kusama
+relay chain, which might take a few days.
+
+### Run via Docker Compose
+
+The docker-compose file will spin up a container running tangle standalone node, but you have to set the following environment variables. Remember to customize your the values depending on your environment and then copy paste this to CLI.
+
+```
+RELEASE_VERSION=main
+CHAINSPEC_PATH=/tmp/chainspec/
+```
+
+After that run:
+
+```
+docker compose up -d
+```
+
+## Update the Client
+
+As Tangle development continues, it will sometimes be necessary to upgrade your node software. Node operators will be notified
+on our Discord channel when upgrades are available and whether they are necessary (some client upgrades are optional).
+The upgrade process is straightforward and is the same for a full node or collator.
+
+1. Stop the docker container:
+
+```
+sudo docker stop `CONTAINER_ID`
+```
+
+2. Get the latest version of Tangle from the Tangle GitHub Release page
+
+3. Use the latest version to spin up your node. To do so, replace the version in the Full Node or Collator command with the latest and run it
+
+Once your node is running again, you should see logs in your terminal.
+
+## Purge Your Node
+
+If you need a fresh instance of your Tangle node, you can purge your node by removing the associated data directory.
+
+You'll first need to stop the Docker container:
+
+```
+sudo docker stop `CONTAINER_ID`
+```
+
+If you did not use the -v flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related
+to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
+
+If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
+you can run the following command to purge your parachain and relay chain data:
+
+```
+# purges parachain data
+sudo rm -rf /data/chains/*
+```
+
+```
+# purges relay chain data
+sudo rm -rf /data/polkadot/*
+```
+
+Now that your chain data has been purged, you can start a new node with a fresh data directory!

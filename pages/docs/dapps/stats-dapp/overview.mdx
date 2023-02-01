@@ -1,0 +1,30 @@
+---
+title: Overview
+description: An overview of the Webb Stats dApp.
+---
+
+import { RepoArea, StatsdApp } from "../../../../components/RepoArea";
+
+# Overview
+
+Webb Stats dApp provides a simple interface to view the latest data from Webb Networks, more specifically it provides insight into the
+Distributed Key Generation (DKG) protocol that runs within Webb based chains such as Tangle Network and AranaAlpha Network. The dApp provides visibility into the current
+state of the DKG protocol, the active key present, the current authorities, signed proposals and more.
+
+The dApp frontend is built using React, and the backend is built using [SubQuery](https://subquery.network/). You can view both implementation within the following repos:
+
+<StatsdApp />
+
+## Stats dApp Pages
+
+The current dApp implementation is comprised of three distinct pages:
+
+- Keys
+- Authorities
+- Proposals
+
+Within each of those pages you may drill in to view more detailed data. For example, on the Keys page you can view the current active key, the compressed and
+uncompressed key and the authorities used to generate the key. You can also view the previous keys and the authorities used to generate them.
+
+The Webb team intends to iteratively add additional insights to this dApp as the protocol matures and as the community requests additional features. If you have
+a suggested feature please post your feature request [here](https://github.com/webb-tools/feedback/discussions/categories/webb-dapp-feedback).
