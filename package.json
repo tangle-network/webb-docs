@@ -11,7 +11,7 @@
     "lint": "next lint",
     "schema": "turbo-gen ./public/schema.json",
     "format": "prettier --write \"{components,pages}/**/*.{mdx,ts,js,jsx,tsx,json}\" ",
-    "format:check": "prettier --check \"{libs,apps,tools}/**/*.{ts,js,jsx,tsx}\" "
+    "format:check": "prettier --check \"{components,pages}/**/*.{mdx,ts,js,jsx,tsx,json}\" "
   },
   "author": "Webb Team",
   "license": "MPL-2.0",
