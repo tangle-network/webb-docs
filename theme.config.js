@@ -11,7 +11,7 @@ const SITE_ROOT = "https://docs.webb.tools";
  * @type {import('nextra-theme-docs').DocsThemeConfig}
  */
 const theme = {
-  docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/db/main",
+  docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/main",
   useNextSeoProps: function SEO() {
     const router = useRouter();
     const { frontMatter } = useConfig();
