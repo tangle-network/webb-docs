@@ -12,7 +12,7 @@ function isValidEmail(email: string): boolean {
 }
 
 const isBodyType = (body: any): body is BodyType => {
-  console.log("isBodyType function")
+  console.log("isBodyType function");
   return typeof body.email === "string";
 };
 
@@ -52,7 +52,7 @@ export default async function handler(
       "api-key": apiKey,
     },
     body: JSON.stringify({
-      attributes: { FIRSTNAME: 'Dustin' },
+      attributes: { FIRSTNAME: "Dustin" },
       updateEnabled: false,
       email,
     }),
@@ -71,7 +71,7 @@ export default async function handler(
       res.status(500).send({ message: json.message });
     }
   } catch (error) {
-    console.log("BIG ERRROR ::: ",error);
+    console.log("BIG ERRROR ::: ", error);
     res.status(500).send({ message: "Error while sending email" });
   }
 }

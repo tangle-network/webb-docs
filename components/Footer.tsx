@@ -27,7 +27,10 @@ function FooterHeader({ children }: { children: ReactNode }) {
 
 const navigation = {
   general: [
-    { name: "Whitepaper", href: "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf" },
+    {
+      name: "Whitepaper",
+      href: "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf",
+    },
     // { name: "FAQ", href: "/faq" },
   ],
   source: [
@@ -424,7 +427,7 @@ const SubmitForm: FC<{ onSuccess: (isSuccess: boolean) => void }> = ({
               // error handling
               res.json();
               setError("Something went wrong: " + res.statusText);
-              return
+              return;
             }
           });
           e.preventDefault();
