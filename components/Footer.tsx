@@ -53,11 +53,11 @@ const navigation = {
       name: "Tangle",
       href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer",
     },
-    { name: "Statistics", href: "https://www.stats-dev.webb.tools/" },
+    { name: "Statistics", href: "https://stats.webb.tools/" },
     // TODO: add bridge link
     {
       name: "Hubble Bridge",
-      href: "https://development-hubble-bridge.netlify.app/",
+      href: "https://app.webb.tools/",
     },
   ],
   community: [
@@ -91,9 +91,12 @@ const navigation = {
   ],
   legal: [
     // TODO: setup links
-    { name: "Privacy Policy", href: "" },
-    { name: "Terms of Service", href: "" },
-    { name: "Security", href: "" },
+    { name: "Privacy Policy", href: "https://webb.tools/privacy-policy" },
+    {
+      name: "Terms of Service",
+      href: "https://webb.tools/terms-and-conditions",
+    },
+    // { name: "Security", href: "" },
   ],
 };
 

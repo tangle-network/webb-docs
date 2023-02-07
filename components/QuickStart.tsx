@@ -95,7 +95,7 @@ export const DappsArea = () => {
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets privately cross-chain.`,
           name: "Hubble Bridge",
         }}
-        href="https://development-hubble-bridge.netlify.app/"
+        href="https://app.webb.tools"
       />
       <DetailedFeatureLink
         feature={{
@@ -103,7 +103,7 @@ export const DappsArea = () => {
           description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
           name: "Stats dApp",
         }}
-        href="https://www.stats-dev.webb.tools/"
+        href="https://stats.webb.tools/"
       ></DetailedFeatureLink>
     </div>
   );
@@ -118,7 +118,7 @@ export const DappsAreaBridge = () => {
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets cross-chain and privately.`,
           name: "Hubble Bridge",
         }}
-        href="https://development-hubble-bridge.netlify.app/"
+        href="https://app.webb.tools"
       />
       <DetailedFeatureLink
         feature={{

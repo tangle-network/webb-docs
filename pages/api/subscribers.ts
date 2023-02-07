@@ -52,7 +52,8 @@ export default async function handler(
       "api-key": apiKey,
     },
     body: JSON.stringify({
-      attributes: { FIRSTNAME: "Dustin" },
+      attributes: { FIRSTNAME: "" },
+      listIds: [5],
       updateEnabled: false,
       email,
     }),
