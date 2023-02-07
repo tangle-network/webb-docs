@@ -13,12 +13,12 @@
   },
   "bridge": {
     "title": "Hubble Bridge",
-    "href": "https://development-hubble-bridge.netlify.app/",
+    "href": "https://app.webb.tools/",
     "newWindow": true
   },
   "stats": {
     "title": "Stats dApp",
-    "href": "https://www.stats-dev.webb.tools/",
+    "href": "https://stats.webb.tools/",
     "newWindow": true
   },
   "component-lib": {

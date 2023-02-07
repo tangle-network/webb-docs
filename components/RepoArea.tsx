@@ -114,7 +114,7 @@ export const StatsdApp = () => {
           description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
           name: "Stats dApp",
         }}
-        href="https://www.stats-dev.webb.tools/"
+        href="https://stats.webb.tools/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
