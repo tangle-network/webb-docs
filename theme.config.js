@@ -75,14 +75,14 @@ const theme = {
         />
         <meta name="msapplication-TileColor" content="#000000" />
         <meta name="theme-color" content="#1F1D2B" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary_medium_image" />
         <meta name="twitter:site" content="@webbprotocol" />
         <meta name="twitter:creator" content="@webbprotocol" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={fullUrl} />
         <link rel="canonical" href={fullUrl} />
-        <meta property="twitter:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
-        <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogoText.svg" />
+        <meta property="twitter:image" content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg" />
+        <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg" />
         <meta property="og:locale" content="en_IE" />
         <meta property="og:site_name" content="Webb" />
         <link rel="prefetch" href="/" as="document" />
