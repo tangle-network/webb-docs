@@ -29,7 +29,7 @@ const navigation = {
   general: [
     {
       name: "Whitepaper",
-      href: "https://webb-material.s3.us-east-2.amazonaws.com/Webb_Protocol.pdf",
+      href: "https://webb-material.s3.us-east-2.amazonaws.com/webb_protocol_whitepaper.pdf",
     },
     // { name: "FAQ", href: "/faq" },
   ],
