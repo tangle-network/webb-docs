@@ -92,10 +92,10 @@ export const TestNetworkArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
-          description: `Standalone AranaAlpha Network runs without a relay chain.`,
-          name: "Standalone AranaAlpha TestNet",
+          description: `Tangle Rococo Network runs alongside the Rococo relay chain.`,
+          name: "Tangle Rococo Network",
         }}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Farana-alpha-1.webb.tools#/explorer"
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-rococo1.webb.tools#/explorer"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
