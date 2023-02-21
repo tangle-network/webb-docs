@@ -1,28 +1,30 @@
 import Image from "next/image";
-import TokenSelectionLight from "./select-token-light.png";
-import TokenSelectionDark from "./select-token-dark.png";
-import DepositLight from "./deposit-light.png";
-import DepositDark from "./deposit-dark.png";
-import WrapDepositDark from "./wrap-deposit-dark.png";
-import WrapDepositLight from "./wrap-deposit-light.png";
-import SourceChainLight from "../account/select-source-chain-light.png";
-import SourceChainDark from "../account/select-source-chain-dark.png";
-import DepositAmountLight from "./deposit-amount-light.png";
-import DepositAmountDark from "./deposit-amount-dark.png";
-import ConfirmDepositDark from "./confirm-deposit-dark.png";
-import ConfirmDepositLight from "./confirm-deposit-light2.png";
-import CopiedNoteLight from "./copied-deposit-note-light2.png";
-import CopiedNoteDark from "./copied-deposit-note-dark.png";
-import DepositInprogressDark from "./deposit-inprogress-dark.png";
-import DepositInprogressLight from "./deposit-inprogress-light2.png";
-import SuccessDepositLight from "./success-deposit-light.png";
-import SuccessDepositDark from "./success-deposit-dark.png";
+import TokenSelectionLight from "./light-imgs/select-token-light.png";
+import TokenSelectionDark from "./dark-imgs/select-token-dark.png";
+import DepositLight from "./light-imgs/deposit-light.png";
+import DepositDark from './dark-imgs/deposit-dark-view.png';
+import WrapDepositDark from "./dark-imgs/wrap-deposit-dark.png";
+import SourceChainLight from "./light-imgs/select-source-light.png";
+import SourceChainDark from "./dark-imgs/select-source-chain-dark.png";
+import DestinationChainLight from "./light-imgs/select-destination-light.png";
+import DestinationChainDark from "./dark-imgs/select-destination-dark.png";
+import DepositAmountLight from "./light-imgs/deposit-amount-light.png";
+import DepositAmountDark from "./dark-imgs/deposit-amount-dark.png";
+import ConfirmDepositDark from "./dark-imgs/confirm-deposit-dark.png";
+import ConfirmDepositLight from "./light-imgs/confirm-deposit-light.png";
+import CopiedNoteLight from "./light-imgs/copied-deposit-note-light.png";
+import CopiedNoteDark from "./dark-imgs/copied-deposit-note-dark.png";
+import DepositInprogressDark from "./dark-imgs/deposit-inprogress-dark.png";
+import DepositInprogressLight from "./light-imgs/deposit-inprogress-light.png";
+import SuccessDepositLight from "./light-imgs/success-deposit-light.png";
+import SuccessDepositDark from "./dark-imgs/success-deposit-dark.png";
+import DepositViewLight from './light-imgs/deposit-light-view.png';
 
 export const Deposit = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={DepositLight} alt="deposit light" />
+        <Image src={DepositViewLight} alt="deposit light" />
       </div>
       <div className="hidden dark:block">
         <Image src={DepositDark} alt="deposit dark" />
@@ -56,7 +58,7 @@ export const WrapDeposit = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={WrapDepositLight} alt="wrap and deposit light" />
+        <Image src={DepositLight} alt="wrap and deposit light" />
       </div>
       <div className="hidden dark:block">
         <Image src={WrapDepositDark} alt="wrap and deposit dark" />
@@ -73,6 +75,19 @@ export const SelectSourceChain = () => {
       </div>
       <div className="hidden dark:block">
         <Image src={SourceChainDark} alt="select source chain dark" />
+      </div>
+    </>
+  );
+};
+
+export const SelectDestinationChain = () => {
+  return (
+    <>
+      <div className="block dark:hidden">
+        <Image src={DestinationChainLight} alt="select source chain light" />
+      </div>
+      <div className="hidden dark:block">
+        <Image src={DestinationChainDark} alt="select source chain dark" />
       </div>
     </>
   );
