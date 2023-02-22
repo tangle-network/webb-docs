@@ -29,7 +29,7 @@ const navigation = {
   general: [
     {
       name: "Whitepaper",
-      href: "https://webb-material.s3.us-east-2.amazonaws.com/webb_protocol_whitepaper.pdf",
+      href: "https://eprint.iacr.org/2023/260",
     },
     // { name: "FAQ", href: "/faq" },
   ],
@@ -54,7 +54,6 @@ const navigation = {
       href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer",
     },
     { name: "Statistics", href: "https://stats.webb.tools/" },
-    // TODO: add bridge link
     {
       name: "Hubble Bridge",
       href: "https://app.webb.tools/",
@@ -90,7 +89,6 @@ const navigation = {
     },
   ],
   legal: [
-    // TODO: setup links
     { name: "Privacy Policy", href: "https://webb.tools/privacy-policy" },
     {
       name: "Terms of Service",
