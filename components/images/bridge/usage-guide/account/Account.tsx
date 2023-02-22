@@ -8,11 +8,11 @@ import SourceChainDark from "./select-source-chain-dark.png";
 import WalletComponentLight from "./wallet-component-light.png";
 import WalletComponentDark from "./wallet-component-dark.png";
 import CreateAccountLight from "./create-note-account-light.png";
-import CreateAccountDark from "./create-note-account-dark.png";
+import CreateAccountDark from "./create-note-account-dark2.png";
 import CreateAccountPromptLight from "./create-account-prompt-light.png";
 import CreateAccountPromptDark from "./create-account-prompt-dark.png";
-import SignatureRequestLight from "./signature-request-mm-light.png";
-import SignatureRequestDark from "./signature-request-mm-dark.png";
+import SignatureRequestLight from "./signature-request-light.png";
+import SignatureRequestDark from "./signature-request-dark.png";
 import CompletedAccountLight from "./account-congrats-light.png";
 import CompletedAccountDark from "./account-congrats-dark.png";
 
