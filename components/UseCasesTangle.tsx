@@ -92,16 +92,16 @@ export const TestNetworkArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
-          description: `Tangle Rococo Network runs alongside the Rococo relay chain.`,
-          name: "Tangle Rococo Network",
+          description: `Tangle Standalone Network runs independently without a relay chain.`,
+          name: "Tangle Standalone Network",
         }}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-rococo1.webb.tools#/explorer"
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone-archive.webb.tools%2F#/explorer"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
           Icon: ServerIcon,
           description: `Tangle Parachain TestNet runs with a self hosted relay chain.`,
-          name: "Tangle Parachain TestNet",
+          name: "Tangle Parachain Testnet",
         }}
         href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer"
       />
