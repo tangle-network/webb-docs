@@ -35,7 +35,7 @@
   },
   "whitepaper": {
     "title": "Whitepaper",
-    "href": "https://webb-material.s3.us-east-2.amazonaws.com/webb_protocol_whitepaper.pdf",
+    "href": "https://eprint.iacr.org/2023/260",
     "newWindow": true
   },
   "confirm": {
