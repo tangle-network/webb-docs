@@ -3,7 +3,7 @@ title: Transfers on Hubble Bridge
 description: An overview of Transfers on Hubble Bridge
 ---
 
-import { Transfer } from '../../../../../components/images/bridge/usage-guide/transfer/Transfer';
+import { Transfer, TransferToken, TransferDestination, TransferAmount, TransferRelayer, TransferRecipient, TransferConfirm, TransferChangeNoteCopied, TransferInprogress, TransferSuccess, TransferAddress } from '../../../../../components/images/bridge/usage-guide/transfer/Transfer';
 
 # Transfers on Hubble Bridge
 
@@ -11,8 +11,71 @@ This guide will provide a step-by-step process to assist in making a transfers o
 
 ## Transfer Inputs
 
+You have made an deposit on the bridge and would like to transfer your shielded assets to another recipient. It is important to note, that
+transfering shielded assets requires the recipient to have a shielded address and that assets during transfer operations never leave the shielded
+pool.
+
+You will notice the **Transfer** button to be disabled initially. We must provide the details of our transaction
+before we can transfer.
+
 <br />
 <Transfer />
+
+### **1. Select Appropriate Chain**
+
+To get started we want to make sure we are connected to the correct chain. The correct chain is the chain that we
+indicated as a our destination chain during the deposit. If you are not connected to the correct chain you will
+notice that if we try to transfer it will indicate an insufficient balance error.
+
+To see the destination chain of your previous deposits, just scroll down to the **Available Spend Notes** tab to view the
+note and its destination chain.
+
+### **2. Select Bridging Token**
+
+Once you have selected the correct chain we will need to select what shielded asset to transfer. Clicking
+on the token selection component will display a list of available tokens. Select the token that is represented in the note.
+
+<TransferToken />
+<br />
+
+### **3. Select Destination Chain**
+
+You must specify a destination chain for the transfer operation. Be advised that you cannot change the destination chain
+after the transfer transaction is made and its only on this destination chain that the recipient will be able to withdraw from. Select
+the desired destination chain by clicking the destination chain component.
+
+<br />
+<TransferDestination />
+
+### **4. Input Amount**
+
+Input the amount you would like to transfer to the recipient. The amount must be less than or equal to the amount of the note.
+If you want to transfer the entire available balance simply click **Max** for a quick input.
+
+<br />
+<TransferAmount />
+
+### **5. Select Relayer**
+
+For maximum privacy it is recommended to make use of a relayer to perform the transaction. The relayer will be the one to submit the transaction to the chain and send the funds to the recipient address.
+To select a relayer, select the **Add a relayer** component which will display a list of relayers that are supported. The decision of which relayer to use is up to the user, and will primarily be
+made based on the relayers advertised commission fee. Proceed to select a supported relayer to continue.
+
+<br />
+<TransferRelayer />
+
+### **6. Input Recipient Shielded Address**
+
+The recipient shielded address is the address that the funds will be sent to. The recipient shielded address is the public key for the note account of the person you wish to transfer to. You can view
+your own shielded address by clicking on the wallet connection at the top. See below image for details.
+
+<br />
+<TransferAddress />
+
+Once you have obtained the recipient's shielded address, input it into the **Recipient Address** component. Once you have input the address, you will notice that the **Transfer** button will be enabled.
+
+<br />
+<TransferRecipient />
 
 ## Confirming Transfer Details
 
@@ -21,6 +84,44 @@ review these transaction details to ensure they're accurate.
 
 ### **1. Verify Transfer Details**
 
-### **2. Transfer In-Progress**
+Review the transaction details of the transfer. Pay close attention to the recipient address you have provided and ensure its accuracy.
+
+<br />
+<TransferConfirm />
+
+### **2. Confirm Change Note is Copied**
+
+Within the transfer in-progress view, you will need to confirm that you have copied the change note. A change note is a new note generated from your remaining balance. The change note should
+be kept in confidence as anyone who gains access to the note will be able to withdraw your funds from the
+bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
+
+<br />
+
+<TransferChangeNoteCopied />
+
+### **3. Transfer In-Progress**
+
+Before the transfer transaction can be completed we transition through the following stages:
+
+- Fetching transaction leaves
+- Generate zero knowledge proof
+- Send transaction to recipient address
+
+You may observe the progress of each stage within the transfer in-progress view. If you would like to proceed with
+an additional transaction you can click **New Transaction** and begin on your next transaction. The Hubble dApp
+conveniently keeps a notification card with transaction details and progress on the right side to keep you informed
+when the transaction is successful.
+
+<br />
+
+<TransferInprogress />
 
 ### **3. Successful Transfer**
+
+When the transfer transaction is completed you can observe a successful confetti filled message in the notification card!
+If you want to see the transaction in a block explorer, click on the **Successfully Transfer** link within the
+notification card.
+
+<br />
+
+<TransferSuccess />

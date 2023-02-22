@@ -2,7 +2,7 @@ import Image from "next/image";
 import TokenSelectionLight from "./light-imgs/select-token-light.png";
 import TokenSelectionDark from "./dark-imgs/select-token-dark.png";
 import DepositLight from "./light-imgs/deposit-light.png";
-import DepositDark from './dark-imgs/deposit-dark-view.png';
+import DepositDark from "./dark-imgs/deposit-dark-view.png";
 import WrapDepositDark from "./dark-imgs/wrap-deposit-dark.png";
 import SourceChainLight from "./light-imgs/select-source-light.png";
 import SourceChainDark from "./dark-imgs/select-source-chain-dark.png";
@@ -18,7 +18,7 @@ import DepositInprogressDark from "./dark-imgs/deposit-inprogress-dark.png";
 import DepositInprogressLight from "./light-imgs/deposit-inprogress-light.png";
 import SuccessDepositLight from "./light-imgs/success-deposit-light.png";
 import SuccessDepositDark from "./dark-imgs/success-deposit-dark.png";
-import DepositViewLight from './light-imgs/deposit-light-view.png';
+import DepositViewLight from "./light-imgs/deposit-light-view.png";
 
 export const Deposit = () => {
   return (

@@ -14,6 +14,7 @@ import RelayerLight from "./light-imgs/relayer-light.png";
 import UnwrapLight from "./light-imgs/unwrap-light.png";
 import UnwrapDark from "./dark-imgs/unwrap-asset-dark.png";
 import UnwrapTokenLight from "./light-imgs/unwrap-token-light.png";
+import UnwrapTokenLight2 from "./light-imgs/unwrap-token-light2.png";
 import UnwrapTokenDark from "./dark-imgs/unwrap-token-dark.png";
 import UnwrapWithdrawLight from "./light-imgs/unwrap-withdraw-light.png";
 import UnwrapWithdrawDark from "./dark-imgs/unwrap-withdraw-dark.png";
@@ -23,9 +24,10 @@ import WithdrawInprogessLight from "./light-imgs/withdraw-inprogress-light.png";
 import WithdrawInprogessDark from "./dark-imgs/withdraw-inprogress-dark.png";
 import FixedAmountLight from "./light-imgs/fixed-amount-light.png";
 import FixedAmountDark from "./dark-imgs/fixed-amount-dark.png";
-// import WithdrawSuccessLight from "./light-imgs/withdraw-success-light.png";
+import WithdrawSuccessLight from "./light-imgs/withdraw-success-light.png";
 import WithdrawSuccessDark from "./dark-imgs/withdraw-success-dark.png";
-import WithdrawConfirmedNote from './dark-imgs/withdraw-confirmed-note-dark.png';
+import WithdrawConfirmedNote from "./dark-imgs/withdraw-confirmed-note-dark.png";
+import WithdrawConfirmedNoteLight from "./light-imgs/withdraw-confirmed-note-light.png";
 
 export const Withdraw = (props) => {
   return (
@@ -122,7 +124,7 @@ export const UnwrapWithdrawToken = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={UnwrapTokenLight} alt="withdraw and unwrap" />
+        <Image src={UnwrapTokenLight2} alt="withdraw and unwrap" />
       </div>
       <div className="hidden dark:block">
         <Image src={UnwrapTokenDark} alt="withdraw and unwrap" />
@@ -187,7 +189,7 @@ export const WithdrawSuccess = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={WithdrawSuccessDark} alt="withdraw success" />
+        <Image src={WithdrawSuccessLight} alt="withdraw success" />
       </div>
       <div className="hidden dark:block">
         <Image src={WithdrawSuccessDark} alt="withdraw success" />
@@ -200,7 +202,10 @@ export const ChangeNoteCopied = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={WithdrawConfirmedNote} alt="withdraw change note copied" />
+        <Image
+          src={WithdrawConfirmedNoteLight}
+          alt="withdraw change note copied"
+        />
       </div>
       <div className="hidden dark:block">
         <Image src={WithdrawConfirmedNote} alt="withdraw change note copied" />
