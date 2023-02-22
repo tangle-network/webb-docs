@@ -3,7 +3,7 @@ title: Withdrawals on Hubble Bridge
 description: An overview of Withdrawls on Hubble Bridge
 ---
 
-import { Withdraw, WithdrawToken, WithdrawFixedAmount, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
+import { Withdraw, WithdrawToken, WithdrawFixedAmount, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress, WithdrawSuccess, ChangeNoteCopied } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
 
 # Withdrawals on Hubble Bridge
 
@@ -121,7 +121,17 @@ Review the transaction details of the withdrawal. Pay close attention to the rec
 <br />
 <ConfirmWithdraw />
 
-### **2. Withdrawal In-Progress**
+### **2. Confirm Change Note is Copied**
+
+Within the withdraw in-progress view, you will need to confirm that you have copied the change note. A change note is a new note generated from your remaining balance. The change note should
+be kept in confidence as anyone who gains access to the note will be able to withdraw your funds from the
+bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
+
+<br />
+
+<ChangeNoteCopied />
+
+### **3. Withdrawal In-Progress**
 
 Before the withdraw transaction can be completed we transition through the following stages:
 
@@ -138,14 +148,12 @@ when the transaction is successful.
 
 <WithdrawInProgress />
 
-### **3. Confirm Change Note is Copied**
-
-Within the withdraw in-progress view, you will need to confirm that you have copied the change note. A change note is a new note generated from your remaining balance. The change note should
-be kept in confidence as anyone who gains access to the note will be able to withdraw your funds from the
-bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
-
 ### **4. Successful Withdraw**
 
 When the withdraw transaction is completed you can observe a successful confetti filled message in the notification card!
 If you want to see the transaction in a block explorer, click on the **Successfully Withdraw** link within the
 notification card.
+
+<br />
+
+<WithdrawSuccess />
