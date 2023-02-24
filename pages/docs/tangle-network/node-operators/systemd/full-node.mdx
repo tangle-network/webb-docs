@@ -16,8 +16,8 @@ compiled the Tangle binary. If you have not done so, please refer to the [Requir
 Run the following commands to create the service configuration file:
 
 ```
-# Move the tangle-collator binary to the bin directory (assumes you are in repo root directory)
-sudo mv ./target/release/tangle-parachain /usr/bin/
+# Move the tangle-standalone binary to the bin directory (assumes you are in repo root directory)
+sudo mv ./target/release/tangle-standalone /usr/bin/
 
 # navigate to /etc
 cd /etc/systemd/system
@@ -43,7 +43,7 @@ StartLimitIntervalSec=0
 User=<USERNAME>
 Restart=always
 RestartSec=3
-ExecStart=/usr/bin/tangle-parachain \
+ExecStart=/usr/bin/tangle-standalone \
   --base-path /data/full-node \
   --name <NODE-NAME> \
   --chain tangle \

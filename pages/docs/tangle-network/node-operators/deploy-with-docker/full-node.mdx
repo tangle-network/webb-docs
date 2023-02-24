@@ -21,7 +21,7 @@ set their keys, fetch the applicable chainspec and run the start command to get 
 ```
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
-docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
+docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
@@ -35,11 +35,11 @@ mkdir /var/lib/tangle/
 ### **3. Fetch applicable chainspec(s):**
 
 To join the Tangle Test network as collator we need to fetch the appropriate chainspec for the Tangle network.
-Download the latest chainspec for parachain testnet:
+Download the latest chainspec for standalone testnet:
 
 ```
 # Fetches chainspec for Tangle network
-wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-parachain.json
+wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-standalone.json
 ```
 
 Please make a reference where you have stored this `json` file as we will need it in the next steps.
@@ -51,16 +51,13 @@ Please make a reference where you have stored this `json` file as we will need i
 To start the node run the following command:
 
 ```
-docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-parachain:main \
-  --chain /data/chainspec/tangle-parachain.json \
+docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-standalone:main \
+  --chain /data/chainspec/tangle-standalone.json \
   --name="YOUR-NODE-NAME" \
   --base-path /data \
   --rpc-cors all \
   --ws-external \
-  --ws-port 9946 \
-  -- \
---execution wasm \
---name="YOUR-NODE-NAME (Embedded Relay)"
+  --ws-port 9946
 ```
 
 <Callout type="info">
@@ -106,12 +103,14 @@ If you did not use the -v flag to specify a local directory for storing your cha
 to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
 If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
-you can run the following command to purge your parachain and relay chain data:
+you can run the following command to purge your standalone node data:
 
 ```
-# purges parachain data
+# purges standalone data
 sudo rm -rf /data/chains/*
 ```
+
+If you ran with parachain node you can run the following command to purge your relay-chain node data:
 
 ```
 # purges relay chain data

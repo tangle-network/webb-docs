@@ -5,11 +5,11 @@ description: An overview of Webb Tangle node and Webb Relayer deployment process
 
 import Callout from "../../../../../components/Callout";
 
-# Deploying Tangle Collator and Relayer
+# Deploying Tangle Validator and Relayer
 
-It is likely that network participants that are running a Tangle collator node may also want to run a relayer node. This guide
-will walk you through the process of deploying a Tangle collator and a Webb Relayer. By the end of this document, you will have set up a Webb Relayer
-at a publicly accessible endpoint alongside a Tangle Collator node both of which will be running within a Docker container.
+It is likely that network participants that are running a Tangle validator node may also want to run a relayer node. This guide
+will walk you through the process of deploying a Tangle validator and a Webb Relayer. By the end of this document, you will have set up a Webb Relayer
+at a publicly accessible endpoint alongside a Tangle validator node both of which will be running within a Docker container.
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ sync the embedded relay chain. Make sure that your system meets the requirements
 ## Using Docker Compose
 
 The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
-create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
+create a local directory to store the chain data, download the latest chainspec for standalone testnet, set their keys, and run the start
 command to get up and running.
 
 ### **1. Pull the Tangle Docker image:**
@@ -32,7 +32,7 @@ We will used the pre-built Tangle Docker image to generate and insert the requir
 ```
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
-docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
+docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
@@ -51,6 +51,7 @@ The keys we need to generate include the following:
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
+- Grandpa key (Ed25519)
 
 Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
 should paste your SURI when the command asks for it.
@@ -60,9 +61,9 @@ should paste your SURI when the command asks for it.
 ```
 # it will ask for your suri, enter it.
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
      key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type acco
 ```
@@ -71,9 +72,9 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type aura
 ```
@@ -82,9 +83,9 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type imon
 ```
@@ -93,24 +94,35 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
-    tangle-parachain key insert --base-path /data \
-    --chain /data/chainspecs/tangle-parachain.json \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
+    tangle-standalone key insert --base-path /data \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Ecdsa \
     --key-type wdkg
+```
+
+**Grandpa Keys**
+
+```
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
+    tangle-standalone key insert --base-path /data \
+    --chain /data/chainspecs/tangle-standalone.json \
+    --scheme Ed25519 \
+    --key-type gran
 ```
 
 To ensure you have successfully generated the keys correctly run:
 
 ```
-ls ~/webb/tangle/collator/chains/*/keystore
+ls ~/webb/tangle/chains/*/keystore
 # You should see a some file(s) there, these are the keys.
 ```
 
 ### **4.Creating Docker compose file:**
 
-Now that we have generated the keys, we can start the Tangle Collator and Relayer. We will use the `docker-compose` file provided
-in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-parachain-with-relayer).
+Now that we have generated the keys, we can start the Tangle Validator and Relayer. We will use the `docker-compose` file provided
+in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-standalone-with-relayer).
 
 Let's start by creating a docker-compose file:
 
@@ -144,14 +156,14 @@ services:
     restart: always
     command: /webb-relayer -vvv -c /config
 
-  tangle_parachain:
+  tangle_standalone:
     # Here you should checkout
-    # https://github.com/webb-tools/tangle/pkgs/container/tangle-parachain/versions?filters%5Bversion_type%5D=tagged
+    # https://github.com/webb-tools/tangle/pkgs/container/tangle-standalone/versions?filters%5Bversion_type%5D=tagged
     # For the latest stable version. Only use "main" if
     # you know what you are doing, it will use the latest and maybe
     # unstable version of the node.
-    image: ghcr.io/webb-tools/tangle/tangle-parachain:${TANGLE_RELEASE_VERSION}
-    container_name: tangle_parachain
+    image: ghcr.io/webb-tools/tangle/tangle-standalone:${TANGLE_RELEASE_VERSION}
+    container_name: tangle_standalone
     env_file: .env
     ports:
       - "30333:30333"
@@ -161,12 +173,12 @@ services:
     volumes:
       - tangle_data:/data
     restart: always
-    entrypoint: /tangle-parachain
+    entrypoint: /tangle-standalone
     command:
       [
         "--base-path=/data",
-        "--collator",
-        "--chain=/data/chainspecs/parachain.json",
+        "--validator",
+        "--chain=/data/chainspecs/tangle-standalone.json",
         "--",
         "--execution=wasm",
       ]
@@ -183,7 +195,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: $PWD/tangle/collator
+      device: $PWD/tangle/
 ```
 
 ### **5. Set environment variables:**
@@ -199,21 +211,21 @@ export CHAINSPEC_PATH=/tmp/chainspec
 export WEBB_PORT=9955
 ```
 
-### **5. Start Relayer and Collator node:**
+### **5. Start Relayer and Validator node:**
 
-With our keys generated and our docker-compose file created, we can now start the relayer and collator node.
+With our keys generated and our docker-compose file created, we can now start the relayer and validator node.
 
 ```bash
 docker compose up -d
 ```
 
-The `docker-compose` file will spin up a container running Tangle Collator node and another running a Webb Relayer.
+The `docker-compose` file will spin up a container running Tangle validator node and another running a Webb Relayer.
 
 ## Update the Client
 
 As Tangle development continues, it will sometimes be necessary to upgrade your node software. Node operators will be notified
 on our Discord channel when upgrades are available and whether they are necessary (some client upgrades are optional).
-The upgrade process is straightforward and is the same for a full node or collator.
+The upgrade process is straightforward and is the same for a full node or validator.
 
 1. Stop the docker container:
 
@@ -223,7 +235,7 @@ sudo docker stop `CONTAINER_ID`
 
 2. Get the latest version of Tangle from the Tangle GitHub Release page
 
-3. Use the latest version to spin up your node. To do so, replace the version in the Full Node or Collator command with the latest and run it
+3. Use the latest version to spin up your node. To do so, replace the version in the Full Node or validator command with the latest and run it
 
 Once your node is running again, you should see logs in your terminal.
 
@@ -241,12 +253,14 @@ If you did not use the -v flag to specify a local directory for storing your cha
 to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
 If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
-you can run the following command to purge your parachain and relay chain data:
+you can run the following command to purge your standalone node data:
 
 ```
-# purges parachain data
+# purges standalone data
 sudo rm -rf /data/chains/*
 ```
+
+If you ran with parachain node you can run the following command to purge your relay-chain node data:
 
 ```
 # purges relay chain data

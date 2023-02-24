@@ -20,8 +20,8 @@ added to the end of the command. The command will vary depending on how you choo
   <Tab>
 
     ```
-    docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-parachain \
-    ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-standalone \
+    ghcr.io/webb-tools/tangle/tangle-standalone:main \
     --help
     ```
 
@@ -30,16 +30,17 @@ added to the end of the command. The command will vary depending on how you choo
 
     ```
     # If you used the release binary
-    ./tangle-parachain --help
+    ./tangle-standalone --help
 
     # Or if you compiled the binary
-    ./target/release/tangle-parachain --help
+    ./target/release/tangle-standalone --help
     ```
 
   </Tab>
 </Tabs>
 
-The command-line arguments provided first will be passed to the parachain node, while the arguments
+If you have compiled the tangle-parachain binary its important to note that the command-line arguments
+provided first will be passed to the parachain node, while the arguments
 provided after `--` will be passed to the relay chain node.
 
 ```
@@ -63,7 +64,7 @@ Shortcut for `--name Alice --validator` with session keys for `Alice` added to k
 used for development or local test networks.
 
 ```sh
-tangle-parachain --alice
+tangle-standalone --alice
 ```
 
 #### `--blocks-pruning <COUNT>`
@@ -77,7 +78,7 @@ blocks (i.e a number).
 NOTE: only finalized blocks are subject for removal!
 
 ```sh
-tangle-parachain --blocks-pruning 120
+tangle-standalone --blocks-pruning 120
 ```
 
 #### `--bob`
@@ -86,7 +87,7 @@ Shortcut for `--name Bob --validator` with session keys for `Bob` added to keyst
 used for development or local test networks.
 
 ```sh
-tangle-parachain --bob
+tangle-standalone --bob
 ```
 
 #### `--bootnodes`
@@ -94,7 +95,7 @@ tangle-parachain --bob
 Specify a list of bootnodes.
 
 ```sh
-tangle-parachain --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWAWueKNxuNwMbAtss3nDTQhMg4gG3XQBnWdQdu2DuEsZS
+tangle-standalone --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWAWueKNxuNwMbAtss3nDTQhMg4gG3XQBnWdQdu2DuEsZS
 ```
 
 #### `--chain <CHAIN_SPEC>`
@@ -105,7 +106,7 @@ It can be one of the predefined ones (dev, local, or staging) or it can be a pat
 file with the chainspec (such as one exported by the `build-spec` subcommand).
 
 ```sh
-tangle-parachain --chain arana-local
+tangle-standalone --chain standalone-local
 ```
 
 #### `--charlie`
@@ -114,7 +115,7 @@ Shortcut for `--name Charlie --validator` with session keys for `Charlie` added 
 used for development or local test networks.
 
 ```sh
-tangle-parachain --charlie
+tangle-standalone --charlie
 ```
 
 #### `--collator`
@@ -124,7 +125,7 @@ Run node as collator.
 Note that this is the same as running with `--validator`.
 
 ```sh
-tangle-parachain --collator
+tangle-standalone --collator
 ```
 
 #### `-d, --base-path <PATH>`
@@ -132,7 +133,7 @@ tangle-parachain --collator
 Specify custom base path.
 
 ```sh
-tangle-parachain --base-path /data
+tangle-standalone --base-path /data
 ```
 
 #### `--db-cache <MiB>`
@@ -140,7 +141,7 @@ tangle-parachain --base-path /data
 Limit the memory the database cache can use
 
 ```sh
-tangle-parachain --db-cache 128
+tangle-standalone --db-cache 128
 ```
 
 #### `--detailed-log-output`
@@ -153,7 +154,7 @@ This is automatically enabled when something is logged with any higher level tha
 `info`.
 
 ```sh
-tangle-parachain --detailed-log-output
+tangle-standalone --detailed-log-output
 ```
 
 #### `--dev`
@@ -164,7 +165,7 @@ This flag sets `--chain=dev`, `--force-authoring`, `--rpc-cors=all`, `--alice`, 
 `--tmp` flags, unless explicitly overridden.
 
 ```sh
-tangle-parachain --dev
+tangle-standalone --dev
 ```
 
 #### `--execution <STRATEGY>`
@@ -179,7 +180,7 @@ The execution strategy that should be used by all execution contexts
 `nativeelsewasm` - execute with the native build if possible and if it fails, then execute with Wasm
 
 ```sh
-tangle-parachain --execution wasm
+tangle-standalone --execution wasm
 ```
 
 #### `--force-authoring`
@@ -195,7 +196,7 @@ tangle-parachain --force-authoring
 Specify custom keystore path
 
 ```sh
-tangle-parachain --keystore-path /tmp/chain/data/
+tangle-standalone --keystore-path /tmp/chain/data/
 ```
 
 #### `--keystore-uri <KEYSTORE_URI>`
@@ -203,7 +204,7 @@ tangle-parachain --keystore-path /tmp/chain/data/
 Specify custom URIs to connect to for keystore-services
 
 ```sh
-tangle-parachain --keystore-uri foo://example.com:8042/over/
+tangle-standalone --keystore-uri foo://example.com:8042/over/
 ```
 
 #### `--name <NAME>`
@@ -213,7 +214,7 @@ The human-readable name for this node.
 The node name will be reported to the telemetry server, if enabled.
 
 ```sh
-tangle-parachain --name zeus
+tangle-standalone --name zeus
 ```
 
 #### `--node-key <KEY>`
@@ -233,7 +234,7 @@ option should be limited to development and testing. To use an externally manage
 key, use `--node-key-file` instead.
 
 ```sh
-tangle-parachain --node-key b6806626f5e4490c27a4ccffed4fed513539b6a455b14b32f58878cf7c5c4e68
+tangle-standalone --node-key b6806626f5e4490c27a4ccffed4fed513539b6a455b14b32f58878cf7c5c4e68
 ```
 
 #### `--node-key-file <FILE>`
@@ -249,7 +250,7 @@ If the file does not exist, it is created with a newly generated secret key of t
 chosen type.
 
 ```sh
-tangle-parachain --node-key-file ./node-keys-file/
+tangle-standalone --node-key-file ./node-keys-file/
 ```
 
 #### `--port <PORT>`
@@ -257,7 +258,7 @@ tangle-parachain --node-key-file ./node-keys-file/
 Specify p2p protocol TCP port
 
 ```sh
-tangle-parachain --port 9944
+tangle-standalone --port 9944
 ```
 
 #### `--prometheus-external`
@@ -267,7 +268,7 @@ Expose Prometheus exporter on all interfaces.
 Default is local.
 
 ```sh
-tangle-parachain --prometheus-external
+tangle-standalone --prometheus-external
 ```
 
 #### `--prometheus-port <PORT>`
@@ -275,7 +276,7 @@ tangle-parachain --prometheus-external
 Specify Prometheus exporter TCP Port
 
 ```sh
-tangle-parachain --prometheus-port 9090
+tangle-standalone --prometheus-port 9090
 ```
 
 #### `--rpc-cors <ORIGINS>`
@@ -287,7 +288,7 @@ A comma-separated list of origins (protocol://domain or special `null` value). V
 https://polkadot.js.org origins. When running in --dev mode the default is to allow all origins.
 
 ```sh
-tangle-parachain --rpc-cors "*"
+tangle-standalone --rpc-cors "*"
 ```
 
 #### `--rpc-external`
@@ -300,7 +301,7 @@ https://docs.substrate.io/main-docs/build/custom-rpc/#public-rpcs. Use
 `--unsafe-rpc-external` to suppress the warning if you understand the risks.
 
 ```sh
-tangle-parachain --rpc-external
+tangle-standalone --rpc-external
 ```
 
 #### `--rpc-port <PORT>`
@@ -308,7 +309,7 @@ tangle-parachain --rpc-external
 Specify HTTP RPC server TCP port
 
 ```sh
-tangle-parachain --rpc-port 9933
+tangle-standalone --rpc-port 9933
 ```
 
 #### `--state-pruning <PRUNING_MODE>`
@@ -320,7 +321,7 @@ the blocks (i.e 'archive'), or for all of the canonical blocks (i.e
 'archive-canonical').
 
 ```sh
-tangle-parachain --state-pruning 128
+tangle-standalone --state-pruning 128
 ```
 
 #### `--telemetry-url <URL VERBOSITY>`
@@ -332,7 +333,7 @@ endpoints. Verbosity levels range from 0-9, with 0 denoting the least verbosity.
 Expected format is 'URL VERBOSITY'.
 
 ```sh
-tangle-parachain --telemetry-url 'wss://foo/bar 0'
+tangle-standalone --telemetry-url 'wss://foo/bar 0'
 ```
 
 #### `--validator`
@@ -343,7 +344,7 @@ The node will be started with the authority role and actively participate in any
 consensus task that it can (e.g. depending on availability of local keys).
 
 ```sh
-tangle-parachain --validator
+tangle-standalone --validator
 ```
 
 #### `--wasm-execution <METHOD>`
@@ -357,7 +358,7 @@ Method for executing Wasm runtime code
 `interpreted-i-know-what-i-do` - uses the wasmi interpreter
 
 ```sh
-tangle-parachain --wasm-execution compiled
+tangle-standalone --wasm-execution compiled
 ```
 
 #### `--ws-external`
@@ -370,7 +371,7 @@ https://docs.substrate.io/main-docs/build/custom-rpc/#public-rpcs. Use
 `--unsafe-ws-external` to suppress the warning if you understand the risks.
 
 ```sh
-tangle-parachain --ws-external
+tangle-standalone --ws-external
 ```
 
 #### `--ws-port <PORT>`
@@ -378,7 +379,7 @@ tangle-parachain --ws-external
 Specify WebSockets RPC server TCP port
 
 ```sh
-tangle-parachain --ws-port 9944
+tangle-standalone --ws-port 9944
 ```
 
 ## Subcommands
@@ -388,7 +389,7 @@ The following subcommands are available:
 USAGE:
 
 ```
-tangle-parachain <SUBCOMMAND>
+tangle-standalone <SUBCOMMAND>
 ```
 
 | Subcommand           | Description                                                                                         |
@@ -397,8 +398,8 @@ tangle-parachain <SUBCOMMAND>
 | build-spec           | Build a chain specification                                                                         |
 | check-block          | Validate blocks                                                                                     |
 | export-blocks        | Export blocks                                                                                       |
-| export-genesis-state | Export the genesis state of the parachain                                                           |
-| export-genesis-wasm  | Export the genesis wasm of the parachain                                                            |
+| export-genesis-state | Export the genesis state of the standalone node                                                     |
+| export-genesis-wasm  | Export the genesis wasm of the standalone node                                                      |
 | export-state         | Export the state of a given block into a chain spec                                                 |
 | help                 | Print this message or the help of the given subcommand(s)                                           |
 | import-blocks        | Import blocks                                                                                       |
