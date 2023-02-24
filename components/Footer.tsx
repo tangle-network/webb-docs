@@ -51,7 +51,7 @@ const navigation = {
   ecosystem: [
     {
       name: "Tangle",
-      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer",
+      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/explorer",
     },
     { name: "Statistics", href: "https://stats.webb.tools/" },
     {

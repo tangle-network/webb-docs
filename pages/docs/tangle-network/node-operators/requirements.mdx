@@ -7,11 +7,11 @@ import { Tabs, Tab } from "../../../../components/Tabs";
 
 # Requirements
 
-Running a parachain node is similar to a typical Substrate node, but there are some differences. A Substrate parachain node
-is a bigger build because it contains code to run the parachain itself, as well as code to sync the relay chain, and
-facilitate communication between the two. As such, this build is quite large and may take over 30 min and require 32GB of memory.
+The current Tangle testnet is a standalone network, meaning that it is not connected to the Polkadot or Kusama relay chain. 
+Since the Tangle is not a parachain, the size of nodes are quite a small build as it only contains code to run the standalone Tangle network and not syncing 
+the relay chain or communicate between the two. As such, the build is smaller, and does not require the same minumum spec requirements as a parachain node.
 
-The minimum specs recommended to run a node are shown in the following table and follow the recommended [Polkadot requirements](https://wiki.polkadot.network/docs/maintain-guides-how-to-validate-polkadot#requirements).
+The minimum specs recommended to run a node are shown in the following table.
 
 | Component | Requirements                                                                                           |
 | --------- | ------------------------------------------------------------------------------------------------------ |
