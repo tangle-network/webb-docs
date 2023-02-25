@@ -72,7 +72,7 @@ export const ParticipateArea = () => {
           description: `Through governance, you can create proposals for updating cross-chain applications.`,
           name: "Participate in Governance ",
         }}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/democracy"
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/democracy"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -95,16 +95,8 @@ export const TestNetworkArea = () => {
           description: `Tangle Standalone Network runs independently without a relay chain.`,
           name: "Tangle Standalone Network",
         }}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone-archive.webb.tools%2F#/explorer"
+        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/explorer"
       ></DetailedFeatureLink>
-      <DetailedFeatureLink
-        feature={{
-          Icon: ServerIcon,
-          description: `Tangle Parachain TestNet runs with a self hosted relay chain.`,
-          name: "Tangle Parachain Testnet",
-        }}
-        href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools#/explorer"
-      />
     </div>
   );
 };

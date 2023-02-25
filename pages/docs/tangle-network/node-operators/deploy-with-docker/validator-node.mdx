@@ -14,18 +14,18 @@ sync the embedded relay chain. Make sure that your system meets the requirements
 ## Using Docker
 
 The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
-create a local directory to store the chain data, download the latest chainspec for parachain testnet, set their keys, and run the start
+create a local directory to store the chain data, download the latest chainspec for standalone testnet, set their keys, and run the start
 command to get up and running.
 
 ### **1. Pull the Tangle Docker image:**
 
-Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-parachain), we pull the `tangle-parachain:main` Docker image from ghcr.io
+Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-standalone), we pull the `tangle-standalone:main` Docker image from ghcr.io
 so that we can generate and insert our required keys before starting the node.
 
 ```
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
-docker pull ghcr.io/webb-tools/tangle/tangle-parachain:main
+docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 ```
 
 ### **2. Create a local directory to store the chain data:**
@@ -39,23 +39,24 @@ mkdir /var/lib/tangle/
 ### **3. Fetch applicable chainspec(s):**
 
 To join the Tangle Test network as collator we need to fetch the appropriate chainspec for the Tangle network.
-Download the latest chainspec for parachain testnet:
+Download the latest chainspec for standalone testnet:
 
 ```
 # Fetches chainspec for Tangle network
-wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-parachain.json
+wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-standalone.json
 ```
 
 Please make a reference where you have stored this `json` file as we will need it in the next steps.
 
 ### **4. Generate and store keys:**
 
-We need to generate the required keys for our node. For more information on these keys, please see the [Required Keys]() section.
+We need to generate the required keys for our node. For more information on these keys, please see the [Required Keys](https://docs.webb.tools/docs/tangle-network/node-operators/required-keys/) section.
 The keys we need to generate include the following:
 
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
+- Grandpa key (Ed25519)
 
 Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
 should paste your SURI when the command asks for it.
@@ -65,9 +66,9 @@ should paste your SURI when the command asks for it.
 ```
 # it will ask for your suri, enter it.
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
      key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type acco
 ```
@@ -76,9 +77,9 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type aura
 ```
@@ -87,9 +88,9 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-parachain.json \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Sr25519 \
     --key-type imon
 ```
@@ -98,36 +99,45 @@ ghcr.io/webb-tools/tangle/tangle-parachain:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
-    tangle-parachain key insert --base-path /data \
-    --chain /data/chainspecs/tangle-parachain.json \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
+    tangle-standalone key insert --base-path /data \
+    --chain /data/chainspecs/tangle-standalone.json \
     --scheme Ecdsa \
     --key-type wdkg
+```
+
+**Grandpa Keys**
+
+```
+docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
+    tangle-standalone key insert --base-path /data \
+    --chain /data/chainspecs/tangle-standalone.json \
+    --scheme Ed25519 \
+    --key-type gran
 ```
 
 To ensure you have successfully generated the keys correctly run:
 
 ```
-ls ~/webb/tangle/collator/chains/*/keystore
+ls ~/webb/tangle/chains/*/keystore
 # You should see a some file(s) there, these are the keys.
 ```
 
-### **5. Start Tangle Collator node:**
+### **5. Start Tangle Validator node:**
 
 To start the node run the following command:
 
 ```
-docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-parachain \
-ghcr.io/webb-tools/tangle/tangle-parachain:main \
+docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-standalone \
+ghcr.io/webb-tools/tangle/tangle-standalone:main \
 --base-path=/data \
 --chain dev \
 --name="YOUR-NODE-NAME" \
 --execution wasm \
 --wasm-execution compiled \
 --trie-cache-size 0 \
--- \
---execution wasm \
---name="YOUR-NODE-NAME (Embedded Relay)"
+--validator \
 ```
 
 <Callout type="info">
@@ -188,12 +198,14 @@ If you did not use the -v flag to specify a local directory for storing your cha
 to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
 If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
-you can run the following command to purge your parachain and relay chain data:
+you can run the following command to purge your standalone node data:
 
 ```
-# purges parachain data
+# purges standalone data
 sudo rm -rf /data/chains/*
 ```
+
+If you ran with parachain node you can run the following command to purge your relay-chain node data:
 
 ```
 # purges relay chain data
