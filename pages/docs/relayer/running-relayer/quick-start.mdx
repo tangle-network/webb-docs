@@ -4,6 +4,7 @@ description: Get up to speed for running the relayer.
 ---
 
 import Callout from "../../../../components/Callout";
+import { Tabs, Tab } from "../../../../components/Tabs";
 
 # Quick Start
 
@@ -40,6 +41,43 @@ To verify that the relayer was installed successfully, run the following command
 ```bash
 ~/.webb/webb-relayer --version
 ```
+
+## Configuration
+
+Before running the relayer, you will need to configure it. The relayer could be configured by using TOML or JSON files along with environment variables.
+The Relayer will look for configuration files in the default locations, but you can also specify the path to the configuration file using the `--config` flag.
+
+- Default locations for configuration files:
+
+  - `$HOME/.config/webb-relayer/` (Linux)
+  - `$HOME/Library/Application Support/tools.webb.webb-relayer/` (macOS)
+
+For simplicity, we will use the TOML configuration file format in this guide and we will place the configuration file in the default locations.
+
+### Download the Example Configuration File
+
+To download the example configuration file, run the following command:
+
+<Tabs items={["Linux/WSL", "macOS"]} storageKey="selected-binary">
+  <Tab>
+
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/webb-tools/webb-relayer/master/config/example/config.toml -o ~/.config/webb-relayer/config.toml
+    ```
+
+  </Tab>
+  <Tab>
+
+    ```
+    curl -fsSL https://raw.githubusercontent.com/webb-tools/webb-relayer/master/config/example/config.toml -o ~/Library/Application\ Support/tools.webb.webb-relayer/config.toml
+    ```
+
+  </Tab>
+</Tabs>
+
+### Configure the Relayer
+
+Open the configuration file in your favorite text editor and take a look at the configuration options. The configuration file is well-documented and should be self-explanatory.
 
 ## Dapp Integration
 
