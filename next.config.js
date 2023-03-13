@@ -2,8 +2,8 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const withNextra = require("nextra")({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.js",
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
+  flexsearch: true,
+  staticImage: true,
 });
 
 const sentryWebpackPluginOptions = {
