@@ -1,0 +1,46 @@
+---
+title: Quick Start
+description: Get up to speed for running the relayer.
+---
+
+import Callout from "../../../../components/Callout";
+
+# Quick Start
+
+You can spin up the Relayer in a few simple commands. This guide will walk you through the steps to get started.
+
+By the end of this guide, you will have a running relayer that is publicly accessible via HTTPS endpoint behind a reverse proxy.
+
+## Prerequisites
+
+- A Unix-based operating system (Linux, macOS, WSL, etc.)
+- curl
+
+## Installation
+
+In your terminal, run the following command to download the latest version of the relayer:
+
+```bash
+curl -fsSL https://git.io/get-webb-relayer.sh | sh
+```
+
+To install a specific version of the relayer, run the following command:
+
+```bash
+curl -fsSL https://git.io/get-webb-relayer.sh | sh -s <version>
+```
+
+This will download the relayer binary (or update it if it already exists) and place it in your `$HOME/.webb` directory. The script
+will also suggest adding the directory to your `PATH` environment variable.
+
+### Verify Installation
+
+To verify that the relayer was installed successfully, run the following command:
+
+```bash
+~/.webb/webb-relayer --version
+```
+
+## Dapp Integration
+
+After completing the above steps, submit a PR with changes for your https endpoint in the [Webb Dapp](https://github.com/webb-tools/webb-dapp) repo.
