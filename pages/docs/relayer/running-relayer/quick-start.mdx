@@ -1,12 +1,12 @@
 ---
-title: Quick Start
+title: Relayer Quickstart
 description: Get up to speed for running the relayer.
 ---
 
 import Callout from "../../../../components/Callout";
 import { Tabs, Tab } from "../../../../components/Tabs";
 
-# Quick Start
+# Relayer Quickstart
 
 You can spin up the Relayer in a few simple commands. This guide will walk you through the steps to get started.
 
@@ -14,18 +14,22 @@ By the end of this guide, you will have a running relayer that is publicly acces
 
 ## Prerequisites
 
+Before you begin, ensure that you have the following prerequisites:
+
 - A Unix-based operating system (Linux, macOS, WSL, etc.)
 - curl
 
 ## Installation
 
-In your terminal, run the following command to download the latest version of the relayer:
+1. Open your terminal and run the following command to download the latest version of the relayer:
 
 ```bash
 curl -fsSL https://git.io/get-webb-relayer.sh | sh
 ```
 
-To install a specific version of the relayer, run the following command:
+The script will download the relayer binary (or update it if it already exists) and place it in your `$HOME/.webb` directory. The script will also suggest adding the directory to your `PATH` environment variable.
+
+Alternatively, if you wish to download a specific version of the relayer, run the following command:
 
 ```bash
 curl -fsSL https://git.io/get-webb-relayer.sh | sh -s <version>
@@ -36,7 +40,7 @@ will also suggest adding the directory to your `PATH` environment variable.
 
 ### Verify Installation
 
-To verify that the relayer was installed successfully, run the following command:
+2. Verify that the relayer was installed successfully by running the following command:
 
 ```bash
 ~/.webb/webb-relayer --version

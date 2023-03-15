@@ -38,6 +38,9 @@
     "href": "https://eprint.iacr.org/2023/260",
     "newWindow": true
   },
+  "docs": {
+    "title": "Docs"
+  },
   "confirm": {
     "title": "Confirm",
     "display": "hidden"
