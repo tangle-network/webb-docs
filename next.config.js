@@ -1,9 +1,17 @@
 const { withSentryConfig } = require("@sentry/nextjs");
+const remarkMath = require('remark-math')
+const rehypeKatex = require('rehype-katex')
+
 const withNextra = require("nextra")({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.js",
   flexsearch: true,
   staticImage: true,
+  latex: true,
+  mdxOptions: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
+  },
 });
 
 const sentryWebpackPluginOptions = {
