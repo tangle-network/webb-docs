@@ -3,8 +3,6 @@ title: Global Governance Proposals
 description: An overview of global governance proposals for the DKG protocol. 
 ---
 
-import DKGProposalImages from '../../../../../components/images/DKGProposalSigning'
-
 # Global Governance Proposals
 
 This page provides an overview of Webb global governance specific proposals, the proposal structure and the intended use.
@@ -85,42 +83,3 @@ Relevant for tracking updates to contracts.<br/>
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/> |
 
-## How proposals are signed
-
-The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal**
-for signature.
-
-1. Proposers propose an anchor update
-2. Proposers vote to either reject or acknowledge the proposal
-3. If the majority vote to reject, the execution is canceled and the proposal rejection event is emitted
-4. If the majority vote in favour of the proposal, the execution to have that proposal signed begins
-5. The proposal is inserted into an Unsigned Proposal Queue
-6. The DKG-gadget an offchain service worker, fetches the unsigned proposal from the queue
-7. The DKG-gadget sends messages to all connected peers to be signed in the given or next round
-8. Upon the completion of the round, the now signed proposals are processed and stored in offchain storage
-9. The Proposal-Handlers offchain worker then fetches signed proposals
-10. The proposals signatures are validated and inserted into pallet storage
-11. A ProposalSigned event is emitted indicating a successfully submitted proposal
-
-<DKGProposalImages />
-
-## Supported Proposals
-
-The current DKG implementation manages the following proposals, each specify a unique change to the system
-that must be signed in order for any of these requested updates to be considered valid.
-
-| Proposals                  | Description                                             |
-| -------------------------- | ------------------------------------------------------- |
-| Refresh                    | Proposal to refresh a contract’s governor               |
-| AnchorUpdate               | Proposal to update merkle roots                         |
-| SetVerifierProposal        | Proposal to set a verifier address                      |
-| TokenAdd                   | Proposal to add token to a set                          |
-| TokenRemove                | Proposal to remove token from a set                     |
-| WrappingFeeUpdate          | Proposal to update fee parameter                        |
-| RescueToken                | Proposal to move tokens from a Treasury                 |
-| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
-| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
-| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
-| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
-| ResourceIdUpdate           | Proposal to add/update a resource ID                    |
-| ProposalSetUpdate          | Proposal to update the latest proposer set state        |
