@@ -13,13 +13,9 @@ Instead of pushing proofs of misbehaviour on-chain, we utilize a threshold votin
 **_t_** and offender **_o_**, if **_t_** parties report the same misbehaviour containing the type of misbehaviour, the round of
 misbehaviour, and the offending authority, then the party’s reputation reduces according to the function:
 
-```
 $reputation(o) = \alpha *reputation(o)$
-```
 
 When a good action occurs, such as succesfully rotating keys or signing a proposal and submitting it on-chain. The reputation
 increases according to the function
 
-```
 $reputation(o) = \alpha * reputation(o) + 1,000,000,000$
-```
