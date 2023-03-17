@@ -18,39 +18,6 @@ Below are all global governance proposals that the DKG protocol handles.
 | ResourceIdUpdate (Governance)  | Proposal to add/update a resource ID             |
 | ProposalSetUpdate (Governance) | Proposal to update the latest proposer set state |
 
-## Definitions
-
-### Typed Chain ID
-
-A unique Webb-specific chain identifier that is composed of a chain / virtual machine type and the respective identifier. <br/>
-**Size:** 6 bytes
-
-### Target System
-
-Relevant for identifying the actual resource / system / contract that is being targeted in the proposal lifecycle.<br/>
-**Size:** 26 bytes
-
-### Resource ID
-
-Relevant for identifying the system the proposal is being executed on and interacting with. The resource ID contains the target system and the target chain ID to be communicated with.<br/>
-**Size:** 32 bytes <br/>
-**Structure:** `(TargetSystem, TypedChainId)`
-
-### FunctionSig
-
-Relevant for EVM networks where call data is generic and not directly executable at a specific function.<br/>
-**Size:** 4 bytes
-
-### Nonce
-
-Relevant for tracking updates to contracts.<br/>
-**Size:** 4 bytes
-
-### Proposal Header
-
-**Size:** 40 bytes <br/>
-**Structure:** `(**Resource ID, FunctionSig, Nonce)`
-
 ## Proposals
 
 ### AnchorUpdateProposal
@@ -82,4 +49,3 @@ Relevant for tracking updates to contracts.<br/>
 | Protocol | Doc                                                                                                                                           | Byte Size            | Arguments                                                                                                                           |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | DKG      | [Proposal Docs](https://webb-tools.github.io/dkg-substrate/dkg_primitives/handlers/proposer_set_update/struct.ProposerSetUpdateProposal.html) | Total Size: 48 bytes | 1. Merkle root (32 bytes)<br/>2. Average session length (8 bytes)<br/>3. Number of proposers (4 bytes)<br/> 4. Nonce (4 bytes)<br/> |
-
