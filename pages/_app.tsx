@@ -5,6 +5,7 @@ import { SSRProvider } from "@react-aria/ssr";
 import type { AppProps } from "next/app";
 import type { ReactNode } from "react";
 import { Plausible } from "../components/Plausible";
+import "katex/dist/katex.min.css";
 
 type NextraAppProps = AppProps & {
   Component: AppProps["Component"] & {

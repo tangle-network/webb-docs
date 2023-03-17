@@ -27,6 +27,7 @@
     "copy-to-clipboard": "3.3.3",
     "framer-motion": "^7.10.2",
     "js-cookie": "3.0.1",
+    "katex": "^0.16.4",
     "ms": "^2.1.3",
     "next": "^13.0.0",
     "next-themes": "^0.2.0",
@@ -37,6 +38,8 @@
     "react-hot-toast": "2.4.0",
     "react-use": "^17.4.0",
     "react-use-measure": "^2.1.1",
+    "rehype-katex": "5.0.0",
+    "remark-math": "4.0.0",
     "sharp": "^0.31.3",
     "swr": "1.3.0"
   },
