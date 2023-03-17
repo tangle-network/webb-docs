@@ -5,6 +5,7 @@ description: Get up to speed for running the relayer.
 
 import Callout from "../../../../components/Callout";
 import { Tabs, Tab } from "../../../../components/Tabs";
+import RelayerExampleConfig from "../../../../components/images/relayer/ExampleConfig";
 
 # Relayer Quickstart
 
@@ -83,10 +84,18 @@ To download the example configuration file, run the following command:
 
 Open the configuration file in your favorite text editor and take a look at the configuration options. The configuration file is well-documented and should be self-explanatory.
 
+<RelayerExampleConfig />
+
 ### Environment Variables
 
 The relayer can also be configured using environment variables. The environment variables will override the values in the configuration file.
 For example, if you want to override the `port` value in the configuration file, you can set the `WEBB_PORT` environment variable.
+
+For example, to modify the `port` value using the environment variable, you can do the following:
+
+```bash
+export WEBB_PORT=9955
+```
 
 For our example configuration file, the following environment variables are required:
 
@@ -95,7 +104,7 @@ For our example configuration file, the following environment variables are requ
 create a new file called `.env` in the same directory as your current directory and add the following line:
 
 ```bash
-# Hex-encoded private for the relayer, or the mnemonic phrase
+# Hex-encoded private for the relayer (64 characters) prefixed with 0x
 PRIVATE_KEY="0x..."
 ```
 
