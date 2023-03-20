@@ -1,0 +1,50 @@
+---
+title: Proposal Lifecycle
+description: An overview of how proposals are signed and processed.
+---
+
+import DKGProposalImages from '../../../../../components/images/DKGProposalSigning'
+
+# Proposal Lifecycle
+
+This page outlines the lifecycle of proposals in the context of the Anchor Update Proposal. It describes the process from proposing an anchor update to submitting a signed proposal.
+
+## How proposals are signed
+
+The below sequence diagram illustrates the steps required to successfully submit an **Anchor Update Proposal**
+for signature.
+
+1. **Propose:** Proposers submit an anchor update proposal.
+2. **Vote:** Proposers cast their votes to either reject or acknowledge the proposal.
+3. **Rejection:** If the majority votes to reject, the execution is canceled, and a proposal rejection event is emitted.
+4. **Approval:** If the majority votes in favor of the proposal, the execution to have that proposal signed begins.
+5. **Queue:** The proposal is inserted into an Unsigned Proposal Queue.
+6. **Fetch:** The DKG-gadget, an offchain service worker, fetches the unsigned proposal from the queue.
+7. **Send:** The DKG-gadget sends messages to all connected peers requesting their signatures in the current or next round.
+8. **Sign:** Upon the completion of the round, the now signed proposals are processed and stored in offchain storage.
+9. **Retrieve:** The Proposal-Handlers offchain worker fetches the signed proposals.
+10. **Validate:** The proposal signatures are validated and inserted into pallet storage.
+11. **Event:** A ProposalSigned event is emitted, indicating a successfully submitted proposal.
+
+<DKGProposalImages />
+
+## Supported Proposals
+
+The current DKG implementation manages the following proposals, each specify a unique change to the system
+that must be signed in order for any of these requested updates to be considered valid.
+
+| Proposals                  | Description                                             |
+| -------------------------- | ------------------------------------------------------- |
+| Refresh                    | Proposal to refresh a contract’s governor               |
+| AnchorUpdate               | Proposal to update merkle roots                         |
+| SetVerifierProposal        | Proposal to set a verifier address                      |
+| TokenAdd                   | Proposal to add token to a set                          |
+| TokenRemove                | Proposal to remove token from a set                     |
+| WrappingFeeUpdate          | Proposal to update fee parameter                        |
+| RescueToken                | Proposal to move tokens from a Treasury                 |
+| MaxDepositLimitUpdate      | Proposal to update a maximum deposit limit parameter    |
+| MinWithdrawalLimitUpdate   | Proposal to update a minimum withdrawal limit parameter |
+| FeeRecipientUpdateProposal | Proposal to update a fee recipient account              |
+| SetTreasuryHandlerProposal | Proposal to set a treasury handler address              |
+| ResourceIdUpdate           | Proposal to add/update a resource ID                    |
+| ProposalSetUpdate          | Proposal to update the latest proposer set state        |

@@ -1,0 +1,207 @@
+---
+title: Relayer Quickstart
+description: Get up to speed for running the relayer.
+---
+
+import Callout from "../../../../components/Callout";
+import { Tabs, Tab } from "../../../../components/Tabs";
+import RelayerExampleConfig from "../../../../components/images/relayer/ExampleConfig";
+
+# Relayer Quickstart
+
+You can spin up the Relayer in a few simple commands. This guide will walk you through the steps to get started.
+
+By the end of this guide, you will have a running relayer that is publicly accessible via HTTPS endpoint behind a reverse proxy.
+
+## Prerequisites
+
+Before you begin, ensure that you have the following prerequisites:
+
+- A Unix-based operating system (Linux, macOS, WSL, etc.)
+- curl
+
+## Installation
+
+1. Open your terminal and run the following command to download the latest version of the relayer:
+
+```bash
+curl -fsSL https://git.io/get-webb-relayer.sh | sh
+```
+
+The script will download the relayer binary (or update it if it already exists) and place it in your `$HOME/.webb` directory. The script will also suggest adding the directory to your `PATH` environment variable.
+
+Alternatively, if you wish to download a specific version of the relayer, run the following command:
+
+```bash
+curl -fsSL https://git.io/get-webb-relayer.sh | sh -s <version>
+```
+
+This will download the relayer binary (or update it if it already exists) and place it in your `$HOME/.webb` directory. The script
+will also suggest adding the directory to your `PATH` environment variable.
+
+### Verify Installation
+
+2. Verify that the relayer was installed successfully by running the following command:
+
+```bash
+~/.webb/webb-relayer --version
+```
+
+## Configuration
+
+Before running the relayer, you will need to configure it. The relayer could be configured by using TOML or JSON files along with environment variables.
+The Relayer will look for configuration files in the default locations, but you can also specify the path to the configuration file using the `--config` flag.
+
+- Default locations for configuration files:
+
+  - `$HOME/.config/webb-relayer/` (Linux)
+  - `$HOME/Library/Application Support/tools.webb.webb-relayer/` (macOS)
+
+For simplicity, we will use the TOML configuration file format in this guide and we will place the configuration file in the default locations.
+
+### Download the Example Configuration File
+
+To download the example configuration file, run the following command:
+
+<Tabs items={["Linux/WSL", "macOS"]} storageKey="selected-binary">
+  <Tab>
+
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/webb-tools/webb-relayer/master/config/example/config.toml -o ~/.config/webb-relayer/config.toml
+    ```
+
+  </Tab>
+  <Tab>
+
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/webb-tools/webb-relayer/master/config/example/config.toml -o ~/Library/Application\ Support/tools.webb.webb-relayer/config.toml
+    ```
+
+  </Tab>
+</Tabs>
+
+### Configure the Relayer
+
+Open the configuration file in your favorite text editor and take a look at the configuration options. The configuration file is well-documented and should be self-explanatory.
+
+<br/>
+
+<RelayerExampleConfig />
+
+### Environment Variables
+
+The relayer can also be configured using environment variables. The environment variables will override the values in the configuration file.
+For example, if you want to override the `port` value in the configuration file, you can set the `WEBB_PORT` environment variable.
+
+For example, to modify the `port` value using the environment variable, you can do the following:
+
+```bash
+export WEBB_PORT=9955
+```
+
+For our example configuration file, the following environment variables are required:
+
+- `PRIVATE_KEY` - The private key of the relayer. This can be a hex-encoded private key or a mnemonic phrase.
+
+create a new file called `.env` in the same directory as your current directory and add the following line:
+
+```bash
+# Hex-encoded private for the relayer (64 characters) prefixed with 0x
+PRIVATE_KEY="0x..."
+```
+
+save the file and exit the editor.
+
+## Running the Relayer
+
+To run the relayer, run the following command:
+
+```bash
+~/.webb/webb-relayer -vvv --tmp
+```
+
+<Callout type="idea">
+  The `--tmp` flag will start the relayer with a temporary database. This is useful for testing, but you should not use this flag in production.
+</Callout>
+
+You should see the following output:
+
+```rust
+ 2023-03-14T14:13:08.315804Z DEBUG webb_relayer_config::cli: Getting default dirs for webb relayer
+    at crates/relayer-config/src/cli.rs:61
+
+  2023-03-14T14:13:08.316568Z DEBUG webb_relayer_config::cli: Using temp dir for store
+    at crates/relayer-config/src/cli.rs:131
+
+  2023-03-14T14:13:08.352455Z  INFO webb_relayer::service: Starting the server on 0.0.0.0:9955
+    at services/webb-relayer/src/service.rs:141
+
+  2023-03-14T14:13:08.355367Z DEBUG webb_relayer::service: Starting Background Services for (goerli) chain.
+    at services/webb-relayer/src/service.rs:172
+
+  2023-03-14T14:13:08.880637Z  WARN webb_relayer::service: Tx Queue disabled for (5)
+    at services/webb-relayer/src/service.rs:1053
+
+  2023-03-14T14:13:08.880641Z DEBUG webb_relayer::service: VAnchor events watcher for (0x9678…5077) Started.
+    at services/webb-relayer/src/service.rs:648
+
+  2023-03-14T14:13:08.880660Z DEBUG webb_probe: kind: lifecycle, started: true
+    at services/webb-relayer/src/main.rs:80
+
+  2023-03-14T14:13:08.880666Z  WARN webb_relayer::service: Governance relaying is not enabled for relayer
+    at services/webb-relayer/src/service.rs:1197
+
+  2023-03-14T14:13:16.286918Z  INFO webb_event_watcher_traits::evm::event_watcher: 🔄 #8650987 of #8654131 (99.9637%)
+    at crates/event-watcher-traits/src/evm/event_watcher.rs:218
+    in webb_event_watcher_traits::evm::event_watcher::run with chain_id: Ok(5), address: 0x9678…5077, tag: VAnchor Contract Watcher
+
+  2023-03-14T14:13:23.496016Z  INFO webb_event_watcher_traits::evm::event_watcher: 🔄 #8653887 of #8654131 (99.9972%)
+    at crates/event-watcher-traits/src/evm/event_watcher.rs:218
+    in webb_event_watcher_traits::evm::event_watcher::run with chain_id: Ok(5), address: 0x9678…5077, tag: VAnchor Contract Watcher
+
+  2023-03-14T14:13:39.302727Z  INFO webb_event_watcher_traits::evm::event_watcher: 🔄 #8654129 of #8654131 (100.0000%)
+    at crates/event-watcher-traits/src/evm/event_watcher.rs:218
+    in webb_event_watcher_traits::evm::event_watcher::run with chain_id: Ok(5), address: 0x9678…5077, tag: VAnchor Contract Watcher
+
+```
+
+### Verifying the Relayer is Running
+
+To verify that the relayer is running, you can use the `/api/v1/ip` endpoint:
+
+<Tabs items={["Local", "Server"]} storageKey="selected-binary">
+  <Tab>
+
+    ```bash
+    curl http://localhost:9955/api/v1/ip
+    ```
+
+  </Tab>
+  <Tab>
+
+    ```bash
+    curl http://<your-server-ip>:9955/api/v1/ip
+    ```
+
+  </Tab>
+</Tabs>
+
+You should see the following output:
+
+```json
+{"ip":"<your-public-ip>"}
+```
+
+**Congratulations**! You have successfully started the relayer.
+
+## What's Next?
+
+Now that you have the relayer running, you need to run it behind a reverse proxy. You can use [Caddy](https://caddyserver.com/) or [Nginx](https://www.nginx.com/) for this.
+
+Once you have the relayer running behind a reverse proxy, you should be able to access it from your domain name. For example, if you are running the relayer on `relayer.example.com`, you should be able to access the relayer at `https://relayer.example.com/api/v1/ip`.
+
+After that you may like to configure the relayer by supporting more chains. You can find more information about that in our [Relayer Configuration examples](https://github.com/webb-tools/relayer/tree/main/config).
+
+## Dapp Integration
+
+After completing the above steps, submit a PR with changes for your https endpoint in the [Webb Dapp](https://github.com/webb-tools/webb-dapp) repo.
