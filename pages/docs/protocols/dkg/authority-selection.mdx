@@ -3,6 +3,8 @@ title: Authority Selection
 description: Only build the workspaces you care about
 ---
 
+import DKGReputationImages from '../../../../components/images/DKGReputation'
+
 # Authority Selection
 
 The authority selection system for DKG authorities uses a simple reputation mechanism for selecting the best set
@@ -13,3 +15,25 @@ participate in either protocols.
 For a keygen threshold of **_n_** and a signing threshold of **_t_**, we take the top-**_n_** authorities on chain by
 reputation. Out of these **_n_** keygen authorities, **_t+1_** of them are selected for signing. The keygen set remains
 fixed over the course of the session, whereas the signing set can change amidst misbehaviours in signing protocol participation.
+
+# Reputation Calculation
+
+The pallet-dkg-metadata is reponsible for calculating and maintaining the reputation scores of all the active validators. Reputation is how we measure
+and evaluate the authorities, this measures the number of valid keygen operations the authority has performed and misbehaviours if any have been reported against this
+authority. The misbehaviour reporting process relies on a honest-threshold assumption. When DKG authorities misbehave offchain, any detecting authority can submit a report of the offending authority. If a
+`threshold` number of reports is submitted, then the offending authority will lose reputation. This reputation map is utilized by each DKG authority to ensure every authority can generate a
+deterministic signing set for the threshold signing protocols. The signing set is taken to initially be the top `t` DKG authorities by reputation.
+
+The misbehaviour reputation update is:
+```
+AUTHORITY_REPUTATION = DECAY_PERCENTAGE * AUTHORITY_REPUTATION
+```
+
+# Jailing authorities
+
+For every mishbehaviour reported and succesfully authenticated for an authority, the corresponding authority is "jailed" for the next few sessions, being "jailed"
+simply means that the authority would not be considered for the authority selection set, kind of like a timeout for malicious behvaiour. The authority maybe unjailed
+after an expiry period.
+
+
+<DKGReputationImages />

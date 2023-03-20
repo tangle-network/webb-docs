@@ -97,6 +97,14 @@ export const TestNetworkArea = () => {
         }}
         href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/explorer"
       ></DetailedFeatureLink>
-    </div>
+        <DetailedFeatureLink
+          feature={{
+            Icon: ServerIcon,
+            description: `Tangle Parachain testnet runs on a testnet relaychain hosted by Webb.`,
+            name: "Tangle Parachain Network",
+          }}
+          href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle1.webb.tools%2F#/explorer"
+        ></DetailedFeatureLink>
+      </div>
   );
 };

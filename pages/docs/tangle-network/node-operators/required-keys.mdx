@@ -13,7 +13,9 @@ include:
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
-- Grandpa key (Ed25519)
+- ImOnline key (Sr25519)
+- Nimbus key (Sr25519)
+- Rand key (Sr25519)
 
 To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install
 subkey before running the command.
@@ -52,14 +54,34 @@ tangle-standalone key insert --base-path /tangle-data \
 --key-type acco
 ```
 
-**To generate the Grandpa key you can run the following:**
+**To generate the Imonline key you can run the following:**
 
 ```
 tangle-standalone key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
---scheme Ed25519 \
+--scheme Sr25519 \
 --suri "<12-PHRASE-MNEMONIC>" \
---key-type gran
+--key-type imon
+```
+
+**To generate the Nimbus key you can run the following:**
+
+```
+tangle-standalone key insert --base-path /tangle-data \
+--chain "<APPLICABLE-CHAINSPEC>" \
+--scheme Sr25519 \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type nmbs
+```
+
+**To generate the Rand key you can run the following:**
+
+```
+tangle-standalone key insert --base-path /tangle-data \
+--chain "<APPLICABLE-CHAINSPEC>" \
+--scheme Sr25519 \
+--suri "<12-PHRASE-MNEMONIC>" \
+--key-type rand
 ```
 
 ### Synchronize Chain Data
@@ -67,7 +89,7 @@ tangle-standalone key insert --base-path /tangle-data \
 You can begin syncing your node by running the following command:
 
 ```
-./target/release/tangle-standalone
+./target/release/tangle-parachain
 ```
 
 Once your collator node has fully syncronized with the Relay Chain you may proceed to setup the
