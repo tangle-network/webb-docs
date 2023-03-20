@@ -25,6 +25,7 @@ authority. The misbehaviour reporting process relies on a honest-threshold assum
 deterministic signing set for the threshold signing protocols. The signing set is taken to initially be the top `t` DKG authorities by reputation.
 
 The misbehaviour reputation update is:
+
 ```
 AUTHORITY_REPUTATION = DECAY_PERCENTAGE * AUTHORITY_REPUTATION
 ```
@@ -34,6 +35,5 @@ AUTHORITY_REPUTATION = DECAY_PERCENTAGE * AUTHORITY_REPUTATION
 For every mishbehaviour reported and succesfully authenticated for an authority, the corresponding authority is "jailed" for the next few sessions, being "jailed"
 simply means that the authority would not be considered for the authority selection set, kind of like a timeout for malicious behvaiour. The authority maybe unjailed
 after an expiry period.
-
 
 <DKGReputationImages />
