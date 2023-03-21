@@ -18,13 +18,11 @@ fixed over the course of the session, whereas the signing set can change amidst 
 
 # Reputation Calculation
 
-The pallet-dkg-metadata is reponsible for calculating and maintaining the reputation scores of all the active validators. Reputation is how we measure
-and evaluate the authorities, this measures the number of valid keygen operations the authority has performed and misbehaviours if any have been reported against this
-authority. The misbehaviour reporting process relies on a honest-threshold assumption. When DKG authorities misbehave offchain, any detecting authority can submit a report of the offending authority. If a
-`threshold` number of reports is submitted, then the offending authority will lose reputation. This reputation map is utilized by each DKG authority to ensure every authority can generate a
-deterministic signing set for the threshold signing protocols. The signing set is taken to initially be the top `t` DKG authorities by reputation.
+The `pallet-dkg-metadata` is responsible for calculating and maintaining the reputation scores of all active validators. Reputation serves as a metric to assess and evaluate the authorities, taking into account the number of valid keygen operations performed by the authority and any reported misbehaviors.
 
-The misbehaviour reputation update is:
+The misbehaviour reporting process is based on an honest-threshold assumption. If DKG authorities misbehave off-chain, any observing authority can submit a report against the offending authority. Once a threshold number of reports are submitted, the offending authority will experience a loss of reputation. The reputation map is used by each DKG authority to ensure that every authority can generate a deterministic signing set for threshold signing protocols. Initially, the signing set consists of the top `t` DKG authorities according to their reputation.
+
+The formula for updating reputation based on misbehaviour is as follows:
 
 ```
 AUTHORITY_REPUTATION = DECAY_PERCENTAGE * AUTHORITY_REPUTATION
