@@ -32,8 +32,6 @@ AUTHORITY_REPUTATION = DECAY_PERCENTAGE * AUTHORITY_REPUTATION
 
 # Jailing authorities
 
-For every mishbehaviour reported and succesfully authenticated for an authority, the corresponding authority is "jailed" for the next few sessions, being "jailed"
-simply means that the authority would not be considered for the authority selection set, kind of like a timeout for malicious behvaiour. The authority maybe unjailed
-after an expiry period.
+For each instance of misconduct that is verified and reported to an authority, the implicated authority will be temporarily suspended or "jailed" for a specific number of sessions. During this suspension, the authority will not be included in the selection process for the authority selection set. This serves as a punitive measure against malicious behaviour. The authority may be reinstated after a predetermined period of time has passed.
 
 <DKGReputationImages />
