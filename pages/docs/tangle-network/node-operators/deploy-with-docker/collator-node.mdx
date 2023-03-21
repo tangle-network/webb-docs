@@ -1,6 +1,6 @@
 ---
 title: Deploying with Docker
-description: Deploy a Tangle collator node with only a few steps.
+description: Deploy a Tangle validator node with only a few steps.
 ---
 
 import Callout from "../../../../../components/Callout";
@@ -133,7 +133,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 --execution wasm \
 --wasm-execution compiled \
 --trie-cache-size 0 \
---validator \
+--validator
 ```
 
 <Callout type="info">
@@ -144,8 +144,7 @@ Once Docker pulls the necessary images, your Tangle node will start, displaying 
 such as the chain specification, node name, role, genesis state, and more.
 
 If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
-blocks being produced on the Tangle network! Note that in this case you need to also sync to the Polkadot/Kusama
-relay chain, which might take a few days.
+blocks being produced on the Tangle network!
 
 ### Run via Docker Compose
 
@@ -207,7 +206,7 @@ Now that your chain data has been purged, you can start a new node with a fresh 
 
 ### **1. Pull the Tangle Docker image:**
 
-Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-standalone), we pull the `tangle-standalone:main` Docker image from ghcr.io
+Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-parachain), we pull the `tangle-parachain:main` Docker image from ghcr.io
 so that we can generate and insert our required keys before starting the node.
 
 ```
@@ -256,9 +255,9 @@ should paste your SURI when the command asks for it.
 ```
 # it will ask for your suri, enter it.
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
      key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-standalone.json \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type acco
 ```
@@ -267,9 +266,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-standalone.json \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type aura
 ```
@@ -278,9 +277,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
     key insert --base-path /var/lib/tangle/ \
-    --chain /data/chainspecs/tangle-standalone.json \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type imon
 ```
@@ -289,9 +288,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
-    tangle-standalone key insert --base-path /data \
-    --chain /data/chainspecs/tangle-standalone.json \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Ecdsa \
     --key-type wdkg
 ```
@@ -300,9 +299,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
-    tangle-standalone key insert --base-path /data \
-    --chain /data/chainspecs/tangle-standalone.json \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type nmbs
 ```
@@ -311,9 +310,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
-    tangle-standalone key insert --base-path /data \
-    --chain /data/chainspecs/tangle-standalone.json \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type rand
 ```

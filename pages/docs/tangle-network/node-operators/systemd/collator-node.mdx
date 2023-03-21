@@ -104,8 +104,7 @@ cd /etc/systemd/system
 sudo touch validator.service
 ```
 
-Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
-any paths or ports to your own preference.
+Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update any paths or ports to your own preference.
 
 **Note:** The below configuration assumes you are targeting the Tangle Network chainspec.
 
@@ -182,8 +181,8 @@ should paste your SURI when the command asks for it.
 
 ```
 # it will ask for your suri, enter it.
-./target/release/tangle-standalone key insert --base-path /data/validator/<USERNAME> \
---chain ./chainspecs/tangle-standalone.json \
+./target/release/tangle-parachain key insert --base-path /data/validator/<USERNAME> \
+--chain ./chainspecs/tangle-parachain.json \
 --scheme Sr25519 \
 --suri <SURI> \
 --key-type acco
@@ -193,8 +192,8 @@ should paste your SURI when the command asks for it.
 
 ```
 # it will ask for your suri, enter it.
-./target/release/tangle-standalone key insert --base-path /data/validator/<USERNAME> \
---chain ./chainspecs/tangle-standalone.json \
+./target/release/tangle-parachain key insert --base-path /data/validator/<USERNAME> \
+--chain ./chainspecs/tangle-parachain.json \
 --scheme Sr25519 \
 --suri <SURI> \
 --key-type aura
@@ -204,8 +203,8 @@ should paste your SURI when the command asks for it.
 
 ```
 # it will ask for your suri, enter it.
-./target/release/tangle-standalone key insert --base-path /data/validator/<USERNAME> \
---chain ./chainspecs/tangle-standalone.json \
+./target/release/tangle-parachain key insert --base-path /data/validator/<USERNAME> \
+--chain ./chainspecs/tangle-parachain.json \
 --scheme Sr25519 \
 --suri <SURI> \
 --key-type imon
@@ -215,8 +214,8 @@ should paste your SURI when the command asks for it.
 
 ```
 # it will ask for your suri, enter it.
-./target/release/tangle-standalone key insert --base-path /data/validator/<USERNAME> \
---chain ./chainspecs/tangle-standalone.json \
+./target/release/tangle-parachain key insert --base-path /data/validator/<USERNAME> \
+--chain ./chainspecs/tangle-parachain.json \
 --scheme Ecdsa \
 --suri <SURI> \
 --key-type wdkg
@@ -226,9 +225,9 @@ should paste your SURI when the command asks for it.
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
-    tangle-standalone key insert --base-path /data \
-    --chain /data/chainspecs/tangle-standalone.json \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type nmbs
 ```
@@ -237,9 +236,9 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
-ghcr.io/webb-tools/tangle/tangle-standalone:main \
-    tangle-standalone key insert --base-path /data \
-    --chain /data/chainspecs/tangle-standalone.json \
+ghcr.io/webb-tools/tangle/tangle-parachain:main \
+    tangle-parachain key insert --base-path /data \
+    --chain /data/chainspecs/tangle-parachain.json \
     --scheme Sr25519 \
     --key-type rand
 ```
