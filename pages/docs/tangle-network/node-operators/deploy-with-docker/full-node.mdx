@@ -61,7 +61,7 @@ docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-s
 ```
 
 <Callout type="info">
-  For an overview of the above flags, please refer to the [CLI Usage](./docs/api-reference/cli-usage) page of our documentation.
+  For an overview of the above flags, please refer to the [CLI Usage](https://docs.webb.tools/docs/tangle-network/node-operators/api-reference/cli/) page of our documentation.
 </Callout>
 
 Once Docker pulls the necessary images, your Tangle node will start, displaying lots of information,
@@ -83,11 +83,12 @@ The upgrade process is straightforward and is the same for a full node or collat
 sudo docker stop `CONTAINER_ID`
 ```
 
-2. Get the latest version of Tangle from the Tangle GitHub Release page
+2. Get the latest version of Tangle from the Tangle GitHub Release [page](https://github.com/webb-tools/tangle/pkgs/container/tangle%2Ftangle-standalone)
 
-3. Use the latest version to spin up your node. To do so, replace the version in the Full Node or Collator command with the latest and run it
+3. Pull the latest version of Tangle binary by doing `docker pull ghcr.io/webb-tools/tangle/tangle-standalone:{VERSION_CODE}`.
+   Example, if the latest version of Tangle is v0.1.2, then the command would be `docker pull ghcr.io/webb-tools/tangle/tangle-standalone:v0.1.12`
 
-Once your node is running again, you should see logs in your terminal.
+4. Restart the tangle container and you should have the updated version of the client.
 
 ### Purge Your Node
 
@@ -99,11 +100,9 @@ You'll first need to stop the Docker container:
 sudo docker stop `CONTAINER_ID`
 ```
 
-If you did not use the -v flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related
-to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
+If you did not use the `-v` flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
-If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
-you can run the following command to purge your standalone node data:
+If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your parachain node data:
 
 ```
 # purges standalone data

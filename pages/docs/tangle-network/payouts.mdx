@@ -9,6 +9,10 @@ Running a collator node on the Tangle Network allows you to connect to the netwo
 author blocks. The network rewards collators (users running collator nodes and actively producing blocks) by paying a set amount of network
 tokens as rewards.
 
+The main purpose of a collator is to produce blocks and support block liveness on the network. From there, collators offer up blocks to validators on the
+relay chain for finalization. This is similar to the role of miners in Proof of Work networks but, unlike miners, collator nodes do not contribute to the safety of the network
+and are critical to liveness, decentralization, censorship resistance, and security. Essentially, collators work to produce state transition proofs for validators based on the Polkadot and Kusama relay chains and maintain a full node on both the relay chain and parachain in which they operate.
+
 ## How are rewards calculated
 
 The collator rewards are paid out every block, the rewards consists of multiple components:
@@ -24,7 +28,7 @@ and ensures every collator gets a chance at block authoring.
 
 ## Reward Payout Schedule
 
-The collator rewards are paid out every block, there is no lockup or delay for the payout. Please note that simply authoring a block
+The collator rewards are paid out every 100 blocks. Please note that simply authoring a block
 does not guarantee a reward, the block has to be accepted and finalised in the canonical chain for the payout to be valid. Also
 important to remember that rewards are only paid out to block authoring collators, simply running a node/full-node does not
 make you eligible for a reward.
