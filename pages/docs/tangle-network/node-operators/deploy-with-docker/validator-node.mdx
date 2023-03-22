@@ -181,7 +181,7 @@ blocks being produced on the Tangle network!
 
 ### Run via Docker Compose
 
-The docker-compose file will spin up a container running tangle standalone node, but you have to set the following environment variables. Remember to customize your the values depending on your environment and then copy paste this to CLI.
+The docker-compose file will spin up a container running Tangle standalone node, but you have to set the following environment variables. Remember to customize your the values depending on your environment and then copy paste this to CLI.
 
 ```
 RELEASE_VERSION=main
@@ -225,11 +225,9 @@ You'll first need to stop the Docker container:
 sudo docker stop `CONTAINER_ID`
 ```
 
-If you did not use the -v flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related
-to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
+If you did not use the `-v` flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
-If you did spin up your node with the -v flag, you will need to purge the specified directory. For example, for the suggested data directly,
-you can run the following command to purge your standalone node data:
+If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your standalone node data:
 
 ```
 # purges standalone data
