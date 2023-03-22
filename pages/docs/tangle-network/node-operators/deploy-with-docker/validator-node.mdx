@@ -1,21 +1,16 @@
 ---
 title: Deploying with Docker
-description: Deploy a Tangle collator node with only a few steps.
+description: Deploy a Tangle validator node with only a few steps.
 ---
 
 import Callout from "../../../../../components/Callout";
 
 # Deploying with Docker
 
-An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
-please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
+A Tangle node can be spun up quickly using Docker. For more information on installing Docker,
+please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
 
-## Using Docker
-
-The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply
-create a local directory to store the chain data, download the latest chainspec for standalone testnet, set their keys, and run the start
-command to get up and running.
+## Standalone Testnet
 
 ### **1. Pull the Tangle Docker image:**
 
@@ -43,7 +38,7 @@ Download the latest chainspec for standalone testnet:
 
 ```
 # Fetches chainspec for Tangle network
-wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-standalone.json
+wget https://github.com/webb-tools/tangle/blob/main/chainspecs/standalone/tangle-standalone.json
 ```
 
 Please make a reference where you have stored this `json` file as we will need it in the next steps.
@@ -57,6 +52,7 @@ The keys we need to generate include the following:
 - Aura key (Sr25519)
 - Account key (Sr25519)
 - Grandpa key (Ed25519)
+- ImOnline key (Sr25519)
 
 Let's now insert our required secret keys, we will not pass the SURI in the command, instead it will be interactive, where you
 should paste your SURI when the command asks for it.
@@ -84,7 +80,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
     --key-type aura
 ```
 
-**Im-online Keys** - **these keys are optional**
+**Im-online Keys** - **these keys are optional (required if you are running as a validator)**
 
 ```
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
@@ -137,19 +133,51 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 --execution wasm \
 --wasm-execution compiled \
 --trie-cache-size 0 \
---validator \
+--validator
 ```
 
 <Callout type="info">
-  For an overview of the above flags, please refer to the [CLI Usage]() page of our documentation.
+  For an overview of the above flags, please refer to the [CLI Usage](https://docs.webb.tools/docs/tangle-network/node-operators/api-reference/cli/) page of our documentation.
 </Callout>
 
 Once Docker pulls the necessary images, your Tangle node will start, displaying lots of information,
 such as the chain specification, node name, role, genesis state, and more.
 
 If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
-blocks being produced on the Tangle network! Note that in this case you need to also sync to the Polkadot/Kusama
-relay chain, which might take a few days.
+blocks being produced on the Tangle network!
+
+```
+2023-03-22 14:55:51 Tangle Standalone Node
+2023-03-22 14:55:51 ✌️  version 0.1.15-54624e3-aarch64-macos
+2023-03-22 14:55:51 ❤️  by Webb Technologies Inc., 2017-2023
+2023-03-22 14:55:51 📋 Chain specification: Tangle Testnet
+2023-03-22 14:55:51 🏷  Node name: cooing-morning-2891
+2023-03-22 14:55:51 👤 Role: FULL
+2023-03-22 14:55:51 💾 Database: RocksDb at /Users/local/Library/Application Support/tangle-standalone/chains/local_testnet/db/full
+2023-03-22 14:55:51 ⛓  Native runtime: tangle-standalone-115 (tangle-standalone-1.tx1.au1)
+2023-03-22 14:55:51 Bn254 x5 w3 params
+2023-03-22 14:55:51 Verifier params for mixer
+2023-03-22 14:55:51 Verifier params for vanchor
+2023-03-22 14:55:51 [0] 💸 generated 5 npos voters, 5 from validators and 0 nominators
+2023-03-22 14:55:51 [0] 💸 generated 5 npos targets
+2023-03-22 14:55:51 [0] 💸 generated 5 npos voters, 5 from validators and 0 nominators
+2023-03-22 14:55:51 [0] 💸 generated 5 npos targets
+2023-03-22 14:55:51 [0] 💸 new validator set of size 5 has been processed for era 1
+2023-03-22 14:55:52 🔨 Initializing Genesis block/state (state: 0xfd16…aefd, header-hash: 0x7c05…a27d)
+2023-03-22 14:55:52 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.
+2023-03-22 14:55:53 Using default protocol ID "sup" because none is configured in the chain specs
+2023-03-22 14:55:53 🏷  Local node identity is: 12D3KooWDaeXbqokqvEMqpJsKBvjt9BUz41uP9tzRkYuky1Wat7Z
+2023-03-22 14:55:53 💻 Operating system: macos
+2023-03-22 14:55:53 💻 CPU architecture: aarch64
+2023-03-22 14:55:53 📦 Highest known block at #0
+2023-03-22 14:55:53 〽️ Prometheus exporter started at 127.0.0.1:9615
+2023-03-22 14:55:53 Running JSON-RPC HTTP server: addr=127.0.0.1:9933, allowed origins=["http://localhost:*", "http://127.0.0.1:*", "https://localhost:*", "https://127.0.0.1:*", "https://polkadot.js.org"]
+2023-03-22 14:55:53 Running JSON-RPC WS server: addr=127.0.0.1:9944, allowed origins=["http://localhost:*", "http://127.0.0.1:*", "https://localhost:*", "https://127.0.0.1:*", "https://polkadot.js.org"]
+2023-03-22 14:55:53 discovered: 12D3KooWMr4L3Dun4BUyp23HZtLfxoQjR56dDp9eH42Va5X6Hfgi /ip4/192.168.0.125/tcp/30304
+2023-03-22 14:55:53 discovered: 12D3KooWNHhcCUsZTdTkADmDJbSK9YjbtscHHA8R4jvrbGwjPVez /ip4/192.168.0.125/tcp/30305
+2023-03-22 14:55:53 discovered: 12D3KooWMr4L3Dun4BUyp23HZtLfxoQjR56dDp9eH42Va5X6Hfgi /ip4/192.168.88.12/tcp/30304
+2023-03-22 14:55:53 discovered: 12D3KooWNHhcCUsZTdTkADmDJbSK9YjbtscHHA8R4jvrbGwjPVez /ip4/192.168.88.12/tcp/30305
+```
 
 ### Run via Docker Compose
 
@@ -178,9 +206,12 @@ The upgrade process is straightforward and is the same for a full node or collat
 sudo docker stop `CONTAINER_ID`
 ```
 
-2. Get the latest version of Tangle from the Tangle GitHub Release page
+2. Get the latest version of Tangle from the Tangle GitHub Release [page](https://github.com/webb-tools/tangle/pkgs/container/tangle%2Ftangle-standalone)
 
-3. Use the latest version to spin up your node. To do so, replace the version in the Full Node or Collator command with the latest and run it
+3. Pull the latest version of Tangle binary by doing `docker pull ghcr.io/webb-tools/tangle/tangle-standalone:{VERSION_CODE}`.
+   Example, if the latest version of Tangle is v0.1.2, then the command would be `docker pull ghcr.io/webb-tools/tangle/tangle-standalone:v0.1.12`
+
+4. Restart the tangle container and you should have the updated version of the client.
 
 Once your node is running again, you should see logs in your terminal.
 
@@ -203,13 +234,6 @@ you can run the following command to purge your standalone node data:
 ```
 # purges standalone data
 sudo rm -rf /data/chains/*
-```
-
-If you ran with parachain node you can run the following command to purge your relay-chain node data:
-
-```
-# purges relay chain data
-sudo rm -rf /data/polkadot/*
 ```
 
 Now that your chain data has been purged, you can start a new node with a fresh data directory!
