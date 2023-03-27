@@ -29,6 +29,8 @@ Under the `[features]` section we need to turn off data-querying and governance-
 - **`governance-relay`**: Should be set to `false` for this strategy
 - **`private-relay`**: Should be set to `true` for this strategy (set to `true` by default)
 
+Under the `[evm-etherscan]` section we need to provide `EtherscanApiConfiguration`.
+
 An example configuration file for the goerli network and VAnchor contract should look similar to this:
 
 <Callout type="info">
@@ -48,4 +50,8 @@ withdraw-config = { withdraw-fee-percentage = 0, withdraw-gaslimit = "0x350000" 
 data-query = false
 governance-relay = false
 private-relay = true
+
+[evm-etherscan.goerli]
+chain-id = 1
+api-key = "$ETHERSCAN_GOERLI_API_KEY"
 ```
