@@ -9,7 +9,9 @@ export type RelayerConfigurationOptionsProps = {
  * @param branch - The branch of the relayer to link to
  * @returns A link to the relayer configuration options
  */
-export default function ConfigurationOptions({ branch }: RelayerConfigurationOptionsProps) {
+export default function ConfigurationOptions({
+  branch,
+}: RelayerConfigurationOptionsProps) {
   return (
     <Link
       href={`https://github.com/webb-tools/relayer/blob/${branch}/config/README.md`}
