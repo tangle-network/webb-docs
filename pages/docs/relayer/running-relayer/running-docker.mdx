@@ -4,6 +4,7 @@ description: Deploy a Webb relayer with only a few steps.
 ---
 
 import Callout from "../../../../components/Callout";
+import RelayerConfigurationOptions from "../../../../components/RelayerConfigurationOptions";
 
 # Deploying using Docker
 
@@ -46,8 +47,7 @@ mkdir -p ~/webb-relayer/{config,data,secrets}
 ### Data Query Configuration
 
 This section will outline the minimum requirements to setup a Webb relayer for data querying purposes. For an extensive review of all data querying
-configuration and available endpoints please refer to the data-querying page [here](/docs/relayer/data-querying), the private transaction relaying page [here](/docs/relayer/private-tx), or the
-signature relaying page [here](/docs/relayer/signature-relay).
+configuration and available endpoints please refer to the data-querying page [here](../data-querying).
 
 We want to create a `toml` file to outline our configuration details:
 
@@ -58,7 +58,7 @@ nano ~/webb-relayer/config/main.toml
 
 Let's update to include the required fields for data querying:
 
-```
+```toml
 # Webb Relayer Network Port
 # default: 9955
 port = 9955
@@ -78,7 +78,7 @@ nano ~/webb-relayer/config/goerli.toml
 ```
 
 Next we want to add the required fields to query the data from the Anchor deployed
-on Goerli Testnet. For an exhasutive list of configuration please refer to the [Configuration Options]() doc. Let's add the following to the file:
+on Goerli Testnet. For an exhasutive list of configuration please refer to the <RelayerConfigurationOptions branch={"main"}/> in the `relayer` repo. Let's add the following to the file:
 
 ```toml
 # Block which represents properties for a network
@@ -234,9 +234,10 @@ nano ~/webb-relayer/config/Caddyfile
 Add the following lines:
 
 ```bash
+# There is no need to change anything in this file, you can
+# just copy it as is.
 {
-	# Remove the below line to disable debug logging, could be helpful
-  # but noisy.
+	# Remove the below line to disable debug logging, could be helpful but noisy.
 	#debug
 	email {$LETSENCRYPT_EMAIL}
 	# Here we are using the staging server to test our setup
@@ -298,7 +299,7 @@ If everything is working correctly, you should see a response similar to this:
           address: "0x98c1024dfd61a8f7439108acedcb51a27754f2af",
           deployedAt: 7865473,
           eventsWatcher: {
-            "enable-data-query": true,
+            enableDataQuery: true,
             enabled: true,
             pollingInterval: 15000,
           },
@@ -310,15 +311,14 @@ If everything is working correctly, you should see a response similar to this:
     },
   },
   substrate: {},
-  cosmwasm: {},
   experimental: {
-    "smart-anchor-updates": false,
-    "smart-anchor-updates-retries": 0,
+    smartAnchorUpdates: false,
+    smartAnchorUpdatesRetries: 0,
   },
   features: {
-    "data-query": true,
-    "governance-relay": false,
-    "private-tx-relay": false,
+    dataQuery: true,
+    governanceRelay: false,
+    privateTxRelay: false,
   },
 }
 ```
