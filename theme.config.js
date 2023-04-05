@@ -104,6 +104,9 @@ const theme = {
       </>
     ),
   },
+  search: {
+    placeholder: "Search documentation…",
+  },
   footer: {
     component: Footer,
   },
