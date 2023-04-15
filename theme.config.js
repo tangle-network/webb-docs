@@ -24,11 +24,14 @@ const theme = {
       titleTemplate: `%s – Webb`,
     };
   },
+  unstable_flexsearch: true,
+  unstable_staticImage: true,
   toc: {
     float: true,
   },
+  font: false,
   feedback: {
-    useLink: () => "Question? Give us feedback →",
+    link: "Question? Give us feedback →",
   },
   logo: HeaderLogo,
   logoLink: false,
@@ -40,7 +43,7 @@ const theme = {
       router.asPath === "/" ? SITE_ROOT : `${SITE_ROOT}${router.asPath}`;
 
     const asPath = router.asPath;
-
+    
     return (
       <>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,14 +81,8 @@ const theme = {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={fullUrl} />
         <link rel="canonical" href={fullUrl} />
-        <meta
-          property="twitter:image"
-          content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg"
-        />
-        <meta
-          property="og:image"
-          content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg"
-        />
+        <meta property="twitter:image" content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg" />
+        <meta property="og:image" content="https://webb-assets.s3.amazonaws.com/WebbLogo.svg" />
         <meta property="og:locale" content="en_IE" />
         <meta property="og:site_name" content="Webb" />
         <link rel="prefetch" href="/" as="document" />

@@ -1,5 +1,5 @@
 {
-  "quick-start": "Quickstart",
+  "quickstart": "Quickstart",
   "running-docker": "Running with Docker",
   "cloud-setup": "Running with Systemd",
   "config-options": "Configuration Options",
