@@ -7,6 +7,13 @@ import { MASPPrivateTransferImage } from '../../../../components/images/masp/Mas
 
 # Multi-Asset Shielded Pool (MASP)
 
+The MASP is a multi-asset interoperable shielded pool. It allows users to transfer multiple types of assets within a single pool such as fungible and non-fungible tokens. The MASP is more featureful than existing Webb ZK applications in this way and supports a variety of other features such as:
+
+- An updated key structure system supporting delegatable proof generation.
+- An incentive mechanism that rewards users for depositing and staying within the shielded pool.
+- A batch deposit system that allows cheap and efficient deposits into the pool.
+- A swap circuit that allows users to execute atomic swap transactions within the pool.
+
 ## What are shielded transactions and pools?
 
 A shielded transaction is a transfer of assets between two parties, Alice and Bob, that conceals the sender, receiver, and amount from outside observers. Shielded pools are one way to implement a shielded transfer system. At a high level, Alice deposits assets into a shielded pool, and Bob withdraws from it. Since all depositors contribute to the shielded pool, their assets are combined, making it impossible for an outside observer to link Alice and Bob. The pool's size is often referred to as the anonymity set.

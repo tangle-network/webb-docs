@@ -272,9 +272,24 @@ Alice and Bob each sign with their spending keys `sk` and we verify the signatur
     bobNullifierHasher.nullifier === bobSpendNullifier;
 ```
 
-## Swap Smart Contract Function
+## Swap Smart Contract Implementation
 
-[protocol-solidity/MultiAssetVAnchor.sol](https://github.com/webb-tools/protocol-solidity/blob/akilesh/batch-update/packages/contracts/contracts/vanchors/base/MultiAssetVAnchor.sol#L220-L324)
+The Multi Asset Variable Anchor is a variable-denominated shielded pool system
+derived from Tornado Nova (tornado-pool) that supports multiple assets in a single pool.
+This system extends the shielded pool system into a bridged system and allows for
+join/split transactions of different assets at 2 same time.
+
+The system is built on top the MultiAssetVAnchorBase/AnchorBase/LinkableAnchor system
+which allows it to be linked to other VAnchor contracts through a simple graph-like
+interface where anchors maintain edges of their neighboring anchors.
+
+Part of the benefit of a MASP is the ability to handle multiple assets in a single pool.
+To support this, the system uses a `assetId` field in the UTXO to identify the asset.
+One thing to remember is that all assets in the pool must be wrapped ERC20 tokens specific
+to the pool. We refer to this tokens as the bridge ERC20 tokens. Part of the challenge of building
+the MASP then is dealing with the mapping between bridge ERC20s and their asset IDs.
+
+- [protocol-solidity/MultiAssetVAnchor.sol](https://github.com/webb-tools/protocol-solidity/blob/akilesh/batch-update/packages/contracts/contracts/vanchors/base/MultiAssetVAnchor.sol#L220-L324)
 
 ## Why the Relayer Cannot Tamper With Data
 
@@ -282,7 +297,7 @@ Note, it is largely impossible for the relayer to tamper with the `Spend` `Recor
 
 Where the relayer has free reign is to change the data in the `Change` and `Receive` `Record`s, as well as `t` and `tPrime`. Let’s consider a few attacks and see why they don’t work.
 
-### Attack 1: Relayer changes data in the `Change/Receive` `Record`s but does NOT change the swap message hash signatures
+### Relayer changes data in the `Change/Receive` `Record`s but does NOT change the swap message hash signatures
 
 If the swap message hash signatures are not changed by the relayer, the only way they will verify is if we feed the uncorrupted `Change` and `Receive` `Record` commitments into the Poseidon hasher for the swap message hash. In this case, if the relayer changes data in the `Change/Receive` `Record`s, constraints such as:
 
@@ -294,6 +309,6 @@ This will not verify.
 
 So now it is clear that to tamper with data, the relayer must change the data inside the swap message. The only way it can do so is by signing this bogus data with its own keys.
 
-### Attack 2: Relayer changes data inside the swap message and signs it with its own keys
+### Relayer changes data inside the swap message and signs it with its own keys
 
-In this case, it will feed a bogus `ak` into the circuit so that the signature verifies. But the `pk` corresponding to this `ak` will form a non-existent `Spend` `Record` and the one-of-many Merkle proof for the `Spend` `Record` will not pass.
+In this case, it will feed an incorrect `ak` into the circuit so that the signature verifies. But the `pk` corresponding to this `ak` will form a non-existent `Spend` `Record` and the one-of-many Merkle proof for the `Spend` `Record` will not pass.
