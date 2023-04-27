@@ -1,4 +1,7 @@
 {
   "overview": "Overview",
-  "governance-proposals": "Governance"
+  "rollup": "Rollup Functionality",
+  "note-encryption": "Note Encryption",
+  "swap-circuit": "Swap Circuit",
+  "delegatable-proof": "Delegatable Proof Generation"
 }

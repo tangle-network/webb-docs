@@ -1,0 +1,134 @@
+---
+title: Multi-Asset Shielded Pool (MASP)
+description: A description of Webb's Asset Multi-Asset Shielded Pool (MASP).
+---
+
+import { MASPPrivateTransferImage } from '../../../../components/images/masp/Masp.tsx'
+
+# Multi-Asset Shielded Pool (MASP)
+
+## What are shielded transactions and pools?
+
+A shielded transaction is a transfer of assets between two parties, Alice and Bob, that conceals the sender, receiver, and amount from outside observers. Shielded pools are one way to implement a shielded transfer system. At a high level, Alice deposits assets into a shielded pool, and Bob withdraws from it. Since all depositors contribute to the shielded pool, their assets are combined, making it impossible for an outside observer to link Alice and Bob. The pool's size is often referred to as the anonymity set.
+
+## What is a multi-asset shielded pool (MASP)?
+
+Traditional shielded pool systems, like Tornado Cash, only support a single asset type. This means a separate shielded pool smart contract must be deployed for each ERC20 token.
+
+A multi-asset shielded pool (MASP) is a shielded pool that supports shielded transactions for multiple asset types. In addition to hiding the sender, receiver, and transaction amount, shielded transactions can also conceal the asset type being transferred. This increases the anonymity set size and provides a better user experience for the end user.
+
+## Features
+
+### Support for Fungible and Non-Fungible Tokens
+
+Webb’s MASP protocol supports depositing both fungible and non-fungible tokens (NFTs).
+
+### Private Asset Transfers
+
+The core functionality of the MASP is private asset transfers. Every user in the MASP has associated MASP keys of the following form.
+
+<MASPPrivateTransferImage />
+
+- `g` is a generator for the `babyjubjub` elliptic curve and therefore, `(sk, ak)` and `(vk, pk)` form valid secret/public keypairs, which can be used for EdDSA signatures and encryption/decryption.
+
+When Alice deposits a `Record` is inserted into a Merkle tree on-chain.
+
+```jsx
+BlindingHash = Poseidon(blinding)
+PartialRecord = Poseidon(DestinationChainId, Pk_X, Pk_Y, BlindingHash)
+Record = Poseidon(AssetId, TokenId, Amount, PartialRecord)
+```
+
+The `Record` components are:
+
+- `blinding`: A randomly generated number only known to Alice.
+- `DestinationChainId`: The `chainId` where Alice intends to spend her deposited funds.
+- `Pk_X, Pk_Y`: The `x` and `y` coordinate of Alice’s MASP public key.
+- `AssetId`: The `AssetId` of the token being deposited.
+- `TokenId`: If the asset being deposited is an NFT, this is the `TokenId` of that NFT. Otherwise, for fungible tokens, this value is 0.
+- `Amount`: The amount of tokens being deposited.
+
+The root of this Merkle tree is then relayed to all the MASPs across the bridge.
+
+When Alice wants to spend her tokens, she submits a zero-knowledge proof via a relayer on the `DestinationChainId`'s MASP. The zero-knowledge proof verifies that she knows the internal values (`blinding`, `MASP key`, `AssetId`, `TokenId`, `Amount`) of a `Record` located on a Merkle tree in one of the MASPs on the bridge. Only Alice can create such a zero-knowledge proof since values like the `blinding` are secret and known only to her.
+
+### Structure of a MASP Transaction
+
+The MASP supports a more feature-rich set of transaction types than simple deposits and withdraws. Specifically, a MASP transasction consists of:
+
+- `publicAmount`: This is the amount being deposited into or withdrawn from the MASP. If this value is 0, the transaction is known as an internal shielded transfer and is special because an outside observer does not even know the type of asset that is being transacted.
+- `inputRecord`s: These are the `Record`s that are being spent. They have already been inserted into a Merkle tree on one of the MASPs on the bridge.
+- `outputRecord`s: These are the new `Record`s that are being created. They will be inserted into the MASP’s Merkle tree.
+
+The following invariant must hold so that funds are not created out of thin-air:
+
+```markdown
+sum of inputRecords amounts + public Amount = sum of outputRecords amounts
+```
+
+This invariant is checked in the zero-knowledge proof. For valid transactions, the `inputRecord`s are nullified, so they cannot be double spent, and the `outputRecord`s are inserted into the MASPs Merkle tree.
+
+### Yield Generation via Anonymity Mining
+
+The strength of privacy provided by the MASP is strongly tied to the size of the anonymity set. The anonymity set grows the longer users keep their assets locked in the shielded pool. Therefore, Webb’s MASP protocol includes an anonymity mining system which tracks, in a privacy-preserving manner, the amount of time user’s keep their funds locked and proportionally rewards them with tokens. As per the current iteration of the MASP protocol, anonymity miners are rewarded in Tangle tokens, which is the native token of Webb’s MPC Substrate blockchain.
+
+### Shielded Swaps
+
+The Webb MASP protocol allows two counterparties Alice and Bob to swap assets. For instance, Alice can swap her shielded NFT for Bob’s shielded USDC. All an outside observer sees is `Record`s inserted and nullified on the MASP’s Merkle tree.
+
+At a high level, the process works as follows:
+
+- Via some communication network Alice advertises that she wants to sell her NFT for USDC.
+- Bob responds to Alice and they agree upon a price.
+- Various details of the swap transaction are sent to a relayer which then produces a zero-knowledge proof and submits it on-chain. The technical details of this mechanism are present in this document:
+
+[MASP Swap Circuit](./swap.mdx)
+
+### Rollup Functionalities
+
+Inserting into an on-chain Merkle tree is a computationally expensive operation since many hashes must be computed. One solution to this issue is to store the leaf data that needs to be inserted into the Merkle tree in an on-chain queue. A relayer can then come and batch insert these elements into the Merkle tree via a succinct zero-knowledge proof and the new Merkle tree root is stored on the MASP smart contract.
+
+More technical details about this mechanism are in the following docs:
+
+[MASP Rollup Functionality v1](./rollup.mdx)
+
+### Delegatable Transaction Proof Generation
+
+For many current shielded proof systems, the zero-knowledge proof for transacting is generated in the user’s browser. This is because the data needed to generate a valid zero-knowledge proof includes secret values, such as the MASP secret key, that should not be shared with an external party. The downside of this approach is that proof generation is a computationally intensive task. As such, it would be ideal to delegate proof generation to a computationally powerful relayer.
+
+This is exactly what the proof authorizing key (part of the MASP key) allows for. Particularly, it allows a user to delegate proof generation to a relayer, without exposing its MASP secret key. For the technical details on this process, please see:
+
+[MASP Delegatable Proof Generation](./proof.mdx)
+
+## Lifecycles
+
+### For yield farmers
+
+1. Deposit tokens into shielded pool
+2. Keep funds locked for long period of time and accumulate anonymity points.
+3. When ready to claim Tangle tokens as reward, spend funds inside shielded pool, so a commitment gets inserted on `RewardSpentTree`.
+4. Claim anonymity points via a zero-knowledge proof on Tangle blockchain.
+5. Use AMM pallet to swap anonymity points into Tangle Tokens.
+
+### For transactors
+
+1. Deposit into shielded pool.
+2. Submit a zero-knowledge proof via a relayer to spend funds.
+
+### For swappers
+
+1. Assume Alice and Bob already have funds inside the shielded pool.
+2. Alice sends a message over a communication network indicating that she wants to swap her token(s).
+3. Bob responds to Alice’s request and they agree on a price.
+4. They submit swap proof inputs to a relayer.
+5. Relayer computes swap proof and submits it on-chain.
+
+## Fees and Incentives for Relayers
+
+- Relayers that submit transaction proofs on-chain are paid fees inside the shielded pool, in one of a number of whitelisted fee tokens. That is, the transactor/user must pay its fees via `Record`s that it owns. These `Record`s are used to form `feeOutputRecord`s owned by the relayer.
+- There are currently no relayer fees for submitting proofs for batch inserting into Merkle trees.
+- There are currently no relayer fees for submitting swap proofs.
+
+## Links
+
+- `masp` branch on `protocol-solidity` repo: [https://github.com/webb-tools/protocol-solidity/tree/masp](https://github.com/webb-tools/protocol-solidity/tree/masp).

@@ -1,0 +1,64 @@
+---
+title: MASP Note Encryption
+description: Describes the MASP Note Encryption.
+---
+
+import Callout from "../../../../components/Callout";
+
+# MASP Note Encryption (without FMD)
+
+## Note Structure
+
+Say Alice `transact`s via the `Transaction.circom` circuit and the recipient of both output commitments is Bob. We have the following desiderata:
+
+1. If I possess Alice’s viewing key, I should be able to see the internal data of the two output commitments.
+2. If I possess Bob’s viewing key, I should be able to see all the internal data of the output commitments.
+
+This allows:
+
+1. Recipients to spend MASP commitments transferred to them.
+2. Regulators and outside observers to view BOTH sent and received funds of any party they hold the viewing keys of.
+
+<Callout type="info">
+    Note due to our MASP key design, even if regulators know the blinding of a commitment, they still cannot spend the output commitment, because they do not have the proof authorizing key, `ak`, which is needed to create a valid ZKP.
+</Callout>
+
+### Note Data
+
+Each note corresponds to an output commitment. The data contained in a note is simply the internal data of the output commitment:
+
+1. AssetID
+2. TokenID
+3. Amount
+4. DestinationChainID
+5. PublicKey_X
+6. PublicKey_Y
+7. blinding
+
+## Encrypting the Note
+
+Each note is encrypted twice, once with Alice’s public key and once with Bob’s public key. More specifically the encryption process works as follows. We will use a similar design to [zkopru](https://github.com/zkopru-network/zkopru/blob/340d5f3f0b4c5112e767bef122c42cdd6f0ab89c/packages/transaction/src/utxo.ts#L53-L80).
+
+### Encrypting with Alice’s Public Key
+
+1. Alice generates an ephemeral babyjubjub keypair `(esk, epk)`.
+2. Alice computes `esk[pk_A]` and uses this as the secret key in `chacha20` symmetric encryption scheme to encrypt the note.
+3. Alice posts the encryption along with `epk` on the blockchain.
+
+### Encrypting with Bob’s Public Key
+
+1. Bob generates an ephemeral babyjubjub keypair `(esk, epk)`.
+2. Bob computes `esk[pk_B]` and uses this as the secret key in `chacha20` symmetric encryption scheme to encrypt the note.
+3. Bob posts the encryption along with `epk` on the blockchain.
+
+## Decrypting Notes
+
+We will use a similar design to zkopru:
+
+[zkopru-network/zkopru](https://github.com/zkopru-network/zkopru/blob/340d5f3f0b4c5112e767bef122c42cdd6f0ab89c/packages/transaction/src/utxo.ts#L112-L171)
+
+<Callout type="info">
+    Note `esk[pk] = vk[epk]`, so anyone with the viewing key can compute `vk[epk]` and use `chacha20` to decrypt notes.
+</Callout>
+
+Potential recipients can decrypt new encrypted notes on the blockchain, compute the `Record` commitment from the internal data, and see if it matches the output commitment posted on the blockchain. If so, this note/commitment is meant for the recipient. Eventually, we will have relayers take care of a lot of the note encryption and decryption work so each individual does not have to do it.
