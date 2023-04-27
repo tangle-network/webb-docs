@@ -17,14 +17,14 @@ The main smart contract which contains the queueing and batch inserting function
 
 ```jsx
 struct QueueDepositInfo {
-		address unwrappedToken;
-		address wrappedToken;
-		uint256 amount;
-		uint256 assetID;
-		uint256 tokenID;
-		bytes32 depositPartialCommitment;
-		address proxiedMASP;
-	}
+	address unwrappedToken;
+	address wrappedToken;
+	uint256 amount;
+	uint256 assetID;
+	uint256 tokenID;
+	bytes32 depositPartialCommitment;
+	address proxiedMASP;
+}
 ```
 
 to the `queueDeposit` function along with the associated deposit tokens.
