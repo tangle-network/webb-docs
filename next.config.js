@@ -5,8 +5,8 @@ const rehypeKatex = require('rehype-katex')
 const withNextra = require("nextra")({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.js",
-  flexsearch: true,
-  staticImage: true,
+  unstable_flexsearch: true,
+  unstable_staticImage: true,
   latex: true,
   mdxOptions: {
     remarkPlugins: [remarkMath],
