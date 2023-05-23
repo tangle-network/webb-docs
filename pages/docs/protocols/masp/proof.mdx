@@ -1,0 +1,35 @@
+---
+title: MASP Delegatable Proof Generation
+description: A description of MASP Delegatable Proof Generation.
+---
+
+import { MASPPrivateTransferImage }  from '../../../../components/images/masp/Masp.tsx'
+
+# MASP Delegatable Proof Generation
+
+## Overview
+
+In Webb’s MASP system, delegatable proof generation offloads the computationally intensive proof generation process from the user’s browser to a computationally powerful, semi-trusted prover (which we call a relayer). As we will see, this process is not as trivial as the user sending the relayer its proof inputs, since the proof inputs contain secret data that the relayer can then use to steal the user’s funds.
+
+## Technical Details
+
+### MASP key structure:
+
+<MASPPrivateTransferImage />
+
+### MASP `Record` structure:
+
+```circom
+BlindingHash = Poseidon(blinding)
+PartialRecord = Poseidon(DestinationChainId, Pk_X, Pk_Y, BlindingHash)
+Record = Poseidon(AssetId, TokenId, Amount, PartialRecord)
+```
+
+### Preserving Security
+
+The relayer must not be able to change the contents of the `outputRecord`s. If it could, it would simply change the `outputRecord`s to be under its keys and transfer the user’s funds to itself. To prevent such behavior, we make use of the fact that `(sk, ak)` is a secret/public keypair with which EdDSA signatures can be made. In particular, we do the following:
+
+- User signs `inputRecord`s and `outputRecord`s with `sk`
+- Inside the ZKP, we verify that these `Record`s are correctly signed, by verifying with `ak`.
+
+This begs the question: can’t the relayer just generate a new `(sk, ak)` pair and forge the signatuers with altered `outputRecord`s? The answer is NO! Because the `inputRecord`s are bound to `ak`. That is `pk_X` and `pk_Y` are derived inside the circuit from `ak` so if the relayer changes `ak` the `inputRecord`s will no longer be valid `Record`'s on the MASP Merkle trees.

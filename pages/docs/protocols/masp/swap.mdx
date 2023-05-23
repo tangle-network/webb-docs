@@ -1,0 +1,314 @@
+---
+title: MASP Swap Circuit
+description: Describes the MASP Swap Circuit.
+---
+
+import { MASPPrivateTransferImage, MASPSwapImage, MASPSwapDiagramImage }  from '../../../../components/images/masp/Masp.tsx'
+import Callout from "../../../../components/Callout";
+
+# MASP Swap Circuit
+
+## Updated Key Structure
+
+Each MASP participant has a set of keys of the following form:
+
+<MASPPrivateTransferImage />
+
+<Callout type="info">
+    Note: `(sk, ak)` form a secret/public keypair which can be used to make EdDSA signatures. These EdDSA signatures can then be verified inside a ZKP (`circomlib` provides templates for this).
+</Callout>
+
+## Updated Record Structure
+
+The MASP key is used in the commitment (record) that is inserted into the MASP’s Merkle tree.
+
+```markdown
+InnerPartialRecord = Poseidon(blinding)
+PartialRecord = Poseidon(DestinationChainId, PublicKey_X, PublicKey_Y, InnerPartialRecord)
+Record = Poseidon(AssetId, TokenId, Amount, PartialRecord)
+```
+
+## Swap User Mechanics
+
+<MASPSwapImage />
+
+1. Alice wants to exchange 1 webbBTC (`assetId = 1, tokenId = 0`) for Bob’s 10 webbETH (`assetId = 2, tokenId = 0`) as long as the swap occurs between time `t` and `tPrime`. <br /> <br />
+   **a.** Alice has a `Record` worth 1.5 webbBTC under her public key that she wants to use for the swap. This is known as Alice’s spend `Record`. <br />
+   **b.** Alice creates a change `Record` under her public key worth 0.5 webbBTC. <br />
+   **c.** Alice creates the `Record` to receive 10 webbETH under her public key. This is known as Alice’s receive `Record`. <br />
+   **d.** Bob similarly creates spend, change, and receive records.
+
+<MASPSwapDiagramImage />
+
+1. They then send the following details/proof inputs about these `Record`s to a semi-trusted relayer. The relayer makes the swap ZKP and submits it on-chain. <br /> <br />
+   **a.** These inputs include a signature of the so-called swap message hash `(aliceChangeRecord, aliceReceiveRecord, bobChangeRecord, bobReceiveRecord, t, t')`. This is precisely the data the relayer can tamper with so we have Alice and Bob sign them with their `sk`.
+
+   ```jsx
+
+   // Swap message is (aliceChangeRecord, aliceReceiveRecord, bobChangeRecord, bobReceiveRecord, t, t')
+   // We check a Poseidon Hash of message is signed by both parties
+     signal input aliceSpendAssetID;
+     signal input aliceSpendTokenID;
+     signal input aliceSpendAmount;
+     signal input aliceSpendInnerPartialRecord;
+     signal input bobSpendAssetID;
+     signal input bobSpendTokenID;
+     signal input bobSpendAmount;
+     signal input bobSpendInnerPartialRecord;
+     signal input t;
+     signal input tPrime;
+
+     signal input alice_ak_X;
+     signal input alice_ak_Y;
+
+     signal input bob_ak_X;
+     signal input bob_ak_Y;
+
+     signal input alice_R8x;
+     signal input alice_R8y;
+
+     signal input aliceSig;
+
+     signal input bob_R8x;
+     signal input bob_R8y;
+
+     signal input bobSig;
+
+     signal input aliceSpendPathElements[levels];
+     signal input aliceSpendPathIndices;
+     signal input aliceSpendNullifier; // Public Input
+
+     signal input bobSpendPathElements[levels];
+     signal input bobSpendPathIndices;
+     signal input bobSpendNullifier; // Public Input
+
+     signal input swapChainID; // Public Input
+     signal input roots[length]; // Public Input
+     signal input currentTimestamp; // Public Input
+
+     signal input aliceChangeChainID;
+     signal input aliceChangeAssetID;
+     signal input aliceChangeTokenID;
+     signal input aliceChangeAmount;
+     signal input aliceChangeInnerPartialRecord;
+     signal input aliceChangeRecord; // Public Input
+     signal input bobChangeChainID;
+     signal input bobChangeAssetID;
+     signal input bobChangeTokenID;
+     signal input bobChangeAmount;
+     signal input bobChangeInnerPartialRecord;
+     signal input bobChangeRecord; // Public Input
+
+     signal input aliceReceiveChainID;
+     signal input aliceReceiveAssetID;
+     signal input aliceReceiveTokenID;
+     signal input aliceReceiveAmount;
+     signal input aliceReceiveInnerPartialRecord;
+     signal input aliceReceiveRecord; // Public Input
+     signal input bobReceiveChainID;
+     signal input bobReceiveAssetID;
+     signal input bobReceiveTokenID;
+     signal input bobReceiveAmount;
+     signal input bobReceiveInnerPartialRecord;
+     signal input bobReceiveRecord; // Public Input
+   ```
+
+2. The relayer creates the swap ZKP and submits it to the MASP smart contract.
+
+## Swap Circuit Constraints
+
+### Corresponding `AssetID`s and `TokenID`s are equal
+
+```circom
+aliceSpendAssetID === aliceChangeAssetID;
+aliceReceiveAssetID === bobSpendAssetID;
+bobSpendAssetID === bobChangeAssetID;
+bobReceiveAssetID === aliceSpendAssetID;
+aliceSpendTokenID === aliceChangeTokenID;
+aliceReceiveTokenID === bobSpendTokenID;
+bobSpendTokenID === bobChangeTokenID;
+bobReceiveTokenID === aliceSpendTokenID;
+```
+
+### Funds are neither created nor destroyed
+
+```circom
+aliceSpendAmount === aliceChangeAmount + bobReceiveAmount;
+bobSpendAmount === bobChangeAmount + aliceReceiveAmount;
+```
+
+### Swap Message Hash is Signed By Both Alice and Bob
+
+The swap message is:
+
+```circom
+Poseidon(
+		aliceChangeRecord,
+		aliceReceiveRecord,
+		bobChangeRecord,
+		bobReceiveRecord,
+		t,
+		t'
+)
+```
+
+Alice and Bob each sign with their spending keys `sk` and we verify the signature on the circuit with their public keys `ak`.
+
+### Alice and Bob `Spend` `Record`s are in some Merkle tree
+
+```circom
+// Check Alice Spend Merkle Proof
+    component aliceSpendPartialRecordHasher = PartialRecord();
+    aliceSpendPartialRecordHasher.chainID <== swapChainID;
+    aliceSpendPartialRecordHasher.pk_X <== alice_pk_X;
+    aliceSpendPartialRecordHasher.pk_Y <== alice_pk_Y;
+    aliceSpendPartialRecordHasher.innerPartialRecord <== aliceSpendInnerPartialRecord;
+    component aliceSpendRecordHasher = Record();
+    aliceSpendRecordHasher.assetID <== aliceSpendAssetID;
+    aliceSpendRecordHasher.tokenID <== aliceSpendTokenID;
+    aliceSpendRecordHasher.amount <== aliceSpendAmount;
+    aliceSpendRecordHasher.partialRecord <== aliceSpendPartialRecordHasher.partialRecord;
+
+    component aliceMerkleProof = ManyMerkleProof(levels, length);
+	aliceMerkleProof.leaf <== aliceSpendRecordHasher.record;
+	aliceMerkleProof.pathIndices <== aliceSpendPathIndices;
+	for (var i = 0; i < levels; i++) {
+	aliceMerkleProof.pathElements[i] <== aliceSpendPathElements[i];
+	}
+	aliceMerkleProof.isEnabled <== 1;
+	for (var i = 0; i < length; i++) {
+		aliceMerkleProof.roots[i] <== roots[i];
+	}
+
+    // Check Bob Spend Merkle Proof
+    component bobSpendPartialRecordHasher = PartialRecord();
+    bobSpendPartialRecordHasher.chainID <== swapChainID;
+    bobSpendPartialRecordHasher.pk_X <== bob_pk_X;
+    bobSpendPartialRecordHasher.pk_Y <== bob_pk_Y;
+    bobSpendPartialRecordHasher.innerPartialRecord <== bobSpendInnerPartialRecord;
+    component bobSpendRecordHasher = Record();
+    bobSpendRecordHasher.assetID <== bobSpendAssetID;
+    bobSpendRecordHasher.tokenID <== bobSpendTokenID;
+    bobSpendRecordHasher.amount <== bobSpendAmount;
+    bobSpendRecordHasher.partialRecord <== bobSpendPartialRecordHasher.partialRecord;
+
+    component bobMerkleProof = ManyMerkleProof(levels, length);
+	bobMerkleProof.leaf <== bobSpendRecordHasher.record;
+	bobMerkleProof.pathIndices <== bobSpendPathIndices;
+	for (var i = 0; i < levels; i++) {
+	bobMerkleProof.pathElements[i] <== bobSpendPathElements[i];
+	}
+	bobMerkleProof.isEnabled <== 1;
+	for (var i = 0; i < length; i++) {
+		bobMerkleProof.roots[i] <== roots[i];
+	}
+```
+
+### Alice and Bob’s `Change` and `Receive` `Record`s constructed correctly
+
+```circom
+// Check Alice and Bob Change/Receive Records constructed correctly
+    component aliceChangePartialRecordHasher = PartialRecord();
+    aliceChangePartialRecordHasher.chainID <== aliceChangeChainID;
+    aliceChangePartialRecordHasher.pk_X <== alice_pk_X;
+    aliceChangePartialRecordHasher.pk_Y <== alice_pk_Y;
+    aliceChangePartialRecordHasher.innerPartialRecord <== aliceChangeInnerPartialRecord;
+    component aliceChangeRecordHasher = Record();
+    aliceChangeRecordHasher.assetID <== aliceChangeAssetID;
+    aliceChangeRecordHasher.tokenID <== aliceChangeTokenID;
+    aliceChangeRecordHasher.amount <== aliceChangeAmount;
+    aliceChangeRecordHasher.partialRecord <== aliceChangePartialRecordHasher.partialRecord;
+    aliceChangeRecordHasher.record === aliceChangeRecord;
+
+    component aliceReceivePartialRecordHasher = PartialRecord();
+    aliceReceivePartialRecordHasher.chainID <== aliceReceiveChainID;
+    aliceReceivePartialRecordHasher.pk_X <== alice_pk_X;
+    aliceReceivePartialRecordHasher.pk_Y <== alice_pk_Y;
+    aliceReceivePartialRecordHasher.innerPartialRecord <== aliceReceiveInnerPartialRecord;
+    component aliceReceiveRecordHasher = Record();
+    aliceReceiveRecordHasher.assetID <== aliceReceiveAssetID;
+    aliceReceiveRecordHasher.tokenID <== aliceReceiveTokenID;
+    aliceReceiveRecordHasher.amount <== aliceReceiveAmount;
+    aliceReceiveRecordHasher.partialRecord <== aliceReceivePartialRecordHasher.partialRecord;
+    aliceReceiveRecordHasher.record === aliceReceiveRecord;
+
+    component bobChangePartialRecordHasher = PartialRecord();
+    bobChangePartialRecordHasher.chainID <== bobChangeChainID;
+    bobChangePartialRecordHasher.pk_X <== bob_pk_X;
+    bobChangePartialRecordHasher.pk_Y <== bob_pk_Y;
+    bobChangePartialRecordHasher.innerPartialRecord <== bobChangeInnerPartialRecord;
+    component bobChangeRecordHasher = Record();
+    bobChangeRecordHasher.assetID <== bobChangeAssetID;
+    bobChangeRecordHasher.tokenID <== bobChangeTokenID;
+    bobChangeRecordHasher.amount <== bobChangeAmount;
+    bobChangeRecordHasher.partialRecord <== bobChangePartialRecordHasher.partialRecord;
+    bobChangeRecordHasher.record === bobChangeRecord;
+
+    component bobReceivePartialRecordHasher = PartialRecord();
+    bobReceivePartialRecordHasher.chainID <== bobReceiveChainID;
+    bobReceivePartialRecordHasher.pk_X <== bob_pk_X;
+    bobReceivePartialRecordHasher.pk_Y <== bob_pk_Y;
+    bobReceivePartialRecordHasher.innerPartialRecord <== bobReceiveInnerPartialRecord;
+    component bobReceiveRecordHasher = Record();
+    bobReceiveRecordHasher.assetID <== bobReceiveAssetID;
+    bobReceiveRecordHasher.tokenID <== bobReceiveTokenID;
+    bobReceiveRecordHasher.amount <== bobReceiveAmount;
+    bobReceiveRecordHasher.partialRecord <== bobReceivePartialRecordHasher.partialRecord;
+    bobReceiveRecordHasher.record === bobReceiveRecord;
+```
+
+### Alice and Bob’s `Spend` `Record` Nullifiers Constructed Correctly
+
+```circom
+// Check Alice and Bob Spend Nullifiers constructed correctly
+    component aliceNullifierHasher = Nullifier();
+    aliceNullifierHasher.record <== aliceSpendRecordHasher.record;
+    aliceNullifierHasher.pathIndices <== aliceSpendPathIndices;
+    aliceNullifierHasher.nullifier === aliceSpendNullifier;
+
+    component bobNullifierHasher = Nullifier();
+    bobNullifierHasher.record <== bobSpendRecordHasher.record;
+    bobNullifierHasher.pathIndices <== bobSpendPathIndices;
+    bobNullifierHasher.nullifier === bobSpendNullifier;
+```
+
+## Swap Smart Contract Implementation
+
+The Multi Asset Variable Anchor is a variable-denominated shielded pool system
+derived from Tornado Nova (tornado-pool) that supports multiple assets in a single pool.
+This system extends the shielded pool system into a bridged system and allows for
+join/split transactions of different assets at 2 same time.
+
+The system is built on top the MultiAssetVAnchorBase/AnchorBase/LinkableAnchor system
+which allows it to be linked to other VAnchor contracts through a simple graph-like
+interface where anchors maintain edges of their neighboring anchors.
+
+Part of the benefit of a MASP is the ability to handle multiple assets in a single pool.
+To support this, the system uses a `assetId` field in the UTXO to identify the asset.
+One thing to remember is that all assets in the pool must be wrapped ERC20 tokens specific
+to the pool. We refer to this tokens as the bridge ERC20 tokens. Part of the challenge of building
+the MASP then is dealing with the mapping between bridge ERC20s and their asset IDs.
+
+- [protocol-solidity/MultiAssetVAnchor.sol](https://github.com/webb-tools/protocol-solidity/blob/akilesh/batch-update/packages/contracts/contracts/vanchors/base/MultiAssetVAnchor.sol#L220-L324)
+
+## Why the Relayer Cannot Tamper With Data
+
+Note, it is largely impossible for the relayer to tamper with the `Spend` `Record` data because if it does, the proof of membership in one-of-many Merkle trees will fail.
+
+Where the relayer has free reign is to change the data in the `Change` and `Receive` `Record`s, as well as `t` and `tPrime`. Let’s consider a few attacks and see why they don’t work.
+
+### Relayer changes data in the `Change/Receive` `Record`s but does NOT change the swap message hash signatures
+
+If the swap message hash signatures are not changed by the relayer, the only way they will verify is if we feed the uncorrupted `Change` and `Receive` `Record` commitments into the Poseidon hasher for the swap message hash. In this case, if the relayer changes data in the `Change/Receive` `Record`s, constraints such as:
+
+```circom
+bobReceiveRecordHasher.record === bobReceiveRecord;
+```
+
+This will not verify.
+
+So now it is clear that to tamper with data, the relayer must change the data inside the swap message. The only way it can do so is by signing this bogus data with its own keys.
+
+### Relayer changes data inside the swap message and signs it with its own keys
+
+In this case, it will feed an incorrect `ak` into the circuit so that the signature verifies. But the `pk` corresponding to this `ak` will form a non-existent `Spend` `Record` and the one-of-many Merkle proof for the `Spend` `Record` will not pass.
