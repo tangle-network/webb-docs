@@ -6,31 +6,43 @@ description: An outline of Webb relayer private transaction relaying capabilitie
 import Callout from "../../../components/Callout";
 
 # Private Transaction Relaying
+A Private Transaction Relayer aids users in submitting proofs for private transactions that occur within the Mixer, Anchor, and VAnchor Systems of the Webb Protocol.
 
-If you wish to only support certain functions within the relayer network you can configure the relayer to only support those functions.
-For instance, you can turn off governance relaying and data querying and only relay private transactions. It is important to note
-that governace relaying, private transaction relaying and data querying are all on by default.
+In essence, users create zero-knowledge proof data - a kind of cryptographic proof where one can prove they know certain information without revealing that information itself. They then format this data into an appropriate payload.
 
-To set up the relayer exclusively for relaying private transactions we need to add the following fields to under the
-`[evm.<network>.contracts]` section:
+The job of the Private Transaction Relayer is to take this payload and submit it to the network on behalf of the users. In this way, the relayer plays a critical role in ensuring the smooth execution of private transactions within the system.
 
-### Required Fields
+
+# Participate as a Private Transaction Relayer
+The relayer node is highly configurable, allowing you to tailor its functions to suit your needs. If you prefer to support specific functions only, you can easily adjust your relayer's settings accordingly.
+
+For example, you might decide to exclusively relay private transactions. In such a case, you would disable the governance relaying and data querying functions.
+
+Please note that **by default, all functions - including governance relaying, private transaction relaying, and data querying - are enabled.** If you want to specialize your relayer, you will need to manually turn off the functions you don't wish to support.
+
+--
+## Exclusively Private Transactions Relay Node
+To set up your relayer node exclusively for relaying private transactions we need to add the following fields to under the
+`[evm.<network>.contracts]` section in our configuration file:
+
+### 1. Add the Required Fields
 
 - **`contract`**: Name of the contract to support (e.g. "VAnchor", "SignatureBridge")
 - **`address`**: Address of the contract
 - **`size`**: Represents the minimum size configured for deposit / withdraw on the contract
 - **`events-watcher`**: Event watcher should be set to `false` for this strategy
 - **`withdraw-fee-percentage`**: Determines the fee taken by this relayer
-- **`withdraw-gaslimit`**: Specifies the maximum amount of gas which will be used when submitting a withdraw transaction
+- **`withdraw-gaslimit`**: Specifies the maximum amount of gas that will be used when submitting a withdraw transaction
 
-Under the `[features]` section we need to turn off data-querying and governance-relaying.
+### 2. Under the `[features]` section in our configuration file, we need to turn off `data-querying` and `governance-relaying.`
 
 - **`data-query`**: Should be set to `false` for this strategy
 - **`governance-relay`**: Should be set to `false` for this strategy
 - **`private-relay`**: Should be set to `true` for this strategy (set to `true` by default)
 
-Under the `[evm-etherscan]` section we need to provide `EtherscanApiConfiguration`.
+### 3. Under the `[evm-etherscan]` section we need to provide `EtherscanApiConfiguration`.
 
+## Example
 An example configuration file for the goerli network and VAnchor contract should look similar to this:
 
 <Callout type="info">
