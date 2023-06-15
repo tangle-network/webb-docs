@@ -6,32 +6,35 @@ description: General overview of the Tangle Network.
 import { UseCasesArea, ParticipateArea, TestNetworkArea } from "../../../components/UseCasesTangle";
 import FullWebbCTA from "../../../components/FullWebbCTA";
 
-# Overview
+# Tangle Network Overview
 
-The Tangle Network is a next-gen TSS based blockchain with a powerful threshold signature governance system for operating,
-governing, maintaining, growing, powering cross-chain applications.
+The Tangle Network is a specialized platform engineered to support and govern cross-chain Zero-Knowledge (ZK) applications. Leveraging the robust Substrate blockchain framework, the Tangle Network forms the core infrastructure to facilitate a new generation of privacy-enhancing and governance-decentralized applications. 
+
+The Tangle Network's unique offering centers around the intersection of cross-chain functionality, advanced governance systems, and the world of ZK applications. Our network seamlessly merges these distinct elements, creating an ecosystem that amplifies the strengths of each component. 
+
+### Powering Cross-chain ZK Applications
+
+The primary objective of the Tangle Network is to cater to cross-chain ZK applications, offering a tailored environment for their operation and governance. Our network transcends traditional chain boundaries, providing a highway for these advanced applications to interact, exchange data, and perform seamlessly across different blockchain networks.
+
+### Built on [Substrate](https://substrate.io/)
+
+The Tangle Network is built on the Substrate, an advanced blockchain framework that grants us flexibility, robustness, and cutting-edge features. This strategic choice ensures that our platform stays ahead in terms of speed, security, and scalability, proving to be a reliable backbone for our network.
+
+### With Unprecedented [Governance](tangle-governance.mdx)
+
+Our innovative threshold signature system (TSS) based governance model sets us apart. It's a type of multi-party computation (MPC) scheme that is a cryptographically secure process to ensure the integrity and authenticity of operations within our network. The TSS-based governance model is capable of effectively managing, maintaining, and safeguarding the cross-chain ZK applications in our ecosystem.
+
+
 
 ## Test Networks
 
-Checkout the deployed Tangle test networks. We have deployed our own standalone chain that you may explorer and interact with.
+Currently, the alpha release of Tangle Network is available for testing and experimental use.
 
 <TestNetworkArea />
 
 ## Use Cases
 
 <UseCasesArea />
-
-## How it Works
-
-The Tangle Network uses a multi-stage governance system to sign payloads with threshold signatures. In order to achieve strong security, we utilize a light-client based approach for signing messages; that is, every message signed by the TSS is crypto-economically enforced to have been verified again by a trustless on-chain light-client.
-
-The governance system works as follows:
-
-- Relayers propose payloads to the governance system by providing merkle trie proofs of inclusion of state and events against their respective blockchains.
-- Payloads are verified on-chain and added to an unsigned proposal queue for the Tangle Network DKG Authorities to read.
-- Payloads are signed off-chain by the Tangle Network DKG Authorities using their respective DKG shares.
-- Signatures are aggregated and combined and, once formed, submitted back on-chain, where they are cross-referenced with a previously generated unsigned proposal. If successful, the unsigned proposal is cleared from the Tangle Network’s on-chain storage and the signed proposal is inserted into the Tangle Network’s on-chain storage.
-- If a signature is presented on-chain that cannot be cross-referenced with any previously created unsigned proposal, the DKG authorities are considered malicious and are kicked from the protocol execution within limits. Their stake will be slashed to incentivize against signing payloads outside the governance system’s guidelines.
 
 ## Participate
 
