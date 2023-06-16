@@ -2,5 +2,6 @@
   "definitions": "Definitions",
   "asset-transfer": "Asset Transfer",
   "dkg": "DKG",
-  "identity": "Identity"
+  "identity": "Identity",
+  "masp": "Multi-Asset Shielded Pool"
 }
