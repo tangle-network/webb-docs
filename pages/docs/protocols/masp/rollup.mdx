@@ -1,0 +1,60 @@
+---
+title: MASP Rollup
+description: Describes the MASP Rollup functionality.
+---
+
+## Overview
+
+Various functionalities in Webb’s MASP system require inserting into an on-chain Merkle tree. Due to the amount of hashing required, this is a gas-expensive operation. To save gas, we can instead queue Merkle tree leaves on-chain and then batch insert them via a succinct proof. In this document, we describe queuing and batch inserting into the MASP `Record` , `RewardUnspent`, and `RewardSpent` trees.
+
+### Technical Details
+
+It is easiest to describe the rollup functionality via a step-by-step user flow. Let’s call this user Alice. We describe how the rollup functionality works, by explaining what happens as Alice interacts with the MASP by depositing funds and then transacting via ZKPs.
+
+The main smart contract which contains the queueing and batch inserting functionality is called the `MASPProxy`. A `MASPProxy` can proxy for multiple `MASP`s. [MultiAssetVAnchorProxy.sol](https://github.com/webb-tools/protocol-solidity/blob/masp/packages/contracts/contracts/proxy/MultiAssetVAnchorProxy.sol)
+
+- Alice sends the following `QueueDepositInfo` struct information:
+
+```jsx
+struct QueueDepositInfo {
+	address unwrappedToken;
+	address wrappedToken;
+	uint256 amount;
+	uint256 assetID;
+	uint256 tokenID;
+	bytes32 depositPartialCommitment;
+	address proxiedMASP;
+}
+```
+
+to the `queueDeposit` function along with the associated deposit tokens.
+
+- `queueDeposit` function checks that the deposited tokens match the information in the `QueueDepositInfo` struct. If so, inserts `QueueDepositInfo` into `QueueDepositMap` which is a double mapping from `masp address` → `uint256` → `QueueDepositInfo`.
+- A relayer or any other outside entity can call the `batchDeposit` function which does the following for each queued deposit being inserted:
+  - The associated funds have to be transferred to MASP and potentially wrapped.
+  - Associated `RewardUnspentTree` commitment has to be computed and queued for insertion.
+  - The relayer has to submit a batch update zero-knowledge proof (the details of which are described in the Batch Update Circuit section below) to update the Merkle root of the MASPs Merkle tree. This proof is then verified by the MASP.
+- When Alice transacts on the MASP, for instance, by doing an internal shielded transfer, `inputRecord`s are spent and `outputRecord`s are created. The reward commitments associated with the nullified `inputRecord`s are queued for insertion on the `RewardSpentTree` and the reward commitments associated with the `outputRecord`s are queued for insertion on the `RewardUnspentTree`.
+- A relayer can submit a batch update zero-knowledge proof to update the `RewardUnspentTree` and `RewardSpentTree`. The roots of these trees are then relayed to the Tangle blockchain, where rewards can be claimed in Tangle tokens.
+
+### Batch Update Circuit
+
+[batchMerkleTreeUpdate.circom](https://github.com/webb-tools/protocol-solidity/blob/masp/circuits/merkle-tree/batchMerkleTreeUpdate.circom)
+
+The purpose of a Merkle tree batch update circuit is simple. It takes in as inputs:
+
+```jsx
+signal input argsHash; // Public Input
+signal input oldRoot; // Private Input
+signal input newRoot; // Private Input
+signal input pathIndices; // Private Input
+signal input pathElements[height]; // Private Input
+signal input leaves[nLeaves]; // Private Input
+```
+
+The `argsHash` is simply the hash of all the private inputs. This allows for gas-efficiency. Since more public inputs means more gas spent on proof verification. The `oldRoot` is the current root of the on-chain Merkle tree. The `newRoot` is the root after the `leaves[nLeaves]` are inserted into the Merkle tree. The circuit checks that `newRoot` really is the new root after the `leaves[nLeaves]` are inserted. It does this via the following algorithm (note `nLeaves` must be a power of 2):
+
+- Say the entire Merkle tree has height `levels`.
+- We think of the Merkle tree as a Merkle treee of height `level - batchLevels`, where each leaf is actually the root of a Merkle tree of height `batchLevels`, where `2 ** batchLevels = nLeaves`.
+- Inside the circuit, we first Merkleize the `nLeaves`. This gives us the root of the Merkle tree of height `batchLevels`, which is in turn a leaf of the Merkle tree of height `levels - batchLevels`.
+- It is then checked that inserting this Merkleized value into the Merkle tree of height `levels - batchLevels` results in the Merkle root being `newRoot`. This is done via the `MerkleTreeUpdater` circuit: [merkleTreeUpdater.circom](https://github.com/webb-tools/protocol-solidity/blob/masp/circuits/merkle-tree/merkleTreeUpdater.circom).
