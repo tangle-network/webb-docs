@@ -9,60 +9,21 @@ import Callout from "../../../components/Callout";
 
 # Relayer Overview
 
-In the Webb Protocol, the relayer is a multi-faceted oracle, data relayer, and protocol governance participant.
-Relayers fulfill the role of an oracle where the external data sources that they listen to are the state of the
-anchors for a bridge. Relayers, as their name entails, relay information for a connected set of Anchors on a bridge.
-This information is then used to update the state of each Anchor and allow applications to reference, both privately
-and potentially not, properties of data stored across the other connected Anchors.
+In the Webb Protocol, relayers serve a vital role, acting as multi-functional agents facilitating information exchange, proof submission, and network governance. They also function as oracles, listening to external data sources, which in this case are the states of the anchors for a bridge. They relay this data, which in turn updates the state of each Anchor and allows applications to reference properties of data stored across the connected Anchors.
 
-The relayer system is composed of three main components. Each of these components should be thought of as entirely
-separate because they could be handled by different entities entirely.
+The relayer system consists of three main functions, each of which can be executed separately, allowing node operators to specialize in a function or bundle arbitrarily.
 
-1. Private transaction relaying (of user bridge transactions like Tornado Cash’s relayer)
-2. Data querying (for zero-knowledge proof generation)
-3. Data proposing and signature relaying (of DKG proposals)
 
-## Private Transaction Relaying
+### [Private Transaction Relay](private-tx.mdx)
+These relayers assist users of zkApps by submitting proofs for privacy-preserving transactions within the Mixer, Anchor, and VAnchor System.
 
-The relayer allows for submitting proofs for privacy-preserving transactions against the Mixer, Anchor and
-VAnchor System. The users generate zero-knowledge proof data, format a proper payload, and submit it to a
-compatible relayer for submission.
+### [Data Query Relay](data-querying.mdx)
+These relayers aid users who need to generate witness data for their zero-knowledge proofs, by caching the leaves of the trees of the Mixer, Anchor or VAnchor they support, for easy retrieval.
 
-## Data Querying
+### [Anchor Update Relay](anchor-update.mdx)
+Relayers facilitate the process of proposing and relaying signed data payloads to Anchor nodes. This is crucial for the Anchor System's governance.
 
-The relayer also supplements users who need to generate witness data for their zero-knowledge proofs. The
-relayers cache the leaves of the trees of Mixer, Anchor or VAnchor that they are supporting. This allows users
-to query for the leaf data faster than querying from a chain directly.
 
-## Data Proposing and Signature Relaying
-
-The relayer is tasked with relaying signed data payloads from the DKG’s activities and plays an important role
-as it pertains to the Anchor System. The relayer is responsible for submitting the unsigned and signed anchor
-update proposals to and from the DKG before and after signing occurs.
-
-This role can be divided into two areas:
-
-1. Proposing
-2. Relaying
-
-The relayer is the main agent in the system who proposes anchor updates to the DKG for signing. That is, the
-relayer acts as an oracle over the merkle trees of the Anchors and VAnchors. When new insertions into the
-merkle trees occur, the relayer crafts an update proposal that is eventually proposed to the DKG for signing.
-
-The relayer is also responsible for relaying signed proposals. When anchor updates are signed, relayers are
-tasked with submitting these signed payloads to the smart contract SignatureBridges that verify and handle
-valid signed proposals. For all other signed proposals, the relayer is tasked with relaying these payloads
-to the SignatureBridge instances and/or Governable instances.
-
-The responsibility for a relayer to the DKG (governance system) can be summarized as follows:
-
-The relayers act as proposers of proposals intended to be signed by the distributed key generation protocol (DKG).
-
-1. The relayers are listening to and proposing updates.
-2. The DKG is signing these updates using a threshold-signature scheme.
-
-We require a threshold of relayers (really proposers) to agree on the update in order to move the update into
-a queue for the DKG to sign from.
 
 <br />
 
@@ -74,7 +35,7 @@ We are actively making improvements to the Webb Relayer. Check out the below Rel
 relayer? We want to hear from you, share your thoughts [here](https://github.com/webb-tools/feedback/discussions/categories/webb-relayer-feedback).
 
 <Callout type="info">
-  Please keep in mind that this repo is in active development, and may not be fully functional. If you find a bug, please report it [here](https://github.com/webb-tools/relayer/issues/new).
+  Please keep in mind that this repo is in active development, and may not be fully functional. If you find a bug, please report it [at our Relayer repo](https://github.com/webb-tools/relayer/issues/new)
 </Callout>
 
 <RelayerImpl />
