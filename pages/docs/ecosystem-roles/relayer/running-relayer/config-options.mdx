@@ -1,0 +1,39 @@
+---
+title: Configuration Options
+description: Configuration options available on the Webb relayer   
+---
+
+## Configuration Options
+
+**Note:** You can also review the different chain configurations for EVM and Substrate.
+
+- [`SubstrateConfig`](https://webb-tools.github.io/relayer/webb_relayer/config/struct.SubstrateConfig.html)
+- [`EvmChainConfig`](https://webb-tools.github.io/relayer/webb_relayer/config/struct.EvmChainConfig.html)
+
+### Chain Configuration
+
+| Field           | Description                                                                                                                        | Optionality            |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `http-endpoint` | Http(s) Endpoint for quick Request and Response                                                                                    | Required               |
+| `ws-endpoint`   | Websocket Endpoint for long living connections                                                                                     | Required               |
+| `name`          | The chain name                                                                                                                     | Required               |
+| `explorer`      | Block explorer, used for generating clickable links for transactions that happens on this chain.                                   | Optional               |
+| `chain-id`      | Chain specific id.                                                                                                                 | Required               |
+| `private-key`   | The Private Key of this account on this network. See [PrivateKey Docs for secure setup]()                                          | Required               |
+| `beneficiary`   | The address of the account that will receive relayer fees.                                                                         | Optional               |
+| `runtime`       | Indicates Substrate runtime to use                                                                                                 | Required for Substrate |
+| `suri`          | Interprets a string in order to generate a key Pair. In the case that the pair can be expressed as a direct derivation from a seed | Required for Substrate |
+| `pallets`       | Supported pallets for a particular Substrate node                                                                                  | Optional               |
+
+### Contract Configuration
+
+| Field                      | Description                                                                                | Optionality |
+| -------------------------- | ------------------------------------------------------------------------------------------ | ----------- |
+| `contract`                 | Chain contract. Must be either: - VAnchor - SignatureBridge                                | Required    |
+| `address`                  | The address of this contract on this chain.                                                | Required    |
+| `deployed-at`              | The block number where this contract got deployed at.                                      | Required    |
+| `events-watcher`           | Control the events watcher for this contract.                                              | Optional    |
+| `withdraw-config`          | Config the fees and gas limits of your private transaction relayer.                        | Optional    |
+| `proposal-signing-backend` | a value of `ProposalSigingBackend` (for example `{ type = "DKGNode", node = "dkg-node" }`) | Optional    |
+
+For specific examples, please refer to either data-querying setup, private transaction setup, or signature relaying setup docs.

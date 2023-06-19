@@ -1,0 +1,75 @@
+---
+title: Signature Relaying
+description: A description of Webb relayer signature relaying capabilities. 
+---
+
+import Callout from "../../../../components/Callout";
+
+# Anchor Update Relaying
+
+As part of the Webb Protocol, the Anchor Update Relayer performs a crucial role in both proposing and relaying signed data payloads. This function is central to the Anchor System's operations and governance. 
+
+## Role Components
+
+1. **Proposing:** The relayer acts as the chief proponent of anchor updates, which are sent to the Distributed Key Generation protocol (DKG) for signing. When new data is inserted into the Merkle trees of the Anchors and VAnchors, the relayer formulates an update proposal for the DKG's consideration and potential signing.
+
+2. **Relaying:** Once the anchor updates are signed, the relayer is responsible for submitting these signed payloads to the smart contract SignatureBridges that verify and process the proposals. The relayer also conveys these payloads to the appropriate SignatureBridge instances or Governable instances.
+
+To summarize, the relayer's duties towards the DKG can be described as follows:
+
+- Proposing updates intended to be signed by the DKG
+- Listening to and proposing updates for consideration
+- Facilitating the DKG's signing of these updates via a threshold-signature scheme
+
+A consensus among a threshold of relayers is required to move the update into a queue for the DKG's signing.
+
+# Customizing Your Participation
+
+The relayer network is designed with flexibility in mind. You can customize your relayer to support only certain functions as per your preference. For instance, you might choose to disable governance relaying and data querying, focusing solely on private transaction relaying.
+
+Please be aware that by default, all functions - including governance relaying, private transaction relaying, and data querying - are enabled. Adjustments will need to be made manually should you wish to specialize your relayer's operations.
+
+To set up the relayer exclusively for data proposing and signature relaying we need to add the following fields to our configuration file, under the
+`[evm.<network>.contracts]` section:
+
+### 1. Add the Required Fields to your configuration file:
+
+- **`contract`**: Name of the contract to support (e.g. "VAnchor", "SignatureBridge")
+- **`address`**: Address of the contract
+- **`events-watcher`**: Event watcher should be set to `true` for this strategy and include a specified polling interval
+- **`proposal-signing-backend`**: Indicates how proposals are signed (e.g. "Mocked", "DKG")
+- **`linked-anchors`**: Entries for this anchor contract's connected edges. These fields are used to determine the generation of AnchorUpdate proposals
+
+### 2. Under the `[features]` section we need to turn off data-querying and private-relaying.
+
+- **`data-query`**: Should be set to `false` for this strategy
+- **`governance-relay`**: Should be set to `true` for this strategy (set to `true` by default)
+- **`private-relay`**: Should be set to `false` for this strategy
+
+
+# Example 
+An example configuration file for the Goerli network that is configured for governance relaying:
+
+<Callout type="info">
+  You will need to update the linked-anchors and contract addresses for the applicable chains.
+</Callout>
+
+```
+[[evm.goerli.contracts]]
+contract = "VAnchor"
+address = "0x03b88eD9Ff9bE84e4baD3F55D67AE5ABA610523C"
+events-watcher = { enabled = true, polling-interval = 10000 }
+proposal-signing-backend = { type = "DKG", private-key = "$GOVERNOR_PRIVATE_KEY" }
+linked-anchors = [
+  { chain = "ropsten", chain-id = "3", address = "0x66e04f6ae26c310e39f5bf24d873909e6d3b64c7" },
+  { chain = "rinkeby", chain-id = "4", address = "0x91127f21d63029eb5b2de05b4b1e9fd3497ee95b"},
+  { chain = "polygontestnet", chain-id = "80001", address = "0x1371efed369498718bee3eb5d58e5d3dec86be85" },
+  { chain = "optimismtestnet", chain-id = "69", address = "0x5353cede4b8fea148fb1f66f45d3ec27bff2224d" },
+  { chain = "arbitrumtestnet", chain-id = "421611",  address = "0x4953110789d0cb6de126f4ea88890670ccfe6906" },
+]
+
+[features]
+private-relay = false
+data-query = false
+governance-relay = true
+```

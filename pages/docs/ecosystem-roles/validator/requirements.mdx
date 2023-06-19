@@ -1,0 +1,129 @@
+---
+title: Requirements
+description: An overview of Webb Tangle node requirements.
+---
+
+import { Tabs, Tab } from "../../../../components/Tabs";
+
+# Requirements
+
+The current Tangle testnet is a standalone network, meaning that it is not connected to the Polkadot or Kusama relay chain.
+Since the Tangle is not a parachain, the size of nodes are quite a small build as it only contains code to run the standalone Tangle network and not syncing
+the relay chain or communicate between the two. As such, the build is smaller, and does not require the same minumum spec requirements as a parachain node.
+
+The minimum specs recommended to run a node are shown in the following table.
+
+| Component | Requirements                                                                                           |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+| CPU       | Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz                                                               |
+| Storage   | An NVMe solid state drive of 500 GB (As it should be reasonably sized to deal with blockchain growth). |
+| Memory    | 32GB ECC                                                                                               |
+| Firewall  | P2P port must be open to incoming traffic: <br /> - Source: Any <br /> - Destination: 30333, 30334 TCP |
+
+## Running Ports
+
+As stated before, the standalone nodes will listen on multiple ports. The default Substrate ports are used in the standalone,
+while the relay chain will listen on the next higher port.
+
+The only ports that need to be open for incoming traffic are those designated for P2P. Collators must not have RPC or WS ports opened.
+
+**Default Ports for a Tangle Full-Node:**
+
+| Description | Port        |
+| ----------- | ----------- |
+| P2P         | 30333 (TCP) |
+| RPC         | 9933        |
+| WS          | 9944        |
+| Prometheus  | 9615        |
+
+## Dependencies
+
+In order to build a Tangle node from source your machine must have specific dependecies installed. This guide
+outlines those requirements.
+
+This guide uses [https://rustup.rs](https://rustup.rs) installer and the `rustup` tool to manage the Rust toolchain. Rust is required to
+compile a Tangle node.
+
+First install and configure `rustup`:
+
+```bash
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Configure
+source ~/.cargo/env
+```
+
+Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+
+```bash
+rustup default nightly
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown --toolchain nightly
+```
+
+Great! Now your Rust environment is ready! 🚀🚀
+
+### Substrate Dependencies
+
+<Tabs items={["linux", "darwin", "windows"]} storageKey="selected-arch-release">
+  <Tab>
+
+    Debian version:
+    ```bash
+    sudo apt install --assume-yes git clang curl libssl-dev llvm libudev-dev make protobuf-compiler
+    ```
+    Arch version:
+    ```bash
+    pacman -Syu --needed --noconfirm curl git clang make protobuf
+    ```
+    Fedora version:
+    ```bash
+    sudo dnf update
+    sudo dnf install clang curl git openssl-devel make protobuf-compiler
+    ```
+    Opensuse version:
+    ```bash
+    sudo zypper install clang curl git openssl-devel llvm-devel libudev-devel make protobuf
+    ```
+
+    Remember that different distributions might use different package managers and bundle packages in different ways.
+    For example, depending on your installation selections, Ubuntu Desktop and Ubuntu Server might have different packages
+    and different requirements. However, the packages listed in the command-line examples are applicable for many common Linux
+    distributions, including Debian, Linux Mint, MX Linux, and Elementary OS.
+
+  </Tab>
+  <Tab>
+
+    Assumes user has Homebrew already installed.
+
+    ```
+    brew update
+    brew install openssl gmp protobuf cmake
+    ```
+
+  </Tab>
+  <Tab>
+
+    For Windows users please refer to the official Substrate documentation:
+    `https://docs.substrate.io/install/windows/`
+
+  </Tab>
+</Tabs>
+
+### Build from Source 💻
+
+Once the development environment is set up, you can build the Tangle node from source.
+
+```bash
+cargo build --release
+```
+
+> NOTE: You _must_ use the release builds! The optimizations here are required
+> as in debug mode, it is expected that nodes are not able to run fast enough to produce blocks.
+
+You will now have two runtimes built in `target/release/` dir:
+
+1. `tangle-parachain`: Parachain node.
+2. `tangle-standalone`: Standalone node, used in the current standalone Tangle network.
