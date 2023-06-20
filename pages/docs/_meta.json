@@ -1,11 +1,12 @@
 {
-  "index": {
+    "index": {
     "title": "Quickstart"
   },
-  "overview": "Overview",
-  "anchor-system": "Anchor System",
-  "dapps": "dApps",
-  "tangle-network": "Tangle Network",
+  "overview": "About Webb",
+  "projects": "Projects",
   "protocols": "Protocols",
-  "relayer": "Relayers"
+  "ecosystem-roles": "Ecosystem Roles",
+  "faqs": "FAQs",
+  "glossary": "Glossary"
+    
 }

@@ -1,6 +1,0 @@
-{
-  "full-node": "Full Node",
-  "collator-node": "Collator Node",
-  "validator-node": "Validator Node",
-  "relayer-node": "Collator Node with Relayer"
-}
