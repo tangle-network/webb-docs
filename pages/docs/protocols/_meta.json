@@ -1,7 +1,7 @@
 {
-  "definitions": "Definitions",
+  "anchor-system": "Anchor System",
   "asset-transfer": "Asset Transfer",
-  "dkg": "DKG",
-  "identity": "Identity",
-  "masp": "Multi-Asset Shielded Pool"
+  "dkg": "Distributed Key Generation (DKG)",
+  "masp": "Multi-Asset Shielded Pools (MASP)",
+  "identity": "Identity Protocol"
 }

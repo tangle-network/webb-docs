@@ -11,28 +11,27 @@
       "toc": true
     }
   },
-  "bridge": {
-    "title": "Hubble Bridge",
-    "href": "https://app.webb.tools/",
-    "newWindow": true
-  },
-  "stats": {
-    "title": "Stats dApp",
-    "href": "https://stats.webb.tools/",
-    "newWindow": true
-  },
-  "component-lib": {
-    "title": "Webb UI Kit",
-    "href": "https://webb-tools.github.io/webb-dapp/",
-    "newWindow": true
+  "docs": {
+    "title": "Docs",
+    "href": "https://docs.webb.tools/",
+    "newWindow": false
   },
   "blog": {
     "title": "Blog",
-    "theme": {
-      "typesetting": "article"
-    },
-    "display": "hidden"
+    "href": "https://www.blog.webb.tools/",
+    "newWindow": true
   },
+  "github": {
+    "title": "Github",
+    "href": "https://github.com/webb-tools",
+    "newWindow": true
+  },
+  "community": {
+    "title": "Community",
+    "href": "https://webb.tools/community",
+    "newWindow": true
+  },
+
   "whitepaper": {
     "title": "Whitepaper",
     "href": "https://eprint.iacr.org/2023/260",

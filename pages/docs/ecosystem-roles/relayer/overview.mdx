@@ -1,0 +1,41 @@
+---
+title: Overview
+description: A description overview of the Webb relayer.
+---
+
+import RelayerImages from '../../../../components/images/Relayer'
+import { RelayerImpl } from "../../../../components/RepoArea";
+import Callout from "../../../../components/Callout";
+
+# Relayer Overview
+
+In the Webb Protocol, relayers serve a vital role, acting as multi-functional agents facilitating information exchange, proof submission, and network governance. They also function as oracles, listening to external data sources, which in this case are the states of the anchors for a bridge. They relay this data, which in turn updates the state of each Anchor and allows applications to reference properties of data stored across the connected Anchors.
+
+The relayer system consists of three main functions, each of which can be executed separately, allowing node operators to specialize in a function or bundle arbitrarily.
+
+### [Private Transaction Relay](private-tx.mdx)
+
+These relayers assist users of zkApps by submitting proofs for privacy-preserving transactions within the Mixer, Anchor, and VAnchor System.
+
+### [Data Query Relay](data-querying.mdx)
+
+These relayers aid users who need to generate witness data for their zero-knowledge proofs, by caching the leaves of the trees of the Mixer, Anchor or VAnchor they support, for easy retrieval.
+
+### [Anchor Update Relay](anchor-update.mdx)
+
+Relayers facilitate the process of proposing and relaying signed data payloads to Anchor nodes. This is crucial for the Anchor System's governance.
+
+<br />
+
+<RelayerImages />
+
+## Contribute to the Webb Relayer
+
+We are actively making improvements to the Webb Relayer. Check out the below Relayer repository and source documentation to start. Have feedback to share about a Webb
+relayer? We want to hear from you, share your thoughts [here](https://github.com/webb-tools/feedback/discussions/categories/webb-relayer-feedback).
+
+<Callout type="info">
+  Please keep in mind that this repo is in active development, and may not be fully functional. If you find a bug, please report it [at our Relayer repo](https://github.com/webb-tools/relayer/issues/new)
+</Callout>
+
+<RelayerImpl />
