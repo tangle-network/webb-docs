@@ -1,6 +1,6 @@
 const { withSentryConfig } = require("@sentry/nextjs");
-const remarkMath = require('remark-math')
-const rehypeKatex = require('rehype-katex')
+const remarkMath = require("remark-math");
+const rehypeKatex = require("rehype-katex");
 
 const withNextra = require("nextra")({
   theme: "nextra-theme-docs",

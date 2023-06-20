@@ -97,6 +97,6 @@ export const TestNetworkArea = () => {
         }}
         href="https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/explorer"
       ></DetailedFeatureLink>
-     </div>
+    </div>
   );
 };

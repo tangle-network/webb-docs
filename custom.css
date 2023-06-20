@@ -16,7 +16,6 @@ body {
   html[class~="dark"] div.nextra-nav-container-blur {
     --tw-bg-opacity: 1;
     background-color: rgb(31 29 43 / var(--tw-bg-opacity)) !important;
-    
   }
 }
 
@@ -29,22 +28,22 @@ code {
 }
 
 @font-face {
-  font-family: 'BreezeSans';
-  src: url('public/fonts/BreezeSans-Regular.ttf') format('truetype');
+  font-family: "BreezeSans";
+  src: url("public/fonts/BreezeSans-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'BreezeSans';
-  src: url('public/fonts/BreezeSans-Medium.ttf') format('truetype');
+  font-family: "BreezeSans";
+  src: url("public/fonts/BreezeSans-Medium.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'BreezeSans';
-  src: url('public/fonts/BreezeSans-Bold.ttf') format('truetype');
+  font-family: "BreezeSans";
+  src: url("public/fonts/BreezeSans-Bold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
 }
@@ -52,20 +51,20 @@ code {
 /* Cousine */
 
 @font-face {
-  font-family: 'Cousine';
-  src: url('public/fonts/Cousine-Regular.ttf') format('truetype');
+  font-family: "Cousine";
+  src: url("public/fonts/Cousine-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Cousine';
-  src: url('public/fonts/Cousine-Bold.ttf') format('truetype');
+  font-family: "Cousine";
+  src: url("public/fonts/Cousine-Bold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
 }
 
-.webbCardBg { 
+.webbCardBg {
   background: #fff;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.03),
     0px 2px 4px rgba(0, 0, 0, 0.05), 0px 12px 24px rgba(0, 0, 0, 0.05);
@@ -73,7 +72,7 @@ code {
 
 .dark .webbCardBg {
   /* background: rgba(0, 0, 0, 0.8); */
-  background: #1F1D2B;
+  background: #1f1d2b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 20px 48px rgba(0, 0, 0, 0.2);
 }
@@ -86,7 +85,7 @@ code {
 
 .dark .webbCardBg {
   background: rgba(0, 0, 0, 0.8);
-  background: #1F1D2B;
+  background: #1f1d2b;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0px 20px 48px rgba(0, 0, 0, 0.2);
 }

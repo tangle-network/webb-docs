@@ -1,5 +1,5 @@
 {
-    "index": {
+  "index": {
     "title": "Quickstart"
   },
   "overview": "About Webb",
@@ -8,5 +8,4 @@
   "ecosystem-roles": "Ecosystem Roles",
   "faqs": "FAQs",
   "glossary": "Glossary"
-    
 }

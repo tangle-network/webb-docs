@@ -17,7 +17,6 @@
 
 This repository serves as the **documentation** for the **[Webb](https://www.webb.tools/)** ecosystem. The docs are written in [MDX](https://mdxjs.com/) format an extension of [markdown](https://www.markdownguide.org/), processed by [Nextra](https://github.com/shuding/nextra/tree/main), and published to Webb Docs. For support on using Nextra see [https://nextra.site/docs].(https://nextra.site/docs)
 
-
 ### Directory structure
 
 | Folder     | Description                                                                                |
@@ -28,8 +27,8 @@ This repository serves as the **documentation** for the **[Webb](https://www.web
 
 ### Updating or Adding Content
 
-For updating or adding content to the docs site, builders simply need to follow the below instructions. Please note, 
-if image assets are added to a given section you must provide both a dark and light version of the image. 
+For updating or adding content to the docs site, builders simply need to follow the below instructions. Please note,
+if image assets are added to a given section you must provide both a dark and light version of the image.
 
 **Updating existing content**
 
@@ -41,12 +40,12 @@ if image assets are added to a given section you must provide both a dark and li
 
 1. Navigate to the desired documentation section (e.g. `/pages/docs/anchor-system/`)
 2. Create a new mdx file that represents new page for desired section (e.g. `advanced.mdx`)
-3. Write desired content for the new mdx file 
+3. Write desired content for the new mdx file
 4. Update the `_meta.json` file within the section directory to include your new page into the navigation
 5. Test those changes locally `yarn install && yarn dev`
 
-**Note:** To create a section with dropdown navigation, simply create a folder and specify the new navigation in `_meta.json`, create new your new files in the new directory along with its own `_meta.json` to outline the desired 
-navigation.  
+**Note:** To create a section with dropdown navigation, simply create a folder and specify the new navigation in `_meta.json`, create new your new files in the new directory along with its own `_meta.json` to outline the desired
+navigation.
 
 ## 🚀 Quick start
 
@@ -66,7 +65,7 @@ navigation.
     yarn install
     ```
 
-2.  **Fire the engine**
+3.  **Fire the engine**
 
     Navigate into your new site’s directory and use the following command to start the development server locally.
 
@@ -74,13 +73,13 @@ navigation.
     yarn dev # alias for `yarn start` and `yarn develop`
     ```
 
-3.  **Open the code and start customizing!**
+4.  **Open the code and start customizing!**
 
     Your site is now running at `http://localhost:3000/docs`.
 
     Edit to see your site update in real-time on save.
 
-4.  **Learn more about Nextra, Next, and nextra-theme-docs**
+5.  **Learn more about Nextra, Next, and nextra-theme-docs**
 
     - [Documentation](https://nextra.site/docs)
     - [Themes](https://nextra.site/docs/docs-theme)
