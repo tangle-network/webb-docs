@@ -99,7 +99,7 @@ const theme = {
     text: "Edit this page on GitHub",
   },
   sidebar: {
-    defaultMenuCollapseLevel: "1",
+    defaultMenuCollapseLevel: 1
   },
   navbar: {
     component: Navigation,
