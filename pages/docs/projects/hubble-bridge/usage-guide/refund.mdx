@@ -1,0 +1,20 @@
+# Refunds
+
+## Introduction to Refunds
+
+Refund is a feature on the Hubble Bridge that makes it easier to use your withdrawn tokens immediately while preserving your privacy.
+
+When users are in the shielded pool with shielded balances and they want to withdraw shielded ERC-20 tokens to a clean address, they encounter a challenge. The clean address they wish to withdraw to will have zero native tokens (ETH). Consequently, if they want to use the native tokens for gas to perform transactions on the blockchain, they would need to do another separate withdraw from the bridge to obtain the necessary gas.
+
+## Solution - The Refund Feature:
+
+The Refund feature addresses this problem by allowing users to negotiate with the relayer of the bridge. Users can propose to pay a higher fee to the relayer in exchange for receiving gas tokens. This enables them to perform an atomic swap with the relayer, obtaining the necessary gas for their transactions.
+
+The Refund feature provides flexibility and convenience to users, giving them two options:
+
+1. **Getting a Refund:**
+   Users can choose to receive a refund instead of withdrawing the shielded ERC-20 tokens to the clean address. By opting for a refund, they can negotiate with the relayer to pay a higher fee and receive gas tokens in return. This allows them to have the necessary native tokens (ETH) for performing transactions directly from the shielded pool, without the need for an additional withdrawal from the bridge.
+2. **Withdrawing Native Tokens:**
+   Alternatively, users can choose to proceed with the withdrawal of shielded ERC-20 tokens to the clean address. In this case, they would need to perform _another separate withdrawal_ from the bridge to obtain the native tokens required for gas. **This option may be more suitable if users prefer to have the shielded ERC-20 tokens in a separate wallet or address from their native tokens.**
+
+The Refund feature thus offers users the flexibility to choose between obtaining a refund with gas tokens or performing a separate withdrawal for native tokens, depending on their specific requirements and preferences.
