@@ -30,15 +30,14 @@ signatures of proposals, specifically of EdgeMetadata objects. These signed prop
 
 ### History
 
-The Webb ecosystem started building on top of the Chainbridge and Tornado cash protocols. We combined these architectures to create
-an interoperable privacy set to enable cross-chain private transactions with scalable privacy and further to inspire the more general
+The Webb ecosystem combines multiple architectures to create an interoperable privacy set to enable cross-chain private transactions with scalable privacy and further to inspire the more general
 Anchor System spec.
 
-Our goal was to merge and augment both the Chainbridge and Tornado cash protocols and increase the relayer responsibilities to design
+Our goal was to merge and augment both the Chainbridge and other privacy protocols as well as increase the relayer responsibilities to design
 our private bridge protocol. The modifications can be summarized as:
 
-- Augmenting Tornado's into Anchor's which additionally track an edge list to other Anchors.
-  - Anchors are private transaction systems that function both as Tornados but also as cross-chain bridges.
+- Augmenting Anchors to additionally track an edge list to other Anchors.
+  - Anchors are private transaction systems that function both as pool but also as cross-chain bridges.
   - Anchors use a zero-knowledge one-of-many merkle tree membership proof instead of one for a single merkle tree.
   - Anchors can mint/burn the underlying token being deposited and withdrawn.
 - Augmenting ChainBridge's Bridge into a private bridge protocol.

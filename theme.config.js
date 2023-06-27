@@ -24,14 +24,8 @@ const theme = {
       titleTemplate: `%s – Webb`,
     };
   },
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
   toc: {
     float: true,
-  },
-  font: false,
-  feedback: {
-    link: "Question? Give us feedback →",
   },
   logo: HeaderLogo,
   logoLink: false,
@@ -99,7 +93,7 @@ const theme = {
     text: "Edit this page on GitHub",
   },
   sidebar: {
-    defaultMenuCollapseLevel: "1",
+    defaultMenuCollapseLevel: 1,
   },
   navbar: {
     component: Navigation,

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Link from "next/link";
-import type { Feature } from "./legacy-features";
+import type { Feature } from "./LegacyFeatures";
 
 type FeatureProps = {
   feature: Omit<Feature, "page">;
