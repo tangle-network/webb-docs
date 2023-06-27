@@ -1,4 +1,5 @@
 {
   "anchor-system": "Anchor System",
-  "distributed-key-gen": "Distributed Key Generation (DKG)"
+  "distributed-key-gen": "Distributed Key Generation (DKG)",
+  "tss": "Threshhold Signature Scheme (TSS)"
 }
