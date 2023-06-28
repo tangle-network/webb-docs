@@ -5,24 +5,63 @@ description: General overview of the Tangle Network.
 
 import { UseCasesArea, ParticipateArea, TestNetworkArea } from "../../../../components/UseCasesTangle";
 import FullWebbCTA from "../../../../components/FullWebbCTA";
+import SvgComponent from "../../../../components/TangleOverviewSVG.tsx";
 
 # Tangle Network Overview
 
 The Tangle Network is a specialized platform engineered to support and govern cross-chain Zero-Knowledge (ZK) applications. Leveraging the robust Substrate blockchain framework, the Tangle Network forms the core infrastructure to facilitate a new generation of privacy-enhancing and governance-decentralized applications.
 
-The Tangle Network's unique offering centers around the intersection of cross-chain functionality, advanced governance systems, and the world of ZK applications. Our network seamlessly merges these distinct elements, creating an ecosystem that amplifies the strengths of each component.
+The Tangle Network's unique offering centers around the intersection of cross-chain functionality, familiar EVM tooling and compatibility, advanced governance systems, and the world of ZK applications. Our network seamlessly merges these distinct elements, creating an ecosystem that amplifies the strengths of each component.
 
-### Powering Cross-chain ZK Applications
+## Key Features
 
-The primary objective of the Tangle Network is to cater to cross-chain ZK applications, offering a tailored environment for their operation and governance. Our network transcends traditional chain boundaries, providing a highway for these advanced applications to interact, exchange data, and perform seamlessly across different blockchain networks.
+### Cross-Chain Functionality and EVM Compatibility
 
-### Built on [Substrate](https://substrate.io/)
+The Tangle Network breaks traditional chain boundaries, allowing seamless interaction, data exchange, and operation of ZK applications across different blockchain networks. Leveraging the power of the Ethereum Virtual Machine (EVM) on Substrate, developers can utilize familiar EVM tooling and compatibility to build decentralized applications (DApps), create Non-Fungible Tokens (NFTs), and utilize ERC20 tokens across multiple networks.
 
-The Tangle Network is built on the Substrate, an advanced blockchain framework that grants us flexibility, robustness, and cutting-edge features. This strategic choice ensures that our platform stays ahead in terms of speed, security, and scalability, proving to be a reliable backbone for our network.
+### Advanced Governance
 
-### With Unprecedented [Governance](tangle-governance.mdx)
+The Tangle Network implements an innovative governance model based on Distributed Key Generation (DKG) protocol. The DKG protocol serves as a security instrument for the Tangle Network's cross-chain Anchor zkApps, ensuring the validity of bridge updates with crypto-economically secured threshold-signatures.
 
-Our innovative threshold signature system (TSS) based governance model sets us apart. It's a type of multi-party computation (MPC) scheme that is a cryptographically secure process to ensure the integrity and authenticity of operations within our network. The TSS-based governance model is capable of effectively managing, maintaining, and safeguarding the cross-chain ZK applications in our ecosystem.
+#### Distributed Key Generation (DKG)
+
+DKG stands for Distributed Key Generation, which is a cryptographic multi-party protocol where multiple parties contribute to the creation of a shared public and private key. In the Tangle Network's ecosystem, DKG is primarily used for generating threshold signatures, providing enhanced security for the network.
+
+The DKG consists of two protocols that each network participant runs independently: **Threshold Key Generation** and **Threshold Signature Schemes**.
+
+#### Benefits and Use of DKG
+
+The DKG protocol plays a crucial role in the governance of distributed applications, specifically the Anchor System within the Tangle Network. By utilizing DKG, the network ensures the integrity and security of signed messages. The DKG's threshold signatures provide robustness against attacks and enhance the trustworthiness of the Tangle Network.
+
+Additionally, various pre-processing protocols are utilized to improve the security of end-user applications that rely on DKG. These protocols help prevent malicious proposals from being signed by the DKG. For example, a majority voting protocol may be implemented to require a majority of parties to signal the validity of a message before it is processed by the DKG.
+
+The trust placed in the DKG through its secure and reliable threshold signatures allows for a more robust and secure governance model within the Tangle Network, ensuring the integrity and authenticity of operations.
+
+### Privacy-Enhancing ZK Applications
+
+Privacy is a paramount concern in the Tangle Network. By providing an infrastructure for Zero-Knowledge (ZK) applications, we enable users to experience a new generation of privacy-enhancing functionalities. ZK applications empower users to transact, communicate, and interact privately while maintaining the security and immutability of blockchain technology.
+
+### Built on Substrate
+
+The Tangle Network is built on Substrate, an advanced blockchain framework renowned for its flexibility, scalability, and cutting-edge features. This strategic choice ensures that our platform remains at the forefront of speed, security, and scalability, serving as a reliable backbone for the Tangle Network. Leveraging Substrate's modular architecture, we enable seamless interaction and interoperability with other blockchain networks.
+
+## Use Cases
+
+### General Messaging Passing & Public Bridges
+
+Seamlessly facilitate public and transparent cross-chain interactions. Experience unparalleled efficiency and security through a dynamic TSS-based system, where multiple participants collaborate harmoniously.
+
+### Connected Shielded Pool Protocols
+
+Unleash the true potential of interconnected ecosystems to empower private movement and the seamless transfer of assets between blockchains. Unleash the true potential of interconnected ecosystems.
+
+### Connected Shielded Identity Protocols
+
+Harness the revolutionary privacy of the Network to forge identities and establish meaningful connections between diverse blockchains. Bridge the gaps and unite digital realms like never before.
+
+### Oracle System and Data Feeds
+
+Empower financial, identity, and other applications with trustworthy information through the next-gen Webb DKG (Distributed Key Generation) to securely sign payloads from data feeds.
 
 ## Test Networks
 
