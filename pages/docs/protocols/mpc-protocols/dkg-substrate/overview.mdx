@@ -1,0 +1,102 @@
+
+<h1 id="start"> Getting Started  🎉 </h1>
+
+[Github Repo](https://github.com/webb-tools/dkg-substrate/edit/master/README.md)
+
+The DKG is a multi-party computation protocol that generates a group public and private key. We aim to use this group keypair to sign arbitrary messages that will govern protocols deployed around the blockchain ecosystem. One primary purpose for the DKG is to govern and facilitate operations of the private signature bridge/anchor system.
+
+For additional information, please refer to the [Webb DKG Rust Docs](https://webb-tools.github.io/dkg-substrate/) 📝. Have feedback on how to improve the dkg? Or have a specific question to ask? Checkout the [DKG Feedback Discussion](https://github.com/webb-tools/feedback/discussions/categories/dkg-feedback) 💬.
+
+## Prerequisites
+
+This guide uses <https://rustup.rs> installer and the `rustup` tool to manage the Rust toolchain.
+
+First install and configure `rustup`:
+
+```bash
+# Install
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# Configure
+source ~/.cargo/env
+```
+
+Configure the Rust toolchain to default to the latest stable version, add nightly and the nightly wasm target:
+
+```bash
+rustup default nightly
+rustup update
+rustup update nightly
+rustup target add wasm32-unknown-unknown
+```
+
+## Installation 💻
+
+```bash
+cargo build --release
+```
+
+> NOTE: You _must_ use the release builds! The optimizations here are required
+> as in debug mode, it is expected that nodes are not able to run fast enough to produce blocks.
+
+## Installation Using Nix 💻
+
+1. Install [Nix](https://nixos.org/download.html)
+2. Enable [Flakes](https://nixos.wiki/wiki/Flakes)
+3. If you have [`direnv`](https://github.com/nix-community/nix-direnv#installation) installed, everything should work out of the box.
+4. Run `nix develop` in the root of this repo to get a shell with all the dependencies installed.
+
+
+<h1 id="usage"> Usage </h1>
+
+<h3 id="standalone"> Standalone Local Testnet </h3>
+
+```bash
+./scripts/run-local-testnet.sh --clean
+```
+
+This should start the local testnet, you can view the logs in `/tmp` directory for all the authorities and use [polkadotJS](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) to view the running testnet.
+
+
+<h2 id="test"> Testing 🧪 </h2>
+
+The following instructions outline how to run dkg-substrate's base test suite and E2E test suite.
+
+### To run base tests
+
+```
+cargo test
+```
+
+### To run the test orchestrator E2E tests (recommended)
+
+```
+# Build the dkg-standalone node
+cargo build --release -p dkg-standalone-node --features=integration-tests,testing
+
+# run the orchestrator, making sure to use the proper config
+cargo run --package dkg-test-orchestrator --release --features=testing -- --config /path/to/orchestrator_config.toml
+```
+
+### Setting up debugging logs
+
+If you would like to run the dkg with verbose logs you may add the following arguments during initial setup. You may change the target to include `debug | error | info| trace | warn`. You may also want to review [Substrate runtime debugging](https://docs.substrate.io/v3/runtime/debugging/).
+
+```
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
+```
+
+<h2 id="contribute"> Contributing </h2>
+
+Interested in contributing to the Webb Relayer Network? Thank you so much for your interest! We are always appreciative for contributions from the open-source community!
+
+If you have a contribution in mind, please check out our [Contribution Guide](./.github/CONTRIBUTING.md) for information on how to do so. We are excited for your first contribution!
+
+<h2 id="license"> License </h2>
+
+Licensed under <a href="LICENSE">GNU General Public License v3.0</a>.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in this crate by you, as defined in the GNU General Public License v3.0 license, shall be licensed as above, without any additional terms or conditions.
