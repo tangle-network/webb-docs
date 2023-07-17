@@ -1,5 +1,5 @@
 {
-  "introduction": "Getting Started",
+  "getting-started": "Getting Started",
   "overview": "Overview",
   "use-cases": "Use Cases",
   "testnet": "Testnet",
@@ -12,6 +12,7 @@
   "distributed-key-generation": "Distributed Key Generation",
   "onchain-governance": "Onchain Governance",
   "cross-chain-governance": "Cross-chain Governance",
-  "incentives": "Incentives"
+  "incentives": "Incentives",
+  "tnt-token-details": "TNT Token"
 
 }
