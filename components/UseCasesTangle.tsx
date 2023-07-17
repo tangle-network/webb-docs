@@ -58,7 +58,7 @@ export const ParticipateArea = () => {
         }}
         href="/docs/relayer/running-relayer/running-docker"
       ></DetailedFeatureLink>
-           <DetailedFeatureLink
+      <DetailedFeatureLink
         feature={{
           Icon: BookOpenIcon,
           description: `Through governance, you can create proposals for updating cross-chain applications.`,

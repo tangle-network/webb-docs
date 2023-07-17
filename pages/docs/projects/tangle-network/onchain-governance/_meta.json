@@ -1,9 +1,8 @@
 {
-    "democracy-voting": "Voting in Democracy",
-    "governance-interfaces": "Governance Interfaces",
-    "governance-parameters": "On-chain Governance Parameters",
-    "overview": "Overview of On-chain Governance",
-    "proposal-creation": "Create a Proposal",
-    "governance-procedures": "Other Procedures"
-    
+  "democracy-voting": "Voting in Democracy",
+  "governance-interfaces": "Governance Interfaces",
+  "governance-parameters": "On-chain Governance Parameters",
+  "overview": "Overview of On-chain Governance",
+  "proposal-creation": "Create a Proposal",
+  "governance-procedures": "Other Procedures"
 }
