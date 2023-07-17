@@ -7,10 +7,12 @@
     "cross-chain-governance": "Cross-chain Governance",
     "incentives": "Incentives",
     "technical-specification": "Technical Specification",
+    "json-rpc-endpoints": "JSON-RPC Endpoints",
     "network-launch": "Network Launch",
     "governance": "Governance",
-    "pallets": "Pallets and Precompiles"
+    "pallets": "Pallets and Precompiles",
     "use-cases": "Use Cases",
     "roadmap": "Roadmap",
     "team-and-community": "Team and Community"
+  
   }

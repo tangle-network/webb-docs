@@ -1,0 +1,17 @@
+# Substrate and Custom JSON-RPC Endpoints
+
+RPCs are exposed as a method on a specific module. This signifies that once available, you can invoke any RPC via `api.rpc.<module>.<method>(...params[])`. This is also applicable for accessing Ethereum RPCs using the Polkadot.js API, in the format of `polkadotApi.rpc.eth.*`.
+
+Certain methods accessible via the Polkadot.js API interface are also available as JSON-RPC endpoints on Tangle Network nodes. This section offers some examples; you can request a list of exposed RPC endpoints by invoking `api.rpc.rpc.methods()` or the `rpc_methods` endpoint indicated below.
+
+Tangle Mainnet Endpoint: [Coming Soon]
+Tangle Testnet Endpoint: [Coming Soon]
+
+
+## methods() Examples
+
+[Coming Soon]
+
+
+Polkadot.js API Utility Functions
+The Polkadot.js API also incorporates numerous utility libraries for computing frequently used cryptographic primitives and hash functions. You can view the full list at https://www.npmjs.com/package/@polkadot/util-crypto/v/0.32.19.
