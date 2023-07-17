@@ -1,6 +1,99 @@
-# General FAQ
+# General FAQ: Frequently Asked questions
 
-## Privacy and Security
+Q: Where can I get help?
+
+A: Our Discord is the best place to get assistance with your node or other questions about the project. See http://webb.tools/community for links to that Discord and more.
+
+Q: How do I stay up to date?
+
+A: All upgrades and important technical information are announced on Discord and Twitter, in the #tangle-network channel. See http://webb.tools/community for links to that Discord and more.
+
+
+Q: What are the hardware requirements?
+
+A: The following specifications are the ideal or recommended, but nodes can be run with less. Testnet nodes have also been run using AWS `t3.Large` instances.
+
+| Component | Requirements                                                                                           |
+| --------- | ------------------------------------------------------------------------------------------------------ |
+| CPU       | Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz                                                               |
+| Storage   | An NVMe solid state drive of 500 GB (As it should be reasonably sized to deal with blockchain growth). |
+| Memory    | 32GB ECC                                                                                               |
+| Firewall  | P2P port must be open to incoming traffic: <br /> - Source: Any <br /> - Destination: 30333, 30334 TCP |
+
+
+See https://docs.webb.tools/docs/ecosystem-roles/validator/requirements/ for more information.
+
+
+Q: What about backup nodes?
+
+A: We recommedend that you run two machines with the same specifications, in different countries and service providers in order to decentralize and make your services more robust. If your primary fails you can quickly resume services on your backup and continue to produce blocks and earn rewards. Please refer to the Q&A on failovers below.
+
+Q: What are the different networks?
+
+A: There are three networks, each will require dedicated hardware. The Moonbase Alpha TestNet is free and should be used to familiarize yourself with the setup.
+
+Tangle Network - Mainnet, not launched yet.
+Tangle Testnet - Launching in August 2023.
+
+Q: What ports do I allow on my firewall?
+
+As stated before, the standalone nodes will listen on multiple ports. The default Substrate ports are used in the standalone, while the relay chain will listen on the next higher port.
+
+The only ports that need to be open for incoming traffic are those designated for P2P. Collators must not have RPC or WS ports opened.
+
+Default Ports for a Tangle Full-Node:
+
+The standalone nodes will listen on multiple ports. The default Substrate ports are used in the standalone, while the relay chain will listen on the next higher port.
+
+The only ports that need to be open for incoming traffic are those designated for P2P. 
+
+**Default Ports for a Tangle Full-Node:**
+
+| Description | Port        |
+| ----------- | ----------- |
+| P2P         | 30333 (TCP) |
+| RPC         | 9933        |
+| WS          | 9944        |
+| Prometheus  | 9615        |
+
+
+Q: Is there a binary?
+
+A: We're working on this, check back soon!
+
+Q: What are the recommendations on monitoring my node?
+
+A: Monitoring is critical for success as a node operator. See our full Monitoring guide at https://docs.webb.tools/docs/ecosystem-roles/validator/monitoring/quickstart/ 
+
+Q: What are the KPIs I should be monitoring?
+
+A: The main key performance indicator for a node operator is the number of blocks produced. The prometheus metric for this is called substrate_proposer_block_constructed_count.
+
+Q: How should I setup alerting?
+
+A: Alerting is critical for your success as a node operator, see our full guide to using our recommended AlertManager at https://docs.webb.tools/docs/ecosystem-roles/validator/monitoring/alert-manager/ 
+
+
+Q: What is the failover process if my primary node is down?
+
+A: When the primary server is down, the best way to perform a failover to the backup server is to perform a key association update. Each server should have a unique set of keys already. Run the setKeys author mapping extrinsic. You can follow the Mapping Extrinsic instructions and modify the instructions to use the setKeys extrinsic.
+
+
+Q: What should I look for in the logs?
+
+A: For full support, see our guides on logging at https://docs.webb.tools/docs/ecosystem-roles/validator/monitoring/loki/ . 
+
+
+Q: How much stake do I need to become an validator in the active set?
+
+Per era, the NPoS system selects a certain number of nodes with the most TNT to validate. Therefore,  minimum amount required to become an active nominator and earn rewards may change from era to era. You can check the active validator set's stake at  https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone-archive.webb.tools#/staking 
+
+
+Q: How do I set an identity on my account?
+
+A: Setting an identity on chain will help to identify your node and attract delegations. You can set an identity by following the instructions on Polkadot's Identity Documentation at https://wiki.polkadot.network/docs/learn-identity 
+
+## Privacy and Security FAQs
 
 **Q: How does Webb Protocol ensure the privacy and security of its users?**
 
