@@ -92,8 +92,8 @@ You can begin syncing your node by running the following command:
 ./target/release/tangle-parachain
 ```
 
-Once your collator node has fully syncronized with the Relay Chain you may proceed to setup the
-necessary accounts to operate a collator node.
+Once your node has fully syncronized with the Relay Chain you may proceed to setup the
+necessary accounts to operate a node.
 
 ## Bond funds
 
@@ -118,7 +118,7 @@ Once everything is filled in properly, click Bond and sign the transaction with 
 
 ## Session Keys
 
-Collator operators need to set their `Author` session keys. Run the following command to author session keys.
+Operators need to set their `Author` session keys. Run the following command to author session keys.
 **Note:** You may need to change `http://localhost:9933` to your correct address.
 
 ```
@@ -134,25 +134,25 @@ Result will look like this, copy the key:
 ### Set session keys
 
 1. Go to the Polkadot.js portal: `Developer > Extrinsic`.
-2. Select your collator account and extrinsic type: session / setKeys.
+2. Select your  account and extrinsic type: session / setKeys.
 3. Enter the session keys and set proof to `0x00`.
 4. Submit the transaction.
 
 ### Setting identity
 
-Collator operators need to set their identity.
+Operators need to set their identity.
 
 1. Go to the Polkadot.js portal: `Accounts`
-2. Open the 3 dots next to your collators address: `Set on-chain Identity`
+2. Open the 3 dots next to your address: `Set on-chain Identity`
 3. Enter all fields you want to set.
 4. Send the transaction.
 
 ### Request judgment
 
 1. Go to the Polkadot.js portal: `Developer > Extrinsic`
-2. Select your collator account and extrinsic type: `identity / requestJudgment`
+2. Select your account and extrinsic type: `identity / requestJudgment`
 3. Send the transaction.
 
 ### Production blocks
 
-Once your collator is active, you will see your name inside Network tab every time you produce a block!
+Once your is active, you will see your name inside Network tab every time you produce a block!

@@ -1,5 +1,15 @@
 {
-  "overview": "Overview",
-  "testnet": "Testnet",
-  "governance": "Governance"
-}
+    "overview": "Introduction",
+    "getting-started": "Getting Started",
+    "testnet": "Testnet",
+    "distributed-key-generation": "Distributed Key Generation",
+    "onchain-governance": "Onchain Governance",
+    "cross-chain-governance": "Cross-chain Governance",
+    "incentives": "Incentives",
+    "technical-specification": "Technical Specification",
+    "network-launch": "Network Launch",
+    "governance": "Governance",
+    "use-cases": "Use Cases",
+    "roadmap": "Roadmap",
+    "team-and-community": "Team and Community"
+  }

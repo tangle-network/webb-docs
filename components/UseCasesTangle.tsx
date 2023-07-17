@@ -58,15 +58,7 @@ export const ParticipateArea = () => {
         }}
         href="/docs/relayer/running-relayer/running-docker"
       ></DetailedFeatureLink>
-      <DetailedFeatureLink
-        feature={{
-          Icon: ServerIcon,
-          description: `Running a collator allows you to help secure the network and earn rewards in the process.`,
-          name: "Run a Collator",
-        }}
-        href="/docs/tangle-network/node-operators/quickstart#deploy-quickly"
-      ></DetailedFeatureLink>
-      <DetailedFeatureLink
+           <DetailedFeatureLink
         feature={{
           Icon: BookOpenIcon,
           description: `Through governance, you can create proposals for updating cross-chain applications.`,

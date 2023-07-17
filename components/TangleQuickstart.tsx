@@ -17,7 +17,7 @@ export const DeployArea = () => {
           description: `Deploy a Tangle node in minutes using Docker.`,
           name: "Deploy with Docker",
         }}
-        href="/docs/tangle-network/node-operators/deploy-with-docker/collator-node"
+        href="/docs/ecosystem-roles/validator/deploy-with-docker/full-node/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -25,7 +25,7 @@ export const DeployArea = () => {
           description: `Run a Tangle node using Systemd.`,
           name: "Run with Systemd",
         }}
-        href="/docs/tangle-network/node-operators/systemd/collator-node"
+        href="/docs/ecosystem-roles/validator/systemd/full-node/"
       />
     </div>
   );
