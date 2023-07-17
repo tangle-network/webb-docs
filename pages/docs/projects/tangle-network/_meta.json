@@ -10,8 +10,7 @@
   "pallets": "Pallets and Precompiles",
   "json-rpc-endpoints": "JSON-RPC Endpoints",
   "distributed-key-generation": "Distributed Key Generation",
-  "onchain-governance": "Onchain Governance",
-  "cross-chain-governance": "Cross-chain Governance",
+  "governance": "Onchain Governance",
   "incentives": "Incentives",
   "tnt-token-details": "TNT Token"
 }
