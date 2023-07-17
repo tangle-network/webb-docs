@@ -1,18 +1,17 @@
 {
-    "overview": "Introduction",
-    "getting-started": "Getting Started",
-    "testnet": "Testnet",
-    "distributed-key-generation": "Distributed Key Generation",
-    "onchain-governance": "Onchain Governance",
-    "cross-chain-governance": "Cross-chain Governance",
-    "incentives": "Incentives",
-    "technical-specification": "Technical Specification",
-    "json-rpc-endpoints": "JSON-RPC Endpoints",
-    "network-launch": "Network Launch",
-    "governance": "Governance",
-    "pallets": "Pallets and Precompiles",
-    "use-cases": "Use Cases",
-    "roadmap": "Roadmap",
-    "team-and-community": "Team and Community"
-  
-  }
+  "introduction": "Getting Started",
+  "overview": "Overview",
+  "use-cases": "Use Cases",
+  "testnet": "Testnet",
+  "network-launch": "Network Launch",
+  "roadmap": "Roadmap",
+  "team-community": "Team and Community",
+  "technical-specification": "Technical Specification",
+  "pallets": "Pallets and Precompiles",
+  "json-rpc-endpoints": "JSON-RPC Endpoints",
+  "distributed-key-generation": "Distributed Key Generation",
+  "onchain-governance": "Onchain Governance",
+  "cross-chain-governance": "Cross-chain Governance",
+  "incentives": "Incentives"
+
+}
