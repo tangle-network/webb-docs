@@ -17,7 +17,7 @@ const DetailedFeatureInner = (props: { feature: FeatureProps["feature"] }) => {
           <Icon
             className={classNames(
               "h-8 w-8 dark:text-white flex-shrink-0 p-1.5 text-black block dark:stroke-[url(#pink-gradient)]",
-              Icon.requiresFill && "dark:fill-[url(#pink-gradient)]"
+              Icon.requiresFill && "dark:fill-[url(#pink-gradient)]",
             )}
             aria-hidden="true"
           />

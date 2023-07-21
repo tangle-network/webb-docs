@@ -1,8 +1,8 @@
 {
-  "proposals": "Global Proposals",
-  "lifecycle": "Proposal Lifecycle",
-  "key-rotation": "DKG Key Rotation",
-  "authority-selection": "DKG Authority Selection",
-  "misbehaviour": "DKG Misbehavior",
-  "pallets": "DKG Pallets"
+  "overview": "Overview of On-chain Governance",
+  "democracy-voting": "Voting in Democracy",
+  "governance-interfaces": "Governance Interfaces",
+  "governance-parameters": "On-chain Governance Parameters",
+  "proposal-creation": "Create a Proposal",
+  "governance-procedures": "Other Procedures"
 }

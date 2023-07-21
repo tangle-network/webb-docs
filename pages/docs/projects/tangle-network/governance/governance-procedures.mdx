@@ -1,0 +1,45 @@
+# Procedures in On-chain Governance
+
+## Launching a Simple-Majority Referenda
+
+A Simple Majority proposal is a proposal that necessitates a majority, or more than 51% of votes, to pass, rather than the 'Super Majority' (2/3 of voters) which is the default requirement. This method ensures a predisposition towards approval, preventing the potential override of the general will of many smaller stakeholders by a single party that might vote 6x against a proposal. This strategy aligns power with the broader community, rather than just a few individuals.
+
+### Process to Execute a Simple Majority Proposal
+
+The process is slightly intricate at the moment, requiring multiple stages and council approval. The objective is to automate this via modifications to the existing treasury pallet. However, until that is achieved, here's the process.
+
+1. **Creating a Treasury Proposal**
+
+   Visit the Polkadotjs app, switch to the network and navigate to the treasury tab found in the governance dropdown menu. Here, you'll see the ongoing treasury proposals.
+
+   Click 'Submit Proposal' located on the right side of the interface and enter the proposal's details. You'll be required to bond a percentage of the total requested tokens using the 'Submit with account'. Usually, a beneficiary account should have been set up and added to your address book. The standard practice is to use a minimum of 2/3 multi-sig accounts for grants.
+
+   Your treasury proposal will enter the proposal queue after correct submission. It will receive a number - this is the `proposalID`, important for the next step.
+
+2. **Creating a 'Preimage' and Accompanying 'Hash'**
+
+   Navigate to the Governance dropdown menu, select Democracy, and create a preimage of the proposal, which is the formal key-value description of the on-chain proposal. Choose treasury from the options list, which reveals a few extra options. Choose `approveProposal(proposalID)` and enter the `proposalID` from step 1.
+
+   Copy the resultant `preimage hash`, submit, and sign this stage with your account.
+
+3. **Council Proposes Simple Majority as a Motion**
+
+   This stage requires a council member, either directly involved as the proposing party, or indirectly as an intermediary to help a community member submit a Simple Majority proposal as a Council motion.
+
+   Navigate to the Developer dropdown menu and select the Extrinsics option. The proposing council member must switch to their Council member account in the first box.
+
+   From the next dropdown menu, select Council and propose(`threshold`, `proposal, `lengthbound`) from the subsequent options. For `threshold`, choose 8, meaning the Simple Majority motion needs a minimum of 8 out of the 13 Council members to pass and execute Treasury proposal as a simple majority referendum.
+
+   In the next box, under proposal: Proposal, select democracy and then next to that externalProposeMajority (proposalHash).
+
+   Paste the preimage hash (the proposal hash) received in the last stage into the box below proposalHash: Hash.
+
+   For the final box, `lengthBound: Compact<u32>` enter 42.
+
+   Now hit Submit Transaction.
+
+4. **Council Approves Simple Majority Motion**
+
+   At least 8/13 council members need to vote Aye to approve this motion and set the treasury proposal on the path to becoming a simple majority referendum.
+
+   Once 8 members have voted Aye, the motion can be closed, either by the original council member or any other council member, including the last person to vote Aye. The motion exists for 13 days. If there are insufficient votes Aye/Nay, it won't execute. If it does pass, the proposal will progress towards becoming a simple majority referendum, appearing in the Governance dropdown menu as an external proposal.
