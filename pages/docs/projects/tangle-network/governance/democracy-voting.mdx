@@ -1,22 +1,31 @@
-## Voting in Democracy 'Referenda'
+# Voting in Democracy Referenda
 
-Prerequisites to Vote:
+Substrate-based blockchains often have built-in on-chain governance mechanisms, which include voting on referenda. Here's a step-by-step guide on how to vote in democracy referenda on a Substrate blockchain:
 
-- Have a TNT Account
-- Have TNT Tokens
-- Be prepared to have your TNT locked during the duration of the referenda. See (Governance Parameters for the duration)(/docs/projects/tangle-network/onchain-governance/governance-parameters)
-  Additionally, If you vote aye ('approve,' 'yes', 'in support') for a proposal and it passes, your tokens will be locked until the proposal has been enacted (another 7 days.)
+Note: This guide assumes you have already set up a Substrate-based wallet and have some tokens in your account.
 
-### How To
+1. **Access the Polkadot/Substrate User Interface (UI):**
+   Visit the [Substrate UI](https://polkadot.js.org/apps/). This web interface is used to interact with the Tangle network and other Substrate chains, during our testnet phase you can use [Webb's alpha interface](https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone-archive.webb.tools#/accounts)
 
-Voting locks all of the tokens in the account you use to vote, and weights your votes accordingly. In order to avoid having your entire TNT supply locked, create a separate voting account and transfer the amount you wish to vote with, over to that account first.
+2. **Connect to the correct network:**
+   Ensure you're connected to the Tangle Network, if not, at the top-left of the page, you will see a drop-down menu. Here you can select the Tangle network.
 
-At the end of each launch period, the most seconded proposal will move to referendum. During this time you can cast a vote for or against the proposal. You may also lock up your tokens for a greater length of time to weigh your vote more strongly. During the time your tokens are locked, you are unable to transfer them, however they can still be used for further votes. Locks are layered on top of each other, so an eight week lock does not become a 15 week lock if you vote again a week later, rather another eight week lock is placed to extend the lock just one extra week.
+3. **Access the Democracy module:**
+   On the left sidebar, under the Governance tab, click on Democracy. This is the on-chain voting system where all the current referenda are listed.
 
-To vote on a referendum, navigate to the "Democracy" tab of Polkadot Apps. Any active referendum will show in the "referenda" column. Click the blue button "Vote" to cast a vote for the referendum.
+4. **Choose a Referendum:**
+   You will see a list of active referenda each represented by a number. Click on a specific referendum to see more details.
 
-If you would like to cast your vote for the proposal select the "Aye, I approve" option. If you would like to cast your vote against the proposal in referendum you will select "Nay, I do not approve" option.
+5. **Review the Referendum Details:**
+   Each referendum has a description and specific details. Review these carefully to understand what you are voting for or against.
 
-The second option is to select your conviction for this vote. The longer you are willing to lock your tokens, the stronger your vote will be weighted. Unwillingness to lock your tokens means that your vote only counts for 10% of the tokens that you hold, while the maximum lock up of 256 days means you can make your vote count for 600% of the tokens that you hold.
+6. **Cast Your Vote:**
+   Once you've decided how to vote, click on the "Vote" button. You'll be asked to choose between 'Aye' (yes) and 'Nay' (no), and you'll have the option to adjust your vote's "conviction," which multiplies your vote's power at the cost of locking your tokens for a longer period.
 
-When you are comfortable with the decision you have made, click the blue "Vote" button to submit your transaction and wait for it to be included in a block.
+7. **Sign and Submit the Transaction:**
+   After clicking the "Vote" button, you will need to sign the transaction using your account. Enter your password and click on "Sign and Submit". Your vote will be recorded on the blockchain once the transaction is included in a block.
+
+8. **Wait for the Voting Period to End:**
+   Each referendum has a voting period. When this period ends, votes are tallied, and the decision is enacted based on the majority vote.
+
+Remember that **voting in a referendum will lock your tokens until the end of the enactment period (if the proposal passes) or until the end of the voting period (if the proposal does not pass).** The length of these periods can vary, refer to [our parameters.](/docs/projects/tangle-network/governance/governance-parameters.mdx)

@@ -5,6 +5,5 @@
   "key-generation": "Key Generation",
   "authority-selection": "DKG Authority Selection",
   "misbehaviour": "DKG Misbehavior",
-  "pallets": "DKG Pallets",
-  "payload-signing": "Payload Signing"
+  "pallets": "DKG Pallets"
 }

@@ -1,0 +1,41 @@
+## Deploying using Truffle
+
+The Tangle Network, a Substrate-based blockchain, offers a high degree of compatibility with Ethereum by incorporating the Ethereum Virtual Machine (EVM). This means that developers can port their Ethereum DApps or Smart Contracts with minimal changes. Here's a general guide on how to deploy a DApp or Contract on the Tangle Network:
+
+**Note**: This guide assumes you have already set up your development environment, including Node.js, Truffle, and have the necessary code for your DApp or smart contract.
+
+1. **Install MetaMask and Configure Custom RPC**:
+
+   - Install MetaMask browser extension if you haven't done so already.
+   - Go to Settings in MetaMask, then select Networks, then click on 'Add Network'.
+   - Fill in the Tangle Network's details:
+     - Network Name: `Tangle Network`
+     - New RPC URL: `[Tangle Network's RPC URL]` (We will update this when a public RPC is available)
+     - ChainID: `[Tangle Network's ChainID]` (We will update this when a public RPC is available)
+     - Symbol (optional): `TNT`
+     - Block Explorer URL: `[Tangle Network's Block Explorer URL]` (We will update this when available.)
+   - Save the changes.
+
+2. **Connect Your Local Development Environment to Tangle**:
+
+   - Update your `truffle-config.js` (or similar configuration file) to include the Tangle Network's RPC URL and ChainID.
+
+3. **Compile Your Smart Contract**:
+
+   - Use Truffle to compile your smart contract by running the command: `truffle compile`.
+
+4. **Migrate Your Smart Contract to the Tangle Network**:
+
+   - Deploy your compiled smart contract to the Tangle Network with Truffle by running: `truffle migrate --network tangle`.
+
+5. **Interact with Your Smart Contract**:
+
+   - Once the smart contract is deployed, you can interact with it using your DApp by calling the contract's functions.
+
+6. **Deploy Your DApp**:
+   - If you're deploying a DApp that interacts with your smart contract, ensure the DApp's configuration is updated to use the Tangle Network's RPC URL.
+   - Depending on your DApp, the deployment process might vary. Generally, you'll need to build your DApp for production and host the built files on a web server or hosting platform.
+
+Remember, the specifics can depend greatly on your particular smart contract or DApp and the configurations of the Tangle Network. Make sure to seek help from the Tangle Network's community or documentation if you face any issues.
+
+Please note that the Tangle Network, like other blockchains, will require payment (in the form of gas) for transactions, including smart contract deployment. Make sure you have enough tokens in your wallet to cover these costs.
