@@ -20,7 +20,6 @@ The relayer system in the Webb Protocol consists of three main functions:
 3. **[Anchor Update Relay](notion://www.notion.so/hicommonwealth/anchor-update.mdx)**: This type of relayer has a significant role in proposing and relaying signed data payloads to Anchor nodes, which are crucial for the governance of the Anchor System. Their responsibilities include:
 
    - **Proposing**: The relayer initiates anchor updates, sent to the Distributed Key Generation protocol (DKG) for signing. When new data is added to the Merkle trees of the Anchors and VAnchors, the relayer formulates an update proposal for the DKG's review and potential approval.
-   
    - **Relaying**: Once the anchor updates are signed, the relayer submits these signed payloads to the smart contract SignatureBridges that verify and process the proposals. Additionally, the relayer transmits these payloads to the appropriate SignatureBridge instances or Governable instances.
 
 Relayer nodes in the Webb Protocol are highly configurable, enabling operators to choose the function(s) they wish to support - private transactions, data queries, governance actions, or any combination thereof. All functions are enabled by default, but operators can manually disable any they do not wish to support. This versatility offers operators the freedom to specialize in certain functions based on their expertise, interest, or strategic considerations, making relayers an integral part of the Webb Protocol ecosystem.
