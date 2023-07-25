@@ -1,6 +1,4 @@
-
 # Understanding DKG in Tangle Network
-
 
 import DKGRotationImages from '../../../components/images/DKGRotation'
 import DKGReputationImages from '../../../components/images/DKGReputation'
@@ -34,7 +32,6 @@ For each instance of misconduct that is verified and reported to an authority, t
 
 <DKGReputationImages />
 
-
 ## Key rotation
 
 The DKG required network participants to rotate their shared private signing keys in an effort to keep the
@@ -60,8 +57,6 @@ then sign the newly generated key with a threshold signature and post it on-chai
 
 <DKGRotationImages />
 
-
-
 ## Misbehaviour Reporting & Reputation
 
 Misbehaviour reporting follows an oracle-based approach. The DKG protocol we utilize has identifiable aborts, meaning it is possible to identify the party misbehaving during the protocol’s execution. While every honest party sees this misbehaviour, it is tricky to identify on-chain, as it would require running the protocol itself on-chain and verifying the misbehaviour proof.
@@ -77,4 +72,3 @@ When a good action occurs, such as successfully rotating keys or signing a propo
 ```
 reputation(o) = α * reputation(o) + 1,000,000,000
 ```
-

@@ -1,6 +1,7 @@
 {
+  "precompile-overview": "Overview",
   "democracy": "Democracy Pallet",
   "identity": "Identity Pallet",
-  "crosschain-pallets": "Cross-chain Pallets",
-  "precompile-overview": "Precompile Overview"
+  "crosschain-pallets": "Cross-chain Pallets"
+
 }
