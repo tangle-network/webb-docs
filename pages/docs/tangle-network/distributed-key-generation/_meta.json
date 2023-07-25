@@ -1,9 +1,0 @@
-{
-  "proposals": "Global Proposals",
-  "lifecycle": "Proposal Lifecycle",
-  "key-rotation": "DKG Key Rotation",
-  "key-generation": "Key Generation",
-  "authority-selection": "DKG Authority Selection",
-  "misbehaviour": "DKG Misbehavior",
-  "pallets": "DKG Pallets"
-}
