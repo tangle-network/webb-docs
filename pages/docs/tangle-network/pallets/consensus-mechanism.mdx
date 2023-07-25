@@ -1,0 +1,42 @@
+---
+title: "Staking Pallet and Nominated Proof of Stake (nPoS) Consensus"
+---
+
+# Guide to the Nominated Proof of Stake (nPoS) Consensus
+
+Tangle Network and many Substrate-based chains use a consensus mechanism called Nominated Proof of Stake (nPoS). This guide will dive into the specifics of nPoS, explaining the key concepts and how they are implemented in Substrate.
+
+## Overview
+
+Nominated Proof of Stake (nPoS) is a variant of Proof of Stake (PoS) consensus that introduces the concept of nominators. Validators are responsible for block production, while nominators back one or more validators with their own stake. This process increases the security of the network.
+
+nPoS is designed to be highly inclusive, maximizing the number of validators and reducing the risk of centralization. The mechanism also seeks to ensure that validators are competent and behave appropriately.
+
+## Key Concepts
+
+### Validators and Nominators
+
+In nPoS, validators are nodes responsible for maintaining the network and producing new blocks. They are elected based on the total stake backing them, including their own and their nominators' stake.
+
+Nominators, on the other hand, are stakeholders who nominate one or more validators to be elected. They lock up their own tokens in favor of these validators and share in the rewards (and risks) of backing them.
+
+### Staking and Slashing
+
+Staking is the process of locking up tokens in a contract to participate in the network as a validator or nominator. The more tokens staked by a validator (their own plus nominations), the higher the chances they have to be selected for block production.
+
+However, the nPoS consensus includes a mechanism called slashing, where validators can lose (i.e., get "slashed") a portion of their stake for misbehavior, such as being offline, failing to validate correctly, or acting maliciously. Nominators who back a slashed validator can also be slashed.
+
+## The Staking Pallet
+
+The mechanics of nPoS are primarily implemented in Substrate's Staking pallet. This module manages the staking, nominating, rewarding, and slashing processes.
+
+Key functions of the Staking pallet include:
+
+- `bond`: To participate in the network, tokens must be bonded, i.e., locked in the staking system.
+- `unbond`: Tokens can be unbonded, i.e., scheduled for release from the staking system.
+- `validate`: A bonded account can declare its intention to be a validator.
+- `nominate`: A bonded account can nominate one or more validators to be elected.
+- `payout_stakers`: Pay the last reward to the stakers of a validator.
+
+Please refer to the [official API documentation](https://substrate.dev/rustdocs/latest/pallet_staking/index.html) to learn more about the API provided by the Staking pallet.
+
