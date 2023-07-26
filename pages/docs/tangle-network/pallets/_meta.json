@@ -2,5 +2,9 @@
   "precompile-overview": "Overview",
   "democracy": "Democracy Pallet",
   "identity": "Identity Pallet",
-  "crosschain-pallets": "Cross-chain Pallets"
+  "crosschain-pallets": "Cross-chain Pallets",
+  "balances-and-accounts": "Balances Pallet",
+  "consensus-mechanism": "nPoS and the Staking Pallet",
+  "frontier": "EVM Compatability through Frontier Pallets",
+  "interoperability": "Iteroperability"
 }
