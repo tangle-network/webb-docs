@@ -1,0 +1,100 @@
+---
+title: Tangle Network - Getting Started Guide for Developers
+---
+
+import { UseCasesArea, ParticipateArea, TestNetworkArea } from "../../../../components/UseCasesTangle";
+import FullWebbCTA from "../../../../components/FullWebbCTA";
+
+# Getting Started with Tangle Network
+
+## Networks in the Tangle Ecosystem
+
+Before you dive into development, it's crucial to familiarize yourself with the different networks within the Tangle ecosystem.
+
+| Network        | Network Type | Native Asset Symbol | Native Asset Decimals |
+| -------------- | ------------ | ------------------- | --------------------- |
+| Tangle Network | MainNet      | TNT                 | 18                    |
+| Tangle Testnet | TestNet      | tTNT                | 18                    |
+
+## Network Configurations
+
+Developer tools may require specific configurations for the Tangle Network. Use the following details:
+
+| Variable        | Value                         |
+| --------------- | ----------------------------- |
+| Chain ID        | [To be determined]            |
+| Public RPC URLs | [Public RPC To Be Determined] |
+| Public WSS URLs | [Public RPC To Be Determined] |
+
+## Types for Chain Integration
+
+To find the latest types for Tangle Network, [visit the lookup.tsx file in our Github repo.](https://github.com/webb-tools/tangle/blob/main/types/src/interfaces/lookup.ts) It automatically produces a full file of the types for the network on changes.
+
+## Block Explorers
+
+We will offer two types of block explorers to accommodate the Ethereum API and Substrate API. Transactions based on the Ethereum Virtual Machine (EVM) can be accessed through the Ethereum API. Conversely, the Substrate API is your go-to for native Substrate operations such as governance and staking. While the Substrate API does provide some details about EVM-based transactions, the information it presents is somewhat limited.
+
+| Block Explorer     | Type      | URL                |
+| ------------------ | --------- | ------------------ |
+| [To Be Determined] | EVM       | [To Be Determined] |
+| [To Be Determined] | Substrate | [To Be Determined] |
+
+## Interfaces
+
+### Polkadot Apps Interface
+
+<TestNetworkArea />
+
+## Funding Your Accounts
+
+Before starting development on our TestNets, fund your account with tTNT tokens, strictly intended for testing purposes and devoid of real-world value. You can obtain this at [Webb Faucet](https://faucet.webb.tools/.)
+
+| Network        | Source For Tokens          |
+| -------------- | -------------------------- |
+| Tangle Testnet | https://faucet.webb.tools/ |
+| Tangle Mainnet | To be announced            |
+
+## Development Tools
+
+As an Ethereum-compatible, Substrate-based chain, Tangle Network allows for the use of both Substrate and Ethereum tools.
+
+| Network   | Tool                                                                             | Type            |
+| --------- | -------------------------------------------------------------------------------- | --------------- |
+| Substrate | [Substrate Python Inteface](https://github.com/polkascan/py-substrate-interface) | Library         |
+| Substrate | [Polkadot JS API](https://polkadot.js.org/docs/api/)                             | Library         |
+| EVM       | [Web3JS](https://web3js.readthedocs.io/)                                         | Library         |
+| EVM       | [EthersJS](https://docs.ethers.io/)                                              | Library         |
+| EVM       | [Hardhat](https://hardhat.org/)                                                  | Dev Environment |
+
+## Participating in the Tangle Network
+
+Joining the Tangle Network community is easy. You can run a node, develop a Dapp, or contribute to our open-source codebase. For more information, visit our [Node Operation Guide](/docs/ecosystem-roles/role-overview/), [Dapp Development Guide](coming-soon), and [Contribution Guide](/docs/contribute).
+
+## Looking Ahead: Mainnet Launches
+
+Our official Mainnet launch date is forthcoming, so stay tuned! Post-launch, we'll continue to improve the network, working with our community to ensure that Tangle Network remains secure, robust, and user-friendly.
+
+### Recommended Testnet Actions
+
+Users can participate by engaging in the following activities, you can share your contributions to [our Discord](https://webb.tools/community) in the `#contributions` channel.
+
+| Task                                           | Instructions                                                                                                                                       |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Creative Contribution                          | -                                                                                                                                                  |
+| Use Case Concepts                              | User Submission. Write an article discussing a use case for the technologies Tangle uses!                                                          |
+| Publish a video or tutorial on Tangle/Webb     | Publish a high-quality video discussing the network or its privacy technologies.                                                                   |
+| Author a Protocol Extension                    | Create and submit an extension to the protocols used in Tangle. See our GitHub                                                                     |
+| Tweet a Semaphore identity w/ Webb             | Share your [Semaphore identity](https://semaphore.appliedzkp.org/docs/guides/identities) and tag [@webbprotocol](https://twitter.com/webbprotocol) |
+| DKG Authority (get voted in)                   | See our DKG documentation                                                                                                                          |
+| Tweet about Webb                               | Tag [@webbprotocol](https://twitter.com/webbprotocol) in a high quality tweet about the network.                                                   |
+| Deposit → Transfer → Withdraw                  | Perform a transaction flow on the network or the Hubble Bridge.                                                                                    |
+| Tweet a hash of your address + a secret number | Make sure to tag @Webbprotocol.                                                                                                                    |
+| Vote in Governance                             | See the Polkadot Governance Docs for [how to participate in Substrate governance.](https://wiki.polkadot.network/docs/maintain-guides-democracy)   |
+| Propose and Pass in Governance                 | See the Polkadot Governance Docs for [how to participate in Substrate governance.](https://wiki.polkadot.network/docs/maintain-guides-democracy)   |
+| Tweet an ETH address or ENS domain             | Tag [@webbprotocol](https://twitter.com/webbprotocol) in a high quality tweet about the network.                                                   |
+| Bug Bounty with PR Fix Submission              | See our Docs on Contributing a Bug Bounty, and provide a fix for the bug via Github.                                                               |
+| Run a validator                                | See our Docs on running a Validator Node                                                                                                           |
+| Scripts to make Transactions                   | Engineer and publish transaction scripts for the network                                                                                           |
+| Bug Report                                     | See the @Bug Reporting Guidance                                                                                                                    |
+
+Stay updated by following our [Blog](https://www.blog.webb.tools/) and joining our [Community](https://webb.tools/community).

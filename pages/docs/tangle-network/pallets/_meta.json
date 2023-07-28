@@ -1,0 +1,12 @@
+{
+  "precompile-overview": "Overview",
+  "democracy": "Democracy Pallet",
+  "collectives": "Collectives Pallet",
+  "identity": "Identity Pallet",
+  "crosschain-pallets": "Cross-chain Pallets",
+  "balances-and-accounts": "Balances Pallet",
+  "consensus-mechanism": "nPoS and the Staking Pallet",
+  "frontier": "Frontier (EVM) Pallets",
+  "scheduler": "Scheduler Pallet",
+  "interoperability": "Interoperability"
+}

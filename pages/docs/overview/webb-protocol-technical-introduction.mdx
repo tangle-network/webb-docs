@@ -1,0 +1,15 @@
+# Technical Introduction to Webb Protocol
+
+The Webb Protocol is a transformative solution to existing privacy and scalability issues in the realm of decentralized applications (dApps). By enabling enhanced privacy, interoperability, and scalability, the Webb Protocol offers an efficient, privacy-focused framework for a wide range of decentralized applications on a global scale.
+
+In pursuit of creating a scalable, privacy-centric system, the Webb Protocol is crafted to interlink various blockchains through two core components— the Anchor System and the Distributed Key Generation (DKG) protocol. The Anchor System, based on smart contracts and a graph-like framework, maintains a network of interconnected blockchains, each referred to as an anchor. Each anchor possesses an on-chain Merkle tree and an edge list for storing and updating linked metadata, thus facilitating interoperable and potentially private cross-chain applications.
+
+Simultaneously, the DKG protocol acts as the security backbone of the Webb Protocol, validating updates in the Anchor System using a shared key pair. This protocol employs a cryptographic multi-party mechanism to generate a shared public and private key used for threshold signatures and threshold encryptions. Its architecture involves two significant independent protocols— the threshold-key-generation protocol, and the threshold-signature-scheme or the distributed signing protocol. Through these, the DKG provides a secure framework for generating and handling signed messages and ensuring the absence of malicious proposals.
+
+The Anchor System also showcases a sophisticated design with two primary properties, Liveness and Safety, guaranteeing the continuous update of all anchors and validating all anchor updates. The system connects different blockchains in a partially-synchronous environment using Oracle and Relayer Networks. These networks ensure the relay of changes across all anchors and preserve user privacy by delegating proof submission through an overlay network.
+
+Working within a Proof of Stake (PoS) blockchain protocol, the Webb Protocol intelligently adapts to changing validator set sizes and maintains security with the execution of the Key Rotation Protocol and Misbehaviour Protocol during each session. The system operates through an array of standardized messages facilitating seamless communication within the system.
+
+A distinguishing feature of the Webb Protocol is its utilization of a hybrid threshold and light-client validation protocol, allowing for threshold-signed messages to be considered valid while enforcing message signing only when they can be verified as true against a light client.
+
+Overall, the Webb Protocol provides a comprehensive, resilient, and privacy-preserving framework for connecting multiple blockchains, maintaining security, validating updates, and facilitating efficient interaction between various decentralized applications. The implementations of the blockchain and Anchor Systems are open-source, fostering collaboration and continuous improvement of this groundbreaking protocol.

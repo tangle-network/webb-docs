@@ -1,0 +1,27 @@
+---
+title: "Guide to the Frontier EVM Compatibility Pallet"
+---
+
+# Guide to the Frontier EVM Compatibility Pallet
+
+The Substrate ecosystem is designed to be highly flexible and customizable, accommodating a wide variety of blockchain models. One of its key features is its capacity for Ethereum compatibility through the Frontier project. This guide explores the Frontier pallet and its role in providing Ethereum Virtual Machine (EVM) compatibility in Substrate chains.
+
+## Overview
+
+Frontier is a set of modules (also known as pallets in Substrate terminology) that allows Substrate-based blockchains to host an EVM environment, providing compatibility with Ethereum. This means that Substrate chains using Frontier can run Ethereum smart contracts and can be interacted with using familiar Ethereum tools, such as MetaMask and Truffle.
+
+The Frontier project is community-driven and is constantly evolving to track changes and improvements in both the Substrate and Ethereum ecosystems.
+
+## Key Concepts
+
+### Ethereum Compatibility
+
+Frontier facilitates Ethereum compatibility by hosting an EVM within the Substrate environment. This allows developers to write smart contracts in Solidity (or any other Ethereum-compatible language) and deploy them on a Substrate-based chain. Developers can also interact with these smart contracts using Ethereum's JSON-RPC API, making it easier for developers with Ethereum experience to work with Substrate.
+
+### RPC Layer
+
+The RPC layer provided by the Frontier project enables Substrate nodes to speak Ethereum's JSON-RPC. This includes support for methods such as `eth_sendTransaction`, `eth_call`, and `eth_getBalance`, among others. As a result, tools that interact with Ethereum nodes can be used with a Substrate node running the Frontier pallets.
+
+### EVM Pallet
+
+The EVM pallet is the core component that provides EVM compatibility. It allows the execution of Ethereum smart contracts and supports Ethereum's transaction model. It also includes an Ethereum-to-Substrate mapping of accounts and gas price management.

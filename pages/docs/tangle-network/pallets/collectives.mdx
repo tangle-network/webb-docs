@@ -1,0 +1,74 @@
+---
+title: Tangle Network Collectives Pallet Documentation
+description: Documentation on the Collectives pallet, a fundamental component of the Tangle Network. Learn how to create, manage, and operate decentralized organizations.
+---
+
+# Collectives Pallet in Tangle Network
+
+The Collectives Pallet is a key module in the Tangle Network that provides the functionality to create and manage decentralized organizations or collectives. It allows for collective decision making by a set of members where proposals can be made, voted upon, and enacted.
+
+## Overview of the Collectives Pallet
+
+The Collectives Pallet operates on the concept of a "collective". A collective is a group of members that collectively make decisions. Each collective has a predefined set of members, and decisions within the collective are made based on the voting of these members. The collective manages proposals, where each proposal consists of a specific action to be executed when approved.
+
+## Use Cases
+
+The Collectives Pallet enables a variety of applications in the realm of decentralized governance. It can be used to form decentralized autonomous organizations (DAOs), to establish a multisig wallet, to manage treasury funds, and more.
+
+The use of the Collectives Pallet ensures a democratic, decentralized decision-making process, which is a key principle of blockchain systems.
+
+Remember, the Collectives Pallet is a significant part of the Tangle Network that enables the formation and operation of decentralized collectives. From proposal creation to voting and decision making, it fosters a collaborative approach in managing and governing blockchain applications.
+
+## Creating a Collective
+
+A new collective can be created by calling the `create_collective` function:
+
+```rust
+let members = vec![alice, bob, charlie];
+let collective = Collectives::create_collective(members, vote_threshold);
+```
+
+In this case, `member`s is a list of account IDs that will be the members of the collective, and `vote_threshold` is the minimum number of member votes needed for a proposal to be approved.
+
+## Making a Proposal
+
+A member of a collective can make a proposal by calling the `propose` function:
+
+```rust
+let proposal = Call::some_module::some_function(args).into();
+let result = Collectives::propose(sender, members_needed, proposal);
+```
+
+Here, `sender` is the account ID of the member making the proposal, `members_needed` is the minimum number of votes needed for the proposal to be approved, and `proposal` is the proposed action to be executed when the proposal is approved.
+
+## Voting on a Proposal
+
+Members of a collective can vote on a proposal by calling the `vote` function:
+
+```rust
+let result = Collectives::vote(sender, proposal_index, approve);
+```
+
+Here, `sender` is the account ID of the member voting, `proposal_index` is the index of the proposal to vote on, and `approve` is a boolean indicating whether the member approves or disapproves the proposal.
+
+## Closing a Proposal
+
+A `proposal` can be closed, meaning it can be finalized and enacted (if approved), by calling the `close` function:
+
+```rust
+let result = Collectives::close(sender, proposal_index);
+```
+
+Here, `sender` is the account ID of the member closing the proposal, and `proposal_index` is the index of the proposal to close.
+
+If the proposal received enough approvals (based on `vote_threshold` during the creation of the collective and `members_needed` during the proposal), then the proposed action will be dispatched for execution.
+
+## Removing a Member
+
+A member can be removed from the collective by calling the `remove_member` function:
+
+```rust
+let result = Collectives::remove_member(sender, removee);
+```
+
+Here, `sender` is the account ID of the member making the request, and `removee` is the account ID of the member to be removed.

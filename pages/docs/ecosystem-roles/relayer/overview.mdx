@@ -7,23 +7,24 @@ import RelayerImages from '../../../../components/images/Relayer'
 import { RelayerImpl } from "../../../../components/RepoArea";
 import Callout from "../../../../components/Callout";
 
-# Relayer Overview
+# Understanding the Role of a Relayer in the Webb Protocol
 
-In the Webb Protocol, relayers serve a vital role, acting as multi-functional agents facilitating information exchange, proof submission, and network governance. They also function as oracles, listening to external data sources, which in this case are the states of the anchors for a bridge. They relay this data, which in turn updates the state of each Anchor and allows applications to reference properties of data stored across the connected Anchors.
+In the Webb Protocol, relayers hold a critical role as multi-functional agents responsible for facilitating private transactions, data queries, and governance updates. Acting as oracles, relayers listen to external data sources (in this case, the state of the anchors for a bridge), and relay this data. This relayed data updates the state of each Anchor and allows applications to reference properties of data stored across connected Anchors.
 
-The relayer system consists of three main functions, each of which can be executed separately, allowing node operators to specialize in a function or bundle arbitrarily.
+The relayer system in the Webb Protocol consists of three main functions:
 
-### [Private Transaction Relay](private-tx.mdx)
+1. **[Private Transaction Relay](notion://www.notion.so/hicommonwealth/private-tx.mdx)**: Relayers play a key role in executing privacy-preserving transactions within the Mixer, Anchor, and VAnchor System. They assist users by submitting zero-knowledge proofs, a cryptographic method that allows proof of knowledge without revealing the information itself. Users generate this proof data and format it into an appropriate payload. The relayer then takes this payload and submits it to the network on behalf of the users, ensuring the smooth execution of private transactions.
 
-These relayers assist users of zkApps by submitting proofs for privacy-preserving transactions within the Mixer, Anchor, and VAnchor System.
+2. **[Data Query Relay](notion://www.notion.so/hicommonwealth/data-querying.mdx)**: Relayers also serve as aids to users who need to generate witness data for their zero-knowledge proofs by caching the leaves of the trees of the Mixer, Anchor, or VAnchor they support, for easy retrieval. This process mirrors the standard oracle-style data query relay, providing data services to users by connecting to external resources and submitting this information to the blockchain. This function is vital for users who require data from external sources to execute their transactions.
 
-### [Data Query Relay](data-querying.mdx)
+3. **[Anchor Update Relay](notion://www.notion.so/hicommonwealth/anchor-update.mdx)**: This type of relayer has a significant role in proposing and relaying signed data payloads to Anchor nodes, which are crucial for the governance of the Anchor System. Their responsibilities include:
 
-These relayers aid users who need to generate witness data for their zero-knowledge proofs, by caching the leaves of the trees of the Mixer, Anchor or VAnchor they support, for easy retrieval.
+   - **Proposing**: The relayer initiates anchor updates, sent to the Distributed Key Generation protocol (DKG) for signing. When new data is added to the Merkle trees of the Anchors and VAnchors, the relayer formulates an update proposal for the DKG's review and potential approval.
+   - **Relaying**: Once the anchor updates are signed, the relayer submits these signed payloads to the smart contract SignatureBridges that verify and process the proposals. Additionally, the relayer transmits these payloads to the appropriate SignatureBridge instances or Governable instances.
 
-### [Anchor Update Relay](anchor-update.mdx)
+Relayer nodes in the Webb Protocol are highly configurable, enabling operators to choose the function(s) they wish to support - private transactions, data queries, governance actions, or any combination thereof. All functions are enabled by default, but operators can manually disable any they do not wish to support. This versatility offers operators the freedom to specialize in certain functions based on their expertise, interest, or strategic considerations, making relayers an integral part of the Webb Protocol ecosystem.
 
-Relayers facilitate the process of proposing and relaying signed data payloads to Anchor nodes. This is crucial for the Anchor System's governance.
+With these capabilities, relayers can execute each function separately, enabling operators to specialize in a specific function or combine them arbitrarily. As such, relayers are not only the backbone of the Webb Protocol but also offer significant opportunities for node operators to contribute to the protocol's operation and success.
 
 <br />
 

@@ -1,0 +1,73 @@
+---
+title: Tangle Network Scheduler Pallet Documentation
+description: Documentation on the Scheduler pallet, one of the critical components of the Tangle Network. Understand how to create, manage, and execute scheduled tasks.
+---
+
+# Scheduler Pallet in Tangle Network
+
+The Scheduler Pallet is a key component of the Tangle Network, responsible for managing tasks that need to be executed at specific points in time. This pallet allows you to schedule calls to be dispatched at a future block number, thus providing the network with the ability to execute deferred or recurring tasks.
+
+### Introduction to the Scheduler Pallet
+
+The Scheduler Pallet uses the concept of "agenda" to manage tasks. An agenda is simply a list of tasks that are scheduled for execution in a specific block. When a block is finalized, all tasks within the agenda of that block are executed. Each task is associated with a priority, and tasks within an agenda are executed in decreasing order of their priority.
+
+### Scheduling a Task
+
+You can schedule a task by calling the `schedule` function. This function requires the following parameters:
+
+- `when`: The block number when the task should be executed.
+- `priority`: The priority of the task. Tasks with higher priority are executed before tasks with lower priority within the same block.
+- `call`: The call to be dispatched when the task is executed.
+
+The `schedule` function returns a `TaskAddress` which can be used to cancel or reschedule the task.
+
+```rust
+let task_address = Scheduler::schedule(when, priority, call);
+```
+
+### Canceling a Task
+
+A scheduled task can be canceled before it's executed by calling the cancel function with the TaskAddress returned by the schedule function:
+
+```rust
+let result = Scheduler::cancel(task_address);
+```
+
+### Checking if a Task is Scheduled
+
+You can check if a specific task is scheduled by calling the is_scheduled function:
+
+```rust
+let is_scheduled = Scheduler::is_scheduled(task_address);
+```
+
+## Rescheduling a Task
+
+A scheduled task can be rescheduled to a different block by calling the reschedule function:
+
+```rust
+let result = Scheduler::reschedule(task_address, new_when);
+```
+
+### Execution of Tasks
+
+The execution of tasks is handled automatically by the Tangle Network. When a block is finalized, the Scheduler Pallet checks if there are any tasks in the agenda of that block. If there are, it executes them in the order of their priority. If a task fails, it's removed from the agenda and won't be retried in future blocks.
+
+### Example Use Case: Recurring Tasks
+
+The Scheduler Pallet can be used to create recurring tasks. For instance, if you want to update the exchange rate of a token every 10 blocks, you can schedule a task that updates the exchange rate and then schedules itself to be executed again after 10 blocks.
+
+```rust
+fn update_exchange_rate() {
+    // Update the exchange rate...
+
+    // Schedule this function to be called again after 10 blocks.
+    let when = <frame_system::Module<T>>::block_number() + 10.into();
+    let priority = 0;
+    let call = Call::update_exchange_rate().into();
+
+    let _ = Scheduler::schedule(when, priority, call);
+}
+```
+
+The Scheduler Pallet in the Tangle Network is a powerful tool that allows the network to manage and execute tasks at specific points in time. From delayed execution to recurring tasks, it opens up a whole new range of possibilities for designing and implementing blockchain applications.

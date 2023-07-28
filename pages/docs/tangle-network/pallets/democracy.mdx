@@ -1,0 +1,21 @@
+# Introduction to the Democracy Pallet
+
+The Democracy Pallet is one of the fundamental components in the governance of many Substrate-based chains, such as the Tangle Network. This pallet introduces a mechanism for community members to propose and vote on potential changes to the runtime code. It offers a democratic system in which stakeholders of the network can directly influence its direction.
+
+At a high level, the Democracy Pallet provides an interface for the following actions:
+
+1. **Proposing Referenda**: Any token holder can propose a change to the runtime. A fixed deposit is required to propose a referendum, which prevents spam proposals. If the proposal garners sufficient support during a public voting period, it becomes a referendum.
+
+2. **Voting on Referenda**: Once a proposal becomes a referendum, token holders can vote for or against the referendum. The Democracy Pallet features adaptive quorum biasing, which adjusts the passing threshold based on the turnout. This means that a super-majority is required for proposals with low turnout, and as turnout increases, a simple majority is sufficient for the proposal to pass.
+
+3. **Delegating Votes**: If a token holder does not have the knowledge or time to vote on referenda, they can delegate their voting power to a knowledgeable party. Delegation can be removed at any time.
+
+4. **Proxy Voting**: This feature allows a third party to vote on behalf of the original token holder, promoting participation from individuals who may not have direct access to vote themselves.
+
+5. **Emergency Proposals (Fast Track)**: In critical situations, council members can fast track a proposal to skip the public support phase and turn it directly into a referendum.
+
+6. **Veto (by council)**: The council has the ability to veto a proposed referendum. This power can only be used sparingly due to the "cool-off" period after each veto, during which the council cannot veto the same proposal.
+
+Technically, the Democracy Pallet achieves its functionality by integrating with other Substrate Pallets. For instance, it uses the Balances Pallet for handling proposal deposits, the Collective Pallet for council operations, and the Scheduler Pallet for enacting approved proposals after a predefined enactment delay.
+
+In essence, the Democracy Pallet facilitates on-chain governance in a democratic and transparent manner, allowing stakeholders to propose, discuss, and implement changes to the network, and providing a robust and responsive governance system.
