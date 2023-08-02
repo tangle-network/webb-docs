@@ -1,0 +1,115 @@
+# Connecting to and Querying Tangle Network
+This guide provides a basic introduction to connecting to and querying Tangle, a Substrate-based network with WebSocket, giving you access to real-time updates, as well as RPC. By following these steps, you will be able to fetch transaction and block data, and extract information such as addresses that interacted with the testnet.
+
+### Prerequisites
+Before getting started, you'll need the following:
+
+1. Node.js and npm (Node.js package manager) installed on your machine.
+2. A full node of your testnet running either on your local machine or remotely, accessible via a WebSocket address or RPC.
+3. Basic knowledge of JavaScript.
+4. The [Network configations for Tangle Network](/docs/tangle-network/getting-started/network-information-configuration.mdx)
+
+
+## Connecting to a Tangle Node with WebSocket
+
+### Step 1: Install the PolkadotJS API
+In order to interact with Tangle, you'll need to use the PolkadotJS API. This API can be installed via npm with the following command:
+
+```bash
+npm install @polkadot/api
+```
+
+### Step 2: Connect to Your Node
+Once the API is installed, you can use it to connect to the node. Here's a basic example of how to do this:
+
+
+```javascript
+const { ApiPromise, WsProvider } = require('@polkadot/api');
+
+async function main() {
+    const wsProvider = new WsProvider('ws://127.0.0.1:9944');
+    const api = await ApiPromise.create({ provider: wsProvider });
+
+    console.log(api.genesisHash.toHex());
+}
+
+main().catch(console.error).finally(() => process.exit());
+```
+
+In this script, replace 'ws://127.0.0.1:9944' with the WebSocket address of your node. This example script will print the genesis hash of your blockchain.
+
+### Step 3: Query the Blockchain Data
+Once you're connected to your node, you can use the PolkadotJS API to query blocks and transactions. Here's a basic example of how to fetch the latest block:
+
+```javascript
+
+const { ApiPromise, WsProvider } = require('@polkadot/api');
+
+async function main() {
+    const wsProvider = new WsProvider('ws://127.0.0.1:9944');
+    const api = await ApiPromise.create({ provider: wsProvider });
+
+    const latestBlockHash = await api.rpc.chain.getFinalizedHead();
+    const latestBlock = await api.rpc.chain.getBlock(latestBlockHash);
+
+    console.log(latestBlock.toHuman());
+}
+
+main().catch(console.error).finally(() => process.exit());
+```
+
+This script fetches the latest finalized block and prints it in a human-readable format.
+
+
+## Guide to Connecting to Tangle Network via RPC
+
+### Step 1: Install the PolkadotJS API
+In order to interact with your Substrate testnet, you'll need to use the PolkadotJS API. This API can be installed via npm with the following command:
+
+``` bash
+npm install @polkadot/api
+```
+
+### Step 2: Connect to Your Node via RPC
+Once the API is installed, you can use it to connect to your testnet node via HTTP RPC. Here's a basic example of how to do this:
+
+```javascript
+const { ApiPromise, HttpProvider } = require('@polkadot/api');
+
+async function main() {
+    const httpProvider = new HttpProvider('http://127.0.0.1:9933');
+    const api = await ApiPromise.create({ provider: httpProvider });
+
+    console.log(api.genesisHash.toHex());
+}
+
+main().catch(console.error).finally(() => process.exit());
+```
+
+In this script, replace 'http://127.0.0.1:9933' with the HTTP RPC endpoint of your node. This script will print the genesis hash of your blockchain.
+
+### Step 3: Query the Blockchain Data
+Once you're connected to your node, you can use the PolkadotJS API to query blocks and transactions. Here's a basic example of how to fetch the latest block:
+
+```javascript
+const { ApiPromise, HttpProvider } = require('@polkadot/api');
+
+async function main() {
+    const httpProvider = new HttpProvider('http://127.0.0.1:9933');
+    const api = await ApiPromise.create({ provider: httpProvider });
+
+    const latestBlockHash = await api.rpc.chain.getFinalizedHead();
+    const latestBlock = await api.rpc.chain.getBlock(latestBlockHash);
+
+    console.log(latestBlock.toHuman());
+}
+
+main().catch(console.error).finally(() => process.exit());
+```
+
+This script fetches the latest finalized block and prints it in a human-readable format.
+
+
+You can extend these scripts to perform more complex queries, such as iterating over all past blocks, extracting the addresses involved in each transaction, or tracking the balances of specific addresses. 
+
+For more information on how to use the PolkadotJS API, [refer to the official documentation.](https://polkadot.js.org/docs/api/start/)
