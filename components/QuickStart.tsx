@@ -72,7 +72,7 @@ export const DeployArea = () => {
           description: `Want to spin up a full node on the Tangle Network? We've made it easier than ever!`,
           name: "Deploy a Tangle Node!",
         }}
-        href="./docs/tangle-network/node-operators/quickstart#deploy-quickly"
+        href="./docs/tangle-network/validator/quickstart/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -80,7 +80,7 @@ export const DeployArea = () => {
           description: `Help support the Webb ecosystem. Run a relayer and earn!`,
           name: "Deploy a relayer!",
         }}
-        href="./docs/relayer/running-relayer/running-docker"
+        href="./docs/ecosystem-roles/relayer/running-relayer/quick-start/"
       ></DetailedFeatureLink>
     </div>
   );
