@@ -2,7 +2,11 @@
   "getting-started": "Getting Started",
   "overview": "Overview",
   "use-cases": "Use Cases",
+<<<<<<< HEAD
   "webb-protocol": "Webb Protocol and Tangle",
+=======
+  "webb-protocol": "Webb Protocol",
+>>>>>>> origin/main
   "pallets": "Pallets and Precompiles",
   "json-rpc-endpoints": "JSON-RPC Endpoints",
   "understanding-dkg-tangle": "Distributed Key Generation",

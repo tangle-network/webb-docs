@@ -1,6 +1,10 @@
 {
   "deploy-using-hardhat": "Deploy on Tangle with Hardhat",
   "how-to-vote-on-tangle": "How to Vote on Tangle Network",
+<<<<<<< HEAD
   "network-information-configuration": "Networks and Configurations",
   "connect-and-query-tangle":  "How to connect to and query Tangle Network"
+=======
+  "network-information-configuration": "Networks and Configurations"
+>>>>>>> origin/main
 }
