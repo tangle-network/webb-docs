@@ -123,9 +123,9 @@ RestartSec=3
 ExecStart=/usr/bin/tangle-standalone \
   --base-path /data/validator/<USERNAME> \
   --name <NODE-NAME> \
-  --chain tangle \
+  --chain tangle-testnet \
   --node-key-file "/home/<USERNAME>/node-key" \
-  --port 30333 \
+  --port 9944 \
   --validator \
   --no-mdns
 
