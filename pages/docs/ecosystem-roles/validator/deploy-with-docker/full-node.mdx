@@ -9,7 +9,7 @@ import Callout from "../../../../../components/Callout";
 
 An Tangle node can be spun up quickly using Docker. For more information on installing Docker,
 please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/docs/ecosystem-roles/validator/requirements/).
 
 ## Using Docker
 
@@ -56,8 +56,7 @@ docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-s
   --name="YOUR-NODE-NAME" \
   --base-path /data \
   --rpc-cors all \
-  --ws-external \
-  --ws-port 9946
+  --port 9946
 ```
 
 <Callout type="info">
