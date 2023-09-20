@@ -11,7 +11,7 @@ Various functionalities in Webb’s MASP system require inserting into an on-cha
 
 It is easiest to describe the rollup functionality via a step-by-step user flow. Let’s call this user Alice. We describe how the rollup functionality works, by explaining what happens as Alice interacts with the MASP by depositing funds and then transacting via ZKPs.
 
-The main smart contract which contains the queueing and batch inserting functionality is called the `MASPProxy`. A `MASPProxy` can proxy for multiple `MASP`s. [MultiAssetVAnchorProxy.sol](https://github.com/webb-tools/protocol-solidity/blob/masp/packages/contracts/contracts/proxy/MultiAssetVAnchorProxy.sol)
+The main smart contract which contains the queueing and batch inserting functionality is called the `MASPProxy`. A `MASPProxy` can proxy for multiple `MASP`s.
 
 - Alice sends the following `QueueDepositInfo` struct information:
 
@@ -39,7 +39,7 @@ to the `queueDeposit` function along with the associated deposit tokens.
 
 ### Batch Update Circuit
 
-[batchMerkleTreeUpdate.circom](https://github.com/webb-tools/protocol-solidity/blob/masp/circuits/merkle-tree/batchMerkleTreeUpdate.circom)
+[batchMerkleTreeUpdate.circom](https://github.com/webb-tools/protocol-solidity/tree/main/circuits/merkle-tree)
 
 The purpose of a Merkle tree batch update circuit is simple. It takes in as inputs:
 
@@ -57,4 +57,4 @@ The `argsHash` is simply the hash of all the private inputs. This allows for gas
 - Say the entire Merkle tree has height `levels`.
 - We think of the Merkle tree as a Merkle treee of height `level - batchLevels`, where each leaf is actually the root of a Merkle tree of height `batchLevels`, where `2 ** batchLevels = nLeaves`.
 - Inside the circuit, we first Merkleize the `nLeaves`. This gives us the root of the Merkle tree of height `batchLevels`, which is in turn a leaf of the Merkle tree of height `levels - batchLevels`.
-- It is then checked that inserting this Merkleized value into the Merkle tree of height `levels - batchLevels` results in the Merkle root being `newRoot`. This is done via the `MerkleTreeUpdater` circuit: [merkleTreeUpdater.circom](https://github.com/webb-tools/protocol-solidity/blob/masp/circuits/merkle-tree/merkleTreeUpdater.circom).
+- It is then checked that inserting this Merkleized value into the Merkle tree of height `levels - batchLevels` results in the Merkle root being `newRoot`. This is done via the `MerkleTreeUpdater` circuit: [merkleTreeUpdater.circom](https://github.com/webb-tools/protocol-solidity/tree/main/circuits/merkle-tree).

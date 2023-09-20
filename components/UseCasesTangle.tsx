@@ -56,7 +56,7 @@ export const ParticipateArea = () => {
           description: `Running a relayer helps keep our bridges up to date by relaying the necessary data between both applications and the Tangle Network.`,
           name: "Run a Relayer",
         }}
-        href="/docs/relayer/running-relayer/running-docker"
+        href="/docs/ecosystem-roles/relayer/running-relayer/running-docker/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
