@@ -89,10 +89,10 @@ const navigation = {
     },
   ],
   legal: [
-    { name: "Privacy Policy", href: "https://webb.tools/privacy-policy" },
+    { name: "Privacy Policy", href: "https://www.tangle.tools/privacy-policy" },
     {
       name: "Terms of Service",
-      href: "https://webb.tools/terms-and-conditions",
+      href: "https://www.tangle.tools/terms-of-service",
     },
     // { name: "Security", href: "" },
   ],
