@@ -139,7 +139,7 @@ cargo build --release --features txpool
 
 2. `relayer`
 
-This feature flag is used to start the embedded tx relayer with tangle node, you should build node with this flag if you intend to use the node for any evm transaction following
+This feature flag is used to start the embedded tx relayer with tangle node, you should build node with this flag if you intend to run a node with a relayer which can be used for transaction relaying or data querying
 
 ```bash
 cargo build --release --features relayer
@@ -147,7 +147,7 @@ cargo build --release --features relayer
 
 3. `light-client`
 
-This feature flag is used to start the embedded light client with tangle node, you should build node with this flag if you intend to use the node for any evm transaction following
+This feature flag is used to start the embedded light client with tangle node, you should build node with this flag if you intend to run a node with a light client relayer to sync EVM data on Tangle
 
 ```bash
 cargo build --release --features light-client
