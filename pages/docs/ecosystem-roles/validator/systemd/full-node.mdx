@@ -56,6 +56,33 @@ ExecStart=/usr/bin/tangle-standalone \
 WantedBy=multi-user.target
 ```
 
+**Full Node with evm trace**
+
+**Note:** To run with evm trace, you should use a binary built with `txpool` flag, refer [requirements](../requirements.mdx) page for more details.
+
+```
+[Unit]
+Description=Tangle Full Node
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=<USERNAME>
+Restart=always
+RestartSec=3
+ExecStart=/usr/bin/tangle-standalone \
+  --base-path /data/full-node \
+  --name <NODE-NAME> \
+  --chain tangle-testnet \
+  --node-key-file "/home/<USERNAME>/node-key" \
+  --rpc-cors all \
+  --port 9946 \
+  --no-mdns --ethapi trace,debug,txpool
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ### Enable the services
 
 Double check that the config has been written to `/etc/systemd/system/full.service` correctly.
@@ -80,4 +107,5 @@ If you need to tail the latest output, you can use:
 journalctl -u full.service -f
 ```
 
-Congratulations! You have officially setup a Tangle Network node using Systemd.
+Congratulations! You have officially setup a Tangle Network node using Systemd. If you are interested
+in learning how to setup monitoring for your node, please refer to the [monitoring](../monitoring/quickstart.mdx) page.

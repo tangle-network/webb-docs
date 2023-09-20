@@ -123,7 +123,63 @@ cargo build --release
 > NOTE: You _must_ use the release builds! The optimizations here are required
 > as in debug mode, it is expected that nodes are not able to run fast enough to produce blocks.
 
-You will now have two runtimes built in `target/release/` dir:
+You will now have the `tangle-standalone` binary built in `target/release/` dir
 
-1. `tangle-parachain`: Parachain node.
-2. `tangle-standalone`: Standalone node, used in the current standalone Tangle network.
+#### Feature Flags
+
+Some features of tangle node are setup behind feature flags, to enable these features you will have to build the binary with these flags enabled
+
+1. `txpool`
+
+This feature flag is useful to help trace and debug evm transactions on the chain, you should build node with this flag if you intend to use the node for any evm transaction following
+
+```bash
+cargo build --release --features txpool
+```
+
+2. `relayer`
+
+This feature flag is used to start the embedded tx relayer with tangle node, you should build node with this flag if you intend to run a node with a relayer which can be used for transaction relaying or data querying
+
+```bash
+cargo build --release --features relayer
+```
+
+3. `light-client`
+
+This feature flag is used to start the embedded light client with tangle node, you should build node with this flag if you intend to run a node with a light client relayer to sync EVM data on Tangle
+
+```bash
+cargo build --release --features light-client
+```
+
+### Use Precompiled binary 💻
+
+Every release of tangle node includes a Precompiled binary, its currently limited to amd-64 architecture but we plan to 
+support more soon. You can view all releases [here](https://github.com/webb-tools/tangle/releases).
+
+In the below commands, substiture `LATEST_RELEASE` with the version you want to use, the current latest version is `0.4.6`
+
+### Get tangle binary
+
+```
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-linux-amd64
+```
+
+### Get tangle binary with txpool feature
+
+```
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-txpool-linux-amd64
+```
+
+### Get tangle binary with relayer feature
+
+```
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-relayer-linux-amd64
+```
+
+### Get tangle binary with light-client feature
+
+```
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-light-client-linux-amd64
+```

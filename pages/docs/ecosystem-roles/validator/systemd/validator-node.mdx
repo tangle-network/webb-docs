@@ -192,5 +192,26 @@ If the node is running correctly, you should see an output similar to below:
 2023-03-22 14:55:53 discovered: 12D3KooWNHhcCUsZTdTkADmDJbSK9YjbtscHHA8R4jvrbGwjPVez /ip4/192.168.88.12/tcp/30305
 ```
 
+### Network sync
+
+After a validator node is started, it will start syncing with the current chain state. Depending on the size of the chain when you do this, this step may take anywhere from a few minutes to a few hours.
+
+Example of node sync : 
+```
+2021-06-17 03:07:39 🔍 Discovered new external address for our node: /ip4/10.26.16.1/tcp/30333/ws/p2p/12D3KooWLtXFWf1oGrnxMGmPKPW54xWCHAXHbFh4Eap6KXmxoi9u
+2021-06-17 03:07:40 ⚙️  Syncing 218.8 bps, target=#5553764 (17 peers), best: #24034 (0x08af…dcf5), finalized #23552 (0xd4f0…2642), ⬇ 173.5kiB/s ⬆ 12.7kiB/s
+2021-06-17 03:07:45 ⚙️  Syncing 214.8 bps, target=#5553765 (20 peers), best: #25108 (0xb272…e800), finalized #25088 (0x94e6…8a9f), ⬇ 134.3kiB/s ⬆ 7.4kiB/s
+2021-06-17 03:07:50 ⚙️  Syncing 214.8 bps, target=#5553766 (21 peers), best: #26182 (0xe7a5…01a2), finalized #26112 (0xcc29…b1a9), ⬇ 5.0kiB/s ⬆ 1.1kiB/s
+2021-06-17 03:07:55 ⚙️  Syncing 138.4 bps, target=#5553767 (21 peers), best: #26874 (0xcf4b…6553), finalized #26624 (0x9dd9…27f8), ⬇ 18.9kiB/s ⬆ 2.0kiB/s
+2021-06-17 03:08:00 ⚙️  Syncing 37.0 bps, target=#5553768 (22 peers), best: #27059 (0x5b73…6fc9), finalized #26624 (0x9dd9…27f8), ⬇ 14.3kiB/s ⬆ 4.4kiB/s
+```
+
+### Bond TNT and setup validator Account
+
+After your node is synced, you are ready to setup keys and onboard as a validator, make sure to complete the steps
+at [required keys](../required-keys.mdx) to start validating.
+
+-----------------------------
+
 Congratulations! You have officially setup an Tangle Network node using Systemd. If you are interested
-in learning how to setup monitoring for your node, please refer to the [monitoring](/docs/ecosystem-roles/validator/monitoring/quickstart/) page.
+in learning how to setup monitoring for your node, please refer to the [monitoring](../monitoring/quickstart.mdx) page.
