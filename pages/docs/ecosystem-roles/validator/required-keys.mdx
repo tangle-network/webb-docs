@@ -5,6 +5,10 @@ description: Describes the keys necessary to start and run a Tangle node.
 
 import Callout from "../../../../components/Callout";
 
+<Callout type="info">
+ This guide assumes you have a validator already running, refer [Running With Docker](./deploy-with-docker/validator-node.mdx) or [Running with systemd](./systemd/validator-node.mdx) to ensure your node is setup correctly
+</Callout>
+
 # Required Keys
 
 In order to participate in the distributed key generation protocol, block production, and block finalization, you will be required to set up a few keys. These keys
@@ -13,9 +17,8 @@ include:
 - DKG key (Ecdsa)
 - Aura key (Sr25519)
 - Account key (Sr25519)
+- Grandpa key (Ed25519)
 - ImOnline key (Sr25519)
-- Nimbus key (Sr25519)
-- Rand key (Sr25519)
 
 To generate each of the above keys we will make use of [subkey](https://docs.substrate.io/reference/command-line-tools/subkey/). You will need to install
 subkey before running the command.
@@ -62,26 +65,6 @@ tangle-standalone key insert --base-path /tangle-data \
 --scheme Sr25519 \
 --suri "<12-PHRASE-MNEMONIC>" \
 --key-type imon
-```
-
-**To generate the Nimbus key you can run the following:**
-
-```
-tangle-standalone key insert --base-path /tangle-data \
---chain "<APPLICABLE-CHAINSPEC>" \
---scheme Sr25519 \
---suri "<12-PHRASE-MNEMONIC>" \
---key-type nmbs
-```
-
-**To generate the Rand key you can run the following:**
-
-```
-tangle-standalone key insert --base-path /tangle-data \
---chain "<APPLICABLE-CHAINSPEC>" \
---scheme Sr25519 \
---suri "<12-PHRASE-MNEMONIC>" \
---key-type rand
 ```
 
 ### Synchronize Chain Data
