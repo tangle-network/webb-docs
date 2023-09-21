@@ -64,7 +64,7 @@ When we make a deposit on the Hubble bridge the depositing asset is wrapped into
 
 _Note: in order to unwrap and withdraw the underlying asset there must be sufficient liquidity on the destination chain. Otherwise, you will be required to withdraw the Webb wrapped asset as is or wait for sufficient liquidity on that particular chain. That does **not** mean you are unable to unwrap and withdraw the underlying asset completely, only that you will need to withdraw the Webb wrapped asset and then perform a separate transaction to unwrap the asset on a destination chain that has sufficient liquidity if you want to withdraw the underlying asset (e.g. `ETH`)._
 
-### **5. Update Relayer (Optional)**
+### **5. Update Relayer _(Optional)_**
 
 At default state, withdrawal method uses a preselected relayer, as relayers act as intermediaries that broadcast transactions to the network on behalf of users, maximizing privacy.
 
@@ -92,7 +92,7 @@ To maximize the privacy of your transaction it is recommended to use a new addre
 <br />
 <Recipient />
 
-### **7. Enable Refund + Input Recipient (Optional)**
+### **7. Enable Refund + Input Recipient _(Optional)_**
 
 The refund feature enables native tokens be sent to the provided recipient address so that they maintain their privacy and are able to execute subsequent transactions (e.g. pay for gas).
 
