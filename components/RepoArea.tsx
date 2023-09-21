@@ -114,7 +114,7 @@ export const StatsdApp = () => {
           description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
           name: "Stats dApp",
         }}
-        href="https://stats.webb.tools/"
+        href="https://stats.tangle.tools"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -122,7 +122,7 @@ export const StatsdApp = () => {
           description: `The GraphQL Playground provides a way to query the SubQuery API`,
           name: "GraphQL Playground",
         }}
-        href="https://tangle-subquery.webb.tools/graphql"
+        href="https://standalone-subql.tangle.tools/graphql"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
