@@ -1,5 +1,4 @@
-import Image from "next/image";
-import type { ComponentProps, FC } from "react";
+import ThemedImage from "../../../../ThemedImage";
 import ConfirmDark from "./dark-imgs/confirm.png";
 import ConfrimedDark from "./dark-imgs/confirmed.png";
 import CustomAmountDark from "./dark-imgs/custom-amount.png";
@@ -33,25 +32,9 @@ import SelectTokenLight from "./light-imgs/select-token.png";
 import SuccessDark from "./light-imgs/success.png";
 import WithdrawLight from "./light-imgs/withdraw.png";
 
-const ImageWrapper: FC<{
-  lightImageProps: ComponentProps<typeof Image>;
-  darkImageProps: ComponentProps<typeof Image>;
-}> = ({ darkImageProps, lightImageProps }) => {
-  return (
-    <>
-      <div className="block dark:hidden">
-        <Image alt="light img" {...lightImageProps} />
-      </div>
-      <div className="hidden dark:block">
-        <Image alt="dark img" {...darkImageProps} />
-      </div>
-    </>
-  );
-};
-
 export const Withdraw = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{ src: WithdrawLight, alt: "withdraw light" }}
       darkImageProps={{ src: WithdrawDark, alt: "withdraw dark" }}
     />
@@ -60,7 +43,7 @@ export const Withdraw = () => {
 
 export const SelectSourceChain = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: SelectSourceChainLight,
         alt: "select source chain light",
@@ -75,7 +58,7 @@ export const SelectSourceChain = () => {
 
 export const SelectShieldedPool = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: SelectShieldedPoolLight,
         alt: "select shielded pool light",
@@ -90,7 +73,7 @@ export const SelectShieldedPool = () => {
 
 export const FixedAmount = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: FixedAmountLight,
         alt: "fixed amount light",
@@ -105,7 +88,7 @@ export const FixedAmount = () => {
 
 export const CustomAmount = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: CustomAmountLight,
         alt: "custom amount light",
@@ -120,7 +103,7 @@ export const CustomAmount = () => {
 
 export const SelectToken = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: SelectTokenLight,
         alt: "select token light",
@@ -135,7 +118,7 @@ export const SelectToken = () => {
 
 export const SelectRelayer = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: SelectRelayerLight,
         alt: "select relayer light",
@@ -151,7 +134,7 @@ export const SelectRelayer = () => {
 export const CustomRelayer = () => {
   return (
     <div className="flex gap-4">
-      <ImageWrapper
+      <ThemedImage
         lightImageProps={{
           src: CustomRelayerLight,
           alt: "custom relayer light",
@@ -162,7 +145,7 @@ export const CustomRelayer = () => {
         }}
       />
 
-      <ImageWrapper
+      <ThemedImage
         lightImageProps={{
           src: CustomRelayerNoResultLight,
           alt: "custom relayer no result light",
@@ -178,7 +161,7 @@ export const CustomRelayer = () => {
 
 export const NoRelayer = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: NoRelayerLight,
         alt: "no relayer light",
@@ -193,7 +176,7 @@ export const NoRelayer = () => {
 
 export const Recipient = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: RecipientLight,
         alt: "recipient light",
@@ -208,7 +191,7 @@ export const Recipient = () => {
 
 export const Refund = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: RefundLight,
         alt: "refund light",
@@ -223,7 +206,7 @@ export const Refund = () => {
 
 export const Confirm = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: ConfirmLight,
         alt: "confirm light",
@@ -238,7 +221,7 @@ export const Confirm = () => {
 
 export const Confirmed = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: ConfrimedLight,
         alt: "confirmed light",
@@ -253,7 +236,7 @@ export const Confirmed = () => {
 
 export const InProgress = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: InprogessLight,
         alt: "in progress light",
@@ -268,7 +251,7 @@ export const InProgress = () => {
 
 export const Success = () => {
   return (
-    <ImageWrapper
+    <ThemedImage
       lightImageProps={{
         src: SuccessLight,
         alt: "success light",
