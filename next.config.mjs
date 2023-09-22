@@ -1,45 +1,16 @@
-import { withSentryConfig } from "@sentry/nextjs";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
 import nextra from "nextra";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
-const withNextra = nextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.js",
-  staticImage: true,
-  flexsearch: true,
-  latex: true,
-  mdxOptions: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
-  },
-});
-
-const sentryWebpackPluginOptions = {
-  dryRun: process.env.NETLIFY_ENV !== "production",
-  silent: true,
-};
-
-const nextConfig = withNextra({
-  sentry: {
-    hideSourceMaps: true,
-  },
+/**
+ * @type {import('next').NextConfig}
+ */
+const nextConfig = {
   reactStrictMode: true,
   experimental: {
     legacyBrowsers: false,
   },
   trailingSlash: true,
-  webpack: (config, { webpack }) => {
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        __SENTRY_DEBUG__: false,
-        __SENTRY_TRACING__: false,
-      })
-    );
-
-    // return the modified config
-    return config;
-  },
   rewrites() {
     return {
       // beforeFiles: [
@@ -61,6 +32,18 @@ const nextConfig = withNextra({
       },
     ];
   },
+};
+
+const withNextra = nextra({
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.js",
+  staticImage: true,
+  flexsearch: true,
+  latex: true,
+  mdxOptions: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
+  },
 });
 
-export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+export default withNextra(nextConfig);
