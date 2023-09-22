@@ -8,7 +8,7 @@ import SourceChainDark from "./select-source-chain-dark.png";
 import WalletComponentLight from "./wallet-component-light.png";
 import WalletComponentDark from "./wallet-component-dark.png";
 import CreateAccountLight from "./create-note-account-light.png";
-import CreateAccountDark from "./create-note-account-dark2.png";
+import CreateAccountDark from "./create-note-account-dark.png";
 import CreateAccountPromptLight from "./create-account-prompt-light.png";
 import CreateAccountPromptDark from "./create-account-prompt-dark.png";
 import SignatureRequestLight from "./signature-request-light.png";

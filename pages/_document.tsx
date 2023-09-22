@@ -1,9 +1,10 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
-import type { DocumentInitialProps, DocumentContext } from "next/document";
+import type { DocumentContext, DocumentInitialProps } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 class MyDocument extends Document {
   static async getInitialProps(
-    ctx: DocumentContext,
+    ctx: DocumentContext
   ): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx);
 
@@ -34,6 +35,12 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <Script
+            defer
+            data-domain="docs.webb.tools"
+            src="https://plausible.io/js/script.js"
+            strategy="beforeInteractive"
+          />
         </body>
       </Html>
     );

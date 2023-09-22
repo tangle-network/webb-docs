@@ -4,7 +4,6 @@ import "../custom.css";
 import { SSRProvider } from "@react-aria/ssr";
 import type { AppProps } from "next/app";
 import type { ReactNode } from "react";
-import { Plausible } from "../components/Plausible";
 import "katex/dist/katex.min.css";
 
 type NextraAppProps = AppProps & {
@@ -44,7 +43,6 @@ export default function Nextra({ Component, pageProps }: NextraAppProps) {
         </svg>
       </>
       <Component {...pageProps} />
-      <Plausible />
     </SSRProvider>
   );
 }

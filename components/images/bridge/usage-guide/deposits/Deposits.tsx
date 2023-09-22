@@ -1,9 +1,7 @@
 import Image from "next/image";
 import TokenSelectionLight from "./light-imgs/select-token-light.png";
 import TokenSelectionDark from "./dark-imgs/select-token-dark.png";
-import DepositLight from "./light-imgs/deposit-light.png";
-import DepositDark from "./dark-imgs/deposit-dark-view.png";
-import WrapDepositDark from "./dark-imgs/wrap-deposit-dark.png";
+import DepositViewDark from "./dark-imgs/deposit-dark-view.png";
 import SourceChainLight from "./light-imgs/select-source-light.png";
 import SourceChainDark from "./dark-imgs/select-source-chain-dark.png";
 import DestinationChainLight from "./light-imgs/select-destination-light.png";
@@ -27,7 +25,7 @@ export const Deposit = () => {
         <Image src={DepositViewLight} alt="deposit light" />
       </div>
       <div className="hidden dark:block">
-        <Image src={DepositDark} alt="deposit dark" />
+        <Image src={DepositViewDark} alt="deposit dark" />
       </div>
     </>
   );
@@ -58,10 +56,10 @@ export const WrapDeposit = () => {
   return (
     <>
       <div className="block dark:hidden">
-        <Image src={DepositLight} alt="wrap and deposit light" />
+        <Image src={DepositViewLight} alt="wrap and deposit light" />
       </div>
       <div className="hidden dark:block">
-        <Image src={WrapDepositDark} alt="wrap and deposit dark" />
+        <Image src={DepositViewDark} alt="wrap and deposit dark" />
       </div>
     </>
   );

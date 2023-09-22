@@ -1,8 +1,7 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useState, ReactNode, ReactElement, FC, useCallback } from "react";
 import cn from "classnames";
+import Link from "next/link";
 import { ThemeSwitch } from "nextra-theme-docs";
+import { FC, ReactElement, ReactNode, useState } from "react";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes =
@@ -51,13 +50,14 @@ const navigation = {
   ecosystem: [
     {
       name: "Tangle",
-      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Ftangle-standalone1.webb.tools%2F#/explorer",
+      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-archive.tangle.tools#/explorer",
     },
-    { name: "Statistics", href: "https://stats.webb.tools/" },
+    { name: "DKG Statistics", href: "https://stats.tangle.tools" },
     {
       name: "Hubble Bridge",
-      href: "https://app.webb.tools/",
+      href: "https://app.webb.tools",
     },
+    { name: "Hubble Statistics", href: "https://hubble-stats.webb.tools" },
   ],
   community: [
     {
@@ -471,7 +471,7 @@ export function Footer({ menu }: { menu?: boolean }): ReactElement {
       <div
         className={cn(
           "mx-auto max-w-[90rem] py-2 px-4 flex gap-2",
-          menu ? "flex" : "hidden",
+          menu ? "flex" : "hidden"
         )}
       >
         <ThemeSwitch />
@@ -480,7 +480,7 @@ export function Footer({ menu }: { menu?: boolean }): ReactElement {
       <div
         className={cn(
           "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
-          "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
+          "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]"
         )}
       >
         <FooterContent />

@@ -3,7 +3,9 @@ title: Transfers on Hubble Bridge
 description: An overview of Transfers on Hubble Bridge
 ---
 
-import { Transfer, TransferToken, TransferDestination, TransferAmount, TransferRelayer, TransferRecipient, TransferConfirm, TransferChangeNoteCopied, TransferInprogress, TransferSuccess, TransferAddress } from '../../../../../components/images/bridge/usage-guide/transfer/Transfer';
+import { TransferToken, TransferDestination, TransferAmount, TransferRelayer, TransferRecipient, TransferConfirm, TransferChangeNoteCopied, TransferInprogress, TransferSuccess, TransferAddress } from '../../../../../components/images/bridge/usage-guide/transfer/Transfer';
+
+import { Transfer, SelectSourceChain, SelectShieldedPool, Amount, SelectDestinationChain, SelectRelayer, NoRelayer, PublicKey, Recipient, Refund, Confirm, InProgress, Success } from '../../../../../components/images/bridge/usage-guide/transfer/Transfer'
 
 # Transfers on Hubble Bridge
 
@@ -21,61 +23,68 @@ before we can transfer.
 <br />
 <Transfer />
 
-### **1. Select Appropriate Chain**
+### **1. Select Source Chain**
 
-To get started we want to make sure we are connected to the correct chain. The correct chain is the chain that we
-indicated as a our destination chain during the deposit. If you are not connected to the correct chain you will
-notice that if we try to transfer it will indicate an insufficient balance error.
-
-To see the destination chain of your previous deposits, just scroll down to the **Available Spend Notes** tab to view the
-note and its destination chain.
-
-### **2. Select Bridging Token**
-
-Once you have selected the correct chain we will need to select what shielded asset to transfer. Clicking
-on the token selection component will display a list of available tokens. Select the token that is represented in the note.
-
-<TransferToken />
-<br />
-
-### **3. Select Destination Chain**
-
-You must specify a destination chain for the transfer operation. Be advised that you cannot change the destination chain
-after the transfer transaction is made and its only on this destination chain that the recipient will be able to withdraw from. Select
-the desired destination chain by clicking the destination chain component.
+To get started we want to make sure we are connected to the network of the source chain of the shielded assets we're looking to transfer.
 
 <br />
-<TransferDestination />
+<SelectSourceChain />
 
-### **4. Input Amount**
+### **2. Select Asset to Transfer**
 
-Input the amount you would like to transfer to the recipient. The amount must be less than or equal to the amount of the note.
-If you want to transfer the entire available balance simply click **Max** for a quick input.
+Once you have selected the desired chain to transfer from we will need to select what shielded asset to transfer. Clicking on the token selection component will display the available assets to transfer from within the shielded pools. These are assets that you have initiated in the deposit flow.
 
-<br />
-<TransferAmount />
-
-### **5. Select Relayer**
-
-For maximum privacy it is recommended to make use of a relayer to perform the transaction. The relayer will be the one to submit the transaction to the chain and send the funds to the recipient address.
-To select a relayer, select the **Add a relayer** component which will display a list of relayers that are supported. The decision of which relayer to use is up to the user, and will primarily be
-made based on the relayers advertised commission fee. Proceed to select a supported relayer to continue.
+_Note: The amount indicated next to the shield icon displays your `shielded balance` of the indicated token on the connected chain._
 
 <br />
-<TransferRelayer />
+<SelectShieldedPool />
 
-### **6. Input Recipient Shielded Address**
+### **3. Input Amount**
 
-The recipient shielded address is the address that the funds will be sent to. The recipient shielded address is the public key for the note account of the person you wish to transfer to. You can view
-your own shielded address by clicking on the wallet connection at the top. See below image for details.
+Input the amount you would like to transfer to the recipient. The amount must be less than or equal to the amount of the note. If you want to transfer the entire available balance simply click `Max` for a quick input.
 
 <br />
-<TransferAddress />
+<Amount />
+
+### **4. Select Destination Chain**
+
+You must specify a destination chain for the transfer operation. Be advised that you cannot change the destination chain after the transfer transaction is made and its only on this destination chain that the recipient will be able to withdraw from. Select the desired destination chain by clicking the destination chain component.
+
+<br />
+<SelectDestinationChain />
+
+### **5. Select Relayer _(Optional)_**
+
+Using a `relayer` by default for transfers maximizes privacy. Relayers essentially act as intermediaries that broadcast transactions to the network. By doing so, relayers hide the original IP address, which could otherwise potentially be used to link identity to blockchain transactions.
+
+<br />
+<SelectRelayer />
+
+The bridge has preselected a default relayer for simplicity but also allow users to select their own relayer if they prefer _(or not use a relayer at all if they choose)_.
+
+<br />
+<NoRelayer />
+
+### **6. Enter Recipient Shielded Address [public key]**
+
+The recipient shielded address is the public key for the note account you wish to transfer your shielded assets to. You can view your own shielded address by clicking on the wallet connection at the top. See below image for details.
+
+<br />
+<PublicKey />
 
 Once you have obtained the recipient's shielded address, input it into the **Recipient Address** component. Once you have input the address, you will notice that the **Transfer** button will be enabled.
 
 <br />
-<TransferRecipient />
+<Recipient />
+
+### **7. Enable Refund + Input Recipient _(Optional)_**
+
+The refund feature enables native tokens be sent to the provided recipient address so that they maintain their privacy and are able to execute subsequent transactions (e.g. pay for gas).
+
+In our ecosystem we call this mechanism a refund. We refer to as a refund, when transactions uses a relayer they will also be given the option to receive native tokens in exchange for the wrapped asset. The relayer will have a configured option indicating the max refund amount of any given supported chain.
+
+<br />
+<Refund />
 
 ## Confirming Transfer Details
 
@@ -87,7 +96,7 @@ review these transaction details to ensure they're accurate.
 Review the transaction details of the transfer. Pay close attention to the recipient address you have provided and ensure its accuracy.
 
 <br />
-<TransferConfirm />
+<Confirm />
 
 ### **2. Confirm Change Note is Copied**
 
@@ -96,8 +105,7 @@ be kept in confidence as anyone who gains access to the note will be able to wit
 bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
 
 <br />
-
-<TransferChangeNoteCopied />
+<Confirm />
 
 ### **3. Transfer In-Progress**
 
@@ -113,8 +121,7 @@ conveniently keeps a notification card with transaction details and progress on 
 when the transaction is successful.
 
 <br />
-
-<TransferInprogress />
+<InProgress />
 
 ### **3. Successful Transfer**
 
@@ -123,5 +130,4 @@ If you want to see the transaction in a block explorer, click on the **Successfu
 notification card.
 
 <br />
-
-<TransferSuccess />
+<Success />
