@@ -1,7 +1,3 @@
-import Link from "next/link";
-import styles from "./header-logo.module.css";
-import { useTheme } from "next-themes";
-
 function HeaderLogo() {
   return (
     //className="dark:hidden"

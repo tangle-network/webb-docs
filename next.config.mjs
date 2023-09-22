@@ -1,12 +1,13 @@
-const { withSentryConfig } = require("@sentry/nextjs");
-const remarkMath = require("remark-math");
-const rehypeKatex = require("rehype-katex");
+import { withSentryConfig } from "@sentry/nextjs";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import nextra from "nextra";
 
-const withNextra = require("nextra")({
+const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.js",
-  unstable_flexsearch: true,
-  unstable_staticImage: true,
+  staticImage: true,
+  flexsearch: true,
   latex: true,
   mdxOptions: {
     remarkPlugins: [remarkMath],
@@ -33,7 +34,7 @@ const nextConfig = withNextra({
       new webpack.DefinePlugin({
         __SENTRY_DEBUG__: false,
         __SENTRY_TRACING__: false,
-      }),
+      })
     );
 
     // return the modified config
@@ -62,4 +63,4 @@ const nextConfig = withNextra({
   },
 });
 
-module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions);
+export default withSentryConfig(nextConfig, sentryWebpackPluginOptions);

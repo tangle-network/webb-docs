@@ -1,8 +1,7 @@
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useState, ReactNode, ReactElement, FC, useCallback } from "react";
 import cn from "classnames";
+import Link from "next/link";
 import { ThemeSwitch } from "nextra-theme-docs";
+import { FC, ReactElement, ReactNode, useState } from "react";
 
 function FooterLink({ href, children }: { href: string; children: ReactNode }) {
   const classes =
