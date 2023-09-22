@@ -1,17 +1,5 @@
 // Remove when docs is refactored to use the new icons (see ./features.ts)
-
 import React from "react";
-import {
-  ArrowsExpandIcon,
-  BeakerIcon,
-  ChartBarIcon,
-  ChartPieIcon,
-  ChipIcon,
-  CloudUploadIcon,
-  FingerPrintIcon,
-  LightningBoltIcon,
-  RefreshIcon,
-} from "@heroicons/react/outline";
 import { IconType } from "./Icons";
 
 export type Feature = {
