@@ -1,5 +1,4 @@
 import type { FC, ReactElement } from "react";
-
 import { Tabs as NextraTabs, Tab } from "nextra-theme-docs";
 import useSWR from "swr";
 

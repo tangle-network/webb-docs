@@ -1,215 +1,265 @@
-import Image from "next/image";
-import WithdrawDark from "./dark-imgs/withdraw-dark.png";
-import WithdrawLight from "./light-imgs/withdraw-light.png";
-import WithdrawTokenLight from "./light-imgs/withdraw-token-light.png";
-import WithdrawTokenDark from "./dark-imgs/withdraw-token-dark.png";
-import WithdrawConfirmLight from "./light-imgs/confirm-withdraw-light.png";
-import WithdrawConfirmDark from "./dark-imgs/confirm-withdraw-dark.png";
-import WithdrawCustomLight from "./light-imgs/custom-amount-light.png";
-import WithdrawCustomDark from "./dark-imgs/custom-amount-dark.png";
-import RecipientLight from "./light-imgs/recipient-light.png";
-import RecipientDark from "./dark-imgs/recipient-dark.png";
-import RelayerDark from "./dark-imgs/relayer-dark.png";
-import RelayerLight from "./light-imgs/relayer-light.png";
-import UnwrapLight from "./light-imgs/unwrap-light.png";
-import UnwrapDark from "./dark-imgs/unwrap-asset-dark.png";
-import UnwrapTokenLight from "./light-imgs/unwrap-token-light.png";
-import UnwrapTokenLight2 from "./light-imgs/unwrap-token-light2.png";
-import UnwrapTokenDark from "./dark-imgs/unwrap-token-dark.png";
-import UnwrapWithdrawLight from "./light-imgs/unwrap-withdraw-light.png";
-import UnwrapWithdrawDark from "./dark-imgs/unwrap-withdraw-dark.png";
-import WithdrawAmountLight from "./light-imgs/withdraw-amount-light.png";
-import WithdrawAmountDark from "./dark-imgs/withdraw-amount-dark.png";
-import WithdrawInprogessLight from "./light-imgs/withdraw-inprogress-light.png";
-import WithdrawInprogessDark from "./dark-imgs/withdraw-inprogress-dark.png";
-import FixedAmountLight from "./light-imgs/fixed-amount-light.png";
-import FixedAmountDark from "./dark-imgs/fixed-amount-dark.png";
-import WithdrawSuccessLight from "./light-imgs/withdraw-success-light.png";
-import WithdrawSuccessDark from "./dark-imgs/withdraw-success-dark.png";
-import WithdrawConfirmedNote from "./dark-imgs/withdraw-confirmed-note-dark.png";
-import WithdrawConfirmedNoteLight from "./light-imgs/withdraw-confirmed-note-light.png";
+import ThemedImage from "../../../../ThemedImage";
+import ConfirmDark from "./dark-imgs/confirm.png";
+import ConfrimedDark from "./dark-imgs/confirmed.png";
+import CustomAmountDark from "./dark-imgs/custom-amount.png";
+import CustomRelayerNoResultDark from "./dark-imgs/custom-relayer-no-result-dark.png";
+import CustomRelayerDark from "./dark-imgs/custom-relayer.png";
+import FixedAmountDark from "./dark-imgs/fixed-amount.png";
+import InprogessDark from "./dark-imgs/inprogress.png";
+import NoRelayerDark from "./dark-imgs/no-relayer.png";
+import RecipientDark from "./dark-imgs/recipient.png";
+import RefundDark from "./dark-imgs/refund.png";
+import SelectRelayerDark from "./dark-imgs/select-relayer.png";
+import SelectShieldedPoolDark from "./dark-imgs/select-shielded-pool.png";
+import SelectSourceChainDark from "./dark-imgs/select-source-chain.png";
+import SelectTokenDark from "./dark-imgs/select-token.png";
+import SuccessLight from "./dark-imgs/success.png";
+import WithdrawDark from "./dark-imgs/withdraw.png";
+import ConfirmLight from "./light-imgs/confirm.png";
+import ConfrimedLight from "./light-imgs/confirmed.png";
+import CustomAmountLight from "./light-imgs/custom-amount.png";
+import CustomRelayerNoResultLight from "./light-imgs/custom-relayer-no-result-light.png";
+import CustomRelayerLight from "./light-imgs/custom-relayer.png";
+import FixedAmountLight from "./light-imgs/fixed-amount.png";
+import InprogessLight from "./light-imgs/inprogress.png";
+import NoRelayerLight from "./light-imgs/no-relayer.png";
+import RecipientLight from "./light-imgs/recipient.png";
+import RefundLight from "./light-imgs/refund.png";
+import SelectRelayerLight from "./light-imgs/select-relayer.png";
+import SelectShieldedPoolLight from "./light-imgs/select-shielded-pool.png";
+import SelectSourceChainLight from "./light-imgs/select-source-chain.png";
+import SelectTokenLight from "./light-imgs/select-token.png";
+import SuccessDark from "./light-imgs/success.png";
+import WithdrawLight from "./light-imgs/withdraw.png";
 
-export const Withdraw = (props) => {
+export const Withdraw = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawLight} height={props.height} alt="withdraw light" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawDark} height={props.height} alt="withdraw dark" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: WithdrawLight, alt: "withdraw light" }}
+      darkImageProps={{ src: WithdrawDark, alt: "withdraw dark" }}
+    />
   );
 };
 
-export const WithdrawToken = () => {
+export const SelectSourceChain = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawTokenLight} alt="withdraw token light" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawTokenDark} alt="withdraw token dark" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectSourceChainLight,
+        alt: "select source chain light",
+      }}
+      darkImageProps={{
+        src: SelectSourceChainDark,
+        alt: "select source chain dark",
+      }}
+    />
   );
 };
 
-export const ConfirmWithdraw = () => {
+export const SelectShieldedPool = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawConfirmLight} alt="confirm withdraw light" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawConfirmDark} alt="confirm withdraw dark" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectShieldedPoolLight,
+        alt: "select shielded pool light",
+      }}
+      darkImageProps={{
+        src: SelectShieldedPoolDark,
+        alt: "select shielded pool dark",
+      }}
+    />
   );
 };
 
-export const WithdrawCustomAmount = () => {
+export const FixedAmount = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawCustomLight} alt="withdraw custom amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawCustomDark} alt="withdraw custom amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: FixedAmountLight,
+        alt: "fixed amount light",
+      }}
+      darkImageProps={{
+        src: FixedAmountDark,
+        alt: "fixed amount dark",
+      }}
+    />
   );
 };
 
-export const WithdrawRecipient = () => {
+export const CustomAmount = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={RecipientLight} alt="withdraw recipient" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={RecipientDark} alt="withdraw recipient" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: CustomAmountLight,
+        alt: "custom amount light",
+      }}
+      darkImageProps={{
+        src: CustomAmountDark,
+        alt: "custom amount dark",
+      }}
+    />
   );
 };
 
-export const RelayerSelection = () => {
+export const SelectToken = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={RelayerLight} alt="relayer selection" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={RelayerDark} alt="relayer selection" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectTokenLight,
+        alt: "select token light",
+      }}
+      darkImageProps={{
+        src: SelectTokenDark,
+        alt: "select token dark",
+      }}
+    />
   );
 };
 
-export const UnwrapWithdraw = () => {
+export const SelectRelayer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={UnwrapLight} alt="withdraw and unwrap" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={UnwrapDark} alt="withdraw and unwrap" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectRelayerLight,
+        alt: "select relayer light",
+      }}
+      darkImageProps={{
+        src: SelectRelayerDark,
+        alt: "select relayer dark",
+      }}
+    />
   );
 };
 
-export const UnwrapWithdrawToken = () => {
+export const CustomRelayer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={UnwrapTokenLight2} alt="withdraw and unwrap" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={UnwrapTokenDark} alt="withdraw and unwrap" />
-      </div>
-    </>
+    <div className="flex gap-4">
+      <ThemedImage
+        lightImageProps={{
+          src: CustomRelayerLight,
+          alt: "custom relayer light",
+        }}
+        darkImageProps={{
+          src: CustomRelayerDark,
+          alt: "custom relayer dark",
+        }}
+      />
+
+      <ThemedImage
+        lightImageProps={{
+          src: CustomRelayerNoResultLight,
+          alt: "custom relayer no result light",
+        }}
+        darkImageProps={{
+          src: CustomRelayerNoResultDark,
+          alt: "custom relayer no result dark",
+        }}
+      />
+    </div>
   );
 };
 
-export const UnwrapWithdrawStart = () => {
+export const NoRelayer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={UnwrapWithdrawLight} alt="withdraw and unwrap" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={UnwrapWithdrawDark} alt="withdraw and unwrap" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: NoRelayerLight,
+        alt: "no relayer light",
+      }}
+      darkImageProps={{
+        src: NoRelayerDark,
+        alt: "no relayer dark",
+      }}
+    />
   );
 };
 
-export const WithdrawInputAmount = () => {
+export const Recipient = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawAmountLight} alt="withdraw amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawAmountDark} alt="withdraw amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: RecipientLight,
+        alt: "recipient light",
+      }}
+      darkImageProps={{
+        src: RecipientDark,
+        alt: "recipient dark",
+      }}
+    />
   );
 };
 
-export const WithdrawFixedAmount = () => {
+export const Refund = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={FixedAmountLight} alt="withdraw amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={FixedAmountDark} alt="withdraw amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: RefundLight,
+        alt: "refund light",
+      }}
+      darkImageProps={{
+        src: RefundDark,
+        alt: "refund dark",
+      }}
+    />
   );
 };
 
-export const WithdrawInProgress = () => {
+export const Confirm = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawInprogessLight} alt="withdraw inprogress" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawInprogessDark} alt="withdraw inprogress" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: ConfirmLight,
+        alt: "confirm light",
+      }}
+      darkImageProps={{
+        src: ConfirmDark,
+        alt: "confirm dark",
+      }}
+    />
   );
 };
 
-export const WithdrawSuccess = () => {
+export const Confirmed = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={WithdrawSuccessLight} alt="withdraw success" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawSuccessDark} alt="withdraw success" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: ConfrimedLight,
+        alt: "confirmed light",
+      }}
+      darkImageProps={{
+        src: ConfrimedDark,
+        alt: "confirmed dark",
+      }}
+    />
   );
 };
 
-export const ChangeNoteCopied = () => {
+export const InProgress = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image
-          src={WithdrawConfirmedNoteLight}
-          alt="withdraw change note copied"
-        />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={WithdrawConfirmedNote} alt="withdraw change note copied" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: InprogessLight,
+        alt: "in progress light",
+      }}
+      darkImageProps={{
+        src: InprogessDark,
+        alt: "in progress dark",
+      }}
+    />
+  );
+};
+
+export const Success = () => {
+  return (
+    <ThemedImage
+      lightImageProps={{
+        src: SuccessLight,
+        alt: "success light",
+      }}
+      darkImageProps={{
+        src: SuccessDark,
+        alt: "success dark",
+      }}
+    />
   );
 };

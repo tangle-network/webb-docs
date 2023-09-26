@@ -3,7 +3,7 @@ title: Withdrawals on Hubble Bridge
 description: An overview of Withdrawls on Hubble Bridge
 ---
 
-import { Withdraw, WithdrawToken, WithdrawFixedAmount, ConfirmWithdraw, WithdrawCustomAmount, WithdrawRecipient, RelayerSelection, UnwrapWithdraw, UnwrapWithdrawToken, UnwrapWithdrawStart, WithdrawInputAmount, WithdrawInProgress, WithdrawSuccess, ChangeNoteCopied } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
+import { Withdraw, SelectSourceChain, SelectShieldedPool, FixedAmount, CustomAmount, SelectToken, SelectRelayer, CustomRelayer, NoRelayer, Recipient, Refund, Confirm, Confirmed, InProgress, Success } from '../../../../../components/images/bridge/usage-guide/withdraw/Withdraw';
 
 # Withdrawals on Hubble Bridge
 
@@ -19,95 +19,87 @@ You will notice the **Withdraw** button to be disabled initially. We must provid
 before we can withdraw.
 
 <br />
-
 <Withdraw />
 
-### **1. Select Appropriate Chain**
+### **1. Select Source Chain**
 
-To get started we want to make sure we are connected to the correct chain. The correct chain is the chain that we
-indicated as a our destination chain during the deposit. If you are not connected to the correct chain you will
-notice that if we try to withdraw it will indicate an insufficient balance error.
-
-To see the destination chain of your previous deposits, just scroll down to the **Available Spend Notes** tab to view the
-note and its destination chain.
-
-### **2. Select Token**
-
-Once you have selected the correct chain we will need to select what token to withdraw from the shielded pool. Clicking
-on the token selection component will display a list of tokens. Select the token that is represented in the note.
+To get started we want to make sure we are connected to the network of the source chain of the shielded assets we're looking to withdraw from. Note that you will be withdrawing to the connected network. In this case, Polygon Mumbai.
 
 <br />
-<WithdrawToken />
+<SelectSourceChain />
 
-### **3. Unwrap and Withdraw**
+### **2. Select Shielded Pool to Withdraw From**
 
-When we make a deposit on the Hubble bridge the depositing asset is wrapped into a Webb based asset. Thus, during the
-withdraw process we can either unwrap the asset into a supported underlying asset of the specified shielded pool or we can
-withdraw the Webb wrapped asset as is (e.g. `WebbETH`).
-
-Be advised in order to unwrap and withdraw the underlying asset there must be sufficient liquidity on the destination chain. Otherwise,
-you will be required to withdraw the Webb wrapped asset as is or wait for sufficient liquidity on that particular chain. That does **not** mean you are unable to unwrap and withdraw the underlying asset completely, only
-that you will need to withdraw the Webb wrapped asset and then perform a separate transaction to unwrap the asset on a destination chain that has sufficient liquidity if you
-want to withdraw the underlying asset (e.g. `ETH`).
-
-To begin with the unwrap and withdraw process, toggle the **Unwrap and Withdraw** switch. This will display the unwrap and withdraw option within the withdraw component.
-Next, select the token you would like to unwrap from by clicking on the **Select Unwrapping Asset** component.
+Once we have selected the network we wish to withdraw from we will need to select what token to withdraw from the shielded pool. In this example, it is shown that the user has 1.45webbETH on Polygon Mumbai.
 
 <br />
-<UnwrapWithdrawStart />
+<SelectShieldedPool />
 
-Select the token you would like to unwrap from the list of tokens. The tokens listed will only be the tokens that are supported.
+_Note: The amount displays your availability on the connected network. If you switch network, the amount availability will update accordingly._
 
-<br />
-<UnwrapWithdrawToken />
+### **3. Select Amount**
 
-In the below example, we are attempting to unwrap `WebbETH` into `ETH`. That is, once we complete the withdraw process we will receive `ETH` on the destination chain.
+#### _3.1. Fixed Amount_
 
-<br />
-<UnwrapWithdraw />
-
-### **4. Input Amount**
-
-With the Hubble bridge you can withdraw variable amounts, however, users are encouraged to withdraw fixed amounts to further protect their privacy and the privacy of the
-protocol as a whole. Nonetheless the dApp supports withdrawing both fixed and variable amounts.
-
-#### Fixed Amount
-
-To withdraw a fixed amount simply select an amount outlined within the dApp.
+To maximize privacy, the default state for withdrawal amount is set to fixed amounts, as it is harder for an outside observer to link deposits to withdrawals, as many transactions have the same amount. This technique is often referred to as "denominations" in privacy protocols.
 
 <br />
-<WithdrawFixedAmount />
+<FixedAmount />
 
-#### Custom Amount
+#### _3.2. Custom Amount_
 
-To withdraw a custom amount user will need to hover on the chevron icon to the right of **Fixed Amount**. This will display a pop up where you can proceed to
-select **Custom Amount**.
-
-<br />
-<WithdrawCustomAmount />
-<br />
-
-Once you have selected **Custom Amount** you will be able to input the amount you would like to withdraw.
+To withdraw a custom amount user will need to toggle the switch component. This will enable arbitrary amount input for withdrawal.
 
 <br />
-<WithdrawInputAmount />
+<CustomAmount />
 
-### **5. Select Relayer**
+_Note: while arbitrary amounts provides flexibility and convenience, it can make it easier for an outside observer to link the withdrawal to the deposit, as unique withdrawal amount could serve as finger print that makes the transaction traceable._
 
-For maximum privacy it is recommended to make use of a relayer to perform the transaction. The relayer will be the one to submit the transaction to the chain and send the funds to the recipient address.
-To select a relayer, select the **Add a relayer** component which will display a list of relayers that are supported. The decision of which relayer to use is up to the user, and will primarily be
-made based on the relayers advertised commission fee. Proceed to select a supported relayer to continue.
+### **4. Select Withdrawal Token**
 
-<br />
-<RelayerSelection />
-
-### **6. Input Recipient Address**
-
-The recipient address is the address that the funds will be sent to. The recipient address can be any address supported on the destination chain. To maximize the privacy of your transaction it
-is recommended to use a new address for each transaction.
+When we make a deposit on the Hubble bridge the depositing asset is wrapped into a Webb based asset. Thus, during the withdraw process we can either unwrap the asset into a supported underlying asset of the specified shielded pool or we can withdraw the Webb wrapped asset as is (e.g. `webbETH`).
 
 <br />
-<WithdrawRecipient />
+<SelectToken />
+
+_Note: in order to unwrap and withdraw the underlying asset there must be sufficient liquidity on the destination chain. Otherwise, you will be required to withdraw the Webb wrapped asset as is or wait for sufficient liquidity on that particular chain. That does **not** mean you are unable to unwrap and withdraw the underlying asset completely, only that you will need to withdraw the Webb wrapped asset and then perform a separate transaction to unwrap the asset on a destination chain that has sufficient liquidity if you want to withdraw the underlying asset (e.g. `ETH`)._
+
+### **5. Update Relayer _(Optional)_**
+
+At default state, withdrawal method uses a preselected relayer, as relayers act as intermediaries that broadcast transactions to the network on behalf of users, maximizing privacy.
+
+The bridge has preselected a default relayer for simplicity but also allow users to select their own relayer if they prefer.
+
+<br />
+<SelectRelayer />
+
+We can also use a custom relayers by inputing a custom relayer URL in the search component. Please ensure the custom relayer is compatible with the connected network (the network you intend to transact on) for the system to return search result(s).
+
+<br />
+<CustomRelayer />
+
+If you are not using a relayer and instead using your wallet as the preferred withdrawal method by enabling `No Relayer` option, make sure that you have sufficient tokens to pay for gas fee. The anonymity of the withdrawal will be compromised without the usage of a relayer. It is recommended to use a relayer.
+
+<br />
+<NoRelayer />
+
+_Note: please ensure you have sufficient balance in native tokens to pay for gas fees if you are not using a relayer._
+
+### **6. Input Recipient Wallet Address**
+
+To maximize the privacy of your transaction it is recommended to use a new address (clean address) for withdrawal. A **"clean address"** refers to a new or unused address that has no transaction history associated with it. This means that it cannot be linked to any previous transactions, making it more private.
+
+<br />
+<Recipient />
+
+### **7. Enable Refund + Input Recipient _(Optional)_**
+
+The refund feature enables native tokens be sent to the provided recipient address so that they maintain their privacy and are able to execute subsequent transactions (e.g. pay for gas).
+
+In our ecosystem we call this mechanism a refund, as users select a relayer they will also be given the option to receive native tokens in exchange for the wrapped asset. The relayer will have a configured option indicating the max refund amount of any given supported chain.
+
+<br />
+<Refund />
 
 ## Confirming Withdraw Details
 
@@ -119,7 +111,7 @@ review these transaction details to ensure they're accurate.
 Review the transaction details of the withdrawal. Pay close attention to the recipient address you have provided and ensure its accuracy.
 
 <br />
-<ConfirmWithdraw />
+<Confirm />
 
 ### **2. Confirm Change Note is Copied**
 
@@ -128,8 +120,7 @@ be kept in confidence as anyone who gains access to the note will be able to wit
 bridge. Your notes are stored locally as you transact through this application as well as encrypted on-chain for persistent storage.
 
 <br />
-
-<ChangeNoteCopied />
+<Confirmed />
 
 ### **3. Withdrawal In-Progress**
 
@@ -145,8 +136,7 @@ conveniently keeps a notification card with transaction details and progress on 
 when the transaction is successful.
 
 <br />
-
-<WithdrawInProgress />
+<InProgress />
 
 ### **4. Successful Withdraw**
 
@@ -155,5 +145,4 @@ If you want to see the transaction in a block explorer, click on the **Successfu
 notification card.
 
 <br />
-
-<WithdrawSuccess />
+<Success />

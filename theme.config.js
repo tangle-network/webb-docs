@@ -13,7 +13,6 @@ const SITE_ROOT = "https://docs.webb.tools";
 const theme = {
   docsRepositoryBase: "https://github.com/webb-tools/webb-docs/tree/main",
   useNextSeoProps: function SEO() {
-    const router = useRouter();
     const { frontMatter } = useConfig();
 
     const defaultTitle = frontMatter.overrideTitle;
@@ -32,11 +31,8 @@ const theme = {
   head: function Head() {
     const router = useRouter();
     const { systemTheme = "dark" } = useTheme();
-    const { frontMatter } = useConfig();
     const fullUrl =
       router.asPath === "/" ? SITE_ROOT : `${SITE_ROOT}${router.asPath}`;
-
-    const asPath = router.asPath;
 
     return (
       <>
@@ -109,6 +105,10 @@ const theme = {
   },
   nextThemes: {
     defaultTheme: "light",
+  },
+  // Remove React warning in console https://github.com/shuding/nextra/issues/1213#issuecomment-1493038320
+  search: {
+    loading: "Loading...",
   },
 };
 export default theme;

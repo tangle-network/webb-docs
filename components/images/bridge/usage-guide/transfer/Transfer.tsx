@@ -1,166 +1,162 @@
-import Image from "next/image";
-import TransferLight from "./light-imgs/transfer-light.png";
-import TransferDark from "./dark-imgs/transfer-dark.png";
-import TransferTokenDark from "./dark-imgs/transfer-token-dark.png";
-import TransferTokenLight from "./light-imgs/transfer-token-light.png";
-import TransferDestinationDark from "./dark-imgs/transfer-destination-dark.png";
-import TransferDestinationLight from "./light-imgs/transfer-destination-light.png";
-import TransferAmountDark from "./dark-imgs/transfer-amount-dark.png";
-import TransferAmountLight from "./light-imgs/transfer-amount-light.png";
-import TransferRelayerDark from "./dark-imgs/transfer-relayer-dark.png";
-import TransferRelayerLight from "./light-imgs/transfer-relayer-light.png";
-import TransferRecipientDark from "./dark-imgs/transfer-recipient-dark.png";
-import TransferRecipientLight from "./light-imgs/transfer-recipient-light.png";
-import TransferConfirmDark from "./dark-imgs/transfer-confirm-dark.png";
-import TransferConfirmLight from "./light-imgs/transfer-confirm-light.png";
-import TransferCopiedNoteDark from "./dark-imgs/transfer-copied-note-dark.png";
-import TransferCopiedNoteLight from "./light-imgs/transfer-copied-note-light.png";
-import TransferInprogressDark from "./dark-imgs/transfer-inprogress-dark.png";
-import TransferInprogressLight from "./light-imgs/transfer-inprogress-light.png";
-import TransferSuccessDark from "./dark-imgs/transfer-success-dark.png";
-import TransferSuccessLight from "./light-imgs/transfer-success-light.png";
-import ShieldedAddressLight from "./light-imgs/shielded-address-light.png";
-import ShieldedAddressDark from "./dark-imgs/shielded-address-dark.png";
+import ThemedImage from "../../../../ThemedImage";
+import AmountDark from "./dark-imgs/amount.png";
+import ConfirmDark from "./dark-imgs/confirm.png";
+import InProgressDark from "./dark-imgs/in-progress.png";
+import NoRelayerDark from "./dark-imgs/no-relayer.png";
+import PublicKeyDark from "./dark-imgs/public-key.png";
+import RecipientDark from "./dark-imgs/recipient.png";
+import RefundDark from "./dark-imgs/refund.png";
+import SelectDestinationChainDark from "./dark-imgs/select-destination-chain.png";
+import SelectRelayerDark from "./dark-imgs/select-relayer.png";
+import SelectShieldedPoolDark from "./dark-imgs/select-shielded-pool.png";
+import SelectSourceChainDark from "./dark-imgs/select-source-chain.png";
+import SuccessDark from "./dark-imgs/success.png";
+import TransferDark from "./dark-imgs/transfer.png";
+import AmountLight from "./light-imgs/amount.png";
+import ConfirmLight from "./light-imgs/confirm.png";
+import InProgressLight from "./light-imgs/in-progress.png";
+import NoRelayerLight from "./light-imgs/no-relayer.png";
+import PublicKeyLight from "./light-imgs/public-key.png";
+import RecipientLight from "./light-imgs/recipient.png";
+import RefundLight from "./light-imgs/refund.png";
+import SelectDestinationChainLight from "./light-imgs/select-destination-chain.png";
+import SelectRelayerLight from "./light-imgs/select-relayer.png";
+import SelectShieldedPoolLight from "./light-imgs/select-shielded-pool.png";
+import SelectSourceChainLight from "./light-imgs/select-source-chain.png";
+import SuccessLight from "./light-imgs/success.png";
+import TransferLight from "./light-imgs/transfer.png";
 
-export const Transfer = (props) => {
+export const Transfer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferLight} alt="transfer light" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferDark} alt="transfer dark" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: TransferLight, alt: "transfer light" }}
+      darkImageProps={{ src: TransferDark, alt: "transfer dark" }}
+    />
   );
 };
 
-export const TransferToken = () => {
+export const SelectSourceChain = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferTokenLight} alt="withdraw token light" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferTokenDark} alt="withdraw token dark" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectSourceChainLight,
+        alt: "select source chain light",
+      }}
+      darkImageProps={{
+        src: SelectSourceChainDark,
+        alt: "select source chain dark",
+      }}
+    />
   );
 };
 
-export const TransferDestination = () => {
+export const SelectShieldedPool = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferDestinationLight} alt="transfer destination" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferDestinationDark} alt="transfer destination" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectShieldedPoolLight,
+        alt: "select shielded pool light",
+      }}
+      darkImageProps={{
+        src: SelectShieldedPoolDark,
+        alt: "select shielded pool dark",
+      }}
+    />
   );
 };
 
-export const TransferAmount = () => {
+export const Amount = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferAmountLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferAmountDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: AmountLight, alt: "amount light" }}
+      darkImageProps={{ src: AmountDark, alt: "amount dark" }}
+    />
   );
 };
 
-export const TransferRelayer = () => {
+export const SelectDestinationChain = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferRelayerLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferRelayerDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{
+        src: SelectDestinationChainLight,
+        alt: "select destination chain light",
+      }}
+      darkImageProps={{
+        src: SelectDestinationChainDark,
+        alt: "select destination chain dark",
+      }}
+    />
   );
 };
 
-export const TransferRecipient = () => {
+export const SelectRelayer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferRecipientLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferRecipientDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: SelectRelayerLight, alt: "select relayer light" }}
+      darkImageProps={{ src: SelectRelayerDark, alt: "select relayer dark" }}
+    />
   );
 };
 
-export const TransferConfirm = () => {
+export const NoRelayer = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferConfirmLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferConfirmDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: NoRelayerLight, alt: "no relayer light" }}
+      darkImageProps={{ src: NoRelayerDark, alt: "no relayer dark" }}
+    />
   );
 };
 
-export const TransferChangeNoteCopied = () => {
+export const PublicKey = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferCopiedNoteLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferCopiedNoteDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: PublicKeyLight, alt: "public key light" }}
+      darkImageProps={{ src: PublicKeyDark, alt: "public key dark" }}
+    />
   );
 };
 
-export const TransferInprogress = () => {
+export const Recipient = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferInprogressLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferInprogressDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: RecipientLight, alt: "recipient light" }}
+      darkImageProps={{ src: RecipientDark, alt: "recipient dark" }}
+    />
   );
 };
 
-export const TransferSuccess = () => {
+export const Refund = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={TransferSuccessLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={TransferSuccessDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: RefundLight, alt: "refund light" }}
+      darkImageProps={{ src: RefundDark, alt: "refund dark" }}
+    />
   );
 };
 
-export const TransferAddress = () => {
+export const Confirm = () => {
   return (
-    <>
-      <div className="block dark:hidden">
-        <Image src={ShieldedAddressLight} alt="transfer amount" />
-      </div>
-      <div className="hidden dark:block">
-        <Image src={ShieldedAddressDark} alt="transfer amount" />
-      </div>
-    </>
+    <ThemedImage
+      lightImageProps={{ src: ConfirmLight, alt: "confirm light" }}
+      darkImageProps={{ src: ConfirmDark, alt: "confirm dark" }}
+    />
+  );
+};
+
+export const InProgress = () => {
+  return (
+    <ThemedImage
+      lightImageProps={{ src: InProgressLight, alt: "in progress light" }}
+      darkImageProps={{ src: InProgressDark, alt: "in progress dark" }}
+    />
+  );
+};
+
+export const Success = () => {
+  return (
+    <ThemedImage
+      lightImageProps={{ src: SuccessLight, alt: "success light" }}
+      darkImageProps={{ src: SuccessDark, alt: "success dark" }}
+    />
   );
 };

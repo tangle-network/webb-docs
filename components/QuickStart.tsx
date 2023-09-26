@@ -1,9 +1,10 @@
 import {
   ChartBarIcon,
+  ChartSquareBarIcon,
   CubeIcon,
   CloudIcon,
-  EyeIcon,
   ServerIcon,
+  BeakerIcon,
 } from "@heroicons/react/outline";
 import { GitHubIcon, TwitterIcon, DiscordIcon, TelegramIcon } from "./Icons";
 import { DetailedFeatureLink } from "./Feature";
@@ -93,18 +94,34 @@ export const DappsArea = () => {
         feature={{
           Icon: CubeIcon,
           description: `Private cross-chain bridge. Dedicated UI for moving digital assets privately cross-chain.`,
-          name: "Hubble Bridge",
+          name: "Hubble Bridge dApp",
         }}
         href="https://app.webb.tools"
       />
       <DetailedFeatureLink
         feature={{
-          Icon: ChartBarIcon,
-          description: `The Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
-          name: "Stats dApp",
+          Icon: BeakerIcon,
+          description: `Our easy-to-use testnet faucet allows you to claim test tokens with just a few clicks. Start experimenting with Hubble Bridge today.`,
+          name: "Faucet dApp",
         }}
-        href="https://stats.webb.tools/"
-      ></DetailedFeatureLink>
+        href="https://stats.tangle.tools"
+      />
+      <DetailedFeatureLink
+        feature={{
+          Icon: ChartBarIcon,
+          description: `The DKG Stats dApp provides insights into the DKG protocol running on the Tangle Network.`,
+          name: "DKG Stats dApp",
+        }}
+        href="https://stats.tangle.tools"
+      />
+      <DetailedFeatureLink
+        feature={{
+          Icon: ChartSquareBarIcon,
+          description: `Monitor Hubble Bridge activities and the growth of Webb's cross-chain private transaction system.`,
+          name: "Hubble Stats dApp",
+        }}
+        href="https://hubble-stats.webb.tools"
+      />
     </div>
   );
 };
