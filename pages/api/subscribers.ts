@@ -17,7 +17,7 @@ const isBodyType = (body: any): body is BodyType => {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== "POST") {
     res.status(405).send({ message: "Only POST requests allowed" });

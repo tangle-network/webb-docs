@@ -89,10 +89,10 @@ const navigation = {
     },
   ],
   legal: [
-    { name: "Privacy Policy", href: "https://webb.tools/privacy-policy" },
+    { name: "Privacy Policy", href: "https://www.tangle.tools/privacy-policy" },
     {
       name: "Terms of Service",
-      href: "https://webb.tools/terms-and-conditions",
+      href: "https://www.tangle.tools/terms-of-service",
     },
     // { name: "Security", href: "" },
   ],
@@ -471,7 +471,7 @@ export function Footer({ menu }: { menu?: boolean }): ReactElement {
       <div
         className={cn(
           "mx-auto max-w-[90rem] py-2 px-4 flex gap-2",
-          menu ? "flex" : "hidden"
+          menu ? "flex" : "hidden",
         )}
       >
         <ThemeSwitch />
@@ -480,7 +480,7 @@ export function Footer({ menu }: { menu?: boolean }): ReactElement {
       <div
         className={cn(
           "mx-auto max-w-[90rem] py-12 flex justify-center md:justify-center text-black dark:text-white",
-          "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]"
+          "pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]",
         )}
       >
         <FooterContent />

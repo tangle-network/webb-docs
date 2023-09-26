@@ -14,6 +14,14 @@ export const QuickStartArea = () => {
     <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
+          Icon: ServerIcon,
+          description: `Start your journey on Tangle Network. This guide will walk you through the steps to become a validator, ensuring network security and integrity.`,
+          name: "Validate on Tangle Network",
+        }}
+        href="/docs/ecosystem-roles/validator/quickstart/"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
           Icon: GitHubIcon,
           description: `Check out our open source repos on GitHub. Open a pull request or an issue!`,
           name: "Contribute to Webb Ecosystem.",
