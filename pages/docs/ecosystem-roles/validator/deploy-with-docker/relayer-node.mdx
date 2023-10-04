@@ -29,7 +29,7 @@ command to get up and running.
 
 We will used the pre-built Tangle Docker image to generate and insert the required keys for our node.
 
-```
+```sh filename="pull" copy
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
 docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
@@ -39,7 +39,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 
 Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
 
-```
+```sh filename="mkdir" copy
 mkdir /var/lib/tangle/
 ```
 
@@ -58,7 +58,7 @@ should paste your SURI when the command asks for it.
 
 **Account Keys**
 
-```
+```sh filename="Acco" copy
 # it will ask for your suri, enter it.
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
@@ -70,7 +70,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Aura Keys**
 
-```
+```sh filename="Aura" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
@@ -81,7 +81,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Im-online Keys** - **these keys are optional**
 
-```
+```sh filename="Imonline" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
@@ -92,7 +92,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **DKG Keys**
 
-```
+```sh filename="DKG" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     tangle-standalone key insert --base-path /data \
@@ -103,7 +103,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Grandpa Keys**
 
-```
+```sh filename="Grandpa" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     tangle-standalone key insert --base-path /data \
@@ -114,7 +114,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 To ensure you have successfully generated the keys correctly run:
 
-```
+```sh filename="ls" copy
 ls ~/webb/tangle/chains/*/keystore
 # You should see a some file(s) there, these are the keys.
 ```
@@ -126,13 +126,13 @@ in the [Tangle repo](/docs/ecosystem-roles/validator/deploy-with-docker/relayer-
 
 Let's start by creating a docker-compose file:
 
-```bash
+```sh filename="nano" copy
 nano ~/webb/tangle/docker-compose.yml
 ```
 
 Add the following lines:
 
-```yaml
+```yaml filename="docker-compose.yml" copy
 # This an example of a docker compose file which contains both Relayer and Tangle Node.
 version: "3"
 
@@ -203,7 +203,7 @@ volumes:
 Prior to spinning up the Docker containers, we need to set some environment variables. Below displays an example `.env` file
 but you will need to update to reflect your own environment.
 
-```bash
+```sh filename="export variables" copy
 export TANGLE_RELEASE_VERSION=main
 export RELAYER_RELEASE_VERSION=0.5.0-rc1
 export BASE_PATH=/tmp/data/
@@ -215,7 +215,7 @@ export WEBB_PORT=9955
 
 With our keys generated and our docker-compose file created, we can now start the relayer and validator node.
 
-```bash
+```sh filename="compose up" copy
 docker compose up -d
 ```
 
@@ -229,7 +229,7 @@ The upgrade process is straightforward and is the same for a full node or valida
 
 1. Stop the docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -245,7 +245,7 @@ If you need a fresh instance of your Tangle node, you can purge your node by rem
 
 You'll first need to stop the Docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -253,14 +253,14 @@ If you did not use the `-v` flag to specify a local directory for storing your c
 
 If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your parachain node data:
 
-```
+```sh filename="rm" copy
 # purges standalone data
 sudo rm -rf /data/chains/*
 ```
 
 If you ran with parachain node you can run the following command to purge your relay-chain node data:
 
-```
+```sh filename="rm" copy
 # purges relay chain data
 sudo rm -rf /data/polkadot/*
 ```
