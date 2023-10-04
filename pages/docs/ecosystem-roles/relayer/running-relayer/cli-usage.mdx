@@ -17,14 +17,14 @@ to the end of the command. The command will vary depending on how you choose to 
 <Tabs items={["docker", "systemd"]} storageKey="selected-binary">
   <Tab>
 
-    ```
+    ```sh filename="docker run" copy
     docker run --platform linux/amd64 ghcr.io/webb-tools/relayer:0.5.0-rc1 --help
     ```
 
   </Tab>
   <Tab>
 
-    ```
+    ```sh filename="help" copy
     # If you used the release binary from github
     ./webb-relayer --help
 
@@ -37,13 +37,13 @@ to the end of the command. The command will vary depending on how you choose to 
 
 Start the relayer from a config file:
 
-```
+```sh filename="config file" copy
 webb-relayer -vvv -c <CONFIG_FILE_PATH>
 ```
 
 USAGE:
 
-```
+```sh filename="usage" copy
 webb-relayer [FLAGS] [OPTIONS]
 ```
 
@@ -55,7 +55,7 @@ The below lists outlines the available flags for your convienance.
 
 Prints help information
 
-```sh
+```sh filename="help" copy
 webb-relayer --help
 ```
 
@@ -63,7 +63,7 @@ webb-relayer --help
 
 Create the Database Store in a temporary directory and will be deleted when the process exits
 
-```sh
+```sh filename="tmp" copy
 webb-relayer --tmp
 ```
 
@@ -71,7 +71,7 @@ webb-relayer --tmp
 
 Prints relayer version information
 
-```sh
+```sh filename="version" copy
 webb-relayer --version
 ```
 
@@ -79,7 +79,7 @@ webb-relayer --version
 
 A level of verbosity, and can be used multiple times
 
-```sh
+```sh filename="vvvv" copy
 webb-relayer --vvvv
 ```
 
@@ -89,6 +89,6 @@ webb-relayer --vvvv
 
 Directory that contains configration files
 
-```sh
+```sh filename="config-dir" copy
 webb-relayer --config dir ./config
 ```
