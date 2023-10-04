@@ -29,7 +29,7 @@ subkey before running the command.
 
 **Once installed, to generate the DKG key you can run the following:**
 
-```
+```sh filename="DKG Key" copy
 tangle-standalone key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Ecdsa \
@@ -39,7 +39,7 @@ tangle-standalone key insert --base-path /tangle-data \
 
 **To generate the Aura key you can run the following:**
 
-```
+```sh filename="Aura Key" copy
 tangle-standalone key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Sr25519 \
@@ -49,7 +49,7 @@ tangle-standalone key insert --base-path /tangle-data \
 
 **To generate the Account key you can run the following:**
 
-```
+```sh filename="Account Key" copy
 tangle-standalone key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Sr25519 \
@@ -59,7 +59,7 @@ tangle-standalone key insert --base-path /tangle-data \
 
 **To generate the Imonline key you can run the following:**
 
-```
+```sh filename="Imonline Key" copy
 tangle-standalone key insert --base-path /tangle-data \
 --chain "<APPLICABLE-CHAINSPEC>" \
 --scheme Sr25519 \
@@ -71,7 +71,7 @@ tangle-standalone key insert --base-path /tangle-data \
 
 You can begin syncing your node by running the following command:
 
-```
+```sh filename="Syncing node" copy
 ./target/release/tangle-parachain
 ```
 
@@ -104,7 +104,7 @@ Once everything is filled in properly, click Bond and sign the transaction with 
 Operators need to set their `Author` session keys. Run the following command to author session keys.
 **Note:** You may need to change `http://localhost:9933` to your correct address.
 
-```
+```sh filename="Generate session key" copy
 curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
 ```
 

@@ -40,13 +40,13 @@ This typically means that you are running an older version and will need to upgr
 
 Install Homebrew if you have not already. You can check if you have it installed with the following command:
 
-```bash
+```sh filename="brew" copy
 brew help
 ```
 
 If you do not have it installed open the Terminal application and execute the following commands:
 
-```bash
+```sh filename="install brew" copy
 # Install Homebrew if necessary https://brew.sh/
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
@@ -57,13 +57,13 @@ brew install openssl
 
 ❗ **Note:** Native ARM Homebrew installations are only going to be supported at `/opt/homebrew`. After Homebrew installs, make sure to add `/opt/homebrew/bin` to your PATH.
 
-```
+```sh filename="add PATH" copy
 echo 'export PATH=/opt/homebrew/bin:$PATH' >> ~/.bash_profile
 ```
 
 An example `bash_profile` for reference may look like the following:
 
-```
+```sh filename="export PATH" copy
 export PATH=/opt/homebrew/bin:$PATH
 export PATH=/opt/homebrew/opt/llvm/bin:$PATH
 export CC=/opt/homebrew/opt/llvm/bin/clang
@@ -75,13 +75,13 @@ export RUSTFLAGS='-L /opt/homebrew/lib'
 
 In order to build **dkg-substrate** in `--release` mode using `aarch64-apple-darwin` Rust toolchain you need to set the following environment variables:
 
-```bash
+```sh filename="export" copy
 echo 'export RUSTFLAGS="-L /opt/homebrew/lib"' >> ~/.bash_profile
 ```
 
 Ensure `gmp` dependency is installed correctly.
 
-```
+```sh filename="install gmp" copy
 brew install gmp
 ```
 
@@ -89,13 +89,13 @@ If you are still receiving an issue with `gmp`, you may need to adjust your path
 
 Run:
 
-```
+```sh filename="clean" copy
 cargo clean
 ```
 
 Then:
 
-```
+```sh filename="export" copy
 export LIBRARY_PATH=$LIBRARY_PATH:$(brew --prefix)/lib:$(brew --prefix)/opt/gmp/lib
 ```
 
@@ -103,6 +103,6 @@ This should be added to your bash_profile as well.
 
 Ensure `protobuf` dependency is installed correctly.
 
-```
+```sh filename="install protobuf" copy
 brew install protobuf
 ```
