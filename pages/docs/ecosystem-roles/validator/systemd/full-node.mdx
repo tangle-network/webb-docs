@@ -45,7 +45,8 @@ ExecStart=/usr/bin/tangle-standalone \
   --node-key-file "/home/<USERNAME>/node-key" \
   --rpc-cors all \
   --port 9946 \
-  --no-mdns
+  --no-mdns \
+  --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --name <NODE_NAME>
 
 [Install]
 WantedBy=multi-user.target
