@@ -40,11 +40,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.darwin-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.darwin-arm64.tar.gz
     ```
 
@@ -52,11 +52,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.linux-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.linux-arm64.tar.gz
     ```
 
@@ -66,11 +66,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.windows-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/prometheus/releases/download/v2.40.3/prometheus-2.40.3.windows-arm64.tar.gz
     ```
 
@@ -83,11 +83,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/node_exporter/releases/download/v1.40.0/node_exporter-1.4.0.darwin-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/node_exporter/releases/download/v1.40.0/node_exporter-1.4.0.darwin-arm64.tar.gz
     ```
 
@@ -95,11 +95,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/node_exporter/releases/download/v1.40.0/node_exporter-1.4.0.linux-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/node_exporter/releases/download/v1.40.0/node_exporter-1.4.0.linux-arm64.tar.gz
     ```
 
@@ -114,11 +114,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/ncabatoff/process-exporter/releases/download/v0.7.10/process-exporter-0.7.10.linux-arm64.tar.gz
     ```
 
@@ -131,7 +131,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
 
 Run the following command:
 
-```
+```sh filename="tar" copy
 tar xvf prometheus-*.tar.gz &&
 tar xvf node_exporter-*.tar.gz &&
 tar xvf process-exporter-*.tar.gz
@@ -145,20 +145,20 @@ tar xvf process-exporter-*.tar.gz
 
 We are first going to copy the `prometheus` binary:
 
-```
+```sh filename="cp" copy
 sudo cp ./prometheus-*.linux-amd64/prometheus /usr/local/bin/
 ```
 
 Next, we are going to copy over the `prometheus` console libraries:
 
-```
+```sh filename="cp" copy
 sudo cp -r ./prometheus-*.linux-amd64/consoles /etc/prometheus &&
 sudo cp -r ./prometheus-*.linux-amd64/console_libraries /etc/prometheus
 ```
 
 We are going to do the same with `node-exporter` and `process-exporter`:
 
-```
+```sh filename="cp" copy
 sudo cp ./node_exporter-*.linux-amd64/node_exporter /usr/local/bin/ &&
 sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/
 ```
@@ -167,7 +167,7 @@ sudo cp ./process-exporter-*.linux-amd64/process-exporter /usr/local/bin/
 
 Now we want to create dedicated users for each of the modules we have installed:
 
-```
+```sh filename="useradd" copy
 sudo useradd --no-create-home --shell /usr/sbin/nologin prometheus &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin node_exporter &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin process-exporter
@@ -175,7 +175,7 @@ sudo useradd --no-create-home --shell /usr/sbin/nologin process-exporter
 
 **7. Create Directories for `Prometheus`, and `Process exporter`:**
 
-```
+```sh filename="mkdir" copy
 sudo mkdir /var/lib/prometheus &&
 sudo mkdir /etc/process-exporter
 ```
@@ -186,7 +186,7 @@ We need to give our user permissions to access these directories:
 
 **prometheus**:
 
-```
+```sh filename="chown" copy
 sudo chown prometheus:prometheus /etc/prometheus/ -R &&
 sudo chown prometheus:prometheus /var/lib/prometheus/ -R &&
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
@@ -194,20 +194,20 @@ sudo chown prometheus:prometheus /usr/local/bin/prometheus
 
 **node_exporter**:
 
-```
+```sh filename="chwon" copy
 sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 ```
 
 **process-exporter**:
 
-```
+```sh filename="chown" copy
 sudo chown process-exporter:process-exporter /etc/process-exporter -R &&
 sudo chown process-exporter:process-exporter /usr/local/bin/process-exporter
 ```
 
 **9. Finally, let's clean up these directories:**
 
-```
+```sh filename="rm" copy
 rm -rf ./prometheus* &&
 rm -rf ./node_exporter* &&
 rm -rf ./process-exporter*
@@ -223,13 +223,13 @@ If you are interested to see how we configure the Tangle Network nodes for monit
 
 Let’s edit the Prometheus config file and add all the modules in it:
 
-```
+```sh filename="nano" copy
 sudo nano /etc/prometheus/prometheus.yml
 ```
 
 Add the following code to the file and save:
 
-```
+```yaml filename="promtheus.yml" copy
 global:
   scrape_interval: 15s
   evaluation_interval: 15s
@@ -273,14 +273,14 @@ You can notice the first scrap where Prometheus monitors itself.
 
 Process exporter needs a config file to be told which processes they should take into account:
 
-```
+```sh filename="nano" copy
 sudo touch /etc/process-exporter/config.yml
 sudo nano /etc/process-exporter/config.yml
 ```
 
 Add the following code to the file and save:
 
-```
+```sh filename="config.yml" copy
 process_names:
   - name: "{{.Comm}}"
     cmdline:
@@ -293,14 +293,8 @@ process_names:
 
 Create and open the Prometheus service file:
 
-```
-sudo touch /etc/systemd/system/prometheus.service &&
-sudo nano /etc/systemd/system/prometheus.service
-```
-
-Add the following lines:
-
-```
+```sh filename="promtheus.service" copy
+sudo tee /etc/systemd/system/prometheus.service > /dev/null << EOF
 [Unit]
   Description=Prometheus Monitoring
   Wants=network-online.target
@@ -319,20 +313,15 @@ Add the following lines:
 
 [Install]
   WantedBy=multi-user.target
+EOF
 ```
 
 ### Node exporter
 
 Create and open the Node exporter service file:
 
-```
-sudo touch /etc/systemd/system/node_exporter.service &&
-sudo nano /etc/systemd/system/node_exporter.service
-```
-
-Add the following lines:
-
-```
+```sh filename="node_exporter.service" copy
+sudo tee /etc/systemd/system/node_exporter.service > /dev/null << EOF
 [Unit]
   Description=Node Exporter
   Wants=network-online.target
@@ -346,20 +335,15 @@ Add the following lines:
 
 [Install]
   WantedBy=multi-user.target
+EOF
 ```
 
 ### Process exporter
 
 Create and open the Process exporter service file:
 
-```
-sudo touch /etc/systemd/system/process-exporter.service &&
-sudo nano /etc/systemd/system/process-exporter.service
-```
-
-Add the following lines:
-
-```
+```sh filename="process-exporter.service" copy
+sudo tee /etc/systemd/system/process-exporter.service > /dev/null << EOF
 [Unit]
   Description=Process Exporter
   Wants=network-online.target
@@ -374,13 +358,14 @@ Add the following lines:
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 ## Starting the Services
 
 Launch a daemon reload to take the services into account in systemd:
 
-```
+```sh filename="deamon-reload" copy
 sudo systemctl daemon-reload
 ```
 
@@ -388,19 +373,19 @@ Next, we will want to start each service:
 
 **prometheus**:
 
-```
+```sh filename="start serive" copy
 sudo systemctl start prometheus.service
 ```
 
 **node_exporter**:
 
-```
+```sh filename="start serive" copy
 sudo systemctl start node_exporter.service
 ```
 
 **process-exporter**:
 
-```
+```sh filename="start serive" copy
 sudo systemctl start process-exporter.service
 ```
 
@@ -408,19 +393,19 @@ And check that they are working fine:
 
 **prometheus**:
 
-```
+```sh filename="status" copy
 systemctl status prometheus.service
 ```
 
 **node_exporter**:
 
-```
+```sh filename="status" copy
 systemctl status node_exporter.service
 ```
 
 **process-exporter**:
 
-```
+```sh filename="status" copy
 systemctl status process-exporter.service
 ```
 
@@ -428,19 +413,19 @@ If everything is working adequately, activate the services!
 
 **prometheus**:
 
-```
+```sh filename="enable" copy
 sudo systemctl enable prometheus.service
 ```
 
 **node_exporter**:
 
-```
+```sh filename="enable" copy
 sudo systemctl enable node_exporter.service
 ```
 
 **process-exporter**:
 
-```
+```sh filename="enable" copy
 sudo systemctl enable process-exporter.service
 ```
 
