@@ -21,7 +21,7 @@ fulfill the requirements for listing your relayer on `app.webb.tools`.
 
 Before we begin we want to `ssh` into the VM and update the system using the specified system package manager:
 
-```
+```sh filename="apt update" copy
 # Update packages
 sudo apt update && sudo apt upgrade
 ```
@@ -39,7 +39,7 @@ to the Relayer Overview page [here]().
 
 Let's create a new directory called `webb-relayer`. This is where we will store all our configuration files, and secrets.
 
-```
+```sh filename="mkdir" copy
 mkdir -p ~/webb-relayer/{config,data,secrets}
 ```
 
@@ -51,14 +51,14 @@ signature relaying page [here](/docs/ecosystem-roles/relayer/anchor-update/).
 
 We want to create a `toml` file to outline our configuration details:
 
-```
+```sh filename="nano" copy
 # main.toml
 nano ~/webb-relayer/config/main.toml
 ```
 
 Let's update to include the required fields for data querying:
 
-```
+```toml filename="main.toml" copy
 # Webb Relayer Network Port
 # default: 9955
 port = 9955
@@ -72,7 +72,7 @@ private-tx-relay = false
 For this example, we will use ETH Goerli Testnet (`chain_id = 5`).
 Create a file for the configuration related to this chain:
 
-```bash
+```sh filename="nano" copy
 # goerli.toml
 nano ~/webb-relayer/config/goerli.toml
 ```
@@ -80,7 +80,7 @@ nano ~/webb-relayer/config/goerli.toml
 Next we want to add the required fields to query the data from the Anchor deployed
 on Goerli Testnet. For an exhasutive list of configuration please refer to the [Configuration Options]() doc. Let's add the following to the file:
 
-```toml
+```toml filename="goerli.toml" copy
 # Block which represents properties for a network
 [evm.goerli]
 name = "goerli"
@@ -131,13 +131,13 @@ events-watcher = { enabled = true, polling-interval = 15000 }
 As you may have noticed, there are a few environment variables inside the configuration file,
 and we will have to supply them. To do so, lets create a `.env` file with these values:
 
-```bash
+```sh filename="nano" copy
 nano ~/webb-relayer/.env
 ```
 
 Add the following fields:
 
-```bash
+```sh filename=".env" copy
 # The internal Webb Relayer Port
 # this will not be the public port, but will be used internally
 # inside docker.
@@ -169,13 +169,13 @@ run the reverse proxy and the Webb relayer.
 The section will cover setting up the required docker service in a docker compose file. Let's start by creating
 a docker-compose file:
 
-```bash
+```sh filename="nano" copy
 nano ~/webb-relayer/docker-compose.yml
 ```
 
 Add the following lines:
 
-```yaml
+```yaml filename="docker-compose.yml" copy
 version: "3"
 
 services:
@@ -227,13 +227,13 @@ volumes:
 This guide makes use of [Caddy](https://caddyserver.com/) as a reverse proxy. Caddy is a powerful reverse proxy that
 makes it incredibly easy to setup with only a few lines. Let's take a look at the configuration:
 
-```bash
+```sh filename="nano" copy
 nano ~/webb-relayer/config/Caddyfile
 ```
 
 Add the following lines:
 
-```bash
+```sh filename="Caddyfile" copy
 {
 	# Remove the below line to disable debug logging, could be helpful
   # but noisy.
@@ -263,7 +263,7 @@ We have now successfully setup the reverse proxy, and we are ready to run the re
 
 Go to `~/webb-relayer` and then fire-up the following command:
 
-```bash
+```sh filename="compose up" copy
 cd ~/webb-relayer
 # Then run docker
 docker compose up # add -d if you want to run it in the backgroud.
@@ -276,7 +276,7 @@ endpoint to view the configuration we outlined above.
 
 Let's make sure we have successfully setup a data-querying relayer. To do so, we will query the relayer's endpoint:
 
-```bash
+```sh filename="test"
 # Replace this with your domain name, that you added inside the .env file
 # if running locally, you should just go assume the DOMAIN is localhost:9955
 https://$DOMAIN/api/v1/info
@@ -284,7 +284,7 @@ https://$DOMAIN/api/v1/info
 
 If everything is working correctly, you should see a response similar to this:
 
-```bash
+```sh filename="response"
 {
   evm: {
     "5": {

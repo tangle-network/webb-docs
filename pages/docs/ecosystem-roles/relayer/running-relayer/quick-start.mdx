@@ -29,7 +29,7 @@ Before you begin, ensure that you have the following prerequisites:
 
 1. Open your terminal and run the following command to download the latest version of the relayer:
 
-```bash
+```sh filename="download latest version" copy
 curl -fsSL https://git.io/get-webb-relayer.sh | sh
 ```
 
@@ -37,7 +37,7 @@ The script will download the relayer binary (or update it if it already exists) 
 
 Alternatively, if you wish to download a specific version of the relayer, run the following command:
 
-```bash
+```sh filename="download specific version" copy
 curl -fsSL https://git.io/get-webb-relayer.sh | sh -s <version>
 ```
 
@@ -48,7 +48,7 @@ will also suggest adding the directory to your `PATH` environment variable.
 
 2. Verify that the relayer was installed successfully by running the following command:
 
-```bash
+```sh filename="verify version" copy
 ~/.webb/webb-relayer --version
 ```
 
@@ -71,14 +71,14 @@ To download the example configuration file, run the following command:
 <Tabs items={["Linux/WSL", "macOS"]} storageKey="selected-binary">
   <Tab>
 
-    ```bash
+    ```sh filename="download" copy
     curl -fsSL https://raw.githubusercontent.com/webb-tools/relayer/main/config/example/config.toml -o ~/.config/webb-relayer/config.toml
     ```
 
   </Tab>
   <Tab>
 
-    ```bash
+    ```sh filename="download" copy
     curl -fsSL https://raw.githubusercontent.com/webb-tools/relayer/main/config/example/config.toml -o ~/Library/Application\ Support/tools.webb.webb-relayer/config.toml
     ```
 
@@ -100,7 +100,7 @@ For example, if you want to override the `port` value in the configuration file,
 
 For example, to modify the `port` value using the environment variable, you can do the following:
 
-```bash
+```sh filename="export" copy
 export WEBB_PORT=9955
 ```
 
@@ -110,7 +110,7 @@ For our example configuration file, the following environment variables are requ
 
 create a new file called `.env` in the same directory as your current directory and add the following line:
 
-```bash
+```sh filename="PRIVATE_KEY" copy
 # Hex-encoded private for the relayer (64 characters) prefixed with 0x
 PRIVATE_KEY="0x..."
 ```
@@ -121,7 +121,7 @@ save the file and exit the editor.
 
 To run the relayer, run the following command:
 
-```bash
+```sh filename="vvv" copy
 ~/.webb/webb-relayer -vvv
 ```
 
@@ -131,7 +131,7 @@ To run the relayer, run the following command:
 
 You should see the following output:
 
-```rust
+```rust filename="output"
  2023-03-14T14:13:08.315804Z DEBUG webb_relayer_config::cli: Getting default dirs for webb relayer
     at crates/relayer-config/src/cli.rs:61
 
@@ -177,14 +177,14 @@ To verify that the relayer is running, you can use the `/api/v1/ip` endpoint:
 <Tabs items={["Local", "Server"]} storageKey="selected-binary">
   <Tab>
 
-    ```bash
+    ```sh filename="local" copy
     curl http://localhost:9955/api/v1/ip
     ```
 
   </Tab>
   <Tab>
 
-    ```bash
+    ```sh filename="server" copy
     curl http://<your-server-ip>:9955/api/v1/ip
     ```
 
@@ -193,7 +193,7 @@ To verify that the relayer is running, you can use the `/api/v1/ip` endpoint:
 
 You should see the following output:
 
-```json
+```json filename="public-ip" copy
 {"ip":"<your-public-ip>"}
 ```
 
