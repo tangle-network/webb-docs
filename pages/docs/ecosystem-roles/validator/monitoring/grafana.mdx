@@ -36,7 +36,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
 <Tabs items={["darwin", "linux"]} storageKey="selected-arch-release">
   <Tab>
 
-    ```
+    ```sh filename="brew" copy
     brew update
     brew install grafana
     ```
@@ -44,7 +44,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
   </Tab>
   <Tab>
 
-    ```
+    ```sh filename="linux" copy
     sudo apt-get install -y apt-transport-https
     sudo apt-get install -y software-properties-common wget
     wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
@@ -62,25 +62,25 @@ Let's first start by downloading the latest releases of the above mentioned modu
   please visit the offical docs [here](https://grafana.com/docs/grafana/v9.0/setup-grafana/installation/mac/).
 </Callout>
 
-```
+```sh filename="add-apt" copy
 sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
 ```
 
 **3. Refresh your APT cache to update your package lists:**
 
-```
+```sh filename="apt update" copy
 sudo apt update
 ```
 
 **4. Next, make sure Grafana will be installed from the Grafana repository:**
 
-```
+```sh filename="apt-cache" copy
 apt-cache policy grafana
 ```
 
 The output of the previous command tells you the version of Grafana that you are about to install, and where you will retrieve the package from. Verify that the installation candidate at the top of the list will come from the official Grafana repository at `https://packages.grafana.com/oss/deb`.
 
-```
+```sh filename="output"
 Output of apt-cache policy grafana
 grafana:
   Installed: (none)
@@ -93,13 +93,13 @@ grafana:
 
 **5. You can now proceed with the installation:**
 
-```
+```sh filename="install grafana" copy
 sudo apt install grafana
 ```
 
 **6. Install the Alert manager plugin for Grafana:**
 
-```
+```sh filename="grafana-cli" copy
 sudo grafana-cli plugins install camptocamp-prometheus-alertmanager-datasource
 ```
 
@@ -111,25 +111,25 @@ The Grafana’s service is automatically created during extraction of the deb pa
 
 Launch a daemon reload to take the services into account in systemd:
 
-```
+```sh filename="daemon-reload" copy
 sudo systemctl daemon-reload
 ```
 
 **Start the Grafana service:**
 
-```
+```sh filename="start service" copy
 sudo systemctl start grafana-server
 ```
 
 And check that they are working fine, one by one:
 
-```
+```sh filename="status" copy
 systemctl status grafana-server
 ```
 
 If everything is working adequately, activate the services!
 
-```
+```sh filename="enable" copy
 sudo systemctl enable grafana-server
 ```
 
