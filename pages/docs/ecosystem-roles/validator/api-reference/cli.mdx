@@ -357,7 +357,7 @@ Method for executing Wasm runtime code
 `compiled` - this is the default and uses the Wasmtime compiled runtime
 `interpreted-i-know-what-i-do` - uses the wasmi interpreter
 
-```sh
+```sh filename="wasm-execution" copy
 tangle-standalone --wasm-execution compiled
 ```
 
@@ -370,7 +370,7 @@ proxy server to filter out dangerous methods. More details:
 https://docs.substrate.io/main-docs/build/custom-rpc/#public-rpcs. Use
 `--unsafe-ws-external` to suppress the warning if you understand the risks.
 
-```sh
+```sh filename="ws-external" copy
 tangle-standalone --ws-external
 ```
 
@@ -378,7 +378,7 @@ tangle-standalone --ws-external
 
 Specify WebSockets RPC server TCP port
 
-```sh
+```sh filename="ws-port" copy
 tangle-standalone --ws-port 9944
 ```
 
@@ -388,7 +388,7 @@ The following subcommands are available:
 
 USAGE:
 
-```
+```sh filename="subcommand" copy
 tangle-standalone <SUBCOMMAND>
 ```
 

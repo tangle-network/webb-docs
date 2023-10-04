@@ -87,8 +87,8 @@ Double check that the config has been written to `/etc/systemd/system/full.servi
 If so, enable the service so it runs on startup, and then try to start it now:
 
 ```sh filename="enable service" copy
+sudo systemctl daemon-reload
 sudo systemctl enable full
-
 sudo systemctl start full
 ```
 
