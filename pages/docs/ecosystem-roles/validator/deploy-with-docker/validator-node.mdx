@@ -131,12 +131,13 @@ To start the node run the following command:
 docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-standalone \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
 --base-path=/data \
---chain dev \
+--chain tangle-testnet \
 --name="YOUR-NODE-NAME" \
 --execution wasm \
 --wasm-execution compiled \
 --trie-cache-size 0 \
---validator
+--validator \
+--telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --name <NODE_NAME>
 ```
 
 <Callout type="info">

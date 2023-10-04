@@ -8,6 +8,21 @@ import {
 } from "./Icons";
 import { DetailedFeatureLink } from "./Feature";
 
+export const QuickDeployArea = () => {
+  return (
+    <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
+      <DetailedFeatureLink
+        feature={{
+          Icon: ServerIcon,
+          description: `Deploy a Tangle node in two steps`,
+          name: "Quick Deployment",
+        }}
+        href="/docs/ecosystem-roles/validator/systemd/quick-node/"
+      ></DetailedFeatureLink>
+    </div>
+  );
+};
+
 export const DeployArea = () => {
   return (
     <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">

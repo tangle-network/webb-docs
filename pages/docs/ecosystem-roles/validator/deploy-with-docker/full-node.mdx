@@ -52,11 +52,12 @@ To start the node run the following command:
 
 ```
 docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-standalone:main \
-  --chain /data/chainspec/tangle-standalone.json \
+  --chain tangle-testnet \
   --name="YOUR-NODE-NAME" \
   --base-path /data \
   --rpc-cors all \
-  --port 9946
+  --port 9946 \
+  --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --name <NODE_NAME>
 ```
 
 <Callout type="info">
