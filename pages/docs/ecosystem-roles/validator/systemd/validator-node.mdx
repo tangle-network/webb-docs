@@ -123,7 +123,7 @@ ExecStart=/usr/bin/tangle-standalone \
   --name <NODE-NAME> \
   --chain tangle-testnet \
   --node-key-file "/home/<USERNAME>/node-key" \
-  --port 9944 \
+  --port 30333 \
   --validator \
   --no-mdns
 
@@ -146,14 +146,14 @@ sudo systemctl start validator
 Check the status of the service:
 
 ```sh filename="status" copy
-systemctl status validator
+sudo systemctl status validator
 ```
 
 You should see the node connecting to the network and syncing the latest blocks.
 If you need to tail the latest output, you can use:
 
 ```sh filename="logs" copy
-journalctl -u validator.service -f
+sudo journalctl -u validator.service -f
 ```
 
 If the node is running correctly, you should see an output similar to below:

@@ -95,14 +95,14 @@ sudo systemctl start full
 Check the status of the service:
 
 ```sh filename="status" copy
-systemctl status full
+sudo systemctl status full
 ```
 
 You should see the node connecting to the network and syncing the latest blocks.
 If you need to tail the latest output, you can use:
 
 ```sh filename="logs" copy
-journalctl -u full.service -f
+sudo journalctl -u full.service -f
 ```
 
 Congratulations! You have officially setup a Tangle Network node using Systemd. If you are interested

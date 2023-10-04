@@ -19,7 +19,7 @@ added to the end of the command. The command will vary depending on how you choo
 <Tabs items={["docker", "systemd"]} storageKey="selected-binary">
   <Tab>
 
-    ```
+    ```sh filename="help" copy
     docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-standalone \
     ghcr.io/webb-tools/tangle/tangle-standalone:main \
     --help
@@ -28,7 +28,7 @@ added to the end of the command. The command will vary depending on how you choo
   </Tab>
   <Tab>
 
-    ```
+    ```sh filename="help" copy
     # If you used the release binary
     ./tangle-standalone --help
 
@@ -43,13 +43,13 @@ If you have compiled the tangle-parachain binary its important to note that the 
 provided first will be passed to the parachain node, while the arguments
 provided after `--` will be passed to the relay chain node.
 
-```
+```sh filename="args" copy
 tangle-parachain <parachain-args> -- <relay-chain-args>
 ```
 
 USAGE:
 
-```
+```sh filename="usage" copy
 tangle-parachain [OPTIONS] [-- <RELAY_CHAIN_ARGS>...]
 tangle-parachain <SUBCOMMAND>
 ```
@@ -63,7 +63,7 @@ The below lists the most commonly used flags for your convienance.
 Shortcut for `--name Alice --validator` with session keys for `Alice` added to keystore. Commonly
 used for development or local test networks.
 
-```sh
+```sh filename="alice" copy
 tangle-standalone --alice
 ```
 
@@ -77,7 +77,7 @@ blocks (i.e a number).
 
 NOTE: only finalized blocks are subject for removal!
 
-```sh
+```sh filename="blocks-pruning" copy
 tangle-standalone --blocks-pruning 120
 ```
 
@@ -86,7 +86,7 @@ tangle-standalone --blocks-pruning 120
 Shortcut for `--name Bob --validator` with session keys for `Bob` added to keystore. Commonly
 used for development or local test networks.
 
-```sh
+```sh filename="bob" copy
 tangle-standalone --bob
 ```
 
@@ -94,7 +94,7 @@ tangle-standalone --bob
 
 Specify a list of bootnodes.
 
-```sh
+```sh filename="bootnodes" copy
 tangle-standalone --bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWAWueKNxuNwMbAtss3nDTQhMg4gG3XQBnWdQdu2DuEsZS
 ```
 
@@ -105,7 +105,7 @@ Specify the chain specification.
 It can be one of the predefined ones (dev, local, or staging) or it can be a path to a
 file with the chainspec (such as one exported by the `build-spec` subcommand).
 
-```sh
+```sh filename="local" copy
 tangle-standalone --chain standalone-local
 ```
 
@@ -114,7 +114,7 @@ tangle-standalone --chain standalone-local
 Shortcut for `--name Charlie --validator` with session keys for `Charlie` added to keystore. Commonly
 used for development or local test networks.
 
-```sh
+```sh filename="charlie" copy
 tangle-standalone --charlie
 ```
 
@@ -124,7 +124,7 @@ Run node as collator. (Not applicable at this time.)
 
 Note that this is the same as running with `--validator`.
 
-```sh
+```sh filename="collator" copy
 tangle-standalone --collator
 ```
 
@@ -132,7 +132,7 @@ tangle-standalone --collator
 
 Specify custom base path.
 
-```sh
+```sh filename="base path" copy
 tangle-standalone --base-path /data
 ```
 
@@ -140,7 +140,7 @@ tangle-standalone --base-path /data
 
 Limit the memory the database cache can use
 
-```sh
+```sh filename="db-cache" copy
 tangle-standalone --db-cache 128
 ```
 
@@ -153,7 +153,7 @@ This includes displaying the log target, log level and thread name.
 This is automatically enabled when something is logged with any higher level than
 `info`.
 
-```sh
+```sh filename="log-output" copy
 tangle-standalone --detailed-log-output
 ```
 
@@ -164,7 +164,7 @@ Specify the development chain.
 This flag sets `--chain=dev`, `--force-authoring`, `--rpc-cors=all`, `--alice`, and
 `--tmp` flags, unless explicitly overridden.
 
-```sh
+```sh filename="dev" copy
 tangle-standalone --dev
 ```
 
@@ -179,7 +179,7 @@ The execution strategy that should be used by all execution contexts
 `both` - execute with both native and Wasm builds
 `nativeelsewasm` - execute with the native build if possible and if it fails, then execute with Wasm
 
-```sh
+```sh filename="wasm" copy
 tangle-standalone --execution wasm
 ```
 
@@ -187,7 +187,7 @@ tangle-standalone --execution wasm
 
 Enable authoring even when offline
 
-```sh
+```sh filename="authoring" copy
 tangle-parachain --force-authoring
 ```
 
@@ -195,7 +195,7 @@ tangle-parachain --force-authoring
 
 Specify custom keystore path
 
-```sh
+```sh filename="keystore path" copy
 tangle-standalone --keystore-path /tmp/chain/data/
 ```
 
@@ -203,7 +203,7 @@ tangle-standalone --keystore-path /tmp/chain/data/
 
 Specify custom URIs to connect to for keystore-services
 
-```sh
+```sh filename="keystore url" copy
 tangle-standalone --keystore-uri foo://example.com:8042/over/
 ```
 
@@ -213,7 +213,7 @@ The human-readable name for this node.
 
 The node name will be reported to the telemetry server, if enabled.
 
-```sh
+```sh filename="name" copy
 tangle-standalone --name zeus
 ```
 
@@ -233,7 +233,7 @@ WARNING: Secrets provided as command-line arguments are easily exposed. Use of t
 option should be limited to development and testing. To use an externally managed secret
 key, use `--node-key-file` instead.
 
-```sh
+```sh filename="node-key" copy
 tangle-standalone --node-key b6806626f5e4490c27a4ccffed4fed513539b6a455b14b32f58878cf7c5c4e68
 ```
 
@@ -249,7 +249,7 @@ follows:
 If the file does not exist, it is created with a newly generated secret key of the
 chosen type.
 
-```sh
+```sh filename="node-key-file" copy
 tangle-standalone --node-key-file ./node-keys-file/
 ```
 
@@ -257,7 +257,7 @@ tangle-standalone --node-key-file ./node-keys-file/
 
 Specify p2p protocol TCP port
 
-```sh
+```sh filename="port" copy
 tangle-standalone --port 9944
 ```
 
@@ -267,7 +267,7 @@ Expose Prometheus exporter on all interfaces.
 
 Default is local.
 
-```sh
+```sh filename="prometheus" copy
 tangle-standalone --prometheus-external
 ```
 
@@ -275,7 +275,7 @@ tangle-standalone --prometheus-external
 
 Specify Prometheus exporter TCP Port
 
-```sh
+```sh filename="prometheus-port" copy
 tangle-standalone --prometheus-port 9090
 ```
 
@@ -287,7 +287,7 @@ A comma-separated list of origins (protocol://domain or special `null` value). V
 `all` will disable origin validation. Default is to allow localhost and
 https://polkadot.js.org origins. When running in --dev mode the default is to allow all origins.
 
-```sh
+```sh filename="rpc-cors" copy
 tangle-standalone --rpc-cors "*"
 ```
 
@@ -300,7 +300,7 @@ proxy server to filter out dangerous methods. More details:
 https://docs.substrate.io/main-docs/build/custom-rpc/#public-rpcs. Use
 `--unsafe-rpc-external` to suppress the warning if you understand the risks.
 
-```sh
+```sh filename="rpc-external" copy
 tangle-standalone --rpc-external
 ```
 
@@ -308,7 +308,7 @@ tangle-standalone --rpc-external
 
 Specify HTTP RPC server TCP port
 
-```sh
+```sh filename="rpc-port" copy
 tangle-standalone --rpc-port 9933
 ```
 
@@ -320,7 +320,7 @@ Default is to keep only the last 256 blocks, otherwise, the state can be kept fo
 the blocks (i.e 'archive'), or for all of the canonical blocks (i.e
 'archive-canonical').
 
-```sh
+```sh filename="state-pruning" copy
 tangle-standalone --state-pruning 128
 ```
 
@@ -332,7 +332,7 @@ This flag can be passed multiple times as a means to specify multiple telemetry
 endpoints. Verbosity levels range from 0-9, with 0 denoting the least verbosity.
 Expected format is 'URL VERBOSITY'.
 
-```sh
+```sh filename="wss" copy
 tangle-standalone --telemetry-url 'wss://foo/bar 0'
 ```
 
@@ -343,7 +343,7 @@ Enable validator mode.
 The node will be started with the authority role and actively participate in any
 consensus task that it can (e.g. depending on availability of local keys).
 
-```sh
+```sh filename="validator" copy
 tangle-standalone --validator
 ```
 
