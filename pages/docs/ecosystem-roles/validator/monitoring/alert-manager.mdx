@@ -37,11 +37,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.darwin-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.darwin-arm64.tar.gz
     ```
 
@@ -49,11 +49,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.linux-arm64.tar.gz &&
     ```
 
@@ -63,11 +63,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.windows-amd64.tar.gz
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     wget https://github.com/prometheus/alertmanager/releases/download/v0.24.0/alertmanager-0.24.0.windows-arm64.tar.gz
     ```
 
@@ -78,7 +78,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
 
 Run the following command:
 
-```
+```sh filename="tar" copy
 tar xvf alertmanager-*.tar.gz
 ```
 
@@ -90,7 +90,7 @@ tar xvf alertmanager-*.tar.gz
 
 Copy the `alertmanager` binary and `amtool`:
 
-```
+```sh filename="cp" copy
 sudo cp ./alertmanager-*.linux-amd64/alertmanager /usr/local/bin/ &&
 sudo cp ./alertmanager-*.linux-amd64/amtool /usr/local/bin/
 ```
@@ -99,13 +99,13 @@ sudo cp ./alertmanager-*.linux-amd64/amtool /usr/local/bin/
 
 Now we want to create dedicated users for the Alertmanager module we have installed:
 
-```
+```sh filename="useradd" copy
 sudo useradd --no-create-home --shell /usr/sbin/nologin alertmanager
 ```
 
 **5. Create Directories for `Alertmanager`:**
 
-```
+```sh filename="mkdir" copy
 sudo mkdir /etc/alertmanager &&
 sudo mkdir /var/lib/alertmanager
 ```
@@ -116,7 +116,7 @@ We need to give our user permissions to access these directories:
 
 **alertManager**:
 
-```
+```sh filename="chown" copy
 sudo chown alertmanager:alertmanager /etc/alertmanager/ -R &&
 sudo chown alertmanager:alertmanager /var/lib/alertmanager/ -R &&
 sudo chown alertmanager:alertmanager /usr/local/bin/alertmanager &&
@@ -125,7 +125,7 @@ sudo chown alertmanager:alertmanager /usr/local/bin/amtool
 
 **7. Finally, let's clean up these directories:**
 
-```
+```sh filename="rm" copy
 rm -rf ./alertmanager*
 ```
 
@@ -141,7 +141,7 @@ The first thing we need to do is add `rules.yml` file to our Prometheus configur
 
 Let’s create the `rules.yml` file that will give the rules for Alert manager:
 
-```
+```sh filename="nano" copy
 sudo touch /etc/prometheus/rules.yml
 sudo nano /etc/prometheus/rules.yml
 ```
@@ -151,7 +151,7 @@ You can create all kinds of rules that can triggered, for an exhausted list of r
 
 Add the following lines and save the file:
 
-```
+```sh filename="group" copy
 groups:
   - name: alert_rules
     rules:
@@ -178,13 +178,13 @@ The criteria for triggering an alert are set in the `expr:` part. You can custom
 
 Then, check the rules file:
 
-```
+```yaml filename="promtool rules" copy
 promtool check rules /etc/prometheus/rules.yml
 ```
 
 And finally, check the Prometheus config file:
 
-```
+```yaml filename="promtool check" copy
 promtool check config /etc/prometheus/prometheus.yml
 ```
 
@@ -212,14 +212,14 @@ The Alert manager config file is used to set the external service that will be c
 
 Let’s create the file:
 
-```
+```sh filename="nano" copy
 sudo touch /etc/alertmanager/alertmanager.yml
 sudo nano /etc/alertmanager/alertmanager.yml
 ```
 
 And add the Gmail configuration to it and save the file:
 
-```
+```sh filename="Gmail config" copy
 global:
  resolve_timeout: 1m
 
@@ -285,14 +285,8 @@ Of course, you have to change the email addresses and the auth_password with the
 
 Create and open the Alert manager service file:
 
-```
-sudo touch /etc/systemd/system/alertmanager.service &&
-sudo nano /etc/systemd/system/alertmanager.service
-```
-
-Add the following lines:
-
-```
+```sh filename="create service" copy
+sudo tee /etc/systemd/system/alertmanager.service > /dev/null << EOF
 [Unit]
   Description=AlertManager Server Service
   Wants=network-online.target
@@ -310,13 +304,14 @@ Add the following lines:
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 ## Starting the Services
 
 Launch a daemon reload to take the services into account in systemd:
 
-```
+```sh filename="daemon-reload" copy
 sudo systemctl daemon-reload
 ```
 
@@ -324,7 +319,7 @@ Next, we will want to start the alertManager service:
 
 **alertManager**:
 
-```
+```sh filename="start service" copy
 sudo systemctl start alertmanager.service
 ```
 
@@ -332,15 +327,15 @@ And check that they are working fine:
 
 **alertManager**::
 
-```
-systemctl status alertmanager.service
+```sh filename="status" copy
+sudo systemctl status alertmanager.service
 ```
 
 If everything is working adequately, activate the services!
 
 **alertManager**:
 
-```
+```sh filename="enable" copy
 sudo systemctl enable alertmanager.service
 ```
 

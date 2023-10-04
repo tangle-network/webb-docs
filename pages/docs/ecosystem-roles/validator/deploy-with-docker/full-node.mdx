@@ -18,7 +18,7 @@ set their keys, fetch the applicable chainspec and run the start command to get 
 
 ### **1. Pull the Tangle Docker image:**
 
-```
+```sh filename="pull" copy
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
 docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
@@ -28,7 +28,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 
 Let us create a directory where we will store all the data for our node. This includes the chain data, and logs.
 
-```
+```sh filename="mkdir" copy
 mkdir /var/lib/tangle/
 ```
 
@@ -37,7 +37,7 @@ mkdir /var/lib/tangle/
 To join the Tangle Test network, we need to fetch the appropriate chainspec for the Tangle network.
 Download the latest chainspec for standalone testnet:
 
-```
+```sh filename="get chainspec" copy
 # Fetches chainspec for Tangle network
 wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-standalone.json
 ```
@@ -50,7 +50,7 @@ Please make a reference where you have stored this `json` file as we will need i
 
 To start the node run the following command:
 
-```
+```sh filename="docker run" copy
 docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-standalone:main \
   --chain tangle-testnet \
   --name="YOUR-NODE-NAME" \
@@ -79,7 +79,7 @@ The upgrade process is straightforward and is the same for a full node.
 
 1. Stop the docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -96,7 +96,7 @@ If you need a fresh instance of your Tangle node, you can purge your node by rem
 
 You'll first need to stop the Docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -104,14 +104,14 @@ If you did not use the `-v` flag to specify a local directory for storing your c
 
 If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your parachain node data:
 
-```
+```sh filename="rm" copy
 # purges standalone data
 sudo rm -rf /data/chains/*
 ```
 
 If you ran with parachain node you can run the following command to purge your relay-chain node data:
 
-```
+```sh filename="rm" copy
 # purges relay chain data
 sudo rm -rf /data/polkadot/*
 ```

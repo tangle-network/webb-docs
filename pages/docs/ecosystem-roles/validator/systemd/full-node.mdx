@@ -15,15 +15,9 @@ compiled the Tangle binary. If you have not done so, please refer to the [Requir
 
 Run the following commands to create the service configuration file:
 
-```
+```sh filename="mv" copy
 # Move the tangle-standalone binary to the bin directory (assumes you are in repo root directory)
 sudo mv ./target/release/tangle-standalone /usr/bin/
-
-# navigate to /etc
-cd /etc/systemd/system
-
-# create the service configuration file
-sudo touch full.service
 ```
 
 Add the following contents to the service configuration file. Make sure to replace the **USERNAME** with the username you created in the previous step, add your own node name, and update
@@ -33,7 +27,8 @@ any paths or ports to your own preference.
 
 **Full Node**
 
-```
+```sh filename="full.service" copy
+sudo tee /etc/systemd/system/full.service > /dev/null << EOF
 [Unit]
 Description=Tangle Full Node
 After=network-online.target
@@ -55,13 +50,15 @@ ExecStart=/usr/bin/tangle-standalone \
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 **Full Node with evm trace**
 
 **Note:** To run with evm trace, you should use a binary built with `txpool` flag, refer [requirements](../requirements.mdx) page for more details.
 
-```
+```sh filename="full.service" copy
+sudo tee /etc/systemd/system/full.service > /dev/null << EOF
 [Unit]
 Description=Tangle Full Node
 After=network-online.target
@@ -82,6 +79,7 @@ ExecStart=/usr/bin/tangle-standalone \
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 ### Enable the services
@@ -89,23 +87,23 @@ WantedBy=multi-user.target
 Double check that the config has been written to `/etc/systemd/system/full.service` correctly.
 If so, enable the service so it runs on startup, and then try to start it now:
 
-```
+```sh filename="enable service" copy
+sudo systemctl daemon-reload
 sudo systemctl enable full
-
 sudo systemctl start full
 ```
 
 Check the status of the service:
 
-```
-systemctl status full
+```sh filename="status" copy
+sudo systemctl status full
 ```
 
 You should see the node connecting to the network and syncing the latest blocks.
 If you need to tail the latest output, you can use:
 
-```
-journalctl -u full.service -f
+```sh filename="logs" copy
+sudo journalctl -u full.service -f
 ```
 
 Congratulations! You have officially setup a Tangle Network node using Systemd. If you are interested

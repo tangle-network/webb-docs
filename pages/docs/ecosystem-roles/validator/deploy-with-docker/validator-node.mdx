@@ -17,7 +17,7 @@ please visit the official Docker [docs](https://docs.docker.com/get-docker/). Wh
 Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-standalone), we pull the `tangle-standalone:main` Docker image from ghcr.io
 so that we can generate and insert our required keys before starting the node.
 
-```
+```sh filename="pull" copy
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
 
 docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
@@ -27,7 +27,7 @@ docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 
 Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
 
-```
+```sh filename="mkdir" copy
 mkdir /var/lib/tangle/
 ```
 
@@ -36,7 +36,7 @@ mkdir /var/lib/tangle/
 To join the Tangle Test network as node operator we need to fetch the appropriate chainspec for the Tangle network.
 Download the latest chainspec for standalone testnet:
 
-```
+```sh filename="get chainspec" copy
 # Fetches chainspec for Tangle network
 wget https://github.com/webb-tools/tangle/blob/main/chainspecs/standalone/tangle-standalone.json
 ```
@@ -59,7 +59,7 @@ should paste your SURI when the command asks for it.
 
 **Account Keys**
 
-```
+```sh filename="Acco" copy
 # it will ask for your suri, enter it.
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
@@ -71,7 +71,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Aura Keys**
 
-```
+```sh filename="Aura" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
@@ -82,7 +82,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Im-online Keys** - **these keys are optional (required if you are running as a validator)**
 
-```
+```sh filename="Imonline" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     key insert --base-path /var/lib/tangle/ \
@@ -93,7 +93,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **DKG Keys**
 
-```
+```sh filename="DKG" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     tangle-standalone key insert --base-path /data \
@@ -104,7 +104,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 **Grandpa Keys**
 
-```
+```sh filename="Grandpa" copy
 docker run --rm -it --platform linux/amd64 --network="host" -v "/var/lib/data" \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
     tangle-standalone key insert --base-path /data \
@@ -115,7 +115,7 @@ ghcr.io/webb-tools/tangle/tangle-standalone:main \
 
 To ensure you have successfully generated the keys correctly run:
 
-```
+```sh filename="ls" copy
 ls ~/webb/tangle/chains/*/keystore
 # You should see a some file(s) there, these are the keys.
 ```
@@ -127,7 +127,7 @@ if you want the node to auto generate the keys, add the `--auto-insert-keys` fla
 
 To start the node run the following command:
 
-```
+```sh filename="docker run" copy
 docker run --platform linux/amd64 --network="host" -v "/var/lib/data" --entrypoint ./tangle-standalone \
 ghcr.io/webb-tools/tangle/tangle-standalone:main \
 --base-path=/data \
@@ -150,7 +150,7 @@ such as the chain specification, node name, role, genesis state, and more.
 If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
 blocks being produced on the Tangle network!
 
-```
+```sh filename="logs"
 2023-03-22 14:55:51 Tangle Standalone Node
 2023-03-22 14:55:51 ✌️  version 0.1.15-54624e3-aarch64-macos
 2023-03-22 14:55:51 ❤️  by Webb Technologies Inc., 2017-2023
@@ -185,14 +185,14 @@ blocks being produced on the Tangle network!
 
 The docker-compose file will spin up a container running Tangle standalone node, but you have to set the following environment variables. Remember to customize your the values depending on your environment and then copy paste this to CLI.
 
-```
+```sh filename="set variables" copy
 RELEASE_VERSION=main
 CHAINSPEC_PATH=/tmp/chainspec/
 ```
 
 After that run:
 
-```
+```sh filename="compose up" copy
 docker compose up -d
 ```
 
@@ -204,7 +204,7 @@ The upgrade process is straightforward and is the same for a full node.
 
 1. Stop the docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -223,7 +223,7 @@ If you need a fresh instance of your Tangle node, you can purge your node by rem
 
 You'll first need to stop the Docker container:
 
-```
+```sh filename="docker stop" copy
 sudo docker stop `CONTAINER_ID`
 ```
 
@@ -231,7 +231,7 @@ If you did not use the `-v` flag to specify a local directory for storing your c
 
 If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your standalone node data:
 
-```
+```sh filename="rm" copy
 # purges standalone data
 sudo rm -rf /data/chains/*
 ```

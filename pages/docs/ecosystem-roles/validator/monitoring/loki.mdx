@@ -28,11 +28,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-darwin-amd64.zip"
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-darwin-arm64.zip"
     ```
 
@@ -40,11 +40,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-linux-amd64.zip"
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-linux-arm64.zip"
     ```
 
@@ -54,7 +54,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/loki-windows-amd64.exe.zip"
     ```
 
@@ -67,11 +67,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/promtail-darwin-amd64.zip"
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/promtail-darwin-arm64.zip"
     ```
 
@@ -79,11 +79,11 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/promtail-linux-amd64.zip"
     ```
     ARM version:
-    ```bash
+    ```sh filename="ARM" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/promtail-linux-arm64.zip"
     ```
 
@@ -91,7 +91,7 @@ Let's first start by downloading the latest releases of the above mentioned modu
   <Tab>
 
     AMD version:
-    ```bash
+    ```sh filename="AMD" copy
     curl -O -L "https://github.com/grafana/loki/releases/download/v2.7.0/promtail-windows-amd64.exe.zip"
     ```
 
@@ -100,14 +100,14 @@ Let's first start by downloading the latest releases of the above mentioned modu
 
 **3. Extract the Downloaded Files:**
 
-```
+```sh filename="unzip" copy
 unzip "loki-linux-amd64.zip" &&
 unzip "promtail-linux-amd64.zip"
 ```
 
 **4. Copy the Extracted Files into `/usr/local/bin`:**
 
-```
+```sh filename="cp" copy
 sudo cp loki-linux-amd64 /usr/local/bin/ &&
 sudo cp promtail-linux-amd64 /usr/local/bin/
 ```
@@ -116,14 +116,14 @@ sudo cp promtail-linux-amd64 /usr/local/bin/
 
 Now we want to create dedicated users for each of the modules we have installed:
 
-```
+```sh filename="useradd" copy
 sudo useradd --no-create-home --shell /usr/sbin/nologin loki &&
 sudo useradd --no-create-home --shell /usr/sbin/nologin promtail
 ```
 
 **6. Create Directories for `loki`, and `promtail`:**
 
-```
+```sh filename="mkdir" copy
 sudo mkdir /etc/loki &&
 sudo mkdir /etc/promtail
 ```
@@ -132,14 +132,14 @@ sudo mkdir /etc/promtail
 
 We need to give our user permissions to access these directories:
 
-```
+```sh filename="chown" copy
 sudo chown loki:loki /usr/local/bin/loki-linux-amd64 &&
 sudo chown promtail:promtail /usr/local/bin/promtail-linux-amd64
 ```
 
 **9. Finally, let's clean up these directories:**
 
-```
+```sh filename="rm" copy
 rm -rf ./loki-linux-amd64* &&
 rm -rf ./promtail-linux-amd64*
 ```
@@ -157,12 +157,12 @@ There are many other config options for Loki, and you can read more about Loki c
 
 Let’s create the file:
 
-```
+```sh filename="nano" copy
 sudo touch /etc/loki/config.yml
 sudo nano /etc/loki/config.yml
 ```
 
-```
+```yaml filename="config.yaml" copy
 auth_enabled: false
 
 server:
@@ -220,12 +220,12 @@ want to pick up. There are many other config options for Promtail, and you can r
 
 Let’s create the file:
 
-```
+```sh filename="nano" copy
 sudo touch /etc/promtail/config.yml
 sudo nano /etc/promtail/config.yml
 ```
 
-```
+```yaml filename="config.yaml" copy
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
@@ -252,14 +252,8 @@ scrape_configs:
 
 Create and open the Loki service file:
 
-```
-sudo touch /etc/systemd/system/loki.service &&
-sudo nano /etc/systemd/system/loki.service
-```
-
-Add the following lines:
-
-```
+```sh filename="loki.service" copy
+sudo tee /etc/systemd/system/loki.service > /dev/null << EOF
 [Unit]
   Description=Loki Service
   Wants=network-online.target
@@ -273,20 +267,15 @@ Add the following lines:
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 ### Promtail
 
 Create and open the Promtail service file:
 
-```
-sudo touch /etc/systemd/system/promtail.service &&
-sudo nano /etc/systemd/system/promtail.service
-```
-
-Add the following lines:
-
-```
+```sh filename="promtail.service" copy
+sudo tee /etc/systemd/system/promtail.service > /dev/null << EOF
 [Unit]
   Description=Promtail Service
   Wants=network-online.target
@@ -300,6 +289,7 @@ Add the following lines:
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 Great! You have now configured all the services needed to run Loki.
@@ -308,13 +298,13 @@ Great! You have now configured all the services needed to run Loki.
 
 Launch a daemon reload to take the services into account in systemd:
 
-```
+```sh filename="daemon-reload" copy
 sudo systemctl daemon-reload
 ```
 
 Next, we will want to start each service:
 
-```
+```sh filename="start service" copy
 sudo systemctl start loki.service &&
 sudo systemctl start promtail.service
 ```
@@ -323,19 +313,19 @@ And check that they are working fine, one by one:
 
 **loki**:
 
-```
+```sh filename="status" copy
 systemctl status loki.service
 ```
 
 **promtail**:
 
-```
+```sh filename="status" copy
 systemctl status promtail.service
 ```
 
 If everything is working adequately, activate the services!
 
-```
+```sh filename="enable" copy
 sudo systemctl enable loki.service &&
 sudo systemctl enable promtail.service
 ```
