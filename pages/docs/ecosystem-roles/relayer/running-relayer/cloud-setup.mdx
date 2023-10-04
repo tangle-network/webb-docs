@@ -34,7 +34,7 @@ sudo apt update && sudo apt upgrade
 
 **Update Snap package**
 
-```
+```sh filename="apt install" copy
 # Update snap packages
 sudo apt install -y snapd
 sudo snap install core; sudo snap refresh core
@@ -42,7 +42,7 @@ sudo snap install core; sudo snap refresh core
 
 **Install dependencies**
 
-```
+```sh filename="apt install" copy
 # Install dependencies
 sudo apt install gcc cmake pkg-config libssl-dev git clang libclang-dev
 sudo apt install build-essential
@@ -50,7 +50,7 @@ sudo apt install build-essential
 
 **Install Rust**
 
-```
+```sh filename="rust" copy
 # Install rust
 curl https://sh.rustup.rs -sSf | sh -s -- -y
 export PATH=~/.cargo/bin:$PATH
@@ -59,14 +59,14 @@ source ~/.cargo/env
 
 **Install Certbot**
 
-```
+```sh filename="certbot" copy
 # Install certbot
 sudo snap install --classic certbot && sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
 
 **Build Relayer from source**
 
-```
+```sh filename="build" copy
 # Build from source
 git clone https://github.com/webb-tools/relayer.git
 cd relayer && cargo build --release --features cli
@@ -78,17 +78,13 @@ cd relayer && cargo build --release --features cli
 
 Let's first create a service file for the relayer:
 
-```
-# Create the service file
-sudo touch /etc/systemd/system/webb-relayer.service
-```
-
 Next, we will paste the following into the service file, and replace the `<user>` with the user that will be running the relayer:
 
-```
-# This assumes the repo has been cloned in the home directory of the user
-# Paste the following into the service file, and replace the <user>:
+- This assumes the repo has been cloned in the home directory of the user
+- Paste the following into the service file, and replace the <user>:
 
+```
+sudo tee /etc/systemd/system/webb-relayer.service > /dev/null << EOF
 [Unit]
 Description=WebbRelayer
 
@@ -99,11 +95,12 @@ ExecStart=cargo run --features cli --bin webb-relayer -- -c /home/<user>/relayer
 
 [Install]
 WantedBy=multi-user.target
+EOF
 ```
 
 2. Enable and start the system service:
 
-```
+```sh filename="enable & start" copy
 sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
 ```
 
@@ -113,7 +110,7 @@ sudo systemctl enable webb-relayer && sudo systemctl start webb-relayer
 
 2. Install nginx if it isn't already on your machine:
 
-```
+```sh filename="nginx" copy
 sudo apt install nginx
 ```
 
@@ -121,7 +118,7 @@ sudo apt install nginx
 
 3. Create nginx site files for your domain:
 
-```
+```sh filename="site files" copy
 cd /etc/nginx/sites-available &&
 
 sudo cp default <domain name> &&
@@ -131,7 +128,7 @@ sudo ln -s /etc/nginx/sites-available/<domain name> /etc/nginx/sites-enabled/
 
 4. Modify the nginx sites-available file to:
 
-```
+```console filename="default" copy
 server {
     listen 80;
     listen [::]:80;
@@ -149,13 +146,13 @@ server {
 
 5. Check the nginx configuration
 
-```
+```sh filename="status nginx" copy
 sudo nginx -t
 ```
 
 6. If no issues exist, restart the nginx service:
 
-```
+```sh filename="restart nginx" copy
 sudo systemctl restart nginx
 ```
 
@@ -163,13 +160,13 @@ sudo systemctl restart nginx
 
 7. Create the self-signed certificate:
 
-```
+```sh filename="certonly" copy
 sudo certbot certonly --nginx
 ```
 
 8. Modify the nginx site file:
 
-```
+```sh filename="site file" copy
 map $http_upgrade $connection_upgrade {
     default upgrade;
     '' close;
@@ -207,7 +204,7 @@ server {
 
 9. Check Nginx configuration and restart the service:
 
-```
+```sh filename="restart nginx" copy
 sudo nginx -t && sudo systemctl restart nginx
 ```
 
@@ -215,11 +212,15 @@ sudo nginx -t && sudo systemctl restart nginx
 
 Relayers will want to setup monitoring to ensure maximum uptime and automatic restarts when things go awry.
 
-1. `sudo apt install -y monit`
+1. Install monit
+
+```sh filename="install monit" copy
+sudo apt install -y monit
+```
 
 2. modify the monitrc file at: `/etc/monit/monitrc`
 
-```
+```sh filename="monitrc" copy
 set httpd port 2812 and
 use address localhost
 allow localhost
@@ -243,7 +244,7 @@ check process webb-relayer matching target/release/webb-relayer
 
 3. restart monit and validate:
 
-```
+```sh filename="restart & validate" copy
 sudo monit reload && sudo monit validate
 ```
 
