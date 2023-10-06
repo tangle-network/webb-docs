@@ -1,0 +1,5 @@
+{
+  "full-node": "Full Node",
+  "validator-node": "Validator Node",
+  "relayer-node": "Relayer Node"
+}

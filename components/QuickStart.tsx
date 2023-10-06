@@ -18,7 +18,7 @@ export const QuickStartArea = () => {
           description: `Start your journey on Tangle Network. This guide will walk you through the steps to become a validator, ensuring network security and integrity.`,
           name: "Validate on Tangle Network",
         }}
-        href="/docs/ecosystem-roles/validator/quickstart/"
+        href="/docs/tangle-network/validator/quickstart/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
