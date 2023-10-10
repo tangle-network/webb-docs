@@ -1,13 +1,7 @@
-{
-  "getting-started": "Getting Started",
+{ 
   "overview": "Overview",
-  "use-cases": "Use Cases",
-  "webb-protocol": "Webb Protocol",
-  "pallets": "Pallets and Precompiles",
-  "json-rpc-endpoints": "JSON-RPC Endpoints",
-  "understanding-dkg-tangle": "Distributed Key Generation",
-  "governance": "Onchain Governance",
+  "build": "Build",
   "node": "Node",
-  "incentives": "Incentives",
-  "community": "Team and Community"
+  "learn": "Learn",
+  "governance": "Govern"
 }
