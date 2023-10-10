@@ -7,6 +7,6 @@
   "deploy-with-docker": "Deploying with Docker",
   "systemd": "Running with Systemd",
   "monitoring": "Node Monitoring",
-  "api-reference": "API Reference",
+  "flags": "Flags",
   "troubleshooting": "Troubleshooting"
 }

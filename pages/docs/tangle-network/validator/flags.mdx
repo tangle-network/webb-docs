@@ -1,0 +1,100 @@
+---
+title: Flags
+description: Describes the flags necessary to run and customize a Tangle node.
+---
+
+import Callout from '/components/Callout';
+
+# Flags and Subcommands
+
+Setting up a Tangle Network node involves various flags to configure its operation. This guide elucidates the commonly used flags and provides instructions on how to view the complete list.
+
+<Callout>
+Always refer to the official Substrate documentation for exhaustive details on [flags, subcommands, and other CLI tools available for Substrate-based nodes, including Tangle.](https://docs.substrate.io/reference/command-line-tools/node-template/)
+</Callout>
+
+### Networking:
+
+- `--port`: Define the TCP port for peer-to-peer protocols.
+- `--rpc-port`: Unified port for both HTTP and WS connections.
+- `--in-peers`: Limit on accepted incoming connections (Default: 25).
+- `--out-peers`: Limit on maintained outgoing connections (Default: 25).
+
+### Execution:
+
+- `--execution`: Choose the execution strategy for all contexts based on the runtime compilation:
+
+  - `native`: Use only the native build.
+  - `wasm`: Use only the Wasm build.
+  - `both`: Use both native and Wasm builds.
+  - `nativeelsewasm`: Use native; if it fails, use Wasm.
+
+- `--wasm-execution`: Method for executing Wasm runtime code:
+  - `compiled`: Uses the Wasmtime compiled runtime (default).
+  - `interpreted-i-know-what-i-do`: Uses the wasmi interpreter.
+
+### State & Database:
+
+- `--state-pruning`: Define the state pruning mode:
+
+  - `archive`: Retain the full state of all blocks.
+  - `<number-of-blocks>`: Retain state only for a specified number of blocks.
+
+- `--trie-cache-size`: Set the internal state cache size.
+- `--db-cache`: Limit the database cache's memory usage. Recommended: 50% of server RAM.
+
+### File Paths & Chain Spec:
+
+- `--base-path`: Path where chain data resides.
+- `--chain`: Chain specification to use; can be a file path.
+
+### Telemetry & Naming:
+
+- `--name`: Assign a name to the node for telemetry.
+- `--telemetry-url`: URL for the telemetry server. Can specify multiple URLs.
+
+### Ethereum Compatibility (Frontier):
+
+- `--eth-log-block-cache`: Limit for the LRU cache size for block data (Default: 300,000,000).
+- `--eth-statuses-cache`: Limit for the LRU cache size for transaction statuses (Default: 300,000,000).
+
+### Syncing:
+
+- `--sync`: Configure the blockchain syncing mode:
+  - `full`: Download and validate the full blockchain history.
+  - `fast`: Download blocks without execution and get the latest state with proofs.
+  - `fast-unsafe`: As 'fast', but without downloading state proofs.
+  - `warp`: Download only the latest state and proof.
+
+## Accessing All Flags
+
+To see a full list of flags:
+
+### Using Docker:
+
+Confirm the path and image with your image name:
+
+```
+docker run --network="host" -v "/var/lib/data:/data"
+-u $(id -u ${USER}):$(id -g ${USER})
+ghcr.io/webb-tools/tangle/tangle-standalone:main --help
+```
+
+### Using Systemd:
+
+If you used the binary directly:
+
+`./tangle-standalone-YOUR-VERSION-HERE> --help`
+
+If you compiled the binary:
+
+`./target/release/tangle-standalone-YOUR-VERSION-HERE> --help`
+
+<Callout>
+Currently, your release may be one the following.
+Refer to [the Releases page on our Github for more information](https://github.com/webb-tools/tangle/releases):
+- tangle-standalone-light-client-linux-amd64
+- tangle-standalone-linux-amd64
+- tangle-standalone-relayer-linux-amd64
+- tangle-standalone-txpool-linux-amd64
+</Callout>
