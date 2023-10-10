@@ -1,45 +1,52 @@
 ---
-title: Requirements
-description: An overview of Webb Tangle node requirements.
+title: Node Software, Binaries and Sources
+description: An overview of Tangle Network software.
 ---
 
-import { Tabs, Tab } from "../../../../components/Tabs";
+import { Tabs, Tab } from "/components/Tabs";
+import Callout from "/components/Callout";
 
-# Requirements
+# Software and Dependencies
 
-The current Tangle testnet is a standalone network, meaning that it is not connected to the Polkadot or Kusama relay chain.
-Since the Tangle is not a parachain, the size of nodes are quite a small build as it only contains code to run the standalone Tangle network and not syncing
-the relay chain or communicate between the two. As such, the build is smaller, and does not require the same minumum spec requirements as a parachain node.
+## Binaries
 
-The following specifications are the ideal or recommended, but nodes can be run with less. Testnet nodes have also been run using AWS t3.Large instances.
+Every release of tangle node includes a Precompiled binary, its currently limited to amd-64 architecture but we plan to
+support more soon. You can view all releases [here](https://github.com/webb-tools/tangle/releases).
 
-| Component | Requirements                                                                                           |
-| --------- | ------------------------------------------------------------------------------------------------------ |
-| CPU       | Intel(R) Core(TM) i7-7700K CPU @ 4.20GHz                                                               |
-| Storage   | An NVMe solid state drive of 500 GB (As it should be reasonably sized to deal with blockchain growth). |
-| Memory    | 32GB ECC                                                                                               |
-| Firewall  | P2P port must be open to incoming traffic: <br /> - Source: Any <br /> - Destination: 30333, 30334 TCP |
+In the below commands, substitute `LATEST_RELEASE` with the version you want to use, the current latest version is `0.4.6`
 
-## Running Ports
+**Get tangle binary**
+```sh filename="Get binary" copy
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-linux-amd64
+```
+**Get tangle binary with txpool feature**
+```sh filename="Get binary txpool" copy
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-txpool-linux-amd64
+```
+**Get tangle binary with relayer feature**
+```sh filename="Get binary relayer" copy
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-relayer-linux-amd64
+```
+**Get tangle binary with light-client feature**
+```sh filename="Get binary light" copy
+wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-light-client-linux-amd64
+```
+### Synchronize Chain Data
 
-As stated before, the standalone nodes will listen on multiple ports. The default Substrate ports are used in the standalone,
-while the relay chain will listen on the next higher port.
+Once installed, you can begin syncing your node by running the following command. **Your path may vary depend on whether you used the binary, or built from source**:
 
-The only ports that need to be open for incoming traffic are those designated for P2P.
+```sh filename="Syncing node" copy
+./tangle-standalone
+```
 
-**Default Ports for a Tangle Full-Node:**
+Once your node has fully syncronized with Tangle Network you may proceed to setup the
+necessary accounts to operate a validator or other operations.
 
-| Description | Port        |
-| ----------- | ----------- |
-| P2P         | 30333 (TCP) |
-| RPC         | 9933        |
-| WS          | 9944        |
-| Prometheus  | 9615        |
-
-## Dependencies
-
-In order to build a Tangle node from source your machine must have specific dependecies installed. This guide
+## Alternative: Build From Source
+In order to build a Tangle node from source your machine must have specific dependencies installed. This guide
 outlines those requirements.
+
+#### Rust Dependency
 
 This guide uses [https://rustup.rs](https://rustup.rs) installer and the `rustup` tool to manage the Rust toolchain. Rust is required to
 compile a Tangle node.
@@ -63,9 +70,8 @@ rustup update nightly
 rustup target add wasm32-unknown-unknown --toolchain nightly
 ```
 
-Great! Now your Rust environment is ready! 🚀🚀
 
-### Substrate Dependencies
+#### Substrate Dependencies
 
 <Tabs items={["linux", "darwin", "windows"]} storageKey="selected-arch-release">
   <Tab>
@@ -112,7 +118,7 @@ Great! Now your Rust environment is ready! 🚀🚀
   </Tab>
 </Tabs>
 
-### Build from Source 💻
+---
 
 Once the development environment is set up, you can build the Tangle node from source.
 
@@ -129,12 +135,23 @@ cargo build --release
 
 You will now have the `tangle-standalone` binary built in `target/release/` dir
 
-#### Feature Flags
+### Synchronize Chain Data
+
+Once installed, you can begin syncing your node by running the following command. **Your path may vary depend on whether you used the binary, or built from source**:
+
+```sh filename="Syncing node" copy
+./target/release/tangle-standalone
+```
+
+Once your node has fully syncronized with Tangle Network you may proceed to setup the
+necessary accounts to operate a validator or other operations.
+
+
+### Configuring your Build from Source with Feature Flags
 
 Some features of tangle node are setup behind feature flags, to enable these features you will have to build the binary with these flags enabled
 
 1. **txpool**
-
 This feature flag is useful to help trace and debug evm transactions on the chain, you should build node with this flag if you intend to use the node for any evm transaction following
 
 ```sh filename="Build txpool" copy
@@ -142,7 +159,6 @@ cargo build --release --features txpool
 ```
 
 2. **relayer**
-
 This feature flag is used to start the embedded tx relayer with tangle node, you should build node with this flag if you intend to run a node with a relayer which can be used for transaction relaying or data querying
 
 ```sh filename="Build relayer" copy
@@ -150,40 +166,9 @@ cargo build --release --features relayer
 ```
 
 3. **light-client**
-
 This feature flag is used to start the embedded light client with tangle node, you should build node with this flag if you intend to run a node with a light client relayer to sync EVM data on Tangle
 
 ```sh filename="Build light" copy
 cargo build --release --features light-client
 ```
 
-### Use Precompiled binary 💻
-
-Every release of tangle node includes a Precompiled binary, its currently limited to amd-64 architecture but we plan to
-support more soon. You can view all releases [here](https://github.com/webb-tools/tangle/releases).
-
-In the below commands, substiture `LATEST_RELEASE` with the version you want to use, the current latest version is `0.4.6`
-
-### Get tangle binary
-
-```sh filename="Get binary" copy
-wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-linux-amd64
-```
-
-### Get tangle binary with txpool feature
-
-```sh filename="Get binary txpool" copy
-wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-txpool-linux-amd64
-```
-
-### Get tangle binary with relayer feature
-
-```sh filename="Get binary relayer" copy
-wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-relayer-linux-amd64
-```
-
-### Get tangle binary with light-client feature
-
-```sh filename="Get binary light" copy
-wget https://github.com/webb-tools/tangle/releases/download/<LATEST_RELEASE>/tangle-standalone-light-client-linux-amd64
-```

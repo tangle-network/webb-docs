@@ -7,7 +7,7 @@
   "json-rpc-endpoints": "JSON-RPC Endpoints",
   "understanding-dkg-tangle": "Distributed Key Generation",
   "governance": "Onchain Governance",
-  "validator": "Validate",
+  "node": "Node",
   "incentives": "Incentives",
   "community": "Team and Community"
 }

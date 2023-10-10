@@ -1,0 +1,211 @@
+---
+title: Start Validating on Tangle
+description: An overview of Tangle Network's validator registration process.
+---
+
+import { Tabs, Tab } from "/components/Tabs";
+import Callout from "/components/Callout";
+
+# Introduction
+
+Becoming a validator on a decentralized network like Tangle is a big responsibility. You are accountable for both your stake and the stake of your nominators. Any errors could lead to slashing of tokens, impacting your balance and reputation. However, there are also rewards - you help secure a decentralized network and can grow your stake through nominations.
+
+To become a validator, you need substantial system administration skills to set up infrastructure and resolve anomalies independently. Follow security best practices, as this is crucial for success. The validator role involves more than just running a node.
+
+You don't have to go it alone. Connect with experienced teams and fellow validators in communities like the Tangle [Discord Validator channel.](https://webb.tools/community) They can provide invaluable insights and support. Carefully weigh the risks and rewards, prepare thoroughly, and leverage the community. 
+
+Generally, the process for becoming a validator involves three steps: 
+
+1. **Bonding Tokens:** Before a node can become a validator, the node operator usually needs to bond (or stake) a certain amount of tokens. This is a way of putting up collateral that can be slashed (or forfeited) if the validator behaves maliciously or fails to properly validate transactions and blocks. Bonding is a way of ensuring that validators have a vested interest in properly maintaining the network.
+
+<Callout type="info"> 
+**How much TNT do I need to be an active Validator?**
+
+To be elected to the active validator set (to recieve block rewards), you need a minimum stake behind your validator. This can come from yourself or nominators. This means at a minimum, you'll need enough TNT for stash and staking accounts with the existential deposit, plus extra for fees. The rest can come from nominators. To understand validator election, check the [NPoS election algorithms page.](https://wiki.polkadot.network/docs/learn-phragmen)
+
+In the future, validators may be able to participate in other forms of reward-winning activities without participating in block rewards.
+</Callout>
+
+2. **Setting Up Validator Infrastructure:** This includes ensuring that the node is properly configured, connected to the network, has the necessary keys set up, etc. Part of this setup will involve generating and injecting session keys (like DKG, Aura, Grandpa, etc.) which are crucial for various consensus and validation processes.
+
+3. **Nominating or Registering as a Validator:** After bonding tokens and setting up the validator node, the operator then registers or nominate their node as a validator candidate. This involves submitting a transaction to the network indicating their intention to validate.
+
+# Launch a Validator
+<Callout>
+The following guide assumes you have a node operating and synced with the network. If not, see the following:
+1. [Hardware Specifications](../hardware/)
+2. [Node Software](../node-software/)
+3. [Run Node with Docker](../deploy-with-docker/validator-node.mdx)
+4.  **or** [Run Node with Systemd](../systemd/validator-node.mdx)
+
+Once your node is operational, proceed. 
+</Callout>
+
+
+## 1. Bond TNT or tTNT
+To validate, you will use a 'Stash' account and a 'staking proxy.'  Make sure this account has enough funds to pay the fees for making transactions. Keep most of your funds in the stash account since it is meant to be the custodian of your staking funds. While you are not required to use a staking proxy, it is highly recommended. For this, you will create two accounts and make sure each of them have at least enough funds to pay the fees for making transactions.
+
+<Callout>
+Controller accounts are deprecated in Substrate. For more information, [see this discussion.](https://forum.polkadot.network/t/staking-controller-deprecation-plan-staking-ui-leads-comms/2748)
+</Callout>
+
+It is now time to set up our validator. We will do the following:
+
+1. Bond the TNT of the Stash account on the Tangle Network. These TNT will be put at stake for the security of the network and can be slashed.
+2. Select the [staking proxy account](./proxyaccount) account. This is the account that will decide when to start or stop validating. 
+
+<Callout>
+See how to setup a [proxy account](./proxyaccount)
+</Callout>
+
+First, go to the Staking section. Click on "Account Actions", and then the "+ Stash" button.
+
+<Callout>
+Make sure not to bond all your TNT balance since you will be unable to pay transaction fees from your bonded balance. Always maintain an unbonded amount for fees.
+</Callout>
+
+
+**Stash account** - Select your Stash account. In this example, we will bond 1 DOT, where the minimum bonding amount is 1. Make sure that your Stash account contains at least this much. You can, of course, stake more than this.
+
+**Staking proxy account** - Select the staking [proxy account](./proxyaccount) created earlier. This account will also need a small amount of DOT in order to start and stop validating.
+
+**Value bonded** - How much DOT from the Stash account you want to bond/stake. Note that you do not need to bond all of the DOT in that account. Also note that you can always bond more DOT later. However, withdrawing any bonded amount requires the duration of the unbonding period. On Kusama, the unbonding period is 7 days. On Polkadot, the planned unbonding period is 28 days.
+
+**Payment destination** - The account where the rewards from validating are sent. More info here. Payouts can go to any custom address. If you'd like to redirect payments to an account that is neither the staking [proxy account](./proxyaccount) nor the stash account, set one up. Note that it is extremely unsafe to set an exchange address as the recipient of the staking rewards.
+
+Once everything is filled in properly, click `Bond` and sign the transaction with your Stash account.
+
+After a few seconds, you should see an `ExtrinsicSuccess` message.
+
+Your bonded account will available under `Stashes.` You should now see a new card with all your accounts (note: you may need to refresh the screen). The bonded amount on the right corresponds to the funds bonded by the Stash account.
+
+
+
+## 2. Generate your Keys and Import them to the Keystore
+In order to participate in the distributed key generation (DKG) protocol, block production, and block finalization, you will be required to set up several keys. These keys include: 
+
+- DKG key (Ecdsa)
+- Aura key (Sr25519)
+- Account key (Sr25519)
+- Grandpa key (Ed25519)
+- ImOnline key (Sr25519)
+
+See the guides for [launching Tangle Network with Docker](/docs/tangle-network/validator/deploy-with-docker/validator-node/) and [Launching with Systemd](/docs/tangle-network/validator/systemd/validator-node/) for exact guides on this step.
+
+Once your node and keys are setup and your node is synced, proceed to the following:
+
+## 3. Register with the Network
+Session keys are a critical aspect of the Tangle Network's consensus mechanism, are are composes of the several keys we generate immediately previous, each with a different function. These keys enable your validator node to participate in consensus, and a misconfiguration can lead to missed rewards or even penalties. You can use RPC methods like `hasKey` to check for a specific key or `hasSessionKeys` to check the full session key public key string.
+
+**Starting Your Node**
+
+After your node is fully synchronized with the network, stop the process using Ctrl-C. You'll now start your node by designating itself as a validator:
+
+``` 
+tangle-standalone --validator --name "YourNodeNameOnTelemetry"
+```
+
+The output will be similar to:
+
+```
+[timestamp] Tangle Network Standalone
+[timestamp] ✌️ version x.x.x
+[timestamp] ❤️ by Webb Technologies
+[timestamp] 📋 Chain specification: Tangle Network
+[timestamp] 🏷 Node name: YourNodeName
+... and so on
+```
+
+Note that you can give your validator any name that you like. However, since this name will appear on telemetry and is visible to others, choose a unique name.
+
+### Register your Session Key with the Network for your Node
+To participate in consensus, you need to inform the chain about your session keys and map them to your node. 
+
+ **Option 1: PolkadotJS Apps**
+
+1. Connect to Your Validator Node:
+Start by connecting the PolkadotJS explorer to your validator node.
+2. Access the Toolbox:
+Navigate to the `Toolbox`` tab.
+3. Select `RPC Calls``.
+Rotate the Keys:
+From the dropdown menu, choose `author > rotateKeys()``.
+4. Execute the RPC call.
+**Important: Save the output.** This represents your session keys and will be essential for the next steps.
+
+
+**Option 2: CLI**
+
+If you're working on a remote server and need to rotate your session keys, you can use the following command:
+
+```sh
+curl -H "Content-Type: application/json" -d '{"id":1, "jsonrpc":"2.0", "method": "author_rotateKeys", "params":[]}' http://localhost:9933
+```
+**Note:** Adjust http://localhost:9933 if your node's address differs.
+
+This command prompts your node to generate a new set of session keys. The concatenated public parts of these keys will be returned as the result.
+
+
+
+### Submitting the setKeys Transaction
+
+To inform the chain about your session keys:
+
+1. Navigate to `Staking > Account Actions`
+2. Set Session Key
+- Click on `Set Session Key` for the account you've designated as your staking proxy.
+- Enter the output from `author_rotateKeys` in the appropriate field.
+- Click `Set Session Key`.
+
+Once you've submitted this transaction, your node is now recognized as a validator and is prepared to engage in the Tangle network's consensus process.
+
+<Callout type="info">
+**Verify Node Status**
+To confirm that your node is live and synchronized, head to Tangle Telemetry- [currently you can view Testnet Telemetry only,](https://telemetry.polkadot.io/#list/0xea63e6ac7da8699520af7fb540470d63e48eccb33f7273d2e21a935685bf1320) and locate your node. Given the myriad of nodes on the Tangle Network, ensure you've chosen a unique name for easier identification. For instance, if you've named your node `tangletechtest`, it should be visible when searched.
+</Callout>
+
+## Setup via Validator Tab
+This step finalizes and enters you into the validator queue.
+
+1. Navigate to `Staking>Account Actions`
+2. Look for your validator node, and click `Validate`
+
+Here, you'll need to input the keys generated from the `rotateKeys`` step, which is the hexadecimal output from the `author_rotateKeys`` process. These keys will remain in a "pending" state until they are incorporated at the beginning of a new era.
+
+**Define your "reward commission percentage."** This denotes the commission rate applicable to your validator's rewards. **Note on Commission:** A commission rate of 100% indicates that you intend for your validator not to receive any nominations. This could discourage nominators and should be set judiciously.
+
+**Payment Preferences:** Specify the percentage of rewards you wish to claim. The remaining balance will be divided among your nominators.
+
+You also have the option to accept or decline new nominations via the "allows new nominations" setting.
+
+
+Click on `Bond & Validate` to enter the set of validators. 
+
+**Confirm your Validator**
+Navigating to the "Staking" tab will display a list of active validators operating on the network. At the top, you'll see available validator slots and the count of nodes that have expressed their intent to validate. To check your node's status, switch to the "Waiting" tab.
+
+<Callout type="info">
+**"Waiting" on the Staking Queue**
+
+The validator roster is updated every era (roughly 6 hours in Tangle Testnet). In the subsequent era, if there's an available slot and your node is chosen to join the validator set, it will be activated as a validator. Otherwise, it will stay in the waiting queue. If your validator doesn't get selected for a specific era, it remains in the queue for the next one. No restart is required. However, you might consider increasing the staked Tangle tokens or seeking more nominators to enhance the chances of your validator's selection.
+</Callout>
+
+
+# Additional Setup
+
+## Setting identity
+While not required, we highly recommend that validators and node operators set an identity, which is critical for receiving nominations and being seen as a trustworthy node. 
+
+
+1. Go to the Polkadot.js portal: `Accounts`
+2. Open the 3 dots next to your address: `Set on-chain Identity`
+3. Enter all fields you want to set.
+4. Send the transaction.
+
+#### Request judgment
+
+1. Go to the Polkadot.js portal: `Developer > Extrinsic`
+2. Select your account and extrinsic type: `identity / requestJudgment`
+3. Send the transaction.
+
+

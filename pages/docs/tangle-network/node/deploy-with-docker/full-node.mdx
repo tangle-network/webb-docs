@@ -39,7 +39,7 @@ Download the latest chainspec for standalone testnet:
 
 ```sh filename="get chainspec" copy
 # Fetches chainspec for Tangle network
-wget https://github.com/webb-tools/tangle/blob/main/chainspecs/tangle-standalone.json
+wget https://raw.githubusercontent.com/webb-tools/tangle/main/chainspecs/testnet/tangle-standalone.json
 ```
 
 Please make a reference where you have stored this `json` file as we will need it in the next steps.
@@ -117,3 +117,14 @@ sudo rm -rf /data/polkadot/*
 ```
 
 Now that your chain data has been purged, you can start a new node with a fresh data directory!
+
+## Logs
+
+If you'd like to run the node with verbose logs, you may add the following arguments during initial setup. Adjust the target for the desired logging level (debug | error | info| trace | warn):
+
+```bash
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
