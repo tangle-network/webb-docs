@@ -129,10 +129,10 @@ To participate in consensus, you need to inform the chain about your session key
 1. Connect to Your Validator Node:
    Start by connecting the PolkadotJS explorer to your validator node.
 2. Access the Toolbox:
-   Navigate to the `Toolbox`` tab.
-3. Select `RPC Calls``.
-Rotate the Keys:
-From the dropdown menu, choose `author > rotateKeys()``.
+   Navigate to the `Toolbox` tab.
+3. Select `RPC Calls`.
+   Rotate the Keys:
+   From the dropdown menu, choose `author > rotateKeys()``.
 4. Execute the RPC call.
    **Important: Save the output.** This represents your session keys and will be essential for the next steps.
 
@@ -173,7 +173,7 @@ This step finalizes and enters you into the validator queue.
 1. Navigate to `Staking>Account Actions`
 2. Look for your validator node, and click `Validate`
 
-Here, you'll need to input the keys generated from the `rotateKeys`` step, which is the hexadecimal output from the `author_rotateKeys`` process. These keys will remain in a "pending" state until they are incorporated at the beginning of a new era.
+Here, you'll need to input the keys generated from the `rotateKeys` step, which is the hexadecimal output from the `author_rotateKeys` process. These keys will remain in a "pending" state until they are incorporated at the beginning of a new era.
 
 **Define your "reward commission percentage."** This denotes the commission rate applicable to your validator's rewards. **Note on Commission:** A commission rate of 100% indicates that you intend for your validator not to receive any nominations. This could discourage nominators and should be set judiciously.
 
