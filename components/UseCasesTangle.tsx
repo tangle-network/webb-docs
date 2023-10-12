@@ -52,6 +52,14 @@ export const ParticipateArea = () => {
     <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-10 lg:gap-x-8 lg:gap-y-12">
       <DetailedFeatureLink
         feature={{
+          Icon: ServerIcon,
+          description: `Tangle Network runs independently without a relay chain.`,
+          name: "Tangle Network (Testnet)",
+        }}
+        href="https://polkadot.js.org/apps/?rpc=wss://rpc.tangle.tools#/explorer"
+      ></DetailedFeatureLink>
+      <DetailedFeatureLink
+        feature={{
           Icon: CloudIcon,
           description: `Running a relayer helps keep our bridges up to date by relaying the necessary data between both applications and the Tangle Network.`,
           name: "Run a Relayer",

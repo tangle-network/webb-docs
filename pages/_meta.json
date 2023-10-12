@@ -11,31 +11,88 @@
       "toc": true
     }
   },
+  "home": {
+    "title": "Home",
+    "href": "https://webb.tools/",
+    "newWindow": true
+  },
   "docs": {
     "title": "Docs",
     "href": "https://docs.webb.tools/",
     "newWindow": false
   },
-  "blog": {
-    "title": "Blog",
-    "href": "https://blog.webb.tools",
+  "faucet": {
+    "title": "Faucet",
+    "href": "https://faucet.tangle.tools/",
     "newWindow": true
   },
-  "github": {
-    "title": "Github",
-    "href": "https://github.com/webb-tools",
-    "newWindow": true
+  "resourcesMenu": {
+    "title": "Links",
+    "type": "menu",
+    "items": {
+      "resourcesBlog": {
+        "title": "Blog",
+        "href": "https://blog.webb.tools",
+        "newWindow": true
+      },
+      "resourcesWhitepaper": {
+        "title": "Webb Protocol Whitepaper",
+        "href": "https://github.com/webb-tools",
+        "newWindow": true
+      },
+      "resourcesCommunity": {
+        "title": "Community",
+        "href": "https://webb.tools/community",
+        "newWindow": true
+      },
+      "resourcesBugReport": {
+        "title": "Report a Bug",
+        "href": "/docs/contribute",
+        "newWindow": true
+      },
+      "resourcesContact": {
+        "title": "Contact Us",
+        "href": "https://t.me/webbprotocol",
+        "newWindow": true
+      }
+    }
   },
-  "community": {
+  "communityMenu": {
     "title": "Community",
-    "href": "https://webb.tools/community",
-    "newWindow": true
+    "type": "menu",
+    "items": {
+      "communityDiscord": {
+        "title": "Discord",
+        "href": "https://discord.com/invite/cv8EfJu3Tn",
+        "newWindow": true
+      },
+      "communityTelegram": {
+        "title": "Telegram",
+        "href": "https://t.me/webbprotocol",
+        "newWindow": true
+      },
+      "communityCommonwealth": {
+        "title": "Commonwealth Gov",
+        "href": "https://commonwealth.im/webb",
+        "newWindow": true
+      },
+      "communityTwitterFounder": {
+        "title": "Twitter (Founder)",
+        "href": "https://twitter.com/zknark",
+        "newWindow": true
+      },
+      "communityTwitterNetwork": {
+        "title": "Twitter (Organization)",
+        "href": "https://twitter.com/webbprotocol",
+        "newWindow": true
+      }
+    }
   },
-
   "whitepaper": {
     "title": "Whitepaper",
     "href": "https://eprint.iacr.org/2023/260",
-    "newWindow": true
+    "newWindow": true,
+    "display": "hidden"
   },
   "confirm": {
     "title": "Confirm",

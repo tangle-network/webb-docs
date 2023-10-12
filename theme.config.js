@@ -3,7 +3,7 @@ import { useConfig, useTheme } from "nextra-theme-docs";
 import { Footer } from "./components/Footer";
 import Navigation from "./components/Navigation";
 import HeaderLogo from "./components/HeaderLogo";
-import { Discord, Github } from "./components/Social";
+import { Discord, Github, Twitter } from "./components/Social";
 
 const SITE_ROOT = "https://docs.webb.tools";
 
@@ -97,6 +97,7 @@ const theme = {
       <>
         <Github />
         <Discord />
+        <Twitter />
       </>
     ),
   },
