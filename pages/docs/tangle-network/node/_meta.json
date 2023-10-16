@@ -1,0 +1,11 @@
+{
+  "quickstart": "Quickstart",
+  "hardware": "Hardware",
+  "node-software": "Tangle Software",
+  "deploy-with-docker": "Deploying with Docker",
+  "systemd": "Running with Systemd",
+  "monitoring": "Node Monitoring",
+  "validator": "Validate",
+  "flags": "Flags",
+  "troubleshooting": "Troubleshooting"
+}

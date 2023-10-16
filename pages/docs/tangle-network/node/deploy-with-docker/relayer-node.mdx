@@ -17,7 +17,7 @@ It is a requirement to have Docker installed on the Linux machine, for instructi
 please visit the offical Docker installation documentation [here](https://docs.docker.com/desktop/install/linux-install/).
 
 When connecting to Tangle on Kusama, it will take a few days to completely
-sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/ecosystem-roles/validator/requirements/).
+sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node/hardware/).
 
 ## Using Docker Compose
 
@@ -122,7 +122,7 @@ ls ~/webb/tangle/chains/*/keystore
 ### **4.Creating Docker compose file:**
 
 Now that we have generated the keys, we can start the Tangle Validator and Relayer. We will use the `docker-compose` file provided
-in the [Tangle repo](/docs/ecosystem-roles/validator/deploy-with-docker/relayer-node/).
+in the [Tangle repo](https://github.com/webb-tools/tangle/tree/51e8ad6d1ba83a40475ce8debdb4c28c2ccf081a/docker).
 
 Let's start by creating a docker-compose file:
 
@@ -258,11 +258,16 @@ If you did spin up your node with the `-v` flag, you will need to purge the spec
 sudo rm -rf /data/chains/*
 ```
 
-If you ran with parachain node you can run the following command to purge your relay-chain node data:
-
-```sh filename="rm" copy
-# purges relay chain data
-sudo rm -rf /data/polkadot/*
-```
-
 Now that your chain data has been purged, you can start a new node with a fresh data directory!
+
+## Logs
+
+If you'd like to run the node with verbose logs, you may add the following arguments during initial setup. Adjust the target for the desired logging level (debug | error | info| trace | warn):
+
+```bash
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
+```
