@@ -1,0 +1,73 @@
+# Precompiles on Tangle Network
+
+## Introduction to Precompiles
+
+On Tangle Network, a precompiled contract refers to native Substrate code that possesses an Ethereum-like address and can be engaged through the Ethereum API, as with any other smart contract. These precompiles enable you to directly interact with the Substrate runtime, a functionality that is usually inaccessible from the Ethereum aspect of Tangle Network.
+
+The Substrate code that oversees the implementation of precompiles is located within the EVM pallet. This EVM pallet comprises the standard precompiles existing on Ethereum along with some other precompiles that aren't unique to Ethereum. It further offers the capacity to form and execute custom precompiles through the versatile Precompiles trait. A range of custom Tangle Network-specific precompiles have been developed and can be found within the Tangle Network codebase.
+
+The Ethereum precompiled contracts encompass complex functions that require substantial computational resources, including hashing and encryption. On Tangle Network, the custom precompiled contracts allow access to Substrate-based features such as staking, governance, XCM-related operations, and more.
+
+These Tangle Network-specific precompiles can be accessed through familiar and user-friendly Solidity interfaces utilizing the Ethereum API, which ultimately interact with the underlying Substrate interface.
+
+---
+
+# Precompile Addresses
+
+This page lists the existing precompiles used in Tangle Network, descriptions of their functions, and the contract addresses of the functionality.
+
+## Ethereum Precompiles
+
+| Precompile             | Description                                                                                                       | Address                                      |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| ECRECOVER              | Recovers the public key associated with the given signature, a critical operation in verifying wallet signatures. | `0x0000000000000000000000000000000000000001` |
+| SHA256                 | Computes the SHA256 cryptographic hash function, widely used for data integrity verification.                     | `0x0000000000000000000000000000000000000002` |
+| RIPEMD160              | Calculates the RIPEMD-160 hash, which is used in various security applications and protocols.                     | `0x0000000000000000000000000000000000000003` |
+| Identity               | A simple data copy operation.                                                                                     | `0x0000000000000000000000000000000000000004` |
+| Modular Exponentiation | Performs modular exponentiation, a key operation in many cryptographic functions.                                 | `0x0000000000000000000000000000000000000005` |
+| BN128Add               | Performs point addition on a BN128 elliptic curve.                                                                | `0x0000000000000000000000000000000000000006` |
+| BN128Mul               | Performs point multiplication on a BN128 elliptic curve.                                                          | `0x0000000000000000000000000000000000000007` |
+| BN128Pairing           | Checks the pairing on a BN128 elliptic curve.                                                                     | `0x0000000000000000000000000000000000000008` |
+| Blake2                 | Computes the Blake2 cryptographic hash function.                                                                  | `0x0000000000000000000000000000000000000009` |
+| SHA3FIPS256            | Computes the SHA3 (FIPS 202 compliant) hash function.                                                             | `0x0000000000000000000000000000000000000400` |
+| Dispatch               | Handles dispatching and managing contract calls and interactions.                                                 | `0x0000000000000000000000000000000000000401` |
+| ECRecoverPublicKey     | Recovers the public key from an elliptic curve signature.                                                         | `0x0000000000000000000000000000000000000402` |
+
+## EVM-to-Substrate Precompiles
+
+| Precompile          | Description                                                                 | Address                                      |
+| ------------------- | --------------------------------------------------------------------------- | -------------------------------------------- |
+| DemocracyInterface  | An interface for interacting with on-chain governance.                      | `0x0000000000000000000000000000000000000803` |
+| Batch               | Allows for multiple calls to be made within a single transaction.           | `0x0000000000000000000000000000000000000808` |
+| CallPermit          | Facilitates authorized calls to certain functions.                          | `0x000000000000000000000000000000000000080a` |
+| Preimage            | Used for managing preimages, which are proposals before they become public. | `0x0000000000000000000000000000000000000813` |
+| Precompile-Registry | Manages the registration of new precompiles.                                | `0x0000000000000000000000000000000000000815` |
+| Pallet-staking      | Handles staking-related operations.                                         | `0x0000000000000000000000000000000000000800` |
+
+## Future Precompiles
+
+The following are under consideration for inclusion, and are drawn from the open-source development done in the Substrate ecosystem.
+
+| Precompile          | Description                                                                                            | Address |
+| ------------------- | ------------------------------------------------------------------------------------------------------ | ------- |
+| Collective          | Performs democracy functions through any of the collectives on Moonbeam, such as the Treasury Council. | TBD     |
+| Conviction Voting   | Allows voting on referenda, setting up voting delegations, and more.                                   | TBD     |
+| Native Token ERC-20 | Provides an ERC-20 representation of the native token on Moonbeam.                                     | TBD     |
+| Proxy               | Allows adding and removing proxy accounts from Substrate's Proxy Pallet.                               | TBD     |
+| Randomness          | Provides VRF randomness on Moonbeam.                                                                   | TBD     |
+| Referenda           | Allows viewing and submitting proposals on-chain to be put forth for referenda.                        | TBD     |
+| Staking Functions   | Allows developers to access staking features using the Ethereum API in a precompiled contract.         | TBD     |
+| X-Tokens            | Allows sending XC-20s to other chains using the X-Tokens Pallet.                                       | TBD     |
+| XCM Transactor      | Allows performing remote XCM execution from Moonbeam to other chains in the ecosystem.                 | TBD     |
+| XCM Utilities       | Provides various XCM related utility functions to smart contact developers.                            | TBD     |
+| DappsStaking        | Functions related to managing dApp staking.                                                            | TBD     |
+| Sr25519             | Handles operations related to the Sr25519 signature scheme.                                            | TBD     |
+| SubstrateEcdsa      | Manages operations related to the Substrate Ecdsa.                                                     | TBD     |
+| XCM                 | Handles cross-chain message (XCM) operations.                                                          | TBD     |
+| XVM                 | Handles operations related to the XVM.                                                                 | TBD     |
+| assets-erc20        | Manages ERC20 asset operations.                                                                        | TBD     |
+
+## Further resources
+
+**EVM Precompiles Repo**
+See the repositories for these at the [Parity Github.](https://github.com/paritytech/frontier/tree/master/frame/evm/precompile)
