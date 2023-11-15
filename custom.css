@@ -100,3 +100,23 @@ code {
   outline: none !important;
   box-shadow: none !important;
 }
+
+div[role="tabpanel"] {
+  background-color: #f1f5fb;
+  padding: 19px 25px 3px 33px;
+  border: 1px solid #9696ff;
+}
+
+[role="tab"][aria-selected="true"]{
+  background-color: #5858fd;
+    color: white;
+    font-weight: 700;
+}
+
+[role="tab"][aria-selected="false"]{
+  background-color: #fcfdff;
+  border-top: 1px solid #a8a8ff;
+  border-left: 1px solid #a8a8ff;
+  border-right: 1px solid #a8a8ff;
+  color: #3333c9;
+}

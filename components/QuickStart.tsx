@@ -31,7 +31,7 @@ export const QuickStartArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: DiscordIcon,
-          description: `Interested in the latest announcements? Join our Discord server. `,
+          description: `Interested in the latest announcements? Join our Discord server.`,
           name: "Join our Discord community.",
         }}
         href="https://discord.com/invite/cv8EfJu3Tn"
