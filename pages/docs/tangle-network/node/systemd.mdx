@@ -27,15 +27,17 @@ For example, at the time of writing this document, the latest release is v0.4.7 
 wget https://github.com/webb-tools/tangle/releases/download/v0.4.7/tangle-standalone-linux-amd64
 ```
 
-
 ### 2. Install Dependencies
+
 Ensure all necessary dependencies are installed:
+
 ```sh
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl iptables build-essential git wget jq make gcc nano tmux htop nvme-cli pkg-config libssl-dev libleveldb-dev libgmp3-dev tar clang bsdmainutils ncdu unzip llvm libudev-dev make protobuf-compiler -y
 ```
 
 ### 3. Install and Configure Rust
+
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 # choose option 1
@@ -125,7 +127,6 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
       2021-06-17 03:07:55 ⚙️  Syncing 138.4 bps, target=#5553767 (21 peers), best: #26874 (0xcf4b…6553), finalized #26624 (0x9dd9…27f8), ⬇ 18.9kiB/s ⬆ 2.0kiB/s
       2021-06-17 03:08:00 ⚙️  Syncing 37.0 bps, target=#5553768 (22 peers), best: #27059 (0x5b73…6fc9), finalized #26624 (0x9dd9…27f8), ⬇ 14.3kiB/s ⬆ 4.4kiB/s
       ```
-
 
   </Tabs.Tab>
   <Tabs.Tab>
@@ -250,7 +251,7 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
         EOF
         ```
       #### Enable Validator Node
-    
+
       Double check that the config has been written to `/etc/systemd/system/validator.service` correctly.
       If so, enable the service so it runs on startup, and then try to start it now:
 
@@ -356,20 +357,19 @@ rustup target add wasm32-unknown-unknown --toolchain nightly
           EOF
           ```
             </Tabs.Tab>
-</Tabs>
 
+</Tabs>
 
 Congratulations! You have officially setup a Tangle Network node using Systemd.
 
 ## Monitoring
+
 To setup monitoring for your node, please refer to the [monitoring](./monitoring/quickstart.mdx) page.
 
 ## Begin Validating
+
 Now that your node is setup, [continue onto our Validator guides to understand token bonding and more.](./validator/requirements.mdx)
 
 ## Support and Questions
 
 Visit our [Discord's validator channel](https://webb.tools/community) for community assistance.
-
-
-

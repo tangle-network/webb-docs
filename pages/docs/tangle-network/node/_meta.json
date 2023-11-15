@@ -3,7 +3,7 @@
   "hardware": "Hardware",
   "node-software": "Tangle Software",
   "systemd": "Deploy with systemd",
-  "deploy-with-docker": "Deploy with Docker",
+  "docker-node": "Deploy with Docker",
   "monitoring": "Node Monitoring",
   "validator": "Validate",
   "flags": "Flags",
