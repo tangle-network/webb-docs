@@ -7,5 +7,6 @@
   "monitoring": "Node Monitoring",
   "validator": "Validate",
   "flags": "Flags",
-  "troubleshooting": "Troubleshooting"
+  "troubleshooting": "Troubleshooting",
+  "quicknode": "Launch a Quick Node"
 }
