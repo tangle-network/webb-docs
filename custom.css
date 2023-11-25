@@ -66,10 +66,8 @@ code {
 
 .webbCardBg {
   background: #fff;
-  box-shadow:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.03),
-    0px 2px 4px rgba(0, 0, 0, 0.05),
-    0px 12px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.03),
+    0px 2px 4px rgba(0, 0, 0, 0.05), 0px 12px 24px rgba(0, 0, 0, 0.05);
 }
 
 .dark .webbCardBg {
@@ -81,10 +79,8 @@ code {
 
 .webbCardBg {
   background: #fff;
-  box-shadow:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.03),
-    0px 2px 4px rgba(0, 0, 0, 0.05),
-    0px 12px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.03),
+    0px 2px 4px rgba(0, 0, 0, 0.05), 0px 12px 24px rgba(0, 0, 0, 0.05);
 }
 
 .dark .webbCardBg {
@@ -99,4 +95,24 @@ code {
 .list:focus {
   outline: none !important;
   box-shadow: none !important;
+}
+
+div[role="tabpanel"] {
+  background-color: #f1f5fb;
+  padding: 33px 33px 23px 33px;
+  border: 1px solid #9696ff;
+}
+
+[role="tab"][aria-selected="true"] {
+  background-color: #5858fd;
+  color: white;
+  font-weight: 700;
+}
+
+[role="tab"][aria-selected="false"] {
+  background-color: #fcfdff;
+  border-top: 1px solid #a8a8ff;
+  border-left: 1px solid #a8a8ff;
+  border-right: 1px solid #a8a8ff;
+  color: #3333c9;
 }

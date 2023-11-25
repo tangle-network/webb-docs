@@ -2,10 +2,11 @@
   "quickstart": "Quickstart",
   "hardware": "Hardware",
   "node-software": "Tangle Software",
-  "deploy-with-docker": "Deploying with Docker",
-  "systemd": "Running with Systemd",
+  "systemd": "Deploy with systemd",
+  "docker-node": "Deploy with Docker",
   "monitoring": "Node Monitoring",
   "validator": "Validate",
   "flags": "Flags",
-  "troubleshooting": "Troubleshooting"
+  "troubleshooting": "Troubleshooting",
+  "quicknode": "Launch a Quick Node"
 }

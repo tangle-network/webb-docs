@@ -1,21 +1,22 @@
 ---
 title: Deploying with Docker
-description: Deploy a Tangle validator node with only a few steps.
+description: Deploy a Tangle node with only a few steps using Docker.
 ---
 
-import Callout from "../../../../../components/Callout";
+import Callout from "../../../../components/Callout";
+import { Tabs } from 'nextra/components';
 
-# Deploying with Docker
+# Deploying a Tangle Network Node with Docker
 
-A Tangle node can be spun up quickly using Docker. For more information on installing Docker,
-please visit the official Docker [docs](https://docs.docker.com/get-docker/). When connecting to Tangle on Kusama, it will take a few days to completely sync the embedded relay chain. Make sure that your system meets the requirements which can read [here](/docs/tangle-network/node-operators/requirements).
+A Tangle Network node can be spun up quickly using Docker. **This guide covers both Full Node and Validator Node deployment.** . For more information on installing Docker,
+please visit the official Docker [docs](https://docs.docker.com/get-docker/). Make sure that your system meets the requirements which can read [here](https://docs.webb.tools/docs/ecosystem-roles/validator/requirements/).
 
-## Standalone Testnet
+## Setup the Docker Environment
 
-### **1. Pull the Tangle Docker image:**
+The quickest and easiest way to get started is to make use of our published Docker Tangle image. In doing so, users simply pull down the image from ghcr.io,
+set their keys, fetch the applicable chainspec and run the start command to get up and running.
 
-Although we can make use of the provided `docker-compose` file in the [Tangle repo](https://github.com/webb-tools/tangle/tree/main/docker/tangle-standalone), we pull the `tangle-standalone:main` Docker image from ghcr.io
-so that we can generate and insert our required keys before starting the node.
+### 1. Pull the Tangle Docker image:
 
 ```sh filename="pull" copy
 # Only use "main" if you know what you are doing, it will use the latest and maybe unstable version of the node.
@@ -23,17 +24,17 @@ so that we can generate and insert our required keys before starting the node.
 docker pull ghcr.io/webb-tools/tangle/tangle-standalone:main
 ```
 
-### **2. Create a local directory to store the chain data:**
+### 2. Create a local directory to store the chain data:
 
-Let us create a directory where we will store all the data for our node. This includes the chain data, keys, and logs.
+Let us create a directory where we will store all the data for our node. This includes the chain data, and logs.
 
 ```sh filename="mkdir" copy
 mkdir /var/lib/tangle/
 ```
 
-### **3. Fetch applicable chainspec(s):**
+### 3. Fetch applicable chainspec(s):
 
-To join the Tangle Test network as node operator we need to fetch the appropriate chainspec for the Tangle network.
+To join the Tangle Test network, we need to fetch the appropriate chainspec for the Tangle network.
 Download the latest chainspec for standalone testnet:
 
 ```sh filename="get chainspec" copy
@@ -43,7 +44,41 @@ wget https://raw.githubusercontent.com/webb-tools/tangle/main/chainspecs/testnet
 
 Please make a reference where you have stored this `json` file as we will need it in the next steps.
 
-### **4. Generate and store keys:**
+### 4. Select and Start your Node Type
+
+<Tabs items={['Full Node', 'Validator Node']}>
+<Tabs.Tab>
+**4. Start Tangle full node:**
+
+**Note:** Full nodes do not participate in block production or consensus so no required keys are necessary.
+
+To start the node run the following command:
+
+```sh filename="docker run" copy
+docker run --rm -it -v /var/lib/tangle/:/data ghcr.io/webb-tools/tangle/tangle-standalone:main \
+  --chain tangle-testnet \
+  --name="YOUR-NODE-NAME" \
+  --base-path /data \
+  --rpc-cors all \
+  --port 9946 \
+  --telemetry-url "wss://telemetry.polkadot.io/submit/ 0" --name <NODE_NAME>
+```
+
+<Callout type="info">
+  For an overview of the above flags, please refer to the [CLI Usage](/docs/ecosystem-roles/validator/api-reference/cli/) page of our documentation.
+</Callout>
+
+Once Docker pulls the necessary images, your Tangle node will start, displaying lots of information,
+such as the chain specification, node name, role, genesis state, and more.
+
+If you followed the installation instructions for Tangle, once synced, you will be connected to peers and see
+blocks being produced on the Tangle network! Note that in this case you need to also sync to the Polkadot/Kusama
+relay chain, which might take a few days.
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+### Generate and store keys:
 
 We need to generate the required keys for our node. For more information on these keys, please see the [Required Keys](/docs/ecosystem-roles/validator/required-keys) section.
 The keys we need to generate include the following:
@@ -123,7 +158,7 @@ ls ~/webb/tangle/chains/*/keystore
 <mark>**Caution:** Ensure you insert the keys using the instructions at [generate keys](#generate-and-store-keys),
 if you want the node to auto generate the keys, add the `--auto-insert-keys` flag.</mark>
 
-### **5. Start Tangle Validator node:**
+### 5. Start Tangle Validator node:
 
 To start the node run the following command:
 
@@ -196,7 +231,10 @@ After that run:
 docker compose up -d
 ```
 
-## Update the Client
+</Tabs.Tab>
+</Tabs>
+
+### Update the Client
 
 As Tangle development continues, it will sometimes be necessary to upgrade your node software. Node operators will be notified
 on our Discord channel when upgrades are available and whether they are necessary (some client upgrades are optional).
@@ -215,9 +253,7 @@ sudo docker stop `CONTAINER_ID`
 
 4. Restart the tangle container and you should have the updated version of the client.
 
-Once your node is running again, you should see logs in your terminal.
-
-## Purge Your Node
+### Purge Your Node
 
 If you need a fresh instance of your Tangle node, you can purge your node by removing the associated data directory.
 
@@ -229,7 +265,7 @@ sudo docker stop `CONTAINER_ID`
 
 If you did not use the `-v` flag to specify a local directory for storing your chain data when you spun up your node, then the data folder is related to the Docker container itself. Therefore, removing the Docker container will remove the chain data.
 
-If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your standalone node data:
+If you did spin up your node with the `-v` flag, you will need to purge the specified directory. For example, for the suggested data directly, you can run the following command to purge your parachain node data:
 
 ```sh filename="rm" copy
 # purges standalone data
@@ -237,3 +273,23 @@ sudo rm -rf /data/chains/*
 ```
 
 Now that your chain data has been purged, you can start a new node with a fresh data directory!
+
+## Logs
+
+If you'd like to run the node with verbose logs, you may add the following arguments during initial setup. Adjust the target for the desired logging level (debug | error | info| trace | warn):
+
+```bash
+-ldkg=debug \
+-ldkg_metadata=debug \
+-lruntime::offchain=debug \
+-ldkg_proposal_handler=debug \
+-ldkg_proposals=debug
+```
+
+## Begin Validating
+
+Now that your node is setup, [continue onto our Validator guides to understand token bonding and more.](./validator/requirements.mdx)
+
+## Support and Questions
+
+Visit our [Discord's validator channel](https://webb.tools/community) for community assistance.

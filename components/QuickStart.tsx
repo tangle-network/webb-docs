@@ -18,7 +18,7 @@ export const QuickStartArea = () => {
           description: `Start your journey on Tangle Network. This guide will walk you through the steps to become a validator, ensuring network security and integrity.`,
           name: "Validate on Tangle Network",
         }}
-        href="/docs/tangle-network/validator/quickstart/"
+        href="/docs/tangle-network/node/quickstart/"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -31,7 +31,7 @@ export const QuickStartArea = () => {
       <DetailedFeatureLink
         feature={{
           Icon: DiscordIcon,
-          description: `Interested in the latest announcements? Join our Discord server. `,
+          description: `Interested in the latest announcements? Join our Discord server.`,
           name: "Join our Discord community.",
         }}
         href="https://discord.com/invite/cv8EfJu3Tn"
@@ -81,7 +81,7 @@ export const DeployArea = () => {
           description: `Want to spin up a full node on the Tangle Network? We've made it easier than ever!`,
           name: "Deploy a Tangle Node!",
         }}
-        href="/docs/tangle-network/getting-started/deploy-using-hardhat/"
+        href="/docs/tangle-network/node/docker-node"
       ></DetailedFeatureLink>
       <DetailedFeatureLink
         feature={{
@@ -112,7 +112,7 @@ export const DappsArea = () => {
           description: `Our easy-to-use testnet faucet allows you to claim test tokens with just a few clicks. Start experimenting with Hubble Bridge today.`,
           name: "Faucet dApp",
         }}
-        href="https://stats.tangle.tools"
+        href="https://faucet.tangle.tools"
       />
       <DetailedFeatureLink
         feature={{

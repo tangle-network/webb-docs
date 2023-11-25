@@ -3,7 +3,7 @@ title: Deploying with Docker
 description: An overview of Webb Tangle node and Webb Relayer deployment process.
 ---
 
-import Callout from "../../../../../components/Callout";
+import Callout from "../../../../components/Callout";
 
 # Deploying Tangle Validator and Relayer
 
