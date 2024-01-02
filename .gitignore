@@ -17,3 +17,4 @@ out/*
 out
 .dccache
 *.code-workspace
+.direnv
