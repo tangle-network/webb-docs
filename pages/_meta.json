@@ -35,6 +35,11 @@
         "href": "https://blog.webb.tools",
         "newWindow": true
       },
+      "resourcesBlog": {
+        "title": "Tangle Network Docs",
+        "href": "https://docs.tangle.tools",
+        "newWindow": true
+      },
       "resourcesWhitepaper": {
         "title": "Webb Protocol Whitepaper",
         "href": "https://github.com/webb-tools",

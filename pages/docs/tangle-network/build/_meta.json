@@ -1,7 +1,0 @@
-{
-  "deploy-using-hardhat": "Deploy on Tangle with Hardhat",
-  "network-information-configuration": "Network Configuration",
-  "json-rpc-endpoints": "RPC Endpoints",
-  "pallets": "Pallets",
-  "precompile-addresses": "Precompiles"
-}
