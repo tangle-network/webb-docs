@@ -50,7 +50,7 @@ const navigation = {
   ecosystem: [
     {
       name: "Tangle",
-      href: "https://polkadot.js.org/apps/?rpc=wss%3A%2F%2Frpc-archive.tangle.tools#/explorer",
+      href: "https://polkadot.js.org/apps/?rpc=wss://testnet-rpc.tangle.tools#/explorer",
     },
     { name: "DKG Statistics", href: "https://stats.tangle.tools" },
     {
