@@ -2,7 +2,11 @@
   "index": {
     "title": "Quickstart"
   },
-  "tangle-network": "Tangle Network",
+  "tangle-docs-link": {
+    "title": "Tangle Network",
+    "href": "https://docs.tangle.tools",
+    "newWindow": true
+  },
   "overview": "About Webb",
   "concepts": "Concepts",
   "projects": "Projects",
