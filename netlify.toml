@@ -7,3 +7,15 @@
   to = "/docs"
   status = 301
   force = true
+
+  [[redirects]]
+from = "/docs/ecosystem-roles/validator/*"
+to = "https://docs.tangle.tools/:splat"
+status = 301
+force = true
+
+[[redirects]]
+from = "/docs/tangle-network/*"
+to = "https://docs.tangle.tools/:splat"
+status = 301
+force = true
