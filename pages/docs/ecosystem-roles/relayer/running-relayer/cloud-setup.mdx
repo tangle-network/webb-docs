@@ -89,9 +89,13 @@ sudo tee /etc/systemd/system/webb-relayer.service > /dev/null << EOF
 Description=WebbRelayer
 
 [Service]
+User=<user>
+Restart=always
+RestartSec=3
 Type=exec
+Environment="/home/<user>/.config/webb-relayer/.env"
 WorkingDirectory=/home/<user>/relayer
-ExecStart=cargo run --features cli --bin webb-relayer -- -c /home/<user>/relayer/config/<configs> -vvv
+ExecStart=/home/<user>/relayer/target/release/webb-relayer -vvv -c /home/<user>/.config/webb-relayer/
 
 [Install]
 WantedBy=multi-user.target
