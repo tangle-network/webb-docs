@@ -44,6 +44,12 @@ curl -fsSL https://git.io/get-webb-relayer.sh | sh -s <version>
 This will download the relayer binary (or update it if it already exists) and place it in your `$HOME/.webb` directory. The script
 will also suggest adding the directory to your `PATH` environment variable.
 
+For example, you may add the directory to your `PATH` as follows if you are using Bash. If you are using Zsh instead of Bash then replace .bashrc with .zshrc below. 
+```sh
+echo 'export PATH="${HOME}/.webb:${PATH}"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ### Verify Installation
 
 2. Verify that the relayer was installed successfully by running the following command:
@@ -72,6 +78,7 @@ To download the example configuration file, run the following command:
   <Tab>
 
     ```sh filename="download" copy
+    mkdir -p ~/.config/webb-relayer
     curl -fsSL https://raw.githubusercontent.com/webb-tools/relayer/main/config/example/config.toml -o ~/.config/webb-relayer/config.toml
     ```
 
@@ -106,16 +113,29 @@ export WEBB_PORT=9955
 
 For our example configuration file, the following environment variables are required:
 
-- `PRIVATE_KEY` - The private key of the relayer. This can be a hex-encoded private key or a mnemonic phrase.
+- `PRIVATE_KEY` - The private key of the relayer. This is the hex-encoded private key. Use of the mnemonic phrase is not currently supported.
 
-create a new file called `.env` in the same directory as your current directory and add the following line:
+Create a new file called `.env` in the same directory as your current directory and add the following line:
 
 ```sh filename="PRIVATE_KEY" copy
 # Hex-encoded private for the relayer (64 characters) prefixed with 0x
 PRIVATE_KEY="0x..."
 ```
 
-save the file and exit the editor.
+Save the file and exit the editor.
+
+Set the environment variable in current environment:
+
+```sh
+source ~/.config/webb-relayer/.env
+```
+
+Update your .bashrc or .zshrc file to set those environment variables each time you start a new terminal session:
+
+```sh
+echo 'source ~/.config/webb-relayer/.env' >> ~/.bashrc
+```
+
 
 ## Running the Relayer
 
